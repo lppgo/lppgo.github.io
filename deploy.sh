@@ -30,4 +30,4 @@ git commit -m "$msg"
 
 # Push source and build repos.
 echo -e "\033[0;32mgit push origin main\033[0m"
-git push origin main
+git push origin master
