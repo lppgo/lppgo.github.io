@@ -8,6 +8,9 @@ preserveTaxonomyNames = true
 theme = "even" 
 title = "Even - A super concise theme for Hugo" 
 
+# 使用/docs发布到master branch
+publishDir = "docs"
+
 # Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
 pygmentsCodefences = true
 pygmentsCodefencesGuessSyntax = true
