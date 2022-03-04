@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>01-加密技术,数字签名,数字证书 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="..." /><meta name="keywords" content="Linux, 加密, 数字签名, 数字证书" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.93.1 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/linux/017-%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="01-加密技术,数字签名,数字证书" />
+<meta property="og:description" content="..." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lppgo.github.io/post/linux/017-%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-04-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-04-16T00:00:00+00:00" />
+
+<meta itemprop="name" content="01-加密技术,数字签名,数字证书">
+<meta itemprop="description" content="..."><meta itemprop="datePublished" content="2021-04-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-04-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2091">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="01-加密技术,数字签名,数字证书"/>
+<meta name="twitter:description" content="..."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">01-加密技术,数字签名,数字证书</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-16 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#table-of-contents">.
+Table of Contents</a></li>
+    <li><a href="#1前言-perface">1：前言 Perface</a></li>
+    <li><a href="#2数字签名-digitial-signature">2：数字签名 digitial signature</a>
+      <ul>
+        <li><a href="#21-什么是数字签名">2.1 什么是数字签名</a>
+          <ul>
+            <li><a href="#211-生成数字签名">2.1.1 生成数字签名</a></li>
+          </ul>
+        </li>
+        <li><a href="#212-验证签名">2.1.2 验证签名</a></li>
+        <li><a href="#22-数字签名算法摘要算法-digest">2.2 数字签名算法（摘要算法 digest）</a></li>
+      </ul>
+    </li>
+    <li><a href="#3数字证书-digital-certificate-ca">3：数字证书 (Digital Certificate, CA)</a></li>
+    <li><a href="#4对称加密和非对称加密">4：对称加密和非对称加密</a>
+      <ul>
+        <li><a href="#41-对称加密">4.1 对称加密</a>
+          <ul>
+            <li><a href="#411-des">4.1.1 DES</a></li>
+            <li><a href="#412-aes">4.1.2 AES</a></li>
+            <li><a href="#413-对称加密特点">4.1.3 对称加密特点</a></li>
+          </ul>
+        </li>
+        <li><a href="#42-非对称加密">4.2 非对称加密</a>
+          <ul>
+            <li><a href="#421-rsa">4.2.1 RSA</a></li>
+            <li><a href="#422-dsa">4.2.2 DSA</a></li>
+            <li><a href="#423-ecc">4.2.3 ECC</a></li>
+            <li><a href="#424-非对称加密特点">4.2.4 非对称加密特点</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5总结">5：总结</a>
+      <ul>
+        <li><a href="#51-散列算法摘要算法比较">5.1 散列算法(摘要算法)比较</a></li>
+        <li><a href="#52-对称加密算法比较">5.2 对称加密算法比较</a></li>
+        <li><a href="#53-非对称加密算法比较">5.3 非对称加密算法比较</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="table-of-contents">.
+Table of Contents</h1>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#1%E5%89%8D%E8%A8%80-perface">1：前言 Perface</a></li>
+<li><a href="#2%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D-digitial-signature">2：数字签名 digitial signature</a>
+<ul>
+<li><a href="#21-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D">2.1 什么是数字签名</a>
+<ul>
+<li><a href="#211-%E7%94%9F%E6%88%90%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D">2.1.1 生成数字签名</a></li>
+</ul>
+</li>
+<li><a href="#212-%E9%AA%8C%E8%AF%81%E7%AD%BE%E5%90%8D">2.1.2 验证签名</a></li>
+<li><a href="#22-%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95-digest">2.2 数字签名算法（摘要算法 digest）</a></li>
+</ul>
+</li>
+<li><a href="#3%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6-digital-certificate-ca">3：数字证书 (Digital Certificate, CA)</a></li>
+<li><a href="#4%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86">4：对称加密和非对称加密</a>
+<ul>
+<li><a href="#41-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86">4.1 对称加密</a>
+<ul>
+<li><a href="#411-des">4.1.1 DES</a></li>
+<li><a href="#412-aes">4.1.2 AES</a></li>
+<li><a href="#413-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%89%B9%E7%82%B9">4.1.3 对称加密特点</a></li>
+</ul>
+</li>
+<li><a href="#42-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86">4.2 非对称加密</a>
+<ul>
+<li><a href="#421-rsa">4.2.1 RSA</a></li>
+<li><a href="#422-dsa">4.2.2 DSA</a></li>
+<li><a href="#423-ecc">4.2.3 ECC</a></li>
+<li><a href="#424-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%89%B9%E7%82%B9">4.2.4 非对称加密特点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#5%E6%80%BB%E7%BB%93">5：总结</a>
+<ul>
+<li><a href="#51-%E6%95%A3%E5%88%97%E7%AE%97%E6%B3%95%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83">5.1 散列算法(摘要算法)比较</a></li>
+<li><a href="#52-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83">5.2 对称加密算法比较</a></li>
+<li><a href="#53-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83">5.3 非对称加密算法比较</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="1前言-perface">1：前言 Perface</h1>
+<ol>
+<li>什么是数字签名，数字签名的作用是什么？</li>
+<li>什么是数字证书，数字证书解决了什么问题？</li>
+<li>什么是对称加密和对称加密，区别是什么？</li>
+<li>非对称加密公私钥都可加密，那什么时候用用公钥加密，什么时候用私钥加密？</li>
+<li>为什么要对数据的摘要进行签名，而不是计算原始数据的数字签名？</li>
+</ol>
+<blockquote>
+<p>加密 encrypt
+解密 decrypt</p>
+</blockquote>
+<ol start="6">
+<li>Summary
+<img src="/images/Go%E5%AF%86%E7%A0%81%E5%AD%A6_20211127184632.png" alt="对称加密"></li>
+</ol>
+<h1 id="2数字签名-digitial-signature">2：数字签名 digitial signature</h1>
+<p>A &mdash;-（sign）&mdash;-&gt; B</p>
+<h2 id="21-什么是数字签名">2.1 什么是数字签名</h2>
+<p><strong>数字签名</strong> 是只有信息的发送者才能生产的别人无法伪造的一段字符串，是对信息发送者真实性的一个有效证明。</p>
+<blockquote>
+<p>1: 数字签名是公钥密码的逆应用：用私钥加密数据，公钥解密数据。
+2: 用私钥加密的信息称为<strong>签名</strong>，只有拥有私钥的用户可以生成签名 signature。
+3: 用公钥解密签名称为<strong>验证签名</strong>，所有拥有公钥的用户都可以验证签名。</p>
+</blockquote>
+<p><img src="/images/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E5%9B%BE%E7%A4%BA16493f2bfa18df73.png" alt="数字签名图解"></p>
+<h3 id="211-生成数字签名">2.1.1 生成数字签名</h3>
+<p>一般来说，不直接对消息进行签名，而是对消息的哈希值进行签名，步骤如下：</p>
+<ol>
+<li>对消息进行 hash 计算，得到 hash 值；</li>
+<li>发送者利用私钥对 hash 值进行加密，生成签名；</li>
+<li>将签名附在消息后面，一起发送出去。</li>
+</ol>
+<h2 id="212-验证签名">2.1.2 验证签名</h2>
+<ol>
+<li>消息接收者收到消息之后，提取消息中的签名；</li>
+<li>用公钥进行 decrypt,得到哈希值 1；</li>
+<li>对消息的正文进行 decrypt，得到哈希值 2；</li>
+<li>比较哈希值 1 和哈希值 2，如果相同，则校验成功。</li>
+</ol>
+<h2 id="22-数字签名算法摘要算法-digest">2.2 数字签名算法（摘要算法 digest）</h2>
+<p><strong>摘要算法</strong> 是将一段任意长度的数据转换为一个定长，不可逆的数字，其长度通常在 128~256 之间。</p>
+<blockquote>
+<p><strong>MD5</strong> 生成 128 位摘要， <strong>SHA1</strong> 生成 160 位摘要，MD5 速度更快，SHA1 安全性更高。</p>
+</blockquote>
+<p><strong>[md5 加密解密]</strong>
+<a href="https://github.com/lppgo/my_test/blob/master/000_utils/util1.md">https://github.com/lppgo/my_test/blob/master/000_utils/util1.md</a></p>
+<p><strong>[sha1:]</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">h</span> <span class="o">:=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">h</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;hello,sha1&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">l</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%x&#34;</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nf">Sum</span><span class="p">(</span><span class="kc">nil</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3数字证书-digital-certificate-ca">3：数字证书 (Digital Certificate, CA)</h1>
+<p>公钥是公开的并且可以自行导入到电脑，如果有人比如 C 偷偷在 B 的电脑用自己公钥替换了 A 的公钥，然后用自己的私钥给 B 发送 Email，这时 B 收到邮件其实是被 C 冒充的但是他无法察觉。这种情况安全漏洞的根源就是公钥很容易被篡改。</p>
+<ol>
+<li>
+<p>首先 A 去找&quot;证书中心&quot;（certificate authority，简称 CA），为公钥做认证。证书中心用自己的私钥，对 A 的公钥和一些相关信息一起加密，生成&quot;数字证书&quot;（Digital Certificate）：
+<img src="/images/CA%E7%BB%99A%E7%9A%84%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6-9d6bfc9fe32b5d59.png" alt="CA给A颁发的数字证书"></p>
+</li>
+<li>
+<p>A 在邮件正文下方除了数字签名，另外加上这张数字证书：
+<img src="/images/4943911-051acca03db99fd1.png" alt="A发给B的消息结构"></p>
+</li>
+<li>
+<p>B 收到 Email 后用 CA 的公钥解密这份数字证书，拿到 A 的公钥，然后验证数字签名，后面流程就和图 1 的流程一样了，不再赘述.</p>
+</li>
+</ol>
+<p><strong>几点疑惑：</strong>
+(1). 假设数字证书被伪造了呢？
+答案：是的，传输中数字证书有可能被篡改。因此数字证书也是经过数字签名的，上文说道数字签名的作用就是验证数据来源以及数据完整性！B 收到邮件后可以先验证这份数字证书的可靠性，通过后再验证数字签名。
+(2). 要是有 1 万个人要给 B 发邮件，难道 B 要保存 1 万份不同的 CA 公钥吗？
+答案：不需要，CA 认证中心给可以给 B 一份“根证书”，里面存储 CA 公钥来验证所有 CA 分中心颁发的数字证书。CA 中心是分叉树结构，类似于公安部-&gt;省公安厅-&gt;市级派出所，不管 A 从哪个 CA 分支机构申请的证书，B 只要预存根证书就可以验证下级证书可靠性。
+(3). 如何验证根证书可靠性？
+答案：无法验证。根证书是自验证证书，CA 机构是获得社会绝对认可和有绝对权威的第三方机构，这一点保证了根证书的绝对可靠。</p>
+<h1 id="4对称加密和非对称加密">4：对称加密和非对称加密</h1>
+<p>对称加密算法只是为了区分非对称加密算法。其中鲜明的特点是对称加密是加密解密使用相同的密钥，而非对称加密加密和解密时使用的密钥不一样。对于大部分情况我们都使用对称加密，而对称加密的密钥交换时使用非对称加密，这有效保护密钥的安全。非对称加密加密和解密密钥不同，那么它的安全性是无疑最高的，但是它加密解密的速度很慢，不适合对大数据加密。而对称加密加密速度快，因此混合使用最好。</p>
+<h2 id="41-对称加密">4.1 对称加密</h2>
+<p><img src="/images/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86d7ca6df7b24d1a0fc1_1440w.png" alt="对称加密"></p>
+<h3 id="411-des">4.1.1 DES</h3>
+<p>一共有三个参数入口（原文，密钥，加密模式）。</p>
+<h3 id="412-aes">4.1.2 AES</h3>
+<p>高级加密标准，新一代标准，加密速度更快，安全性更高。
+<a href="https://github.com/lppgo/my_test/tree/master/033_%E5%8A%A0%E8%A7%A3%E5%AF%86">AES 加解密示例</a></p>
+<h3 id="413-对称加密特点">4.1.3 对称加密特点</h3>
+<ol>
+<li><strong>密钥管理</strong>: 比较难，不适合互联网，一般用于内部系统</li>
+<li><strong>安全性</strong>:中</li>
+<li><strong>加密速度</strong>: 比非对称加密速度快得多，适合大量数据的加解密</li>
+</ol>
+<h2 id="42-非对称加密">4.2 非对称加密</h2>
+<blockquote>
+<p>一般是私钥，公钥进行加解密。分为公钥（public key）和私钥(private key).公钥可以公开，而私钥自己保存。</p>
+</blockquote>
+<p><img src="/images/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86cfa90510e866e7ee1a763de_1440w.png" alt="非对称加密"></p>
+<h3 id="421-rsa">4.2.1 RSA</h3>
+<p><a href="https://github.com/lppgo/my_test/tree/master/033_RSA">rsa 进行加解密，数字签名
+</a></p>
+<h3 id="422-dsa">4.2.2 DSA</h3>
+<h3 id="423-ecc">4.2.3 ECC</h3>
+<h3 id="424-非对称加密特点">4.2.4 非对称加密特点</h3>
+<ol>
+<li><strong>密钥管理</strong>: 比较容易</li>
+<li><strong>安全性</strong>:高</li>
+<li><strong>加密速度</strong>: 比较慢，适合 小数据量 加解密或数据签名</li>
+</ol>
+<h1 id="5总结">5：总结</h1>
+<p>代码实现:https://github.com/lppgo/my_test/tree/master/033_%E5%8A%A0%E8%A7%A3%E5%AF%86</p>
+<h2 id="51-散列算法摘要算法比较">5.1 散列算法(摘要算法)比较</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>安全性</th>
+<th>速度</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MD5</td>
+<td>中</td>
+<td>快</td>
+<td></td>
+</tr>
+<tr>
+<td>SHA1</td>
+<td>高</td>
+<td>慢</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="52-对称加密算法比较">5.2 对称加密算法比较</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>密钥长度</th>
+<th>运行速度</th>
+<th>安全性</th>
+<th>资源消耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DES</td>
+<td>56 位</td>
+<td>较快</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>3DES</td>
+<td>112 或 168 位</td>
+<td>慢</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>AES</strong></td>
+<td>128,192,256 位</td>
+<td>快</td>
+<td>高</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+<h2 id="53-非对称加密算法比较">5.3 非对称加密算法比较</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>安全性</th>
+<th>运行速度</th>
+<th>资源消耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RSA</strong></td>
+<td>高</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>ECC</td>
+<td>高</td>
+<td>慢</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-04-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">02-Go常用库积累</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux/011-linux%E6%B7%BB%E5%8A%A0cron%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">
+            <span class="next-text nav-default">01-Linux添加cron定时任务</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://lppgo.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>李平平</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

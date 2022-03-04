@@ -1,0 +1,134 @@
+
+- [1: 字符串 String](#1-字符串-string)
+- [2: 数组 Array](#2-数组-array)
+- [3: 链表 LinkedList](#3-链表-linkedlist)
+- [4: 栈 Stack](#4-栈-stack)
+- [5：队列 Queue](#5队列-queue)
+  - [5\.1 普通队列 Queue](#51-普通队列-queue)
+  - [5\.2 双端队列 Deque](#52-双端队列-deque)
+- [6: 散列表 Hash](#6-散列表-hash)
+- [7: 树 Tree](#7-树-tree)
+  - [7\.1 满二叉树 Full Binary Tree](#71-满二叉树-full-binary-tree)
+    - [7\.2 完全二叉树 Complete Binary Tree](#72-完全二叉树-complete-binary-tree)
+  - [7\.3 二叉查找树 Binary Search Tree](#73-二叉查找树-binary-search-tree)
+  - [7\.4 AVL 树（平衡二叉查找树）](#74-avl-树平衡二叉查找树)
+  - [7\.5 红黑树 Red Black Tree](#75-红黑树-red-black-tree)
+  - [7\.6 B 树 (多路平衡搜索树)](#76-b-树-多路平衡搜索树)
+  - [7\.6 B\+树](#76-b树)
+- [8: 堆 Heap](#8-堆-heap)
+  - [8\.1 二叉堆：大根堆，小根堆](#81-二叉堆大根堆小根堆)
+- [9: 图 Graph](#9-图-graph)
+
+![数据结构图谱](/images/算法-2.png)
+
+# 1: 字符串 String
+
+# 2: 数组 Array
+
+线性存储，具有连续的内存空间
+
+**优点：** 查找方便，使用 index，时间复杂度为 O(1),适用于快速检索
+
+**不足：**
+
+1. 数组插入:
+   （1）从数组头部插入；O(n)
+   （2）从数组中间插入；O(n/2)
+   （3）从数组末尾插入. O(1)
+2. 数组删除
+   （1）从数组头部删除；
+   （2）从数组中间删除；
+   （3）从数组末尾删除.
+
+对频繁的增删操作不方便，当空间不足会发生 data migration
+
+# 3: 链表 LinkedList
+
+线性存储
+链表是物理上非连续的内存空间，对于访问数据，需要从头便利整个链表直到找到要访问的数据，没有数组有效，但是在添加和删除数据方面，只需要知道操作位置的指针，很方便可以实现增删操作
+
+# 4: 栈 Stack
+
+栈具有线性关系，先进后出 **First In Last Out**
+栈顶 top
+栈底 bottom
+
+> 栈的实现方式：数组和链表
+
+> **栈的操作:**
+> Push() 入栈
+> Pop() 出栈
+> Peak() 查看栈顶元素
+> NewStack() 初始化
+> Size()
+> Empty()
+
+# 5：队列 Queue
+
+## 5.1 普通队列 Queue
+
+队列具有线性关系，先进后出 **First In First Out**
+
+> 队列的实现方式：数组和链表
+
+> **队列的操作:**
+> EnterQueue() 入队
+> OutQueue() 出队
+> NewQueue() 初始化
+> Size()
+> Empty()
+
+## 5.2 双端队列 Deque
+
+AddFront(item) #在队列前面加入数据
+AddTail(item) #在队列后面加入数据
+RemoveFront() #在队列前面移除数据
+RemoveTail() #在队列后面移除数据
+IsEmpty() #返回队列是否为空
+Size() #返回队列大小
+
+# 6: 散列表 Hash
+
+Hash 表也叫做散列表。哈希表是一种比较特殊的数据结构，它遵循函数映射的思想，以 Key: Value 的方式存储数据。哈希表最大的特点是可以快速定位到要查找的数据，查询的时间复杂度接近 O(1).
+
+**哈希函数**
+MD5，SHA1
+
+```go
+func main() {
+	TestString := "Hi, lucas!"
+	Md5Inst := md5.New()
+	Md5Inst.Write([]byte(TestString))
+	Result := Md5Inst.Sum([]byte(""))
+	fmt.Printf("%x\n\n", Result)
+
+	Sha1Inst := sha1.New()
+	Sha1Inst.Write([]byte(TestString))
+	Result = Sha1Inst.Sum([]byte(""))
+	fmt.Printf("%x\n\n", Result)
+}
+```
+
+哈希冲突
+
+# 7: 树 Tree
+
+## 7.1 满二叉树 Full Binary Tree
+
+### 7.2 完全二叉树 Complete Binary Tree
+
+## 7.3 二叉查找树 Binary Search Tree
+
+## 7.4 AVL 树（平衡二叉查找树）
+
+## 7.5 红黑树 Red Black Tree
+
+## 7.6 B 树 (多路平衡搜索树)
+
+## 7.6 B+树
+
+# 8: 堆 Heap
+
+## 8.1 二叉堆：大根堆，小根堆
+
+# 9: 图 Graph

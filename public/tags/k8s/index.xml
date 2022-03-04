@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8s on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/k8s/</link>
+    <description>Recent content in k8s on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>01-MInikube搭建</title>
+      <link>https://lppgo.github.io/post/dockerk8s/005-minikube%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://lppgo.github.io/post/dockerk8s/005-minikube%E6%90%AD%E5%BB%BA/</guid>
+      <description>[toc] 1: 安装 Docker 环境 1.1: 安装 docker 1.2: 配置 docker docker 加速 /etc/docker/daemon.json 重启 docker,使配置生效 1 2 3 sudo systemctl daemon-reload sudo systemctl restart docker 2: 安装 Minikube https://cloud.tencent.com/developer/article/1817826 2.1 使用普通的 minikube 2.1.1 更新软件源 2.1.2 更新软件包 2.1.3 安装</description>
+    </item>
+    
+  </channel>
+</rss>

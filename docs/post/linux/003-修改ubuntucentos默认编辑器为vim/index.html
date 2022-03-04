@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>02-修改ubuntu/centos默认编辑器为vim - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="..." /><meta name="keywords" content="Linux, Ubuntu, vim" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.93.1 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/linux/003-%E4%BF%AE%E6%94%B9ubuntucentos%E9%BB%98%E8%AE%A4%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BAvim/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="02-修改ubuntu/centos默认编辑器为vim" />
+<meta property="og:description" content="..." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lppgo.github.io/post/linux/003-%E4%BF%AE%E6%94%B9ubuntucentos%E9%BB%98%E8%AE%A4%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BAvim/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-04-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-04-15T00:00:00+00:00" />
+
+<meta itemprop="name" content="02-修改ubuntu/centos默认编辑器为vim">
+<meta itemprop="description" content="..."><meta itemprop="datePublished" content="2021-04-15T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-04-15T00:00:00+00:00" />
+<meta itemprop="wordCount" content="252">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="02-修改ubuntu/centos默认编辑器为vim"/>
+<meta name="twitter:description" content="..."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">02-修改ubuntu/centos默认编辑器为vim</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-15 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-直接在配置文件中修改">1: 直接在配置文件中修改</a></li>
+    <li><a href="#2-使用系统管理工具-update-alternatives">2: 使用系统管理工具 update-alternatives</a></li>
+    <li><a href="#3-完全删除-nano">3: 完全删除 nano</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li><a href="#1-%E7%9B%B4%E6%8E%A5%E5%9C%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E4%BF%AE%E6%94%B9">1: 直接在配置文件中修改</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7-update-alternatives">2: 使用系统管理工具 update-alternatives</a></li>
+<li><a href="#3-%E5%AE%8C%E5%85%A8%E5%88%A0%E9%99%A4-nano">3: 完全删除 nano</a></li>
+</ul>
+<h1 id="1-直接在配置文件中修改">1: 直接在配置文件中修改</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nb">export</span> <span class="nv">EDITOR</span><span class="o">=</span>/usr/bin/vim &gt;&gt; ~/.bashrc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2-使用系统管理工具-update-alternatives">2: 使用系统管理工具 update-alternatives</h1>
+<p>update-alternatives &ndash;config editor</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">xxx:~$ update-alternatives --config editor
+</span></span><span class="line"><span class="cl">有 <span class="m">4</span> 个候选项可用于替换 editor <span class="o">(</span>提供 /usr/bin/editor<span class="o">)</span>。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 选择       路径              优先级  状态
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">* <span class="m">0</span>            /bin/nano            <span class="m">40</span>        自动模式
+</span></span><span class="line"><span class="cl"> <span class="m">1</span>            /bin/ed             -100       手动模式
+</span></span><span class="line"><span class="cl"> <span class="m">2</span>            /bin/nano            <span class="m">40</span>        手动模式
+</span></span><span class="line"><span class="cl"> <span class="m">3</span>            /usr/bin/vim.basic   <span class="m">30</span>        手动模式
+</span></span><span class="line"><span class="cl"> <span class="m">4</span>            /usr/bin/vim.tiny    <span class="m">10</span>        手动模式
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">要维持当前值<span class="o">[</span>*<span class="o">]</span>请按&lt;回车键&gt;，或者键入选择的编号：3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3-完全删除-nano">3: 完全删除 nano</h1>
+<p>如果系统中只剩下 nano 和 vim 两个编辑器，完全删除 nano，那么系统会默认选择 vim 为默认编辑器 在终端输入删除 nano 编辑器的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">apt-get remove nano
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-04-15
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux/011-linux%E6%B7%BB%E5%8A%A0cron%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">01-Linux添加cron定时任务</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/database/003-%E5%9C%A8%E7%BA%BF%E4%BF%AE%E6%94%B9%E5%A4%A7%E8%A1%A8%E7%BB%93%E6%9E%84pt-online-schema-change/">
+            <span class="next-text nav-default">03-在线修改大表结构pt-online-schema-change</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://lppgo.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>李平平</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

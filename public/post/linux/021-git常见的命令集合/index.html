@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>03-Git常见的命令集合 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an" /><meta name="keywords" content="Git" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.93.1 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="03-Git常见的命令集合" />
+<meta property="og:description" content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lppgo.github.io/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-05-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-05-26T00:00:00+00:00" />
+
+<meta itemprop="name" content="03-Git常见的命令集合">
+<meta itemprop="description" content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an"><meta itemprop="datePublished" content="2021-05-06T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-05-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2452">
+<meta itemprop="keywords" content="Git," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="03-Git常见的命令集合"/>
+<meta name="twitter:description" content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">03-Git常见的命令集合</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-05-06 </span>
+        <div class="post-category">
+            <a href="/categories/git/"> Git </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-git-config">1: Git Config</a>
+      <ul>
+        <li><a href="#11-git-global-setup-全局设置">1.1 Git global setup 全局设置</a></li>
+        <li><a href="#12-修改-git-config">1.2 修改 git config</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-仓库repository管理">2: 仓库Repository管理</a>
+      <ul>
+        <li><a href="#21-clone仓库">2.1 clone仓库</a></li>
+        <li><a href="#22-create-a-new-repository-创建一个新仓库">2.2 Create a new repository 创建一个新仓库</a></li>
+        <li><a href="#23-push-an-existing-folder-推送一个已存在的文件夹">2.3 Push an existing folder 推送一个已存在的文件夹</a></li>
+        <li><a href="#25-push-an-existing-git-repository-推送一个已存在的仓库">2.5 Push an existing Git repository 推送一个已存在的仓库</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-history管理">3: History管理</a>
+      <ul>
+        <li><a href="#31-查看历史">3.1 查看历史</a></li>
+        <li><a href="#32-tag标签">3.2 Tag标签</a></li>
+        <li><a href="#33-rollback回滚">3.3 Rollback回滚</a></li>
+        <li><a href="#34-取消文件的修改">3.4 取消文件的修改</a></li>
+        <li><a href="#35-删除文件">3.5 删除文件</a></li>
+        <li><a href="#36-移动文件">3.6 移动文件</a></li>
+        <li><a href="#37-查看文件的修改">3.7 查看文件的修改</a></li>
+        <li><a href="#38-暂存和恢复当前staging">3.8 暂存和恢复当前staging</a></li>
+        <li><a href="#39-修改commit历史记录">3.9 修改commit历史记录</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-branch分支管理">4: Branch分支管理</a>
+      <ul>
+        <li><a href="#41-创建分支">4.1 创建分支</a></li>
+        <li><a href="#42-查看分支">4.2 查看分支</a></li>
+        <li><a href="#43-合并分支">4.3 合并分支</a></li>
+        <li><a href="#44-stash-当前分支中未提交的修改移动到其他分支">4.4 Stash 当前分支中未提交的修改移动到其他分支</a></li>
+        <li><a href="#45-强制更新到远程分支最新版本">4.5 强制更新到远程分支最新版本</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-submodule使用">5: Submodule使用</a>
+      <ul>
+        <li><a href="#51-克隆带submodule的库">5.1 克隆带submodule的库</a></li>
+        <li><a href="#52-clone主库后再去clone-submodule">5.2 clone主库后再去clone submodule</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-更新与发布">6: 更新与发布</a>
+      <ul>
+        <li><a href="#61-列出当前配置的远程端">6.1 列出当前配置的远程端</a></li>
+        <li><a href="#62-显示远程端的信息">6.2 显示远程端的信息</a></li>
+        <li><a href="#63-添加新的远程端">6.3 添加新的远程端</a></li>
+        <li><a href="#64-下载远程端版本但不合并到head中">6.4 下载远程端版本,但不合并到HEAD中</a></li>
+        <li><a href="#65-下载远程端版本并自动与head版本合并">6.5 下载远程端版本,并自动与HEAD版本合并</a></li>
+        <li><a href="#66-将远程端版本合并到本地版本中">6.6 将远程端版本合并到本地版本中</a></li>
+        <li><a href="#67-以rebase方式将远端分支与本地合并">6.7 以rebase方式将远端分支与本地合并</a></li>
+        <li><a href="#68-将本地版本发布到远程端">6.8 将本地版本发布到远程端</a></li>
+        <li><a href="#69-删除远程端分支">6.9 删除远程端分支</a></li>
+        <li><a href="#610-发布标签">6.10 发布标签</a></li>
+        <li><a href="#611-以rebase方式将远端分支与本地合并">6.11 以rebase方式将远端分支与本地合并</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-合并merge与重置rebase">7: 合并(Merge)与重置(Rebase)</a>
+      <ul>
+        <li><a href="#71-将分支合并">7.1 将分支合并</a></li>
+        <li><a href="#72-退出rebase">7.2 退出rebase</a></li>
+        <li><a href="#73-合并提交">7.3 合并提交</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-撤销revoke">8: 撤销revoke</a>
+      <ul>
+        <li><a href="#81-放弃工作目录下的所有修改">8.1 放弃工作目录下的所有修改</a></li>
+        <li><a href="#82-移除缓存区的所有文件ie-撤销上次git-add">8.2 移除缓存区的所有文件（i.e. 撤销上次git add）</a></li>
+        <li><a href="#83-放弃某个文件的所有本地修改">8.3 放弃某个文件的所有本地修改</a></li>
+        <li><a href="#84-重置一个提交通过创建一个截然不同的新提交">8.4 重置一个提交（通过创建一个截然不同的新提交）</a></li>
+        <li><a href="#85-将head重置到指定的版本并抛弃该版本之后的所有修改">8.5 将HEAD重置到指定的版本,并抛弃该版本之后的所有修改</a></li>
+        <li><a href="#86-用远端分支强制覆盖本地分支">8.6 用远端分支强制覆盖本地分支</a></li>
+        <li><a href="#87-将head重置到上一次提交的版本并将之后的修改标记为未添加到缓存区的修改">8.7 将HEAD重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</a></li>
+        <li><a href="#88-将head重置到上一次提交的版本并保留未提交的本地修改">8.8 将HEAD重置到上一次提交的版本,并保留未提交的本地修改</a></li>
+        <li><a href="#89-删除添加gitignore文件前错误提交的文件">8.9 删除添加.gitignore文件前错误提交的文件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li><a href="#1-git-config">1: Git Config</a>
+<ul>
+<li><a href="#11-git-global-setup-%E5%85%A8%E5%B1%80%E8%AE%BE%E7%BD%AE">1.1 Git global setup 全局设置</a></li>
+<li><a href="#12-%E4%BF%AE%E6%94%B9-git-config">1.2 修改 git config</a></li>
+</ul>
+</li>
+<li><a href="#2-%E4%BB%93%E5%BA%93repository%E7%AE%A1%E7%90%86">2: 仓库Repository管理</a>
+<ul>
+<li><a href="#21-clone%E4%BB%93%E5%BA%93">2.1 clone仓库</a></li>
+<li><a href="#22-create-a-new-repository-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E4%BB%93%E5%BA%93">2.2 Create a new repository 创建一个新仓库</a></li>
+<li><a href="#23-push-an-existing-folder-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9">2.3 Push an existing folder 推送一个已存在的文件夹</a></li>
+<li><a href="#25-push-an-existing-git-repository-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E4%BB%93%E5%BA%93">2.5 Push an existing Git repository 推送一个已存在的仓库</a></li>
+</ul>
+</li>
+<li><a href="#3-history%E7%AE%A1%E7%90%86">3: History管理</a>
+<ul>
+<li><a href="#31-%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2">3.1 查看历史</a></li>
+<li><a href="#32-tag%E6%A0%87%E7%AD%BE">3.2 Tag标签</a></li>
+<li><a href="#33-rollback%E5%9B%9E%E6%BB%9A">3.3 Rollback回滚</a></li>
+<li><a href="#34-%E5%8F%96%E6%B6%88%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9">3.4 取消文件的修改</a></li>
+<li><a href="#35-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6">3.5 删除文件</a></li>
+<li><a href="#36-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6">3.6 移动文件</a></li>
+<li><a href="#37-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9">3.7 查看文件的修改</a></li>
+<li><a href="#38-%E6%9A%82%E5%AD%98%E5%92%8C%E6%81%A2%E5%A4%8D%E5%BD%93%E5%89%8Dstaging">3.8 暂存和恢复当前staging</a></li>
+<li><a href="#39-%E4%BF%AE%E6%94%B9commit%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95">3.9 修改commit历史记录</a></li>
+</ul>
+</li>
+<li><a href="#4-branch%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86">4: Branch分支管理</a>
+<ul>
+<li><a href="#41-%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF">4.1 创建分支</a></li>
+<li><a href="#42-%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF">4.2 查看分支</a></li>
+<li><a href="#43-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF">4.3 合并分支</a></li>
+<li><a href="#44-stash-%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E4%B8%AD%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E4%BF%AE%E6%94%B9%E7%A7%BB%E5%8A%A8%E5%88%B0%E5%85%B6%E4%BB%96%E5%88%86%E6%94%AF">4.4 Stash 当前分支中未提交的修改移动到其他分支</a></li>
+<li><a href="#45-%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E5%88%B0%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC">4.5 强制更新到远程分支最新版本</a></li>
+</ul>
+</li>
+<li><a href="#5-submodule%E4%BD%BF%E7%94%A8">5: Submodule使用</a>
+<ul>
+<li><a href="#51-%E5%85%8B%E9%9A%86%E5%B8%A6submodule%E7%9A%84%E5%BA%93">5.1 克隆带submodule的库</a></li>
+<li><a href="#52-clone%E4%B8%BB%E5%BA%93%E5%90%8E%E5%86%8D%E5%8E%BBclone-submodule">5.2 clone主库后再去clone submodule</a></li>
+</ul>
+</li>
+<li><a href="#6-%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%8F%91%E5%B8%83">6: 更新与发布</a>
+<ul>
+<li><a href="#61-%E5%88%97%E5%87%BA%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF">6.1 列出当前配置的远程端</a></li>
+<li><a href="#62-%E6%98%BE%E7%A4%BA%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%9A%84%E4%BF%A1%E6%81%AF">6.2 显示远程端的信息</a></li>
+<li><a href="#63-%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF">6.3 添加新的远程端</a></li>
+<li><a href="#64-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E4%BD%86%E4%B8%8D%E5%90%88%E5%B9%B6%E5%88%B0head%E4%B8%AD">6.4 下载远程端版本,但不合并到HEAD中</a></li>
+<li><a href="#65-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%B9%B6%E8%87%AA%E5%8A%A8%E4%B8%8Ehead%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6">6.5 下载远程端版本,并自动与HEAD版本合并</a></li>
+<li><a href="#66-%E5%B0%86%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E4%B8%AD">6.6 将远程端版本合并到本地版本中</a></li>
+<li><a href="#67-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6">6.7 以rebase方式将远端分支与本地合并</a></li>
+<li><a href="#68-%E5%B0%86%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%AB%AF">6.8 将本地版本发布到远程端</a></li>
+<li><a href="#69-%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E7%AB%AF%E5%88%86%E6%94%AF">6.9 删除远程端分支</a></li>
+<li><a href="#610-%E5%8F%91%E5%B8%83%E6%A0%87%E7%AD%BE">6.10 发布标签</a></li>
+<li><a href="#611-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6">6.11 以rebase方式将远端分支与本地合并</a></li>
+</ul>
+</li>
+<li><a href="#7-%E5%90%88%E5%B9%B6merge%E4%B8%8E%E9%87%8D%E7%BD%AErebase">7: 合并(Merge)与重置(Rebase)</a>
+<ul>
+<li><a href="#71-%E5%B0%86%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6">7.1 将分支合并</a></li>
+<li><a href="#72-%E9%80%80%E5%87%BArebase">7.2 退出rebase</a></li>
+<li><a href="#73-%E5%90%88%E5%B9%B6%E6%8F%90%E4%BA%A4">7.3 合并提交</a></li>
+</ul>
+</li>
+<li><a href="#8-%E6%92%A4%E9%94%80revoke">8: 撤销revoke</a>
+<ul>
+<li><a href="#81-%E6%94%BE%E5%BC%83%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9">8.1 放弃工作目录下的所有修改</a></li>
+<li><a href="#82-%E7%A7%BB%E9%99%A4%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6ie-%E6%92%A4%E9%94%80%E4%B8%8A%E6%AC%A1git-add">8.2 移除缓存区的所有文件（i.e. 撤销上次git add）</a></li>
+<li><a href="#83-%E6%94%BE%E5%BC%83%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9">8.3 放弃某个文件的所有本地修改</a></li>
+<li><a href="#84-%E9%87%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E6%8F%90%E4%BA%A4%E9%80%9A%E8%BF%87%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%88%AA%E7%84%B6%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%B0%E6%8F%90%E4%BA%A4">8.4 重置一个提交（通过创建一个截然不同的新提交）</a></li>
+<li><a href="#85-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E6%8A%9B%E5%BC%83%E8%AF%A5%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9">8.5 将HEAD重置到指定的版本,并抛弃该版本之后的所有修改</a></li>
+<li><a href="#86-%E7%94%A8%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF">8.6 用远端分支强制覆盖本地分支</a></li>
+<li><a href="#87-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E5%B0%86%E4%B9%8B%E5%90%8E%E7%9A%84%E4%BF%AE%E6%94%B9%E6%A0%87%E8%AE%B0%E4%B8%BA%E6%9C%AA%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E4%BF%AE%E6%94%B9">8.7 将HEAD重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</a></li>
+<li><a href="#88-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E4%BF%9D%E7%95%99%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9">8.8 将HEAD重置到上一次提交的版本,并保留未提交的本地修改</a></li>
+<li><a href="#89-%E5%88%A0%E9%99%A4%E6%B7%BB%E5%8A%A0gitignore%E6%96%87%E4%BB%B6%E5%89%8D%E9%94%99%E8%AF%AF%E6%8F%90%E4%BA%A4%E7%9A%84%E6%96%87%E4%BB%B6">8.9 删除添加.gitignore文件前错误提交的文件</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="1-git-config">1: Git Config</h1>
+<ul>
+<li>
+<p>Git的全局设置在~/.gitconfig中,单独设置-在project/.git/config下.</p>
+</li>
+<li>
+<p>忽略设置全局在~/.gitignore_global中,单独设置在project/.gitignore下.</p>
+</li>
+</ul>
+<h2 id="11-git-global-setup-全局设置">1.1 Git global setup 全局设置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># git config --global --list</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">url.“https://”.insteadof<span class="o">=</span>git://
+</span></span><span class="line"><span class="cl">http.postbuffer<span class="o">=</span><span class="m">1048576000</span>
+</span></span><span class="line"><span class="cl">lucas.email<span class="o">=</span>golpp@qq.com
+</span></span><span class="line"><span class="cl">user.name<span class="o">=</span>lpp
+</span></span><span class="line"><span class="cl">user.password<span class="o">=</span>xxx
+</span></span><span class="line"><span class="cl">user.email<span class="o">=</span>1605577372@qq.com
+</span></span><span class="line"><span class="cl">credential.helper<span class="o">=</span>store
+</span></span><span class="line"><span class="cl">core.quotepath<span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl">gui.encoding<span class="o">=</span>utf-8
+</span></span><span class="line"><span class="cl">i18n.commitencoding<span class="o">=</span>utf-8
+</span></span><span class="line"><span class="cl">i18n.logoutputencoding<span class="o">=</span>utf-8
+</span></span><span class="line"><span class="cl">sendpack.sideband<span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl">init.defaultbranch<span class="o">=</span>main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="12-修改-git-config">1.2 修改 git config</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置 commit 的用户和邮箱</span>
+</span></span><span class="line"><span class="cl">git config --global user.name  <span class="s2">&#34;xxxx&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global user.email  <span class="s2">&#34;xxxx&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者直接修改config文件</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>user<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">name</span> <span class="o">=</span> xxx
+</span></span><span class="line"><span class="cl">    <span class="nv">email</span> <span class="o">=</span> xxx@xxx.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置git终端颜色</span>
+</span></span><span class="line"><span class="cl">git config --global color.diff auto
+</span></span><span class="line"><span class="cl">git config --global color.status auto
+</span></span><span class="line"><span class="cl">git config --global color.branch auto
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2-仓库repository管理">2: 仓库Repository管理</h1>
+<h2 id="21-clone仓库">2.1 clone仓库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/golang/golang-src.git
+</span></span><span class="line"><span class="cl">git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/golang/golang-src.git <span class="c1"># 只抓取最近的一次 commit</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="22-create-a-new-repository-创建一个新仓库">2.2 Create a new repository 创建一个新仓库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone http://192.168.1.100/myproject/test.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">touch README.md
+</span></span><span class="line"><span class="cl">git add README.md
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;add README&#34;</span>
+</span></span><span class="line"><span class="cl">git push -u origin master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="23-push-an-existing-folder-推送一个已存在的文件夹">2.3 Push an existing folder 推送一个已存在的文件夹</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> existing_folder
+</span></span><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git remote add origin http://192.168.1.100/myproject/test.git
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Initial commit&#34;</span>
+</span></span><span class="line"><span class="cl">git push -u origin master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="25-push-an-existing-git-repository-推送一个已存在的仓库">2.5 Push an existing Git repository 推送一个已存在的仓库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> existing_repo
+</span></span><span class="line"><span class="cl">git remote rename origin old-origin
+</span></span><span class="line"><span class="cl">git remote add origin http://192.168.1.100/myproject/test.git
+</span></span><span class="line"><span class="cl">git push -u origin --all
+</span></span><span class="line"><span class="cl">git push -u origin --tags
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3-history管理">3: History管理</h1>
+<h2 id="31-查看历史">3.1 查看历史</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --pretty<span class="o">=</span>oneline filename <span class="c1"># 一行显示</span>
+</span></span><span class="line"><span class="cl">git show xxxx <span class="c1"># 查看某次修改</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="32-tag标签">3.2 Tag标签</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag <span class="c1"># 显示所有标签</span>
+</span></span><span class="line"><span class="cl">git tag -l <span class="s1">&#39;v1.4.2.*&#39;</span> <span class="c1"># 显示 1.4.2 开头标签</span>
+</span></span><span class="line"><span class="cl">git tag v1.3 <span class="c1"># 简单打标签   </span>
+</span></span><span class="line"><span class="cl">git tag -a v1.2 9fceb02 <span class="c1"># 后期加注标签</span>
+</span></span><span class="line"><span class="cl">git tag -a v1.4 -m <span class="s1">&#39;my version 1.4&#39;</span> <span class="c1"># 增加标签并注释, -a 为 annotated 缩写</span>
+</span></span><span class="line"><span class="cl">git show v1.4 <span class="c1"># 看某一标签详情</span>
+</span></span><span class="line"><span class="cl">git push origin v1.5 <span class="c1"># 分享某个标签</span>
+</span></span><span class="line"><span class="cl">git push origin --tags <span class="c1"># 分享所有标签</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="33-rollback回滚">3.3 Rollback回滚</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset 9fceb02 <span class="c1"># 保留修改</span>
+</span></span><span class="line"><span class="cl">git reset 9fceb02 --hard <span class="c1"># 删除之后的修改</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="34-取消文件的修改">3.4 取消文件的修改</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -- a.golang <span class="c1">#  取消单个文件</span>
+</span></span><span class="line"><span class="cl">git checkout -- <span class="c1"># 取消所有文件的修改</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="35-删除文件">3.5 删除文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rm a.golang  <span class="c1"># 直接删除文件</span>
+</span></span><span class="line"><span class="cl">git rm --cached a.golang <span class="c1"># 删除文件暂存状态</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="36-移动文件">3.6 移动文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git mv a.golang ./test/a.golang
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="37-查看文件的修改">3.7 查看文件的修改</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git diff          <span class="c1"># 查看未暂存的文件更新 </span>
+</span></span><span class="line"><span class="cl">git diff --cached <span class="c1"># 查看已暂存文件的更新 </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="38-暂存和恢复当前staging">3.8 暂存和恢复当前staging</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git stash <span class="c1"># 暂存当前分支的修改</span>
+</span></span><span class="line"><span class="cl">git stash apply <span class="c1"># 恢复最近一次暂存</span>
+</span></span><span class="line"><span class="cl">git stash list <span class="c1"># 查看暂存内容</span>
+</span></span><span class="line"><span class="cl">git stash apply stash@<span class="o">{</span>2<span class="o">}</span> <span class="c1"># 指定恢复某次暂存内容</span>
+</span></span><span class="line"><span class="cl">git stash drop stash@<span class="o">{</span>0<span class="o">}</span> <span class="c1"># 删除某次暂存内容</span>
+</span></span><span class="line"><span class="cl">git stash pop <span class="c1">#  从git栈中获取到最近一次stash进去的内容，恢复工作区的内容。获取之后，会删除栈中对应的stash</span>
+</span></span><span class="line"><span class="cl"> git stash clear <span class="c1"># 清空git栈</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="39-修改commit历史记录">3.9 修改commit历史记录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rebase -i 0580eab8
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4-branch分支管理">4: Branch分支管理</h1>
+<h2 id="41-创建分支">4.1 创建分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch develop <span class="c1"># 只创建分支</span>
+</span></span><span class="line"><span class="cl">git checkout -b master develop <span class="c1"># 创建并切换到 develop 分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="42-查看分支">4.2 查看分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch <span class="c1"># 查看本地分支</span>
+</span></span><span class="line"><span class="cl">git branch -r <span class="c1"># 查看remote分支</span>
+</span></span><span class="line"><span class="cl">git branch -a <span class="c1"># 查看所有分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="43-合并分支">4.3 合并分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout master <span class="c1"># 切换到 master 分支</span>
+</span></span><span class="line"><span class="cl">git merge --no-ff develop <span class="c1"># 把 develop 合并到 master 分支,no-ff 选项的作用是保留原分支记录</span>
+</span></span><span class="line"><span class="cl">git rebase develop <span class="c1"># rebase 当前分支到 develop</span>
+</span></span><span class="line"><span class="cl">git branch -d develop <span class="c1"># 删除 develop 分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="44-stash-当前分支中未提交的修改移动到其他分支">4.4 Stash 当前分支中未提交的修改移动到其他分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git stash
+</span></span><span class="line"><span class="cl">git checkout branch2
+</span></span><span class="line"><span class="cl">git stash pop
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="45-强制更新到远程分支最新版本">4.5 强制更新到远程分支最新版本</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard origin/master
+</span></span><span class="line"><span class="cl">git submodule update --remote -f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5-submodule使用">5: Submodule使用</h1>
+<h2 id="51-克隆带submodule的库">5.1 克隆带submodule的库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone --recursive https://github.com/chaconinc/MainProject
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="52-clone主库后再去clone-submodule">5.2 clone主库后再去clone submodule</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/chaconinc/MainProject
+</span></span><span class="line"><span class="cl">git submodule init
+</span></span><span class="line"><span class="cl">git submodule update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="6-更新与发布">6: 更新与发布</h1>
+<h2 id="61-列出当前配置的远程端">6.1 列出当前配置的远程端</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote -v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="62-显示远程端的信息">6.2 显示远程端的信息</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote show &lt;remote&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="63-添加新的远程端">6.3 添加新的远程端</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote add &lt;remote&gt; &lt;url&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="64-下载远程端版本但不合并到head中">6.4 下载远程端版本,但不合并到HEAD中</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> git fetch &lt;remote&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="65-下载远程端版本并自动与head版本合并">6.5 下载远程端版本,并自动与HEAD版本合并</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> git remote pull &lt;remote&gt; &lt;url&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="66-将远程端版本合并到本地版本中">6.6 将远程端版本合并到本地版本中</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">将远程端版本合并到本地版本中
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="67-以rebase方式将远端分支与本地合并">6.7 以rebase方式将远端分支与本地合并</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull --rebase &lt;remote&gt; &lt;branch&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="68-将本地版本发布到远程端">6.8 将本地版本发布到远程端</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push remote &lt;remote&gt; &lt;branch&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="69-删除远程端分支">6.9 删除远程端分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push &lt;remote&gt; :&lt;branch&gt; <span class="o">(</span>since Git v1.5.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl">git push &lt;remote&gt; --delete &lt;branch&gt; <span class="o">(</span>since Git v1.7.0<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="610-发布标签">6.10 发布标签</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push --tags
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="611-以rebase方式将远端分支与本地合并">6.11 以rebase方式将远端分支与本地合并</h2>
+<h1 id="7-合并merge与重置rebase">7: 合并(Merge)与重置(Rebase)</h1>
+<h2 id="71-将分支合并">7.1 将分支合并</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># merge</span>
+</span></span><span class="line"><span class="cl">git merge &lt;branch&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># rebase</span>
+</span></span><span class="line"><span class="cl">git rebase &lt;branch&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="72-退出rebase">7.2 退出rebase</h2>
+<p><code>git rebase --abort</code></p>
+<h2 id="73-合并提交">7.3 合并提交</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rebase -i &lt;commit-just-before-first&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把上面的内容替换为下面的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pick &lt;commit_id&gt;
+</span></span><span class="line"><span class="cl">pick &lt;commit_id2&gt;
+</span></span><span class="line"><span class="cl">pick &lt;commit_id3&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>替换为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pick &lt;commit_id&gt;
+</span></span><span class="line"><span class="cl">squash &lt;commit_id2&gt;
+</span></span><span class="line"><span class="cl">squash &lt;commit_id3&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="8-撤销revoke">8: 撤销revoke</h1>
+<h2 id="81-放弃工作目录下的所有修改">8.1 放弃工作目录下的所有修改</h2>
+<p><code>git reset --hard HEAD</code></p>
+<h2 id="82-移除缓存区的所有文件ie-撤销上次git-add">8.2 移除缓存区的所有文件（i.e. 撤销上次git add）</h2>
+<p><code>git reset HEAD</code></p>
+<h2 id="83-放弃某个文件的所有本地修改">8.3 放弃某个文件的所有本地修改</h2>
+<p><code>git checkout HEAD &lt;file&gt;</code></p>
+<h2 id="84-重置一个提交通过创建一个截然不同的新提交">8.4 重置一个提交（通过创建一个截然不同的新提交）</h2>
+<p><code>git revert &lt;commit&gt;</code></p>
+<h2 id="85-将head重置到指定的版本并抛弃该版本之后的所有修改">8.5 将HEAD重置到指定的版本,并抛弃该版本之后的所有修改</h2>
+<p><code>git reset --hard &lt;commit&gt;</code></p>
+<h2 id="86-用远端分支强制覆盖本地分支">8.6 用远端分支强制覆盖本地分支</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard &lt;remote/branch&gt; e.g., upstream/master, origin/my-feature
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="87-将head重置到上一次提交的版本并将之后的修改标记为未添加到缓存区的修改">8.7 将HEAD重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset &lt;commit&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="88-将head重置到上一次提交的版本并保留未提交的本地修改">8.8 将HEAD重置到上一次提交的版本,并保留未提交的本地修改</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> git reset --keep &lt;commit&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="89-删除添加gitignore文件前错误提交的文件">8.9 删除添加.gitignore文件前错误提交的文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git rm -r --cached .
+</span></span><span class="line"><span class="cl">$ git add .
+</span></span><span class="line"><span class="cl">$ git commit -m <span class="s2">&#34;remove xyz file&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-05-26
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/git/">Git</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang/009-go%E7%BC%96%E8%AF%91%E7%9B%B8%E5%85%B3/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">02-Go编译相关</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/dockerk8s/007-docker%E6%B8%85%E7%90%86/">
+            <span class="next-text nav-default">01-docker清理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://lppgo.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>李平平</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

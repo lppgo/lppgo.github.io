@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CPP on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/categories/cpp/</link>
+    <description>Recent content in CPP on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 21 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/categories/cpp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>01-Go Test笔记</title>
+      <link>https://lppgo.github.io/post/golang/023_go-test%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://lppgo.github.io/post/golang/023_go-test%E7%AC%94%E8%AE%B0/</guid>
+      <description>Go Test笔记 Go Test 一个完整的单测指令可以是 go test -v -cover -gcflags=all=-l -coverprofile=coverage.out -gcflags=all=-l 防止编译器内联优化导致单测出现问题 1.1 go test go test -run=^TestDo -v ./ 这里介绍几个常用的参数： -bench regexp 执行相</description>
+    </item>
+    
+    <item>
+      <title>01-Grpc with TLS/SSL</title>
+      <link>https://lppgo.github.io/post/golang/021-grpc-witch-tls/</link>
+      <pubDate>Fri, 17 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://lppgo.github.io/post/golang/021-grpc-witch-tls/</guid>
+      <description>Grpc with TLS/SSL 1 Grpc 配置 TLS/SSL 1.1 使用 openssl 生成证书 cert 2 Server 服务端 3 Client 客户端 1 Grpc 配置 TLS/SSL gRPC 支持身份验证（auth）。将它添加到您的项目中很简单。您所要做的就是使用几</description>
+    </item>
+    
+    <item>
+      <title>01-grpc安装(cpp和go)</title>
+      <link>https://lppgo.github.io/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/</link>
+      <pubDate>Fri, 08 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://lppgo.github.io/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/</guid>
+      <description>1 c++ 配置 GRPC 1.1 setup dir 1.2 install cmake 1.3 Install other required tools 1.4 git clone grpc repo 1.5 Build and install gRPC and Protocol Buffers 1.6 编写 proto 文件 1.7 编写 server/client 文件 1.8 执行 2 golang grpc 环境搭建 2.1 Prerequisites golang protobuffer 2.2 Get the example code 1 c++ 配置 GRPC https://grpc.io/docs/languages/cpp/quickstart/ 1.1 setup dir 1</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mysql on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/mysql/</link>
+    <description>Recent content in Mysql on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 11 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>01-mysql数据库优化最完整指南</title>
+      <link>https://lppgo.github.io/post/database/005-mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%9C%80%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://lppgo.github.io/post/database/005-mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%9C%80%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid>
+      <description>阶段一: 数据库表设计 阶段二: 数据库部署 阶段三: 数据库性能优化 3.1 硬件配置 3.2 数据库配置优化 3.3 系统内核参数优化 阶段四: SQL 语句优化 阶段五: 数据库架构</description>
+    </item>
+    
+    <item>
+      <title>03-在线修改大表结构pt-online-schema-change</title>
+      <link>https://lppgo.github.io/post/database/003-%E5%9C%A8%E7%BA%BF%E4%BF%AE%E6%94%B9%E5%A4%A7%E8%A1%A8%E7%BB%93%E6%9E%84pt-online-schema-change/</link>
+      <pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://lppgo.github.io/post/database/003-%E5%9C%A8%E7%BA%BF%E4%BF%AE%E6%94%B9%E5%A4%A7%E8%A1%A8%E7%BB%93%E6%9E%84pt-online-schema-change/</guid>
+      <description>1: 使用场景 Scenario 2: 在线修改大表的可能影响 3: pt-online-schema-change 介绍 4: 解决了什么问题 5: pt-online-schema-change 安装 6: pt-online-schema-change 使用 6.1 参数 6.2 为避免每次都要输入一堆参数，写个脚本复用一下，pt.sh</description>
+    </item>
+    
+    <item>
+      <title>01-Mysql 优化工具</title>
+      <link>https://lppgo.github.io/post/database/001-mysql%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Tue, 13 Apr 2021 17:16:49 +0800</pubDate>
+      
+      <guid>https://lppgo.github.io/post/database/001-mysql%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/</guid>
+      <description>MySql:优化工具 学习来自 [HB Chen](http://hbchen.com/) 1 2 3 4 cd /etc/ (my.conf所在目录) wget http://www.day32.com/MySQL/tuning-primer.sh chmod +x tuning-primer.sh ./tuning-primer.sh</description>
+    </item>
+    
+  </channel>
+</rss>
