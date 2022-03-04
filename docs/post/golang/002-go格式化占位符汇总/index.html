@@ -1,289 +1,136 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+<!doctype html><html lang=zh-cn>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>01-Go格式化占位符汇总 - Even - A super concise theme for Hugo</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="lucas" /><meta name="description" content="..." /><meta name="keywords" content="Go, tool" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.93.1 with theme even" />
-
-
-<link rel="canonical" href="https://lppgo.github.io/post/golang/002-go%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6%E6%B1%87%E6%80%BB/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="01-Go格式化占位符汇总" />
-<meta property="og:description" content="..." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://lppgo.github.io/post/golang/002-go%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6%E6%B1%87%E6%80%BB/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-04-17T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-03-04T10:56:42+08:00" />
-
-<meta itemprop="name" content="01-Go格式化占位符汇总">
-<meta itemprop="description" content="..."><meta itemprop="datePublished" content="2021-04-17T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-03-04T10:56:42+08:00" />
-<meta itemprop="wordCount" content="64">
-<meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="01-Go格式化占位符汇总"/>
-<meta name="twitter:description" content="..."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">lppgo</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">lppgo</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">01-Go格式化占位符汇总</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2021-04-17 </span>
-        <div class="post-category">
-            <a href="/categories/go/"> Go </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1通用占位符-placeholder">1：通用占位符 placeholder</a></li>
-    <li><a href="#2布尔型-bool">2：布尔型 bool</a></li>
-    <li><a href="#3-整型">3: 整型</a></li>
-    <li><a href="#4-浮点型与复数">4: 浮点型与复数</a></li>
-    <li><a href="#5-字符串和byte">5: 字符串和[]byte</a></li>
-    <li><a href="#6-指针-pointer">6: 指针 Pointer</a></li>
-    <li><a href="#7-宽度精度标识符">7: 宽度(精度)标识符</a></li>
-    <li><a href="#8其他-falg">8：其他 falg</a></li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <div align="center"><font size="35">Go格式化占位符汇总</font></div>
-<h1 id="1通用占位符-placeholder">1：通用占位符 placeholder</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-10-46.png" alt="通用占位符 placeholder"></p>
-<h1 id="2布尔型-bool">2：布尔型 bool</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-13-23.png" alt="bool"></p>
-<h1 id="3-整型">3: 整型</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-15-09.png" alt="整型"></p>
-<h1 id="4-浮点型与复数">4: 浮点型与复数</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-16-44.png" alt="浮点型与复数"></p>
-<h1 id="5-字符串和byte">5: 字符串和[]byte</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-19-22.png" alt="字符串和[]byte"></p>
-<h1 id="6-指针-pointer">6: 指针 Pointer</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-19-43.png" alt="指针 Pointer"></p>
-<h1 id="7-宽度精度标识符">7: 宽度(精度)标识符</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-20-04.png" alt="宽度(精度)标识符"></p>
-<h1 id="8其他-falg">8：其他 falg</h1>
-<p><img src="/images/Snipaste_2021-12-21_10-20-21.png" alt="其他falg"></p>
-
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">lucas</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">
-        2022-03-04
-        <a href="/commit/b3cbdf7868304aa509d9f828f40747898f749166" title="test">(b3cbdf7)</a>
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/go/">Go</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/golang/001-go%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%A5%9E%E5%99%A8%E6%B1%87%E6%80%BB/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">01-Go开发效率神器汇总</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/">
-            <span class="next-text nav-default">02-Go常用库积累</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-
-  
-
-  
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
-      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
-      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
-      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
-  <a href="https://lppgo.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2015 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>李平平</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-
-
-
-<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
-
-
-
-<script id="baidu_push">
-  (function(){
-    if (window.location.hostname === 'localhost') return;
-    var bp = document.createElement('script'); bp.async = true;
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-  })();
-</script>
-
-
-
-
-</body>
-</html>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>01-Go格式化占位符汇总 - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="lucas"><meta name=description content="..."><meta name=keywords content="Go,tool">
+<meta name=generator content="Hugo 0.93.1 with theme even">
+<link rel=canonical href=https://lppgo.github.io/post/golang/002-go%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6%E6%B1%87%E6%80%BB/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="01-Go格式化占位符汇总">
+<meta property="og:description" content="...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://lppgo.github.io/post/golang/002-go%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6%E6%B1%87%E6%80%BB/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-04-17T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-03-04T10:56:42+08:00">
+<meta itemprop=name content="01-Go格式化占位符汇总">
+<meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
+<meta itemprop=dateModified content="2022-03-04T10:56:42+08:00">
+<meta itemprop=wordCount content="64">
+<meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="01-Go格式化占位符汇总">
+<meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head><body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>lppgo</a>
+</div><div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div></div><nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li></a><a href=/post/>
+<li class=mobile-menu-item>Archives</li></a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li></a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li></a>
+</ul></nav><div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>lppgo</a>
+</div><nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li></ul></nav></header><main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>01-Go格式化占位符汇总</h1><div class=post-meta>
+<span class=post-time> 2021-04-17 </span>
+<div class=post-category>
+<a href=/categories/go/> Go </a>
+</div></div></header><div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#1通用占位符-placeholder>1：通用占位符 placeholder</a></li><li><a href=#2布尔型-bool>2：布尔型 bool</a></li><li><a href=#3-整型>3: 整型</a></li><li><a href=#4-浮点型与复数>4: 浮点型与复数</a></li><li><a href=#5-字符串和byte>5: 字符串和[]byte</a></li><li><a href=#6-指针-pointer>6: 指针 Pointer</a></li><li><a href=#7-宽度精度标识符>7: 宽度(精度)标识符</a></li><li><a href=#8其他-falg>8：其他 falg</a></li></ul></nav></div></div><div class=post-content>
+<div align=center><font size=35>Go格式化占位符汇总</font></div><h1 id=1通用占位符-placeholder>1：通用占位符 placeholder</h1><p><img src=/images/Snipaste_2021-12-21_10-10-46.png alt="通用占位符 placeholder"></p><h1 id=2布尔型-bool>2：布尔型 bool</h1><p><img src=/images/Snipaste_2021-12-21_10-13-23.png alt=bool></p><h1 id=3-整型>3: 整型</h1><p><img src=/images/Snipaste_2021-12-21_10-15-09.png alt=整型></p><h1 id=4-浮点型与复数>4: 浮点型与复数</h1><p><img src=/images/Snipaste_2021-12-21_10-16-44.png alt=浮点型与复数></p><h1 id=5-字符串和byte>5: 字符串和[]byte</h1><p><img src=/images/Snipaste_2021-12-21_10-19-22.png alt=字符串和[]byte></p><h1 id=6-指针-pointer>6: 指针 Pointer</h1><p><img src=/images/Snipaste_2021-12-21_10-19-43.png alt="指针 Pointer"></p><h1 id=7-宽度精度标识符>7: 宽度(精度)标识符</h1><p><img src=/images/Snipaste_2021-12-21_10-20-04.png alt=宽度(精度)标识符></p><h1 id=8其他-falg>8：其他 falg</h1><p><img src=/images/Snipaste_2021-12-21_10-20-21.png alt=其他falg></p></div><div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>lucas</span>
+</p><p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>
+2022-03-04
+<a href=/commit/b3cbdf7868304aa509d9f828f40747898f749166 title=test>(b3cbdf7)</a>
+</span>
+</p></div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/go/>Go</a>
+</div><nav class=post-nav>
+<a class=prev href=/post/golang/001-go%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%A5%9E%E5%99%A8%E6%B1%87%E6%80%BB/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">01-Go开发效率神器汇总</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/>
+<span class="next-text nav-default">02-Go常用库积累</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav></footer></article></div></div></main><footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a>
+<a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a>
+<a href=https://github.com/lppgo class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://lppgo.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div><div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2015 -
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+</span>
+</div></footer><div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js></script>
+<script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var e=document.createElement("script"),n,t;e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script>
+</body></html>

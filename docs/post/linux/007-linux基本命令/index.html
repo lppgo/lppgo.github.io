@@ -1,1036 +1,717 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+<!doctype html><html lang=zh-cn>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>05-Linux基本命令 - Even - A super concise theme for Hugo</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="lucas" /><meta name="description" content="..." /><meta name="keywords" content="Linux, tool" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.93.1 with theme even" />
-
-
-<link rel="canonical" href="https://lppgo.github.io/post/linux/007-linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="05-Linux基本命令" />
-<meta property="og:description" content="..." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://lppgo.github.io/post/linux/007-linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-04-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-03-04T10:56:42+08:00" />
-
-<meta itemprop="name" content="05-Linux基本命令">
-<meta itemprop="description" content="..."><meta itemprop="datePublished" content="2021-04-15T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-03-04T10:56:42+08:00" />
-<meta itemprop="wordCount" content="4615">
-<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="05-Linux基本命令"/>
-<meta name="twitter:description" content="..."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">lppgo</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">lppgo</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">05-Linux基本命令</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2021-04-15 </span>
-        <div class="post-category">
-            <a href="/categories/linux/"> Linux </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1-系统的关机重启以及登出">1: 系统的关机、重启以及登出</a></li>
-    <li><a href="#2-文件和目录">2: 文件和目录</a></li>
-    <li><a href="#3-linux-查看磁盘-io-的几种方法">3: Linux 查看磁盘 io 的几种方法</a></li>
-    <li><a href="#4-查看网卡流量方法">4: 查看网卡流量方法</a></li>
-    <li><a href="#5-使用-watch-命令配合-ifconfigmore-procnetdevcat-procnetdev-来实时监控系统信息">5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</a></li>
-    <li><a href="#6-文件搜索">6: 文件搜索</a></li>
-    <li><a href="#7-磁盘空间">7: 磁盘空间</a></li>
-    <li><a href="#8-用户和群组">8: 用户和群组</a></li>
-    <li><a href="#9-文件的权限---使用--设置权限使用---用于取消">9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li>
-    <li><a href="#10-文件的特殊属性---使用--设置权限使用---用于取消">10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li>
-    <li><a href="#11-打包和压缩文件">11: 打包和压缩文件</a></li>
-    <li><a href="#12-查看文件内容">12: 查看文件内容</a></li>
-    <li><a href="#13-linux-包管理器">13: Linux 包管理器</a>
-      <ul>
-        <li><a href="#131-rpm--fedora-redhat-及类似系统">13.1 RPM -（Fedora, Redhat 及类似系统）</a></li>
-        <li><a href="#132-yum--fedora-redhat-及类似系统">13.2 YUM -（Fedora, RedHat 及类似系统）</a></li>
-        <li><a href="#132-deb--fedora-redhat-及类似系统">13.2 DEB -（Fedora, RedHat 及类似系统）</a></li>
-        <li><a href="#133-apt---debian-ubuntu-以及类似系统">13.3 APT - (Debian, Ubuntu 以及类似系统)</a></li>
-      </ul>
-    </li>
-    <li><a href="#14-常用命令">14: 常用命令</a>
-      <ul>
-        <li><a href="#141-查看端口的占用">14.1 查看端口的占用</a></li>
-        <li><a href="#142-查看进程">14.2 查看进程</a></li>
-        <li><a href="#143-批量杀死进程">14.3 批量杀死进程</a></li>
-        <li><a href="#144-查看当前时间">14.4 查看当前时间</a></li>
-        <li><a href="#145-查看进程内存使用情况">14.5 查看进程内存使用情况</a></li>
-        <li><a href="#145-查看linux内核版本或发布版本">14.5 查看Linux内核版本或发布版本</a></li>
-        <li><a href="#146-查看本地网络服务活动状态">14.6 查看本地网络服务活动状态</a></li>
-        <li><a href="#147-查看自己的外网ip">14.7 查看自己的外网ip</a></li>
-        <li><a href="#148-查看当前文件夹下文件文件夹大小">14.8 查看当前文件夹下文件（文件夹）大小</a></li>
-        <li><a href="#149-查看所有磁盘大小">14.9 查看所有磁盘大小</a></li>
-        <li><a href="#1410-诊断网络">14.10 诊断网络</a></li>
-        <li><a href="#1411-列出本机监听的端口号">14.11 列出本机监听的端口号</a></li>
-        <li><a href="#1412-在远程机器上运行一段脚本">14.12 在远程机器上运行一段脚本</a></li>
-        <li><a href="#1413-端口扫描">14.13 端口扫描</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <ul>
-<li><a href="#1-%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%B3%E6%9C%BA%E9%87%8D%E5%90%AF%E4%BB%A5%E5%8F%8A%E7%99%BB%E5%87%BA">1: 系统的关机、重启以及登出</a></li>
-<li><a href="#2-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95">2: 文件和目录</a></li>
-<li><a href="#3-linux-%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98-io-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95">3: Linux 查看磁盘 io 的几种方法</a></li>
-<li><a href="#4-%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1%E6%B5%81%E9%87%8F%E6%96%B9%E6%B3%95">4: 查看网卡流量方法</a></li>
-<li><a href="#5-%E4%BD%BF%E7%94%A8-watch-%E5%91%BD%E4%BB%A4%E9%85%8D%E5%90%88-ifconfigmore-procnetdevcat-procnetdev-%E6%9D%A5%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF">5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</a></li>
-<li><a href="#6-%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2">6: 文件搜索</a></li>
-<li><a href="#7-%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4">7: 磁盘空间</a></li>
-<li><a href="#8-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BE%A4%E7%BB%84">8: 用户和群组</a></li>
-<li><a href="#9-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88">9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li>
-<li><a href="#10-%E6%96%87%E4%BB%B6%E7%9A%84%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88">10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li>
-<li><a href="#11-%E6%89%93%E5%8C%85%E5%92%8C%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6">11: 打包和压缩文件</a></li>
-<li><a href="#12-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">12: 查看文件内容</a></li>
-<li><a href="#13-linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">13: Linux 包管理器</a>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>05-Linux基本命令 - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="lucas"><meta name=description content="..."><meta name=keywords content="Linux,tool">
+<meta name=generator content="Hugo 0.93.1 with theme even">
+<link rel=canonical href=https://lppgo.github.io/post/linux/007-linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="05-Linux基本命令">
+<meta property="og:description" content="...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://lppgo.github.io/post/linux/007-linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-04-15T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-03-04T10:56:42+08:00">
+<meta itemprop=name content="05-Linux基本命令">
+<meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-15T00:00:00+00:00">
+<meta itemprop=dateModified content="2022-03-04T10:56:42+08:00">
+<meta itemprop=wordCount content="4615">
+<meta itemprop=keywords content="Linux,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="05-Linux基本命令">
+<meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head><body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>lppgo</a>
+</div><div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div></div><nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li></a><a href=/post/>
+<li class=mobile-menu-item>Archives</li></a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li></a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li></a>
+</ul></nav><div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>lppgo</a>
+</div><nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li></ul></nav></header><main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>05-Linux基本命令</h1><div class=post-meta>
+<span class=post-time> 2021-04-15 </span>
+<div class=post-category>
+<a href=/categories/linux/> Linux </a>
+</div></div></header><div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
+<nav id=TableOfContents>
 <ul>
-<li><a href="#131-rpm--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">13.1 RPM -（Fedora, Redhat 及类似系统）</a></li>
-<li><a href="#132-yum--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">13.2 YUM -（Fedora, RedHat 及类似系统）</a></li>
-<li><a href="#132-deb--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">13.2 DEB -（Fedora, RedHat 及类似系统）</a></li>
-<li><a href="#133-apt---debian-ubuntu-%E4%BB%A5%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">13.3 APT - (Debian, Ubuntu 以及类似系统)</a></li>
-</ul>
-</li>
-<li><a href="#14-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">14: 常用命令</a>
+<li><a href=#1-系统的关机重启以及登出>1: 系统的关机、重启以及登出</a></li><li><a href=#2-文件和目录>2: 文件和目录</a></li><li><a href=#3-linux-查看磁盘-io-的几种方法>3: Linux 查看磁盘 io 的几种方法</a></li><li><a href=#4-查看网卡流量方法>4: 查看网卡流量方法</a></li><li><a href=#5-使用-watch-命令配合-ifconfigmore-procnetdevcat-procnetdev-来实时监控系统信息>5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</a></li><li><a href=#6-文件搜索>6: 文件搜索</a></li><li><a href=#7-磁盘空间>7: 磁盘空间</a></li><li><a href=#8-用户和群组>8: 用户和群组</a></li><li><a href=#9-文件的权限---使用--设置权限使用---用于取消>9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#10-文件的特殊属性---使用--设置权限使用---用于取消>10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#11-打包和压缩文件>11: 打包和压缩文件</a></li><li><a href=#12-查看文件内容>12: 查看文件内容</a></li><li><a href=#13-linux-包管理器>13: Linux 包管理器</a>
 <ul>
-<li><a href="#141-%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%8D%A0%E7%94%A8">14.1 查看端口的占用</a></li>
-<li><a href="#142-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B">14.2 查看进程</a></li>
-<li><a href="#143-%E6%89%B9%E9%87%8F%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B">14.3 批量杀死进程</a></li>
-<li><a href="#144-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4">14.4 查看当前时间</a></li>
-<li><a href="#145-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5">14.5 查看进程内存使用情况</a></li>
-<li><a href="#145-%E6%9F%A5%E7%9C%8Blinux%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E6%88%96%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC">14.5 查看Linux内核版本或发布版本</a></li>
-<li><a href="#146-%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81">14.6 查看本地网络服务活动状态</a></li>
-<li><a href="#147-%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%96%E7%BD%91ip">14.7 查看自己的外网ip</a></li>
-<li><a href="#148-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E6%96%87%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%A7%E5%B0%8F">14.8 查看当前文件夹下文件（文件夹）大小</a></li>
-<li><a href="#149-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F">14.9 查看所有磁盘大小</a></li>
-<li><a href="#1410-%E8%AF%8A%E6%96%AD%E7%BD%91%E7%BB%9C">14.10 诊断网络</a></li>
-<li><a href="#1411-%E5%88%97%E5%87%BA%E6%9C%AC%E6%9C%BA%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7">14.11 列出本机监听的端口号</a></li>
-<li><a href="#1412-%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%BA%E5%99%A8%E4%B8%8A%E8%BF%90%E8%A1%8C%E4%B8%80%E6%AE%B5%E8%84%9A%E6%9C%AC">14.12 在远程机器上运行一段脚本</a></li>
-<li><a href="#1413-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F">14.13 端口扫描</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="1-系统的关机重启以及登出">1: 系统的关机、重启以及登出</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">shutdown -h now <span class="c1"># 关闭系统(1) </span>
-</span></span><span class="line"><span class="cl">init <span class="m">0</span> 关闭系统<span class="o">(</span>2<span class="o">)</span> 
-</span></span><span class="line"><span class="cl">telinit <span class="m">0</span> 关闭系统<span class="o">(</span>3<span class="o">)</span> 
-</span></span><span class="line"><span class="cl">shutdown -h hours:minutes <span class="p">&amp;</span> <span class="c1"># 按预定时间关闭系统 </span>
-</span></span><span class="line"><span class="cl">shutdown -c <span class="c1"># 取消按预定时间关闭系统 </span>
-</span></span><span class="line"><span class="cl">shutdown -r now <span class="c1"># 重启(1) </span>
-</span></span><span class="line"><span class="cl">reboot <span class="c1"># 重启(2) </span>
-</span></span><span class="line"><span class="cl"><span class="nb">logout</span> <span class="c1"># 注销 </span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="2-文件和目录">2: 文件和目录</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> /home <span class="c1"># 进入 &#39;/ home&#39; 目录&#39; </span>
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> .. <span class="c1"># 返回上一级目录 </span>
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../.. <span class="c1"># 返回上两级目录 </span>
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> - <span class="c1"># 返回上次所在的目录 </span>
-</span></span><span class="line"><span class="cl"><span class="nb">pwd</span> <span class="c1"># 显示工作路径 </span>
-</span></span><span class="line"><span class="cl">ls <span class="c1"># 查看目录中的文件 </span>
-</span></span><span class="line"><span class="cl">ls -F <span class="c1"># 查看目录中的文件 </span>
-</span></span><span class="line"><span class="cl">ls -l <span class="c1"># 显示文件和目录的详细资料 </span>
-</span></span><span class="line"><span class="cl">ls -a <span class="c1"># 显示隐藏文件 </span>
-</span></span><span class="line"><span class="cl">ls *<span class="o">[</span>0-9<span class="o">]</span>* <span class="c1"># 显示包含数字的文件名和目录名 </span>
-</span></span><span class="line"><span class="cl">tree <span class="c1"># 显示文件和目录由根目录开始的树形结构(1) </span>
-</span></span><span class="line"><span class="cl">lstree <span class="c1"># 显示文件和目录由根目录开始的树形结构(2) </span>
-</span></span><span class="line"><span class="cl">mkdir dir1 dir2 <span class="c1"># 同时创建两个目录 </span>
-</span></span><span class="line"><span class="cl">mkdir -p /tmp/dir1/dir2 <span class="c1"># 创建一个目录树 </span>
-</span></span><span class="line"><span class="cl">rm -f file1 <span class="c1"># 删除一个叫做 &#39;file1&#39; 的文件&#39; </span>
-</span></span><span class="line"><span class="cl">rmdir dir1 <span class="c1"># 删除一个叫做 &#39;dir1&#39; 的目录&#39; </span>
-</span></span><span class="line"><span class="cl">rm -rf dir1 <span class="c1"># 删除一个叫做 &#39;dir1&#39; 的目录并同时删除其内容 </span>
-</span></span><span class="line"><span class="cl">rm -rf dir1 dir2 同时删除两个目录及它们的内容 
-</span></span><span class="line"><span class="cl">mv dir1 new_dir 重命名/移动 一个目录 
-</span></span><span class="line"><span class="cl">cp file1 file2 复制一个文件 
-</span></span><span class="line"><span class="cl">cp dir/* . 复制一个目录下的所有文件到当前工作目录 
-</span></span><span class="line"><span class="cl">cp -a /tmp/dir1 . 复制一个目录到当前工作目录 
-</span></span><span class="line"><span class="cl">cp -a dir1 dir2 复制一个目录 
-</span></span><span class="line"><span class="cl">ln -s file1 lnk1 创建一个指向文件或目录的软链接 
-</span></span><span class="line"><span class="cl">ln file1 lnk1 创建一个指向文件或目录的物理链接 
-</span></span><span class="line"><span class="cl">touch -t <span class="m">0712250000</span> file1 修改一个文件或目录的时间戳 - <span class="o">(</span>YYMMDDhhmm<span class="o">)</span> 
-</span></span><span class="line"><span class="cl">file file1 outputs the mime <span class="nb">type</span> of the file as text 
-</span></span><span class="line"><span class="cl">iconv -l 列出已知的编码 
-</span></span><span class="line"><span class="cl">iconv -f fromEncoding -t toEncoding inputFile &gt; outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding. 
-</span></span><span class="line"><span class="cl">find . -maxdepth <span class="m">1</span> -name *.jpg -print -exec convert <span class="s2">&#34;{}&#34;</span> -resize 80x60 <span class="s2">&#34;thumbs/{}&#34;</span> <span class="se">\;</span> batch resize files in the current directory and send them to a thumbnails directory <span class="o">(</span>requires convert from Imagemagick<span class="o">)</span> 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="3-linux-查看磁盘-io-的几种方法">3: Linux 查看磁盘 io 的几种方法</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">1. 用 top 命令 中的cpu 信息观察. <span class="o">(</span>还有htop,gotop<span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2. vmstat：vmstat 命令报告关于线程、虚拟内存、磁盘、陷阱和 CPU 活动的统计信息
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">3. iostat
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4. iotop
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">5. sar -d
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="4-查看网卡流量方法">4: 查看网卡流量方法</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">1. sar -n DEV <span class="m">1</span> <span class="m">2</span>   （命令后面1 <span class="m">2</span> 意思是：每一秒钟取1次值，取2次。）
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2. cat /proc/net/dev
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">3. iftop
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4. ifstat
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">5. nload
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">6. gotop
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="5-使用-watch-命令配合-ifconfigmore-procnetdevcat-procnetdev-来实时监控系统信息">5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">arch <span class="c1"># 显示机器的处理器架构(1) </span>
-</span></span><span class="line"><span class="cl">uname -m <span class="c1"># 显示机器的处理器架构(2) </span>
-</span></span><span class="line"><span class="cl">uname -r <span class="c1"># 显示正在使用的内核版本 </span>
-</span></span><span class="line"><span class="cl">dmidecode -q <span class="c1"># 显示硬件系统部件 - (SMBIOS / DMI) </span>
-</span></span><span class="line"><span class="cl">hdparm -i /dev/hda <span class="c1"># 罗列一个磁盘的架构特性 </span>
-</span></span><span class="line"><span class="cl">hdparm -tT /dev/sda <span class="c1"># 在磁盘上执行测试性读取操作 </span>
-</span></span><span class="line"><span class="cl">cat /proc/cpuinfo <span class="c1"># 显示CPU info的信息 </span>
-</span></span><span class="line"><span class="cl">cat /proc/interrupts <span class="c1"># 显示中断 </span>
-</span></span><span class="line"><span class="cl">cat /proc/meminfo <span class="c1"># 校验内存使用 </span>
-</span></span><span class="line"><span class="cl">cat /proc/swaps <span class="c1"># 显示哪些swap被使用 </span>
-</span></span><span class="line"><span class="cl">cat /proc/version <span class="c1"># 显示内核的版本 </span>
-</span></span><span class="line"><span class="cl">cat /proc/net/dev <span class="c1"># 显示网络适配器及统计 </span>
-</span></span><span class="line"><span class="cl">cat /proc/mounts <span class="c1"># 显示已加载的文件系统 </span>
-</span></span><span class="line"><span class="cl">lspci -tv <span class="c1"># 罗列 PCI 设备 </span>
-</span></span><span class="line"><span class="cl">lsusb -tv <span class="c1"># 显示 USB 设备 </span>
-</span></span><span class="line"><span class="cl">date <span class="c1"># 显示系统日期 </span>
-</span></span><span class="line"><span class="cl">cal <span class="m">2021</span> <span class="c1"># 显示2021年的日历表 </span>
-</span></span><span class="line"><span class="cl">date 041217002007.00 设置日期和时间 - 月日时分年.秒 
-</span></span><span class="line"><span class="cl">clock -w 将时间修改保存到 BIOS 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="6-文件搜索">6: 文件搜索</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">find / -name file1 从 <span class="s1">&#39;/&#39;</span> 开始进入根文件系统搜索文件和目录 
-</span></span><span class="line"><span class="cl">find / -user user1 搜索属于用户 <span class="s1">&#39;user1&#39;</span> 的文件和目录 
-</span></span><span class="line"><span class="cl">find /home/user1 -name <span class="se">\*</span>.bin 在目录 <span class="s1">&#39;/ home/user1&#39;</span> 中搜索带有<span class="s1">&#39;.bin&#39;</span> 结尾的文件 
-</span></span><span class="line"><span class="cl">find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件 
-</span></span><span class="line"><span class="cl">find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件 
-</span></span><span class="line"><span class="cl">find / -name <span class="se">\*</span>.rpm -exec chmod <span class="m">755</span> <span class="s1">&#39;{}&#39;</span> <span class="se">\;</span> 搜索以 <span class="s1">&#39;.rpm&#39;</span> 结尾的文件并定义其权限 
-</span></span><span class="line"><span class="cl">find / -xdev -name <span class="se">\*</span>.rpm 搜索以 <span class="s1">&#39;.rpm&#39;</span> 结尾的文件，忽略光驱、捷盘等可移动设备 
-</span></span><span class="line"><span class="cl">locate <span class="se">\*</span>.ps 寻找以 <span class="s1">&#39;.ps&#39;</span> 结尾的文件 - 先运行 <span class="s1">&#39;updatedb&#39;</span> 命令 
-</span></span><span class="line"><span class="cl">whereis halt 显示一个二进制文件、源码或man的位置 
-</span></span><span class="line"><span class="cl">which halt 显示一个二进制文件或可执行文件的完整路径 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="7-磁盘空间">7: 磁盘空间</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">df -h 显示已经挂载的分区列表 
-</span></span><span class="line"><span class="cl">ls -lSr <span class="p">|</span>more 以尺寸大小排列文件和目录 
-</span></span><span class="line"><span class="cl">du -sh dir1 估算目录 <span class="s1">&#39;dir1&#39;</span> 已经使用的磁盘空间<span class="s1">&#39; 
-</span></span></span><span class="line"><span class="cl"><span class="s1">du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小 
-</span></span></span><span class="line"><span class="cl"><span class="s1">rpm -q -a --qf &#39;</span>%10<span class="o">{</span>SIZE<span class="o">}</span>t%<span class="o">{</span>NAME<span class="o">}</span>n<span class="s1">&#39; | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统) 
-</span></span></span><span class="line"><span class="cl"><span class="s1">dpkg-query -W -f=&#39;</span><span class="si">${</span><span class="nv">Installed</span><span class="p">-Size;10</span><span class="si">}</span>t<span class="si">${</span><span class="nv">Package</span><span class="si">}</span>n<span class="err">&#39;</span> <span class="p">|</span> sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 <span class="o">(</span>ubuntu, debian类系统<span class="o">)</span> 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="8-用户和群组">8: 用户和群组</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">groupadd group_name 创建一个新用户组 
-</span></span><span class="line"><span class="cl">groupdel group_name 删除一个用户组 
-</span></span><span class="line"><span class="cl">groupmod -n new_group_name old_group_name 重命名一个用户组 
-</span></span><span class="line"><span class="cl">useradd -c <span class="s2">&#34;Name Surname &#34;</span> -g admin -d /home/user1 -s /bin/bash user1 创建一个属于 <span class="s2">&#34;admin&#34;</span> 用户组的用户 
-</span></span><span class="line"><span class="cl">useradd user1 创建一个新用户 
-</span></span><span class="line"><span class="cl">userdel -r user1 删除一个用户 <span class="o">(</span> <span class="s1">&#39;-r&#39;</span> 排除主目录<span class="o">)</span> 
-</span></span><span class="line"><span class="cl">usermod -c <span class="s2">&#34;User FTP&#34;</span> -g system -d /ftp/user1 -s /bin/nologin user1 修改用户属性 
-</span></span><span class="line"><span class="cl">passwd 修改口令 
-</span></span><span class="line"><span class="cl">passwd user1 修改一个用户的口令 <span class="o">(</span>只允许root执行<span class="o">)</span> 
-</span></span><span class="line"><span class="cl">chage -E 2005-12-31 user1 设置用户口令的失效期限 
-</span></span><span class="line"><span class="cl">pwck 检查 <span class="s1">&#39;/etc/passwd&#39;</span> 的文件格式和语法修正以及存在的用户 
-</span></span><span class="line"><span class="cl">grpck 检查 <span class="s1">&#39;/etc/passwd&#39;</span> 的文件格式和语法修正以及存在的群组 
-</span></span><span class="line"><span class="cl">newgrp group_name 登陆进一个新的群组以改变新创建文件的预设群组 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="9-文件的权限---使用--设置权限使用---用于取消">9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ls -lh 显示权限 
-</span></span><span class="line"><span class="cl">ls /tmp <span class="p">|</span> pr -T5 -W<span class="nv">$COLUMNS</span> 将终端划分成5栏显示 
-</span></span><span class="line"><span class="cl">chmod ugo +rwx directory1 设置目录的所有人<span class="o">(</span>u<span class="o">)</span>、群组<span class="o">(</span>g<span class="o">)</span>以及其他人<span class="o">(</span>o<span class="o">)</span>以读（r ）、写<span class="o">(</span>w<span class="o">)</span>和执行<span class="o">(</span>x<span class="o">)</span>的权限 
-</span></span><span class="line"><span class="cl">chmod go -rwx directory1 删除群组<span class="o">(</span>g<span class="o">)</span>与其他人<span class="o">(</span>o<span class="o">)</span>对目录的读写执行权限 
-</span></span><span class="line"><span class="cl">chown user1 file1 改变一个文件的所有人属性 
-</span></span><span class="line"><span class="cl">chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性 
-</span></span><span class="line"><span class="cl">chgrp group1 file1 改变文件的群组 
-</span></span><span class="line"><span class="cl">chown user1:group1 file1 改变一个文件的所有人和群组属性 
-</span></span><span class="line"><span class="cl">find / -perm -u+s 罗列一个系统中所有使用了SUID控制的文件 
-</span></span><span class="line"><span class="cl">chmod u+s /bin/file1 设置一个二进制文件的 SUID 位 - 运行该文件的用户也被赋予和所有者同样的权限 
-</span></span><span class="line"><span class="cl">chmod u-s /bin/file1 禁用一个二进制文件的 SUID位 
-</span></span><span class="line"><span class="cl">chmod g+s /home/public 设置一个目录的SGID 位 - 类似SUID ，不过这是针对目录的 
-</span></span><span class="line"><span class="cl">chmod g-s /home/public 禁用一个目录的 SGID 位 
-</span></span><span class="line"><span class="cl">chmod o+t /home/public 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件 
-</span></span><span class="line"><span class="cl">chmod o-t /home/public 禁用一个目录的 STIKY 位 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="10-文件的特殊属性---使用--设置权限使用---用于取消">10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">chattr +a file1 只允许以追加方式读写文件 
-</span></span><span class="line"><span class="cl">chattr +c file1 允许这个文件能被内核自动压缩/解压 
-</span></span><span class="line"><span class="cl">chattr +d file1 在进行文件系统备份时，dump程序将忽略这个文件 
-</span></span><span class="line"><span class="cl">chattr +i file1 设置成不可变的文件，不能被删除、修改、重命名或者链接 
-</span></span><span class="line"><span class="cl">chattr +s file1 允许一个文件被安全地删除 
-</span></span><span class="line"><span class="cl">chattr +S file1 一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘 
-</span></span><span class="line"><span class="cl">chattr +u file1 若文件被删除，系统会允许你在以后恢复这个被删除的文件 
-</span></span><span class="line"><span class="cl">lsattr 显示特殊的属性 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="11-打包和压缩文件">11: 打包和压缩文件</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">bunzip2 file1.bz2 解压一个叫做 <span class="s1">&#39;file1.bz2&#39;</span>的文件 
-</span></span><span class="line"><span class="cl">bzip2 file1 压缩一个叫做 <span class="s1">&#39;file1&#39;</span> 的文件 
-</span></span><span class="line"><span class="cl">gunzip file1.gz 解压一个叫做 <span class="s1">&#39;file1.gz&#39;</span>的文件 
-</span></span><span class="line"><span class="cl">gzip file1 压缩一个叫做 <span class="s1">&#39;file1&#39;</span>的文件 
-</span></span><span class="line"><span class="cl">gzip -9 file1 最大程度压缩 
-</span></span><span class="line"><span class="cl">rar a file1.rar test_file 创建一个叫做 <span class="s1">&#39;file1.rar&#39;</span> 的包 
-</span></span><span class="line"><span class="cl">rar a file1.rar file1 file2 dir1 同时压缩 <span class="s1">&#39;file1&#39;</span>, <span class="s1">&#39;file2&#39;</span> 以及目录 <span class="s1">&#39;dir1&#39;</span> 
-</span></span><span class="line"><span class="cl">rar x file1.rar 解压rar包 
-</span></span><span class="line"><span class="cl">unrar x file1.rar 解压rar包 
-</span></span><span class="line"><span class="cl">tar -cvf archive.tar file1 创建一个非压缩的 tarball 
-</span></span><span class="line"><span class="cl">tar -cvf archive.tar file1 file2 dir1 创建一个包含了 <span class="s1">&#39;file1&#39;</span>, <span class="s1">&#39;file2&#39;</span> 以及 <span class="s1">&#39;dir1&#39;</span>的档案文件 
-</span></span><span class="line"><span class="cl">tar -tf archive.tar 显示一个包中的内容 
-</span></span><span class="line"><span class="cl">tar -xvf archive.tar 释放一个包 
-</span></span><span class="line"><span class="cl">tar -xvf archive.tar -C /tmp 将压缩包释放到 /tmp目录下 
-</span></span><span class="line"><span class="cl">tar -cvfj archive.tar.bz2 dir1 创建一个bzip2格式的压缩包 
-</span></span><span class="line"><span class="cl">tar -xvfj archive.tar.bz2 解压一个bzip2格式的压缩包 
-</span></span><span class="line"><span class="cl">tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包 
-</span></span><span class="line"><span class="cl">tar -xvfz archive.tar.gz 解压一个gzip格式的压缩包 
-</span></span><span class="line"><span class="cl">zip file1.zip file1 创建一个zip格式的压缩包 
-</span></span><span class="line"><span class="cl">zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包 
-</span></span><span class="line"><span class="cl">unzip file1.zip 解压一个zip格式压缩包 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="12-查看文件内容">12: 查看文件内容</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cat file1 从第一个字节开始正向查看文件的内容 
-</span></span><span class="line"><span class="cl">tac file1 从最后一行开始反向查看一个文件的内容 
-</span></span><span class="line"><span class="cl">more file1 查看一个长文件的内容 
-</span></span><span class="line"><span class="cl">less file1 类似于 <span class="s1">&#39;more&#39;</span> 命令，但是它允许在文件中和正向操作一样的反向操作 
-</span></span><span class="line"><span class="cl">head -2 file1 查看一个文件的前两行 
-</span></span><span class="line"><span class="cl">tail -2 file1 查看一个文件的最后两行 
-</span></span><span class="line"><span class="cl">tail -f /var/log/messages 实时查看被添加到一个文件中的内容 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="13-linux-包管理器">13: Linux 包管理器</h1>
-<h2 id="131-rpm--fedora-redhat-及类似系统">13.1 RPM -（Fedora, Redhat 及类似系统）</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rpm -ivh package.rpm 安装一个rpm包 
-</span></span><span class="line"><span class="cl">rpm -ivh --nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告 
-</span></span><span class="line"><span class="cl">rpm -U package.rpm 更新一个rpm包但不改变其配置文件 
-</span></span><span class="line"><span class="cl">rpm -F package.rpm 更新一个确定已经安装的rpm包 
-</span></span><span class="line"><span class="cl">rpm -e package_name.rpm 删除一个rpm包 
-</span></span><span class="line"><span class="cl">rpm -qa 显示系统中所有已经安装的rpm包 
-</span></span><span class="line"><span class="cl">rpm -qa <span class="p">|</span> grep httpd 显示所有名称中包含 <span class="s2">&#34;httpd&#34;</span> 字样的rpm包 
-</span></span><span class="line"><span class="cl">rpm -qi package_name 获取一个已安装包的特殊信息 
-</span></span><span class="line"><span class="cl">rpm -qg <span class="s2">&#34;System Environment/Daemons&#34;</span> 显示一个组件的rpm包 
-</span></span><span class="line"><span class="cl">rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表 
-</span></span><span class="line"><span class="cl">rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表 
-</span></span><span class="line"><span class="cl">rpm -q package_name --whatrequires 显示与一个rpm包存在依赖关系的列表 
-</span></span><span class="line"><span class="cl">rpm -q package_name --whatprovides 显示一个rpm包所占的体积 
-</span></span><span class="line"><span class="cl">rpm -q package_name --scripts 显示在安装/删除期间所执行的脚本l 
-</span></span><span class="line"><span class="cl">rpm -q package_name --changelog 显示一个rpm包的修改历史 
-</span></span><span class="line"><span class="cl">rpm -qf /etc/httpd/conf/httpd.conf 确认所给的文件由哪个rpm包所提供 
-</span></span><span class="line"><span class="cl">rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表 
-</span></span><span class="line"><span class="cl">rpm --import /media/cdrom/RPM-GPG-KEY 导入公钥数字证书 
-</span></span><span class="line"><span class="cl">rpm --checksig package.rpm 确认一个rpm包的完整性 
-</span></span><span class="line"><span class="cl">rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性 
-</span></span><span class="line"><span class="cl">rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间 
-</span></span><span class="line"><span class="cl">rpm -Va 检查系统中所有已安装的rpm包- 小心使用 
-</span></span><span class="line"><span class="cl">rpm -Vp package.rpm 确认一个rpm包还未安装 
-</span></span><span class="line"><span class="cl">rpm2cpio package.rpm <span class="p">|</span> cpio --extract --make-directories *bin* 从一个rpm包运行可执行文件 
-</span></span><span class="line"><span class="cl">rpm -ivh /usr/src/redhat/RPMS/<span class="sb">`</span>arch<span class="sb">`</span>/package.rpm 从一个rpm源码安装一个构建好的包 
-</span></span><span class="line"><span class="cl">rpmbuild --rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="132-yum--fedora-redhat-及类似系统">13.2 YUM -（Fedora, RedHat 及类似系统）</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">yum install package_name 下载并安装一个rpm包 
-</span></span><span class="line"><span class="cl">yum localinstall package_name.rpm 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系 
-</span></span><span class="line"><span class="cl">yum update package_name.rpm 更新当前系统中所有安装的rpm包 
-</span></span><span class="line"><span class="cl">yum update package_name 更新一个rpm包 
-</span></span><span class="line"><span class="cl">yum remove package_name 删除一个rpm包 
-</span></span><span class="line"><span class="cl">yum list 列出当前系统中安装的所有包 
-</span></span><span class="line"><span class="cl">yum search package_name 在rpm仓库中搜寻软件包 
-</span></span><span class="line"><span class="cl">yum clean packages 清理rpm缓存删除下载的包 
-</span></span><span class="line"><span class="cl">yum clean headers 删除所有头文件 
-</span></span><span class="line"><span class="cl">yum clean all 删除所有缓存的包和头文件 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="132-deb--fedora-redhat-及类似系统">13.2 DEB -（Fedora, RedHat 及类似系统）</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">dpkg -i package.deb 安装/更新一个 deb 包 
-</span></span><span class="line"><span class="cl">dpkg -r package_name 从系统删除一个 deb 包 
-</span></span><span class="line"><span class="cl">dpkg -l 显示系统中所有已经安装的 deb 包 
-</span></span><span class="line"><span class="cl">dpkg -l <span class="p">|</span> grep httpd 显示所有名称中包含 <span class="s2">&#34;httpd&#34;</span> 字样的deb包 
-</span></span><span class="line"><span class="cl">dpkg -s package_name 获得已经安装在系统中一个特殊包的信息 
-</span></span><span class="line"><span class="cl">dpkg -L package_name 显示系统中已经安装的一个deb包所提供的文件列表 
-</span></span><span class="line"><span class="cl">dpkg --contents package.deb 显示尚未安装的一个包所提供的文件列表 
-</span></span><span class="line"><span class="cl">dpkg -S /bin/ping 确认所给的文件由哪个deb包提供 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="133-apt---debian-ubuntu-以及类似系统">13.3 APT - (Debian, Ubuntu 以及类似系统)</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">apt-get install package_name 安装/更新一个 deb 包 
-</span></span><span class="line"><span class="cl">apt-cdrom install package_name 从光盘安装/更新一个 deb 包 
-</span></span><span class="line"><span class="cl">apt-get update 升级列表中的软件包 
-</span></span><span class="line"><span class="cl">apt-get upgrade 升级所有已安装的软件 
-</span></span><span class="line"><span class="cl">apt-get remove package_name 从系统删除一个deb包 
-</span></span><span class="line"><span class="cl">apt-get check 确认依赖的软件仓库正确 
-</span></span><span class="line"><span class="cl">apt-get clean 从下载的软件包中清理缓存 
-</span></span><span class="line"><span class="cl">apt-cache search searched-package 返回包含所要搜索字符串的软件包名称 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="14-常用命令">14: 常用命令</h1>
-<h2 id="141-查看端口的占用">14.1 查看端口的占用</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsof -i:8087  <span class="c1"># 查看8087端口的使用</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="142-查看进程">14.2 查看进程</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ps -aux <span class="p">|</span> grep name
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 查看进程执行的时间</span>
-</span></span><span class="line"><span class="cl">ps -A -opid,stime,etime,args <span class="p">|</span> grep python
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 创建守护进程</span>
-</span></span><span class="line"><span class="cl">nohup python /var/www/a.py <span class="p">&amp;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="143-批量杀死进程">14.3 批量杀死进程</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ps -aux<span class="p">|</span>grep name<span class="p">|</span>grep -v grep<span class="p">|</span>cut -c 9-15<span class="p">|</span>xargs <span class="nb">kill</span> -9
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="144-查看当前时间">14.4 查看当前时间</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">date       时间
-</span></span><span class="line"><span class="cl">date +%s   时间戳
-</span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;2010-07-20 10:25:30&#34;</span> +%s  指定时间时间戳
-</span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;@1279592730&#34;</span>    时间戳转时间
-</span></span><span class="line"><span class="cl">date -d <span class="s2">&#34;1970-01-01 14781 days&#34;</span> <span class="s2">&#34;+%Y/%m/%d %H:%M:%S&#34;</span> 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="145-查看进程内存使用情况">14.5 查看进程内存使用情况</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">top -d <span class="m">1</span> -p pid <span class="o">[</span>,pid ...<span class="o">]</span>
-</span></span><span class="line"><span class="cl">pmap pid 
-</span></span><span class="line"><span class="cl">ps aux<span class="p">|</span>grep process_name
-</span></span><span class="line"><span class="cl">查看/proc/process_id/文件夹下的status文件
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="145-查看linux内核版本或发布版本">14.5 查看Linux内核版本或发布版本</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsb_release -a
-</span></span><span class="line"><span class="cl">uname -a
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="146-查看本地网络服务活动状态">14.6 查看本地网络服务活动状态</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsof -i
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="147-查看自己的外网ip">14.7 查看自己的外网ip</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl ifconfig.me
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="148-查看当前文件夹下文件文件夹大小">14.8 查看当前文件夹下文件（文件夹）大小</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">du -h --max-depth<span class="o">=</span><span class="m">1</span> .
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="149-查看所有磁盘大小">14.9 查看所有磁盘大小</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">df -h
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="1410-诊断网络">14.10 诊断网络</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mtr 
-</span></span><span class="line"><span class="cl">ping
-</span></span><span class="line"><span class="cl">traceroute
-</span></span><span class="line"><span class="cl">dig
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="1411-列出本机监听的端口号">14.11 列出本机监听的端口号</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">netstat –tlnp
-</span></span><span class="line"><span class="cl">netstat -anop
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="1412-在远程机器上运行一段脚本">14.12 在远程机器上运行一段脚本</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh user@server bash &lt; /path/to/local/script.sh
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="1413-端口扫描">14.13 端口扫描</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc -z -v -n 127.0.0.1 20-100
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">lucas</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">
-        2022-03-04
-        <a href="/commit/b3cbdf7868304aa509d9f828f40747898f749166" title="test">(b3cbdf7)</a>
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/linux/">Linux</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/linux/013-grep%E5%91%BD%E4%BB%A4%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">04-grep命令基本使用</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/hugo/003-%E4%BD%BF%E7%94%A8github-actions%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-            <span class="next-text nav-default">01-使用Github Actions自动构建博客</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-
-  
-
-  
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
-      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
-      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
-      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
-  <a href="https://lppgo.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2015 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>李平平</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-
-
-
-<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
-
-
-
-<script id="baidu_push">
-  (function(){
-    if (window.location.hostname === 'localhost') return;
-    var bp = document.createElement('script'); bp.async = true;
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-  })();
-</script>
-
-
-
-
-</body>
-</html>
+<li><a href=#131-rpm--fedora-redhat-及类似系统>13.1 RPM -（Fedora, Redhat 及类似系统）</a></li><li><a href=#132-yum--fedora-redhat-及类似系统>13.2 YUM -（Fedora, RedHat 及类似系统）</a></li><li><a href=#132-deb--fedora-redhat-及类似系统>13.2 DEB -（Fedora, RedHat 及类似系统）</a></li><li><a href=#133-apt---debian-ubuntu-以及类似系统>13.3 APT - (Debian, Ubuntu 以及类似系统)</a></li></ul></li><li><a href=#14-常用命令>14: 常用命令</a>
+<ul>
+<li><a href=#141-查看端口的占用>14.1 查看端口的占用</a></li><li><a href=#142-查看进程>14.2 查看进程</a></li><li><a href=#143-批量杀死进程>14.3 批量杀死进程</a></li><li><a href=#144-查看当前时间>14.4 查看当前时间</a></li><li><a href=#145-查看进程内存使用情况>14.5 查看进程内存使用情况</a></li><li><a href=#145-查看linux内核版本或发布版本>14.5 查看Linux内核版本或发布版本</a></li><li><a href=#146-查看本地网络服务活动状态>14.6 查看本地网络服务活动状态</a></li><li><a href=#147-查看自己的外网ip>14.7 查看自己的外网ip</a></li><li><a href=#148-查看当前文件夹下文件文件夹大小>14.8 查看当前文件夹下文件（文件夹）大小</a></li><li><a href=#149-查看所有磁盘大小>14.9 查看所有磁盘大小</a></li><li><a href=#1410-诊断网络>14.10 诊断网络</a></li><li><a href=#1411-列出本机监听的端口号>14.11 列出本机监听的端口号</a></li><li><a href=#1412-在远程机器上运行一段脚本>14.12 在远程机器上运行一段脚本</a></li><li><a href=#1413-端口扫描>14.13 端口扫描</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<ul>
+<li><a href=#1-%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%B3%E6%9C%BA%E9%87%8D%E5%90%AF%E4%BB%A5%E5%8F%8A%E7%99%BB%E5%87%BA>1: 系统的关机、重启以及登出</a></li><li><a href=#2-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95>2: 文件和目录</a></li><li><a href=#3-linux-%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98-io-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95>3: Linux 查看磁盘 io 的几种方法</a></li><li><a href=#4-%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1%E6%B5%81%E9%87%8F%E6%96%B9%E6%B3%95>4: 查看网卡流量方法</a></li><li><a href=#5-%E4%BD%BF%E7%94%A8-watch-%E5%91%BD%E4%BB%A4%E9%85%8D%E5%90%88-ifconfigmore-procnetdevcat-procnetdev-%E6%9D%A5%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF>5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</a></li><li><a href=#6-%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2>6: 文件搜索</a></li><li><a href=#7-%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4>7: 磁盘空间</a></li><li><a href=#8-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BE%A4%E7%BB%84>8: 用户和群组</a></li><li><a href=#9-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88>9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#10-%E6%96%87%E4%BB%B6%E7%9A%84%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88>10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#11-%E6%89%93%E5%8C%85%E5%92%8C%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6>11: 打包和压缩文件</a></li><li><a href=#12-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9>12: 查看文件内容</a></li><li><a href=#13-linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8>13: Linux 包管理器</a>
+<ul>
+<li><a href=#131-rpm--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.1 RPM -（Fedora, Redhat 及类似系统）</a></li><li><a href=#132-yum--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.2 YUM -（Fedora, RedHat 及类似系统）</a></li><li><a href=#132-deb--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.2 DEB -（Fedora, RedHat 及类似系统）</a></li><li><a href=#133-apt---debian-ubuntu-%E4%BB%A5%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.3 APT - (Debian, Ubuntu 以及类似系统)</a></li></ul></li><li><a href=#14-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4>14: 常用命令</a>
+<ul>
+<li><a href=#141-%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%8D%A0%E7%94%A8>14.1 查看端口的占用</a></li><li><a href=#142-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B>14.2 查看进程</a></li><li><a href=#143-%E6%89%B9%E9%87%8F%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B>14.3 批量杀死进程</a></li><li><a href=#144-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4>14.4 查看当前时间</a></li><li><a href=#145-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5>14.5 查看进程内存使用情况</a></li><li><a href=#145-%E6%9F%A5%E7%9C%8Blinux%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E6%88%96%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC>14.5 查看Linux内核版本或发布版本</a></li><li><a href=#146-%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81>14.6 查看本地网络服务活动状态</a></li><li><a href=#147-%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%96%E7%BD%91ip>14.7 查看自己的外网ip</a></li><li><a href=#148-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E6%96%87%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%A7%E5%B0%8F>14.8 查看当前文件夹下文件（文件夹）大小</a></li><li><a href=#149-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F>14.9 查看所有磁盘大小</a></li><li><a href=#1410-%E8%AF%8A%E6%96%AD%E7%BD%91%E7%BB%9C>14.10 诊断网络</a></li><li><a href=#1411-%E5%88%97%E5%87%BA%E6%9C%AC%E6%9C%BA%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7>14.11 列出本机监听的端口号</a></li><li><a href=#1412-%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%BA%E5%99%A8%E4%B8%8A%E8%BF%90%E8%A1%8C%E4%B8%80%E6%AE%B5%E8%84%9A%E6%9C%AC>14.12 在远程机器上运行一段脚本</a></li><li><a href=#1413-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F>14.13 端口扫描</a></li></ul></li></ul><h1 id=1-系统的关机重启以及登出>1: 系统的关机、重启以及登出</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>shutdown -h now <span class=c1># 关闭系统(1) </span>
+</span></span><span class=line><span class=cl>init <span class=m>0</span> 关闭系统<span class=o>(</span>2<span class=o>)</span> 
+</span></span><span class=line><span class=cl>telinit <span class=m>0</span> 关闭系统<span class=o>(</span>3<span class=o>)</span> 
+</span></span><span class=line><span class=cl>shutdown -h hours:minutes <span class=p>&amp;</span> <span class=c1># 按预定时间关闭系统 </span>
+</span></span><span class=line><span class=cl>shutdown -c <span class=c1># 取消按预定时间关闭系统 </span>
+</span></span><span class=line><span class=cl>shutdown -r now <span class=c1># 重启(1) </span>
+</span></span><span class=line><span class=cl>reboot <span class=c1># 重启(2) </span>
+</span></span><span class=line><span class=cl><span class=nb>logout</span> <span class=c1># 注销 </span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-文件和目录>2: 文件和目录</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> /home <span class=c1># 进入 &#39;/ home&#39; 目录&#39; </span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> .. <span class=c1># 返回上一级目录 </span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ../.. <span class=c1># 返回上两级目录 </span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> - <span class=c1># 返回上次所在的目录 </span>
+</span></span><span class=line><span class=cl><span class=nb>pwd</span> <span class=c1># 显示工作路径 </span>
+</span></span><span class=line><span class=cl>ls <span class=c1># 查看目录中的文件 </span>
+</span></span><span class=line><span class=cl>ls -F <span class=c1># 查看目录中的文件 </span>
+</span></span><span class=line><span class=cl>ls -l <span class=c1># 显示文件和目录的详细资料 </span>
+</span></span><span class=line><span class=cl>ls -a <span class=c1># 显示隐藏文件 </span>
+</span></span><span class=line><span class=cl>ls *<span class=o>[</span>0-9<span class=o>]</span>* <span class=c1># 显示包含数字的文件名和目录名 </span>
+</span></span><span class=line><span class=cl>tree <span class=c1># 显示文件和目录由根目录开始的树形结构(1) </span>
+</span></span><span class=line><span class=cl>lstree <span class=c1># 显示文件和目录由根目录开始的树形结构(2) </span>
+</span></span><span class=line><span class=cl>mkdir dir1 dir2 <span class=c1># 同时创建两个目录 </span>
+</span></span><span class=line><span class=cl>mkdir -p /tmp/dir1/dir2 <span class=c1># 创建一个目录树 </span>
+</span></span><span class=line><span class=cl>rm -f file1 <span class=c1># 删除一个叫做 &#39;file1&#39; 的文件&#39; </span>
+</span></span><span class=line><span class=cl>rmdir dir1 <span class=c1># 删除一个叫做 &#39;dir1&#39; 的目录&#39; </span>
+</span></span><span class=line><span class=cl>rm -rf dir1 <span class=c1># 删除一个叫做 &#39;dir1&#39; 的目录并同时删除其内容 </span>
+</span></span><span class=line><span class=cl>rm -rf dir1 dir2 同时删除两个目录及它们的内容 
+</span></span><span class=line><span class=cl>mv dir1 new_dir 重命名/移动 一个目录 
+</span></span><span class=line><span class=cl>cp file1 file2 复制一个文件 
+</span></span><span class=line><span class=cl>cp dir/* . 复制一个目录下的所有文件到当前工作目录 
+</span></span><span class=line><span class=cl>cp -a /tmp/dir1 . 复制一个目录到当前工作目录 
+</span></span><span class=line><span class=cl>cp -a dir1 dir2 复制一个目录 
+</span></span><span class=line><span class=cl>ln -s file1 lnk1 创建一个指向文件或目录的软链接 
+</span></span><span class=line><span class=cl>ln file1 lnk1 创建一个指向文件或目录的物理链接 
+</span></span><span class=line><span class=cl>touch -t <span class=m>0712250000</span> file1 修改一个文件或目录的时间戳 - <span class=o>(</span>YYMMDDhhmm<span class=o>)</span> 
+</span></span><span class=line><span class=cl>file file1 outputs the mime <span class=nb>type</span> of the file as text 
+</span></span><span class=line><span class=cl>iconv -l 列出已知的编码 
+</span></span><span class=line><span class=cl>iconv -f fromEncoding -t toEncoding inputFile &gt; outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding. 
+</span></span><span class=line><span class=cl>find . -maxdepth <span class=m>1</span> -name *.jpg -print -exec convert <span class=s2>&#34;{}&#34;</span> -resize 80x60 <span class=s2>&#34;thumbs/{}&#34;</span> <span class=se>\;</span> batch resize files in the current directory and send them to a thumbnails directory <span class=o>(</span>requires convert from Imagemagick<span class=o>)</span> 
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-linux-查看磁盘-io-的几种方法>3: Linux 查看磁盘 io 的几种方法</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>1. 用 top 命令 中的cpu 信息观察. <span class=o>(</span>还有htop,gotop<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>2. vmstat：vmstat 命令报告关于线程、虚拟内存、磁盘、陷阱和 CPU 活动的统计信息
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>3. iostat
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>4. iotop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>5. sar -d
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-查看网卡流量方法>4: 查看网卡流量方法</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>1. sar -n DEV <span class=m>1</span> <span class=m>2</span>   （命令后面1 <span class=m>2</span> 意思是：每一秒钟取1次值，取2次。）
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>2. cat /proc/net/dev
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>3. iftop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>4. ifstat
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>5. nload
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>6. gotop
+</span></span></code></pre></td></tr></table></div></div><h1 id=5-使用-watch-命令配合-ifconfigmore-procnetdevcat-procnetdev-来实时监控系统信息>5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>arch <span class=c1># 显示机器的处理器架构(1) </span>
+</span></span><span class=line><span class=cl>uname -m <span class=c1># 显示机器的处理器架构(2) </span>
+</span></span><span class=line><span class=cl>uname -r <span class=c1># 显示正在使用的内核版本 </span>
+</span></span><span class=line><span class=cl>dmidecode -q <span class=c1># 显示硬件系统部件 - (SMBIOS / DMI) </span>
+</span></span><span class=line><span class=cl>hdparm -i /dev/hda <span class=c1># 罗列一个磁盘的架构特性 </span>
+</span></span><span class=line><span class=cl>hdparm -tT /dev/sda <span class=c1># 在磁盘上执行测试性读取操作 </span>
+</span></span><span class=line><span class=cl>cat /proc/cpuinfo <span class=c1># 显示CPU info的信息 </span>
+</span></span><span class=line><span class=cl>cat /proc/interrupts <span class=c1># 显示中断 </span>
+</span></span><span class=line><span class=cl>cat /proc/meminfo <span class=c1># 校验内存使用 </span>
+</span></span><span class=line><span class=cl>cat /proc/swaps <span class=c1># 显示哪些swap被使用 </span>
+</span></span><span class=line><span class=cl>cat /proc/version <span class=c1># 显示内核的版本 </span>
+</span></span><span class=line><span class=cl>cat /proc/net/dev <span class=c1># 显示网络适配器及统计 </span>
+</span></span><span class=line><span class=cl>cat /proc/mounts <span class=c1># 显示已加载的文件系统 </span>
+</span></span><span class=line><span class=cl>lspci -tv <span class=c1># 罗列 PCI 设备 </span>
+</span></span><span class=line><span class=cl>lsusb -tv <span class=c1># 显示 USB 设备 </span>
+</span></span><span class=line><span class=cl>date <span class=c1># 显示系统日期 </span>
+</span></span><span class=line><span class=cl>cal <span class=m>2021</span> <span class=c1># 显示2021年的日历表 </span>
+</span></span><span class=line><span class=cl>date 041217002007.00 设置日期和时间 - 月日时分年.秒 
+</span></span><span class=line><span class=cl>clock -w 将时间修改保存到 BIOS 
+</span></span></code></pre></td></tr></table></div></div><h1 id=6-文件搜索>6: 文件搜索</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>find / -name file1 从 <span class=s1>&#39;/&#39;</span> 开始进入根文件系统搜索文件和目录 
+</span></span><span class=line><span class=cl>find / -user user1 搜索属于用户 <span class=s1>&#39;user1&#39;</span> 的文件和目录 
+</span></span><span class=line><span class=cl>find /home/user1 -name <span class=se>\*</span>.bin 在目录 <span class=s1>&#39;/ home/user1&#39;</span> 中搜索带有<span class=s1>&#39;.bin&#39;</span> 结尾的文件 
+</span></span><span class=line><span class=cl>find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件 
+</span></span><span class=line><span class=cl>find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件 
+</span></span><span class=line><span class=cl>find / -name <span class=se>\*</span>.rpm -exec chmod <span class=m>755</span> <span class=s1>&#39;{}&#39;</span> <span class=se>\;</span> 搜索以 <span class=s1>&#39;.rpm&#39;</span> 结尾的文件并定义其权限 
+</span></span><span class=line><span class=cl>find / -xdev -name <span class=se>\*</span>.rpm 搜索以 <span class=s1>&#39;.rpm&#39;</span> 结尾的文件，忽略光驱、捷盘等可移动设备 
+</span></span><span class=line><span class=cl>locate <span class=se>\*</span>.ps 寻找以 <span class=s1>&#39;.ps&#39;</span> 结尾的文件 - 先运行 <span class=s1>&#39;updatedb&#39;</span> 命令 
+</span></span><span class=line><span class=cl>whereis halt 显示一个二进制文件、源码或man的位置 
+</span></span><span class=line><span class=cl>which halt 显示一个二进制文件或可执行文件的完整路径 
+</span></span></code></pre></td></tr></table></div></div><h1 id=7-磁盘空间>7: 磁盘空间</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>df -h 显示已经挂载的分区列表 
+</span></span><span class=line><span class=cl>ls -lSr <span class=p>|</span>more 以尺寸大小排列文件和目录 
+</span></span><span class=line><span class=cl>du -sh dir1 估算目录 <span class=s1>&#39;dir1&#39;</span> 已经使用的磁盘空间<span class=s1>&#39; 
+</span></span></span><span class=line><span class=cl><span class=s1>du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小 
+</span></span></span><span class=line><span class=cl><span class=s1>rpm -q -a --qf &#39;</span>%10<span class=o>{</span>SIZE<span class=o>}</span>t%<span class=o>{</span>NAME<span class=o>}</span>n<span class=s1>&#39; | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统) 
+</span></span></span><span class=line><span class=cl><span class=s1>dpkg-query -W -f=&#39;</span><span class=si>${</span><span class=nv>Installed</span><span class=p>-Size;10</span><span class=si>}</span>t<span class=si>${</span><span class=nv>Package</span><span class=si>}</span>n<span class=err>&#39;</span> <span class=p>|</span> sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 <span class=o>(</span>ubuntu, debian类系统<span class=o>)</span> 
+</span></span></code></pre></td></tr></table></div></div><h1 id=8-用户和群组>8: 用户和群组</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>groupadd group_name 创建一个新用户组 
+</span></span><span class=line><span class=cl>groupdel group_name 删除一个用户组 
+</span></span><span class=line><span class=cl>groupmod -n new_group_name old_group_name 重命名一个用户组 
+</span></span><span class=line><span class=cl>useradd -c <span class=s2>&#34;Name Surname &#34;</span> -g admin -d /home/user1 -s /bin/bash user1 创建一个属于 <span class=s2>&#34;admin&#34;</span> 用户组的用户 
+</span></span><span class=line><span class=cl>useradd user1 创建一个新用户 
+</span></span><span class=line><span class=cl>userdel -r user1 删除一个用户 <span class=o>(</span> <span class=s1>&#39;-r&#39;</span> 排除主目录<span class=o>)</span> 
+</span></span><span class=line><span class=cl>usermod -c <span class=s2>&#34;User FTP&#34;</span> -g system -d /ftp/user1 -s /bin/nologin user1 修改用户属性 
+</span></span><span class=line><span class=cl>passwd 修改口令 
+</span></span><span class=line><span class=cl>passwd user1 修改一个用户的口令 <span class=o>(</span>只允许root执行<span class=o>)</span> 
+</span></span><span class=line><span class=cl>chage -E 2005-12-31 user1 设置用户口令的失效期限 
+</span></span><span class=line><span class=cl>pwck 检查 <span class=s1>&#39;/etc/passwd&#39;</span> 的文件格式和语法修正以及存在的用户 
+</span></span><span class=line><span class=cl>grpck 检查 <span class=s1>&#39;/etc/passwd&#39;</span> 的文件格式和语法修正以及存在的群组 
+</span></span><span class=line><span class=cl>newgrp group_name 登陆进一个新的群组以改变新创建文件的预设群组 
+</span></span></code></pre></td></tr></table></div></div><h1 id=9-文件的权限---使用--设置权限使用---用于取消>9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>ls -lh 显示权限 
+</span></span><span class=line><span class=cl>ls /tmp <span class=p>|</span> pr -T5 -W<span class=nv>$COLUMNS</span> 将终端划分成5栏显示 
+</span></span><span class=line><span class=cl>chmod ugo +rwx directory1 设置目录的所有人<span class=o>(</span>u<span class=o>)</span>、群组<span class=o>(</span>g<span class=o>)</span>以及其他人<span class=o>(</span>o<span class=o>)</span>以读（r ）、写<span class=o>(</span>w<span class=o>)</span>和执行<span class=o>(</span>x<span class=o>)</span>的权限 
+</span></span><span class=line><span class=cl>chmod go -rwx directory1 删除群组<span class=o>(</span>g<span class=o>)</span>与其他人<span class=o>(</span>o<span class=o>)</span>对目录的读写执行权限 
+</span></span><span class=line><span class=cl>chown user1 file1 改变一个文件的所有人属性 
+</span></span><span class=line><span class=cl>chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性 
+</span></span><span class=line><span class=cl>chgrp group1 file1 改变文件的群组 
+</span></span><span class=line><span class=cl>chown user1:group1 file1 改变一个文件的所有人和群组属性 
+</span></span><span class=line><span class=cl>find / -perm -u+s 罗列一个系统中所有使用了SUID控制的文件 
+</span></span><span class=line><span class=cl>chmod u+s /bin/file1 设置一个二进制文件的 SUID 位 - 运行该文件的用户也被赋予和所有者同样的权限 
+</span></span><span class=line><span class=cl>chmod u-s /bin/file1 禁用一个二进制文件的 SUID位 
+</span></span><span class=line><span class=cl>chmod g+s /home/public 设置一个目录的SGID 位 - 类似SUID ，不过这是针对目录的 
+</span></span><span class=line><span class=cl>chmod g-s /home/public 禁用一个目录的 SGID 位 
+</span></span><span class=line><span class=cl>chmod o+t /home/public 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件 
+</span></span><span class=line><span class=cl>chmod o-t /home/public 禁用一个目录的 STIKY 位 
+</span></span></code></pre></td></tr></table></div></div><h1 id=10-文件的特殊属性---使用--设置权限使用---用于取消>10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>chattr +a file1 只允许以追加方式读写文件 
+</span></span><span class=line><span class=cl>chattr +c file1 允许这个文件能被内核自动压缩/解压 
+</span></span><span class=line><span class=cl>chattr +d file1 在进行文件系统备份时，dump程序将忽略这个文件 
+</span></span><span class=line><span class=cl>chattr +i file1 设置成不可变的文件，不能被删除、修改、重命名或者链接 
+</span></span><span class=line><span class=cl>chattr +s file1 允许一个文件被安全地删除 
+</span></span><span class=line><span class=cl>chattr +S file1 一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘 
+</span></span><span class=line><span class=cl>chattr +u file1 若文件被删除，系统会允许你在以后恢复这个被删除的文件 
+</span></span><span class=line><span class=cl>lsattr 显示特殊的属性 
+</span></span></code></pre></td></tr></table></div></div><h1 id=11-打包和压缩文件>11: 打包和压缩文件</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>bunzip2 file1.bz2 解压一个叫做 <span class=s1>&#39;file1.bz2&#39;</span>的文件 
+</span></span><span class=line><span class=cl>bzip2 file1 压缩一个叫做 <span class=s1>&#39;file1&#39;</span> 的文件 
+</span></span><span class=line><span class=cl>gunzip file1.gz 解压一个叫做 <span class=s1>&#39;file1.gz&#39;</span>的文件 
+</span></span><span class=line><span class=cl>gzip file1 压缩一个叫做 <span class=s1>&#39;file1&#39;</span>的文件 
+</span></span><span class=line><span class=cl>gzip -9 file1 最大程度压缩 
+</span></span><span class=line><span class=cl>rar a file1.rar test_file 创建一个叫做 <span class=s1>&#39;file1.rar&#39;</span> 的包 
+</span></span><span class=line><span class=cl>rar a file1.rar file1 file2 dir1 同时压缩 <span class=s1>&#39;file1&#39;</span>, <span class=s1>&#39;file2&#39;</span> 以及目录 <span class=s1>&#39;dir1&#39;</span> 
+</span></span><span class=line><span class=cl>rar x file1.rar 解压rar包 
+</span></span><span class=line><span class=cl>unrar x file1.rar 解压rar包 
+</span></span><span class=line><span class=cl>tar -cvf archive.tar file1 创建一个非压缩的 tarball 
+</span></span><span class=line><span class=cl>tar -cvf archive.tar file1 file2 dir1 创建一个包含了 <span class=s1>&#39;file1&#39;</span>, <span class=s1>&#39;file2&#39;</span> 以及 <span class=s1>&#39;dir1&#39;</span>的档案文件 
+</span></span><span class=line><span class=cl>tar -tf archive.tar 显示一个包中的内容 
+</span></span><span class=line><span class=cl>tar -xvf archive.tar 释放一个包 
+</span></span><span class=line><span class=cl>tar -xvf archive.tar -C /tmp 将压缩包释放到 /tmp目录下 
+</span></span><span class=line><span class=cl>tar -cvfj archive.tar.bz2 dir1 创建一个bzip2格式的压缩包 
+</span></span><span class=line><span class=cl>tar -xvfj archive.tar.bz2 解压一个bzip2格式的压缩包 
+</span></span><span class=line><span class=cl>tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包 
+</span></span><span class=line><span class=cl>tar -xvfz archive.tar.gz 解压一个gzip格式的压缩包 
+</span></span><span class=line><span class=cl>zip file1.zip file1 创建一个zip格式的压缩包 
+</span></span><span class=line><span class=cl>zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包 
+</span></span><span class=line><span class=cl>unzip file1.zip 解压一个zip格式压缩包 
+</span></span></code></pre></td></tr></table></div></div><h1 id=12-查看文件内容>12: 查看文件内容</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>cat file1 从第一个字节开始正向查看文件的内容 
+</span></span><span class=line><span class=cl>tac file1 从最后一行开始反向查看一个文件的内容 
+</span></span><span class=line><span class=cl>more file1 查看一个长文件的内容 
+</span></span><span class=line><span class=cl>less file1 类似于 <span class=s1>&#39;more&#39;</span> 命令，但是它允许在文件中和正向操作一样的反向操作 
+</span></span><span class=line><span class=cl>head -2 file1 查看一个文件的前两行 
+</span></span><span class=line><span class=cl>tail -2 file1 查看一个文件的最后两行 
+</span></span><span class=line><span class=cl>tail -f /var/log/messages 实时查看被添加到一个文件中的内容 
+</span></span></code></pre></td></tr></table></div></div><h1 id=13-linux-包管理器>13: Linux 包管理器</h1><h2 id=131-rpm--fedora-redhat-及类似系统>13.1 RPM -（Fedora, Redhat 及类似系统）</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>rpm -ivh package.rpm 安装一个rpm包 
+</span></span><span class=line><span class=cl>rpm -ivh --nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告 
+</span></span><span class=line><span class=cl>rpm -U package.rpm 更新一个rpm包但不改变其配置文件 
+</span></span><span class=line><span class=cl>rpm -F package.rpm 更新一个确定已经安装的rpm包 
+</span></span><span class=line><span class=cl>rpm -e package_name.rpm 删除一个rpm包 
+</span></span><span class=line><span class=cl>rpm -qa 显示系统中所有已经安装的rpm包 
+</span></span><span class=line><span class=cl>rpm -qa <span class=p>|</span> grep httpd 显示所有名称中包含 <span class=s2>&#34;httpd&#34;</span> 字样的rpm包 
+</span></span><span class=line><span class=cl>rpm -qi package_name 获取一个已安装包的特殊信息 
+</span></span><span class=line><span class=cl>rpm -qg <span class=s2>&#34;System Environment/Daemons&#34;</span> 显示一个组件的rpm包 
+</span></span><span class=line><span class=cl>rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表 
+</span></span><span class=line><span class=cl>rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表 
+</span></span><span class=line><span class=cl>rpm -q package_name --whatrequires 显示与一个rpm包存在依赖关系的列表 
+</span></span><span class=line><span class=cl>rpm -q package_name --whatprovides 显示一个rpm包所占的体积 
+</span></span><span class=line><span class=cl>rpm -q package_name --scripts 显示在安装/删除期间所执行的脚本l 
+</span></span><span class=line><span class=cl>rpm -q package_name --changelog 显示一个rpm包的修改历史 
+</span></span><span class=line><span class=cl>rpm -qf /etc/httpd/conf/httpd.conf 确认所给的文件由哪个rpm包所提供 
+</span></span><span class=line><span class=cl>rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表 
+</span></span><span class=line><span class=cl>rpm --import /media/cdrom/RPM-GPG-KEY 导入公钥数字证书 
+</span></span><span class=line><span class=cl>rpm --checksig package.rpm 确认一个rpm包的完整性 
+</span></span><span class=line><span class=cl>rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性 
+</span></span><span class=line><span class=cl>rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间 
+</span></span><span class=line><span class=cl>rpm -Va 检查系统中所有已安装的rpm包- 小心使用 
+</span></span><span class=line><span class=cl>rpm -Vp package.rpm 确认一个rpm包还未安装 
+</span></span><span class=line><span class=cl>rpm2cpio package.rpm <span class=p>|</span> cpio --extract --make-directories *bin* 从一个rpm包运行可执行文件 
+</span></span><span class=line><span class=cl>rpm -ivh /usr/src/redhat/RPMS/<span class=sb>`</span>arch<span class=sb>`</span>/package.rpm 从一个rpm源码安装一个构建好的包 
+</span></span><span class=line><span class=cl>rpmbuild --rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包 
+</span></span></code></pre></td></tr></table></div></div><h2 id=132-yum--fedora-redhat-及类似系统>13.2 YUM -（Fedora, RedHat 及类似系统）</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>yum install package_name 下载并安装一个rpm包 
+</span></span><span class=line><span class=cl>yum localinstall package_name.rpm 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系 
+</span></span><span class=line><span class=cl>yum update package_name.rpm 更新当前系统中所有安装的rpm包 
+</span></span><span class=line><span class=cl>yum update package_name 更新一个rpm包 
+</span></span><span class=line><span class=cl>yum remove package_name 删除一个rpm包 
+</span></span><span class=line><span class=cl>yum list 列出当前系统中安装的所有包 
+</span></span><span class=line><span class=cl>yum search package_name 在rpm仓库中搜寻软件包 
+</span></span><span class=line><span class=cl>yum clean packages 清理rpm缓存删除下载的包 
+</span></span><span class=line><span class=cl>yum clean headers 删除所有头文件 
+</span></span><span class=line><span class=cl>yum clean all 删除所有缓存的包和头文件 
+</span></span></code></pre></td></tr></table></div></div><h2 id=132-deb--fedora-redhat-及类似系统>13.2 DEB -（Fedora, RedHat 及类似系统）</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>dpkg -i package.deb 安装/更新一个 deb 包 
+</span></span><span class=line><span class=cl>dpkg -r package_name 从系统删除一个 deb 包 
+</span></span><span class=line><span class=cl>dpkg -l 显示系统中所有已经安装的 deb 包 
+</span></span><span class=line><span class=cl>dpkg -l <span class=p>|</span> grep httpd 显示所有名称中包含 <span class=s2>&#34;httpd&#34;</span> 字样的deb包 
+</span></span><span class=line><span class=cl>dpkg -s package_name 获得已经安装在系统中一个特殊包的信息 
+</span></span><span class=line><span class=cl>dpkg -L package_name 显示系统中已经安装的一个deb包所提供的文件列表 
+</span></span><span class=line><span class=cl>dpkg --contents package.deb 显示尚未安装的一个包所提供的文件列表 
+</span></span><span class=line><span class=cl>dpkg -S /bin/ping 确认所给的文件由哪个deb包提供 
+</span></span></code></pre></td></tr></table></div></div><h2 id=133-apt---debian-ubuntu-以及类似系统>13.3 APT - (Debian, Ubuntu 以及类似系统)</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>apt-get install package_name 安装/更新一个 deb 包 
+</span></span><span class=line><span class=cl>apt-cdrom install package_name 从光盘安装/更新一个 deb 包 
+</span></span><span class=line><span class=cl>apt-get update 升级列表中的软件包 
+</span></span><span class=line><span class=cl>apt-get upgrade 升级所有已安装的软件 
+</span></span><span class=line><span class=cl>apt-get remove package_name 从系统删除一个deb包 
+</span></span><span class=line><span class=cl>apt-get check 确认依赖的软件仓库正确 
+</span></span><span class=line><span class=cl>apt-get clean 从下载的软件包中清理缓存 
+</span></span><span class=line><span class=cl>apt-cache search searched-package 返回包含所要搜索字符串的软件包名称 
+</span></span></code></pre></td></tr></table></div></div><h1 id=14-常用命令>14: 常用命令</h1><h2 id=141-查看端口的占用>14.1 查看端口的占用</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lsof -i:8087  <span class=c1># 查看8087端口的使用</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=142-查看进程>14.2 查看进程</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ps -aux <span class=p>|</span> grep name
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看进程执行的时间</span>
+</span></span><span class=line><span class=cl>ps -A -opid,stime,etime,args <span class=p>|</span> grep python
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 创建守护进程</span>
+</span></span><span class=line><span class=cl>nohup python /var/www/a.py <span class=p>&amp;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=143-批量杀死进程>14.3 批量杀死进程</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ps -aux<span class=p>|</span>grep name<span class=p>|</span>grep -v grep<span class=p>|</span>cut -c 9-15<span class=p>|</span>xargs <span class=nb>kill</span> -9
+</span></span></code></pre></td></tr></table></div></div><h2 id=144-查看当前时间>14.4 查看当前时间</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>date       时间
+</span></span><span class=line><span class=cl>date +%s   时间戳
+</span></span><span class=line><span class=cl>date -d <span class=s2>&#34;2010-07-20 10:25:30&#34;</span> +%s  指定时间时间戳
+</span></span><span class=line><span class=cl>date -d <span class=s2>&#34;@1279592730&#34;</span>    时间戳转时间
+</span></span><span class=line><span class=cl>date -d <span class=s2>&#34;1970-01-01 14781 days&#34;</span> <span class=s2>&#34;+%Y/%m/%d %H:%M:%S&#34;</span> 
+</span></span></code></pre></td></tr></table></div></div><h2 id=145-查看进程内存使用情况>14.5 查看进程内存使用情况</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>top -d <span class=m>1</span> -p pid <span class=o>[</span>,pid ...<span class=o>]</span>
+</span></span><span class=line><span class=cl>pmap pid 
+</span></span><span class=line><span class=cl>ps aux<span class=p>|</span>grep process_name
+</span></span><span class=line><span class=cl>查看/proc/process_id/文件夹下的status文件
+</span></span></code></pre></td></tr></table></div></div><h2 id=145-查看linux内核版本或发布版本>14.5 查看Linux内核版本或发布版本</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lsb_release -a
+</span></span><span class=line><span class=cl>uname -a
+</span></span></code></pre></td></tr></table></div></div><h2 id=146-查看本地网络服务活动状态>14.6 查看本地网络服务活动状态</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lsof -i
+</span></span></code></pre></td></tr></table></div></div><h2 id=147-查看自己的外网ip>14.7 查看自己的外网ip</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl ifconfig.me
+</span></span></code></pre></td></tr></table></div></div><h2 id=148-查看当前文件夹下文件文件夹大小>14.8 查看当前文件夹下文件（文件夹）大小</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>du -h --max-depth<span class=o>=</span><span class=m>1</span> .
+</span></span></code></pre></td></tr></table></div></div><h2 id=149-查看所有磁盘大小>14.9 查看所有磁盘大小</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>df -h
+</span></span></code></pre></td></tr></table></div></div><h2 id=1410-诊断网络>14.10 诊断网络</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mtr 
+</span></span><span class=line><span class=cl>ping
+</span></span><span class=line><span class=cl>traceroute
+</span></span><span class=line><span class=cl>dig
+</span></span></code></pre></td></tr></table></div></div><h2 id=1411-列出本机监听的端口号>14.11 列出本机监听的端口号</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>netstat –tlnp
+</span></span><span class=line><span class=cl>netstat -anop
+</span></span></code></pre></td></tr></table></div></div><h2 id=1412-在远程机器上运行一段脚本>14.12 在远程机器上运行一段脚本</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh user@server bash &lt; /path/to/local/script.sh
+</span></span></code></pre></td></tr></table></div></div><h2 id=1413-端口扫描>14.13 端口扫描</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nc -z -v -n 127.0.0.1 20-100
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>lucas</span>
+</p><p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>
+2022-03-04
+<a href=/commit/b3cbdf7868304aa509d9f828f40747898f749166 title=test>(b3cbdf7)</a>
+</span>
+</p></div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/linux/>Linux</a>
+</div><nav class=post-nav>
+<a class=prev href=/post/linux/013-grep%E5%91%BD%E4%BB%A4%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">04-grep命令基本使用</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/hugo/003-%E4%BD%BF%E7%94%A8github-actions%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/>
+<span class="next-text nav-default">01-使用Github Actions自动构建博客</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav></footer></article></div></div></main><footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a>
+<a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a>
+<a href=https://github.com/lppgo class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://lppgo.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div><div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2015 -
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+</span>
+</div></footer><div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js></script>
+<script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var e=document.createElement("script"),n,t;e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script>
+</body></html>

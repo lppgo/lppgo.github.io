@@ -1,1085 +1,710 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+<!doctype html><html lang=zh-cn>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>01-Golang Files and I/O - Even - A super concise theme for Hugo</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="lucas" /><meta name="description" content="golang File和IO总结" /><meta name="keywords" content="Go, File, IO" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.93.1 with theme even" />
-
-
-<link rel="canonical" href="https://lppgo.github.io/post/golang/015-file-and-io/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="01-Golang Files and I/O" />
-<meta property="og:description" content="golang File和IO总结" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://lppgo.github.io/post/golang/015-file-and-io/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-08-10T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-03-04T10:56:42+08:00" />
-
-<meta itemprop="name" content="01-Golang Files and I/O">
-<meta itemprop="description" content="golang File和IO总结"><meta itemprop="datePublished" content="2021-08-10T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-03-04T10:56:42+08:00" />
-<meta itemprop="wordCount" content="1960">
-<meta itemprop="keywords" content="Go,File,IO," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="01-Golang Files and I/O"/>
-<meta name="twitter:description" content="golang File和IO总结"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">lppgo</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">lppgo</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">01-Golang Files and I/O</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2021-08-10 </span>
-        <div class="post-category">
-            <a href="/categories/go/"> Go </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#table-of-contents">Table of Contents</a></li>
-    <li><a href="#一读文件">一：读文件</a>
-      <ul>
-        <li><a href="#11-读一个-whole-文件">1.1 读一个 whole 文件</a></li>
-        <li><a href="#12-读一个文件close">1.2 读一个文件，close</a></li>
-        <li><a href="#13-read-file-by-line">1.3 read file by line</a></li>
-      </ul>
-    </li>
-    <li><a href="#二写文件">二：写文件</a>
-      <ul>
-        <li><a href="#21-write-the-whole-file">2.1 Write the whole file</a></li>
-        <li><a href="#22-open-file-for-writing">2.2 Open file for writing</a></li>
-        <li><a href="#23-open-file-for-appending">2.3 Open file for appending</a></li>
-        <li><a href="#24-write-to-a-file">2.4 Write to a file</a></li>
-        <li><a href="#25-file-permissions-when-creating-files">2.5 File permissions when creating files</a></li>
-      </ul>
-    </li>
-    <li><a href="#三file-operations">三：File Operations</a>
-      <ul>
-        <li><a href="#31-获取文件-size">3.1 获取文件 size</a></li>
-        <li><a href="#32-获取文件-information">3.2 获取文件 information</a></li>
-        <li><a href="#33-检查文件是否-exist">3.3 检查文件是否 Exist</a></li>
-        <li><a href="#34-delete-file">3.4 Delete File</a></li>
-        <li><a href="#35-rename-file">3.5 Rename File</a></li>
-        <li><a href="#36-copy-a-file">3.6 Copy a File</a></li>
-      </ul>
-    </li>
-    <li><a href="#四目录相关操作-directory-operations">四：目录相关操作 Directory Operations</a>
-      <ul>
-        <li><a href="#41-create-directory">4.1 Create directory</a></li>
-        <li><a href="#42-remove-directory">4.2 Remove Directory</a></li>
-        <li><a href="#43-列出目录下面的文件-list-files-in-a-directory">4.3 列出目录下面的文件 List files in a directory</a></li>
-        <li><a href="#44-recursive-递归的-list-文件">4.4 Recursive 递归的 List 文件</a></li>
-      </ul>
-    </li>
-    <li><a href="#五file-path-operations">五：File Path Operations</a>
-      <ul>
-        <li><a href="#51-join-a-path">5.1 Join a path</a></li>
-        <li><a href="#52-split-a-path-into-a-directory-and-file">5.2 Split a path into a directory and file</a></li>
-        <li><a href="#53-split-list-of-paths">5.3 Split list of paths</a></li>
-        <li><a href="#54-get-file-name-from-path">5.4 Get file name from path</a></li>
-        <li><a href="#55-get-directory-name-from-path">5.5 Get directory name from path</a></li>
-        <li><a href="#56-获取文件拓展名-get-file-extension">5.6 获取文件拓展名 Get file extension</a></li>
-      </ul>
-    </li>
-    <li><a href="#六io-related-interface">六：IO related interface</a>
-      <ul>
-        <li><a href="#61-ioreader">6.1 io.Reader</a></li>
-        <li><a href="#62-iowriter">6.2 io.Writer</a></li>
-        <li><a href="#63-iocloser">6.3 io.Closer</a></li>
-        <li><a href="#64-ioreaderat">6.4 io.ReaderAt</a></li>
-        <li><a href="#65-iowriterat">6.5 io.WriterAt</a></li>
-        <li><a href="#66-ioseeker">6.6 io.Seeker</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <div align='center' ><font size='50'>Golang Files and I/O</font></div>
-<!-- [toc] -->
-<h1 id="table-of-contents">Table of Contents</h1>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>01-Golang Files and I/O - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="lucas"><meta name=description content="golang File和IO总结"><meta name=keywords content="Go,File,IO">
+<meta name=generator content="Hugo 0.93.1 with theme even">
+<link rel=canonical href=https://lppgo.github.io/post/golang/015-file-and-io/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="01-Golang Files and I/O">
+<meta property="og:description" content="golang File和IO总结">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://lppgo.github.io/post/golang/015-file-and-io/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-08-10T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-03-04T10:56:42+08:00">
+<meta itemprop=name content="01-Golang Files and I/O">
+<meta itemprop=description content="golang File和IO总结"><meta itemprop=datePublished content="2021-08-10T00:00:00+00:00">
+<meta itemprop=dateModified content="2022-03-04T10:56:42+08:00">
+<meta itemprop=wordCount content="1960">
+<meta itemprop=keywords content="Go,File,IO,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="01-Golang Files and I/O">
+<meta name=twitter:description content="golang File和IO总结"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head><body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>lppgo</a>
+</div><div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div></div><nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li></a><a href=/post/>
+<li class=mobile-menu-item>Archives</li></a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li></a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li></a>
+</ul></nav><div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>lppgo</a>
+</div><nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li></ul></nav></header><main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>01-Golang Files and I/O</h1><div class=post-meta>
+<span class=post-time> 2021-08-10 </span>
+<div class=post-category>
+<a href=/categories/go/> Go </a>
+</div></div></header><div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
+<nav id=TableOfContents>
 <ul>
-<li><a href="#table-of-contents">Table of Contents</a></li>
-<li><a href="#%E4%B8%80%E8%AF%BB%E6%96%87%E4%BB%B6">一：读文件</a>
+<li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#一读文件>一：读文件</a>
 <ul>
-<li><a href="#11-%E8%AF%BB%E4%B8%80%E4%B8%AA-whole-%E6%96%87%E4%BB%B6">1.1 读一个 whole 文件</a></li>
-<li><a href="#12-%E8%AF%BB%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6close">1.2 读一个文件，close</a></li>
-<li><a href="#13-read-file-by-line">1.3 read file by line</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%8C%E5%86%99%E6%96%87%E4%BB%B6">二：写文件</a>
+<li><a href=#11-读一个-whole-文件>1.1 读一个 whole 文件</a></li><li><a href=#12-读一个文件close>1.2 读一个文件，close</a></li><li><a href=#13-read-file-by-line>1.3 read file by line</a></li></ul></li><li><a href=#二写文件>二：写文件</a>
 <ul>
-<li><a href="#21-write-the-whole-file">2.1 Write the whole file</a></li>
-<li><a href="#22-open-file-for-writing">2.2 Open file for writing</a></li>
-<li><a href="#23-open-file-for-appending">2.3 Open file for appending</a></li>
-<li><a href="#24-write-to-a-file">2.4 Write to a file</a></li>
-<li><a href="#25-file-permissions-when-creating-files">2.5 File permissions when creating files</a></li>
-</ul>
-</li>
-<li><a href="#%E4%B8%89file-operations">三：File Operations</a>
+<li><a href=#21-write-the-whole-file>2.1 Write the whole file</a></li><li><a href=#22-open-file-for-writing>2.2 Open file for writing</a></li><li><a href=#23-open-file-for-appending>2.3 Open file for appending</a></li><li><a href=#24-write-to-a-file>2.4 Write to a file</a></li><li><a href=#25-file-permissions-when-creating-files>2.5 File permissions when creating files</a></li></ul></li><li><a href=#三file-operations>三：File Operations</a>
 <ul>
-<li><a href="#31-%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6-size">3.1 获取文件 size</a></li>
-<li><a href="#32-%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6-information">3.2 获取文件 information</a></li>
-<li><a href="#33-%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6-exist">3.3 检查文件是否 Exist</a></li>
-<li><a href="#34-delete-file">3.4 Delete File</a></li>
-<li><a href="#35-rename-file">3.5 Rename File</a></li>
-<li><a href="#36-copy-a-file">3.6 Copy a File</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9B%9B%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-directory-operations">四：目录相关操作 Directory Operations</a>
+<li><a href=#31-获取文件-size>3.1 获取文件 size</a></li><li><a href=#32-获取文件-information>3.2 获取文件 information</a></li><li><a href=#33-检查文件是否-exist>3.3 检查文件是否 Exist</a></li><li><a href=#34-delete-file>3.4 Delete File</a></li><li><a href=#35-rename-file>3.5 Rename File</a></li><li><a href=#36-copy-a-file>3.6 Copy a File</a></li></ul></li><li><a href=#四目录相关操作-directory-operations>四：目录相关操作 Directory Operations</a>
 <ul>
-<li><a href="#41-create-directory">4.1 Create directory</a></li>
-<li><a href="#42-remove-directory">4.2 Remove Directory</a></li>
-<li><a href="#43-%E5%88%97%E5%87%BA%E7%9B%AE%E5%BD%95%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%96%87%E4%BB%B6-list-files-in-a-directory">4.3 列出目录下面的文件 List files in a directory</a></li>
-<li><a href="#44-recursive-%E9%80%92%E5%BD%92%E7%9A%84-list-%E6%96%87%E4%BB%B6">4.4 Recursive 递归的 List 文件</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%94file-path-operations">五：File Path Operations</a>
+<li><a href=#41-create-directory>4.1 Create directory</a></li><li><a href=#42-remove-directory>4.2 Remove Directory</a></li><li><a href=#43-列出目录下面的文件-list-files-in-a-directory>4.3 列出目录下面的文件 List files in a directory</a></li><li><a href=#44-recursive-递归的-list-文件>4.4 Recursive 递归的 List 文件</a></li></ul></li><li><a href=#五file-path-operations>五：File Path Operations</a>
 <ul>
-<li><a href="#51-join-a-path">5.1 Join a path</a></li>
-<li><a href="#52-split-a-path-into-a-directory-and-file">5.2 Split a path into a directory and file</a></li>
-<li><a href="#53-split-list-of-paths">5.3 Split list of paths</a></li>
-<li><a href="#54-get-file-name-from-path">5.4 Get file name from path</a></li>
-<li><a href="#55-get-directory-name-from-path">5.5 Get directory name from path</a></li>
-<li><a href="#56-%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E6%8B%93%E5%B1%95%E5%90%8D-get-file-extension">5.6 获取文件拓展名 Get file extension</a></li>
-</ul>
-</li>
-<li><a href="#%E5%85%ADio-related-interface">六：IO related interface</a>
+<li><a href=#51-join-a-path>5.1 Join a path</a></li><li><a href=#52-split-a-path-into-a-directory-and-file>5.2 Split a path into a directory and file</a></li><li><a href=#53-split-list-of-paths>5.3 Split list of paths</a></li><li><a href=#54-get-file-name-from-path>5.4 Get file name from path</a></li><li><a href=#55-get-directory-name-from-path>5.5 Get directory name from path</a></li><li><a href=#56-获取文件拓展名-get-file-extension>5.6 获取文件拓展名 Get file extension</a></li></ul></li><li><a href=#六io-related-interface>六：IO related interface</a>
 <ul>
-<li><a href="#61-ioreader">6.1 io.Reader</a></li>
-<li><a href="#62-iowriter">6.2 io.Writer</a></li>
-<li><a href="#63-iocloser">6.3 io.Closer</a></li>
-<li><a href="#64-ioreaderat">6.4 io.ReaderAt</a></li>
-<li><a href="#65-iowriterat">6.5 io.WriterAt</a></li>
-<li><a href="#66-ioseeker">6.6 io.Seeker</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="一读文件">一：读文件</h1>
-<h2 id="11-读一个-whole-文件">1.1 读一个 whole 文件</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">d</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;foo.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;ioutil.ReadFile failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Size of &#39;foo.txt&#39;: %d bytes\n&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="12-读一个文件close">1.2 读一个文件，close</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;foo.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;os.Open failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">defer</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="13-read-file-by-line">1.3 read file by line</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ReadLines reads all lines from a file
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">ReadLines</span><span class="p">(</span><span class="nx">filePath</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">OpenFile</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_RDONLY</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">scanner</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nf">NewScanner</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">scanner</span><span class="p">.</span><span class="nf">Scan</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">line</span> <span class="o">:=</span> <span class="nx">scanner</span><span class="p">.</span><span class="nf">Text</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">res</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">line</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">scanner</span><span class="p">.</span><span class="nf">Err</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">res</span><span class="p">,</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">path</span> <span class="o">:=</span> <span class="s">&#34;main.go&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">lines</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">ReadLines</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;ReadLines failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;File %s has %d lines\n&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">lines</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="二写文件">二：写文件</h1>
-<h2 id="21-write-the-whole-file">2.1 Write the whole file</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">d</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;content of the file&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="s">&#34;foo.txt&#34;</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;ioutil.WriteFile failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="22-open-file-for-writing">2.2 Open file for writing</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;foo.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;os.Open failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="23-open-file-for-appending">2.3 Open file for appending</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">OpenFile</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_WRONLY</span> <span class="p">|</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_APPEND</span> <span class="p">|</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_CREATE</span><span class="p">,</span> <span class="mo">0666</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;os.Open failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="24-write-to-a-file">2.4 Write to a file</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">d</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;data to write&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">nWritten</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="25-file-permissions-when-creating-files">2.5 File permissions when creating files</h2>
-<p>使用 os.Create 或创建新文件时 os.OpenFile，需要为新文件提供文件权限。</p>
-<p>对于大多数情况 <strong>0644</strong> 是一个不错的选择。</p>
-<p>这些是八进制格式的 Unix 样式权限。</p>
-<h1 id="三file-operations">三：File Operations</h1>
-<h2 id="31-获取文件-size">3.1 获取文件 size</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">GetFileSize</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">int64</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">st</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Lstat</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">st</span><span class="p">.</span><span class="nf">Size</span><span class="p">(),</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="32-获取文件-information">3.2 获取文件 information</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">st</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="s">&#34;main.go&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;GetFileSize failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">`Name: %s
-</span></span></span><span class="line"><span class="cl"><span class="s">Size: %d
-</span></span></span><span class="line"><span class="cl"><span class="s">IsDir: %v
-</span></span></span><span class="line"><span class="cl"><span class="s">Mode: %x
-</span></span></span><span class="line"><span class="cl"><span class="s">ModTime: %s
-</span></span></span><span class="line"><span class="cl"><span class="s">OS info: %#v
-</span></span></span><span class="line"><span class="cl"><span class="s">`</span><span class="p">,</span> <span class="nx">st</span><span class="p">.</span><span class="nf">Name</span><span class="p">(),</span> <span class="nx">st</span><span class="p">.</span><span class="nf">Size</span><span class="p">(),</span> <span class="nx">st</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">(),</span> <span class="nx">st</span><span class="p">.</span><span class="nx">Mode</span><span class="p">,</span> <span class="nx">st</span><span class="p">.</span><span class="nf">ModTime</span><span class="p">(),</span> <span class="nx">st</span><span class="p">.</span><span class="nf">Sys</span><span class="p">())</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="33-检查文件是否-exist">3.3 检查文件是否 Exist</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">IsPathExists</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Lstat</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">os</span><span class="p">.</span><span class="nf">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// error other than not existing e.g. permission denied
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="34-delete-file">3.4 Delete File</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">path</span> <span class="o">:=</span> <span class="s">&#34;foo.txt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">os</span><span class="p">.</span><span class="nf">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;os.Remove failed because file doesn&#39;t exist\n&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;os.Remove failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="35-rename-file">3.5 Rename File</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">oldPath</span> <span class="o">:=</span> <span class="s">&#34;old_name.txt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">newPath</span> <span class="o">:=</span> <span class="s">&#34;new_name.txt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Rename</span><span class="p">(</span><span class="nx">oldPath</span><span class="p">,</span> <span class="nx">newPath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;os.Rename failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="36-copy-a-file">3.6 Copy a File</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// CopyFile copies a src file to dst
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">CopyFile</span><span class="p">(</span><span class="nx">dst</span><span class="p">,</span> <span class="nx">src</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">srcFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">srcFile</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">dstFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">dstFile</span><span class="p">,</span> <span class="nx">srcFile</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">err2</span> <span class="o">:=</span> <span class="nx">dstFile</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">err2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">err</span> <span class="p">=</span> <span class="nx">err2</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// delete the destination if copy failed
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="四目录相关操作-directory-operations">四：目录相关操作 Directory Operations</h1>
-<h2 id="41-create-directory">4.1 Create directory</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">dir</span> <span class="o">:=</span> <span class="s">&#34;my_dir&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Mkdir</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;os.Mkdir(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">dir</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="s">&#34;topdir&#34;</span><span class="p">,</span> <span class="s">&#34;subdir&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">MkdirAll</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;os.MkdirAll(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
+<li><a href=#61-ioreader>6.1 io.Reader</a></li><li><a href=#62-iowriter>6.2 io.Writer</a></li><li><a href=#63-iocloser>6.3 io.Closer</a></li><li><a href=#64-ioreaderat>6.4 io.ReaderAt</a></li><li><a href=#65-iowriterat>6.5 io.WriterAt</a></li><li><a href=#66-ioseeker>6.6 io.Seeker</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<div align=center><font size=50>Golang Files and I/O</font></div><h1 id=table-of-contents>Table of Contents</h1><ul>
+<li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#%E4%B8%80%E8%AF%BB%E6%96%87%E4%BB%B6>一：读文件</a>
+<ul>
+<li><a href=#11-%E8%AF%BB%E4%B8%80%E4%B8%AA-whole-%E6%96%87%E4%BB%B6>1.1 读一个 whole 文件</a></li><li><a href=#12-%E8%AF%BB%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6close>1.2 读一个文件，close</a></li><li><a href=#13-read-file-by-line>1.3 read file by line</a></li></ul></li><li><a href=#%E4%BA%8C%E5%86%99%E6%96%87%E4%BB%B6>二：写文件</a>
+<ul>
+<li><a href=#21-write-the-whole-file>2.1 Write the whole file</a></li><li><a href=#22-open-file-for-writing>2.2 Open file for writing</a></li><li><a href=#23-open-file-for-appending>2.3 Open file for appending</a></li><li><a href=#24-write-to-a-file>2.4 Write to a file</a></li><li><a href=#25-file-permissions-when-creating-files>2.5 File permissions when creating files</a></li></ul></li><li><a href=#%E4%B8%89file-operations>三：File Operations</a>
+<ul>
+<li><a href=#31-%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6-size>3.1 获取文件 size</a></li><li><a href=#32-%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6-information>3.2 获取文件 information</a></li><li><a href=#33-%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6-exist>3.3 检查文件是否 Exist</a></li><li><a href=#34-delete-file>3.4 Delete File</a></li><li><a href=#35-rename-file>3.5 Rename File</a></li><li><a href=#36-copy-a-file>3.6 Copy a File</a></li></ul></li><li><a href=#%E5%9B%9B%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-directory-operations>四：目录相关操作 Directory Operations</a>
+<ul>
+<li><a href=#41-create-directory>4.1 Create directory</a></li><li><a href=#42-remove-directory>4.2 Remove Directory</a></li><li><a href=#43-%E5%88%97%E5%87%BA%E7%9B%AE%E5%BD%95%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%96%87%E4%BB%B6-list-files-in-a-directory>4.3 列出目录下面的文件 List files in a directory</a></li><li><a href=#44-recursive-%E9%80%92%E5%BD%92%E7%9A%84-list-%E6%96%87%E4%BB%B6>4.4 Recursive 递归的 List 文件</a></li></ul></li><li><a href=#%E4%BA%94file-path-operations>五：File Path Operations</a>
+<ul>
+<li><a href=#51-join-a-path>5.1 Join a path</a></li><li><a href=#52-split-a-path-into-a-directory-and-file>5.2 Split a path into a directory and file</a></li><li><a href=#53-split-list-of-paths>5.3 Split list of paths</a></li><li><a href=#54-get-file-name-from-path>5.4 Get file name from path</a></li><li><a href=#55-get-directory-name-from-path>5.5 Get directory name from path</a></li><li><a href=#56-%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E6%8B%93%E5%B1%95%E5%90%8D-get-file-extension>5.6 获取文件拓展名 Get file extension</a></li></ul></li><li><a href=#%E5%85%ADio-related-interface>六：IO related interface</a>
+<ul>
+<li><a href=#61-ioreader>6.1 io.Reader</a></li><li><a href=#62-iowriter>6.2 io.Writer</a></li><li><a href=#63-iocloser>6.3 io.Closer</a></li><li><a href=#64-ioreaderat>6.4 io.ReaderAt</a></li><li><a href=#65-iowriterat>6.5 io.WriterAt</a></li><li><a href=#66-ioseeker>6.6 io.Seeker</a></li></ul></li></ul><h1 id=一读文件>一：读文件</h1><h2 id=11-读一个-whole-文件>1.1 读一个 whole 文件</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>d</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>ReadFile</span><span class=p>(</span><span class=s>&#34;foo.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;ioutil.ReadFile failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Size of &#39;foo.txt&#39;: %d bytes\n&#34;</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=nx>d</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=12-读一个文件close>1.2 读一个文件，close</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>f</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Open</span><span class=p>(</span><span class=s>&#34;foo.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;os.Open failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>defer</span> <span class=nx>f</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=13-read-file-by-line>1.3 read file by line</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// ReadLines reads all lines from a file
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>ReadLines</span><span class=p>(</span><span class=nx>filePath</span> <span class=kt>string</span><span class=p>)</span> <span class=p>([]</span><span class=kt>string</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>file</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>OpenFile</span><span class=p>(</span><span class=nx>filePath</span><span class=p>,</span> <span class=nx>os</span><span class=p>.</span><span class=nx>O_RDONLY</span><span class=p>,</span> <span class=mo>0644</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>defer</span> <span class=nx>file</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=nx>scanner</span> <span class=o>:=</span> <span class=nx>bufio</span><span class=p>.</span><span class=nf>NewScanner</span><span class=p>(</span><span class=nx>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>res</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=kt>string</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>scanner</span><span class=p>.</span><span class=nf>Scan</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>line</span> <span class=o>:=</span> <span class=nx>scanner</span><span class=p>.</span><span class=nf>Text</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>		<span class=nx>res</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>res</span><span class=p>,</span> <span class=nx>line</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>scanner</span><span class=p>.</span><span class=nf>Err</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>res</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>path</span> <span class=o>:=</span> <span class=s>&#34;main.go&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>lines</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>ReadLines</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;ReadLines failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;File %s has %d lines\n&#34;</span><span class=p>,</span> <span class=nx>path</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=nx>lines</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=二写文件>二：写文件</h1><h2 id=21-write-the-whole-file>2.1 Write the whole file</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>d</span> <span class=o>:=</span> <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=s>&#34;content of the file&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>WriteFile</span><span class=p>(</span><span class=s>&#34;foo.txt&#34;</span><span class=p>,</span> <span class=nx>d</span><span class=p>,</span> <span class=mo>0644</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;ioutil.WriteFile failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=22-open-file-for-writing>2.2 Open file for writing</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>f</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Create</span><span class=p>(</span><span class=s>&#34;foo.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;os.Open failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=23-open-file-for-appending>2.3 Open file for appending</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>f</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>OpenFile</span><span class=p>(</span><span class=nx>filePath</span><span class=p>,</span> <span class=nx>os</span><span class=p>.</span><span class=nx>O_WRONLY</span> <span class=p>|</span> <span class=nx>os</span><span class=p>.</span><span class=nx>O_APPEND</span> <span class=p>|</span> <span class=nx>os</span><span class=p>.</span><span class=nx>O_CREATE</span><span class=p>,</span> <span class=mo>0666</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;os.Open failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=24-write-to-a-file>2.4 Write to a file</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>d</span> <span class=o>:=</span> <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=s>&#34;data to write&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>nWritten</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>f</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>d</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=25-file-permissions-when-creating-files>2.5 File permissions when creating files</h2><p>使用 os.Create 或创建新文件时 os.OpenFile，需要为新文件提供文件权限。</p><p>对于大多数情况 <strong>0644</strong> 是一个不错的选择。</p><p>这些是八进制格式的 Unix 样式权限。</p><h1 id=三file-operations>三：File Operations</h1><h2 id=31-获取文件-size>3.1 获取文件 size</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>GetFileSize</span><span class=p>(</span><span class=nx>path</span> <span class=kt>string</span><span class=p>)</span> <span class=p>(</span><span class=kt>int64</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>st</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Lstat</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>st</span><span class=p>.</span><span class=nf>Size</span><span class=p>(),</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=32-获取文件-information>3.2 获取文件 information</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>	<span class=nx>st</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Stat</span><span class=p>(</span><span class=s>&#34;main.go&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;GetFileSize failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>`Name: %s
+</span></span></span><span class=line><span class=cl><span class=s>Size: %d
+</span></span></span><span class=line><span class=cl><span class=s>IsDir: %v
+</span></span></span><span class=line><span class=cl><span class=s>Mode: %x
+</span></span></span><span class=line><span class=cl><span class=s>ModTime: %s
+</span></span></span><span class=line><span class=cl><span class=s>OS info: %#v
+</span></span></span><span class=line><span class=cl><span class=s>`</span><span class=p>,</span> <span class=nx>st</span><span class=p>.</span><span class=nf>Name</span><span class=p>(),</span> <span class=nx>st</span><span class=p>.</span><span class=nf>Size</span><span class=p>(),</span> <span class=nx>st</span><span class=p>.</span><span class=nf>IsDir</span><span class=p>(),</span> <span class=nx>st</span><span class=p>.</span><span class=nx>Mode</span><span class=p>,</span> <span class=nx>st</span><span class=p>.</span><span class=nf>ModTime</span><span class=p>(),</span> <span class=nx>st</span><span class=p>.</span><span class=nf>Sys</span><span class=p>())</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=33-检查文件是否-exist>3.3 检查文件是否 Exist</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>IsPathExists</span><span class=p>(</span><span class=nx>path</span> <span class=kt>string</span><span class=p>)</span> <span class=p>(</span><span class=kt>bool</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Lstat</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>true</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>os</span><span class=p>.</span><span class=nf>IsNotExist</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>false</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// error other than not existing e.g. permission denied
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>return</span> <span class=kc>false</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=34-delete-file>3.4 Delete File</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>path</span> <span class=o>:=</span> <span class=s>&#34;foo.txt&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Remove</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>os</span><span class=p>.</span><span class=nf>IsNotExist</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;os.Remove failed because file doesn&#39;t exist\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;os.Remove failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=35-rename-file>3.5 Rename File</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>oldPath</span> <span class=o>:=</span> <span class=s>&#34;old_name.txt&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>newPath</span> <span class=o>:=</span> <span class=s>&#34;new_name.txt&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Rename</span><span class=p>(</span><span class=nx>oldPath</span><span class=p>,</span> <span class=nx>newPath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;os.Rename failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=36-copy-a-file>3.6 Copy a File</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// CopyFile copies a src file to dst
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>CopyFile</span><span class=p>(</span><span class=nx>dst</span><span class=p>,</span> <span class=nx>src</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>error</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>srcFile</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Open</span><span class=p>(</span><span class=nx>src</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>defer</span> <span class=nx>srcFile</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>dstFile</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Create</span><span class=p>(</span><span class=nx>dst</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>io</span><span class=p>.</span><span class=nf>Copy</span><span class=p>(</span><span class=nx>dstFile</span><span class=p>,</span> <span class=nx>srcFile</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>err2</span> <span class=o>:=</span> <span class=nx>dstFile</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>==</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=nx>err2</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>err</span> <span class=p>=</span> <span class=nx>err2</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=c1>// delete the destination if copy failed
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>os</span><span class=p>.</span><span class=nf>Remove</span><span class=p>(</span><span class=nx>dst</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=四目录相关操作-directory-operations>四：目录相关操作 Directory Operations</h1><h2 id=41-create-directory>4.1 Create directory</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>dir</span> <span class=o>:=</span> <span class=s>&#34;my_dir&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Mkdir</span><span class=p>(</span><span class=nx>dir</span><span class=p>,</span> <span class=mo>0755</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;os.Mkdir(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>dir</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>dir</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Join</span><span class=p>(</span><span class=s>&#34;topdir&#34;</span><span class=p>,</span> <span class=s>&#34;subdir&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>MkdirAll</span><span class=p>(</span><span class=nx>dir</span><span class=p>,</span> <span class=mo>0755</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;os.MkdirAll(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>dir</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
 <li>
-<p><code>os.Mkdir</code> only succeeds if parent directory of dir already exists.</p>
-</li>
-<li>
-<p><code>os.MkdirAll</code> will create all intermediary directories.</p>
-</li>
-<li>
-<p><code>0755</code> describes permissions for the directory.</p>
-</li>
-</ul>
-<h2 id="42-remove-directory">4.2 Remove Directory</h2>
-<ul>
+<p><code>os.Mkdir</code> only succeeds if parent directory of dir already exists.</p></li><li>
+<p><code>os.MkdirAll</code> will create all intermediary directories.</p></li><li>
+<p><code>0755</code> describes permissions for the directory.</p></li></ul><h2 id=42-remove-directory>4.2 Remove Directory</h2><ul>
 <li><code>os.Remove</code> only works for empty directories i.e. directories without any files of sub-directories.
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">dir</span> <span class="o">:=</span> <span class="s">&#34;my_dir&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;os.Remove(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li><code>os.RemoveAll</code> removes the directory and all its children (files and sub-directories).
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">dir</span> <span class="o">:=</span> <span class="s">&#34;my_dir&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">RemoveAll</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;os.RemoveAll(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ul>
-<h2 id="43-列出目录下面的文件-list-files-in-a-directory">4.3 列出目录下面的文件 List files in a directory</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">dir</span> <span class="o">:=</span> <span class="s">&#34;.&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fileInfos</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadDir</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;ioutil.ReadDir(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">fi</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">fileInfos</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Path: %s, is dir: %v, size: %d bytes\n&#34;</span><span class="p">,</span> <span class="nx">fi</span><span class="p">.</span><span class="nf">Name</span><span class="p">(),</span> <span class="nx">fi</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">(),</span> <span class="nx">fi</span><span class="p">.</span><span class="nf">Size</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="44-recursive-递归的-list-文件">4.4 Recursive 递归的 List 文件</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 递归获取指定目录下的所有文件名
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">GetAllFile</span><span class="p">(</span><span class="nx">pathname</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">result</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">fis</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadDir</span><span class="p">(</span><span class="nx">pathname</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;读取文件目录失败，pathname=%v, err=%v \n&#34;</span><span class="p">,</span><span class="nx">pathname</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 所有文件/文件夹
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">fi</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">fis</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fullname</span> <span class="o">:=</span> <span class="nx">pathname</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="nx">fi</span><span class="p">.</span><span class="nf">Name</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 是文件夹则递归进入获取;是文件，则压入数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="nx">fi</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">temp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">GetAllFile</span><span class="p">(</span><span class="nx">fullname</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;读取文件目录失败,fullname=%v, err=%v&#34;</span><span class="p">,</span><span class="nx">fullname</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">temp</span><span class="o">...</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">fullname</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">result</span><span class="p">,</span> <span class="kc">nil</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="五file-path-operations">五：File Path Operations</h1>
-<h2 id="51-join-a-path">5.1 Join a path</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">path</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="s">&#34;dir&#34;</span><span class="p">,</span> <span class="s">&#34;sub&#34;</span><span class="p">,</span> <span class="s">&#34;file.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;path: %s\n&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// path: dir/sub/file.txt
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="52-split-a-path-into-a-directory-and-file">5.2 Split a path into a directory and file</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">path</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="s">&#34;dir&#34;</span><span class="p">,</span> <span class="s">&#34;file.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">file</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Base</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;path: %s, file: %s\n&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">file</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// path: dir/file.txt, file: file.txt
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="53-split-list-of-paths">5.3 Split list of paths</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">parts</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">SplitList</span><span class="p">(</span><span class="s">&#34;/usr/bin:/tmp&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;parts: %#v\n&#34;</span><span class="p">,</span> <span class="nx">parts</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// parts: []string{&#34;/usr/bin&#34;, &#34;/tmp&#34;}
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="54-get-file-name-from-path">5.4 Get file name from path</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">path</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="s">&#34;dir&#34;</span><span class="p">,</span> <span class="s">&#34;file.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">dir</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;dir: %s, file: %s\n&#34;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">file</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// dir: dir/, file: file.txt
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="55-get-directory-name-from-path">5.5 Get directory name from path</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">path</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="s">&#34;dir&#34;</span><span class="p">,</span> <span class="s">&#34;file.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">dir</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Dir</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;path: %s, dif: %s\n&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// path: dir/file.txt, dif: dir
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="56-获取文件拓展名-get-file-extension">5.6 获取文件拓展名 Get file extension</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">ext</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Ext</span><span class="p">(</span><span class="s">&#34;file.txt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;ext: %s\n&#34;</span><span class="p">,</span> <span class="nx">ext</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// ext: .txt
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="六io-related-interface">六：IO related interface</h1>
-<h2 id="61-ioreader">6.1 io.Reader</h2>
-<ul>
-<li><code>io.Reader</code> 是读取顺序字节流的关键的抽象；</li>
-<li><code>Read</code>函数将最多 len(p) byte 读入一个 buffer 缓冲区 p，返回一个读取的字节和错误的状态；</li>
-<li>当它到达文件结尾的时候，返回一个<code>io.EOF</code>错误</li>
-<li><code>io.Reader</code>不允许返回流中。为此，类型必须实现<code>io.Seeker</code>或<code>io.ReaderAt</code>接口;</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span>  <span class="nx">Reader</span>  <span class="kd">interface</span>  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">Read</span> <span class="p">(</span><span class="nx">p</span> <span class="p">[]</span> <span class="kt">byte</span><span class="p">)</span>  <span class="p">(</span><span class="nx">n</span>  <span class="kt">int</span> <span class="p">,</span>  <span class="nx">err</span>  <span class="kt">error</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="62-iowriter">6.2 io.Writer</h2>
-<ul>
-<li><code>io.Writer</code>用于写入顺序的字节流 bytes stream;</li>
-<li><code>Write</code> writes bytes in <code>p</code> and returns the number of bytes written and error status.</li>
-<li>Write 保证它会写入所有数据或返回错误，即如果返回的 n 是 &lt; len(p) 则 err 必须非零;
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">Write</span> <span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ul>
-<h2 id="63-iocloser">6.3 io.Closer</h2>
-<ul>
-<li>Closer describes streams that must be explicitly closed.(Closer 描述必须显式的 close 的流)；</li>
-<li>Close returns an error because it’s required in some real-world cases. For example, 在对文件进行缓冲写入时，Close 可能需要将剩余的缓冲数据刷新到文件中，这可能会失败.</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span>  <span class="nx">Closer</span>  <span class="kd">interface</span>  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">Close</span> <span class="p">()</span>  <span class="kt">error</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="64-ioreaderat">6.4 io.ReaderAt</h2>
-<ul>
-<li>io.ReaderAt is like io.Reader but allows to read at any position in the stream.</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ReaderAt</span> <span class="kd">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">ReadAt</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">off</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="65-iowriterat">6.5 io.WriterAt</h2>
-<ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>dir</span> <span class=o>:=</span> <span class=s>&#34;my_dir&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Remove</span><span class=p>(</span><span class=nx>dir</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;os.Remove(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>path</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><code>os.RemoveAll</code> removes the directory and all its children (files and sub-directories).
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>dir</span> <span class=o>:=</span> <span class=s>&#34;my_dir&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>RemoveAll</span><span class=p>(</span><span class=nx>dir</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;os.RemoveAll(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>path</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></li></ul><h2 id=43-列出目录下面的文件-list-files-in-a-directory>4.3 列出目录下面的文件 List files in a directory</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>dir</span> <span class=o>:=</span> <span class=s>&#34;.&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fileInfos</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>ReadDir</span><span class=p>(</span><span class=nx>dir</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;ioutil.ReadDir(&#39;%s&#39;) failed with &#39;%s&#39;\n&#34;</span><span class=p>,</span> <span class=nx>dir</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>fi</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>fileInfos</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Path: %s, is dir: %v, size: %d bytes\n&#34;</span><span class=p>,</span> <span class=nx>fi</span><span class=p>.</span><span class=nf>Name</span><span class=p>(),</span> <span class=nx>fi</span><span class=p>.</span><span class=nf>IsDir</span><span class=p>(),</span> <span class=nx>fi</span><span class=p>.</span><span class=nf>Size</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=44-recursive-递归的-list-文件>4.4 Recursive 递归的 List 文件</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 递归获取指定目录下的所有文件名
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>GetAllFile</span><span class=p>(</span><span class=nx>pathname</span> <span class=kt>string</span><span class=p>)</span> <span class=p>([]</span><span class=kt>string</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>result</span> <span class=o>:=</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>fis</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>ReadDir</span><span class=p>(</span><span class=nx>pathname</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;读取文件目录失败，pathname=%v, err=%v \n&#34;</span><span class=p>,</span><span class=nx>pathname</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>result</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>// 所有文件/文件夹
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>fi</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>fis</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fullname</span> <span class=o>:=</span> <span class=nx>pathname</span> <span class=o>+</span> <span class=s>&#34;/&#34;</span> <span class=o>+</span> <span class=nx>fi</span><span class=p>.</span><span class=nf>Name</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>		<span class=c1>// 是文件夹则递归进入获取;是文件，则压入数组
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>if</span> <span class=nx>fi</span><span class=p>.</span><span class=nf>IsDir</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>temp</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>GetAllFile</span><span class=p>(</span><span class=nx>fullname</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;读取文件目录失败,fullname=%v, err=%v&#34;</span><span class=p>,</span><span class=nx>fullname</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>				<span class=k>return</span> <span class=nx>result</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>			<span class=nx>result</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>result</span><span class=p>,</span> <span class=nx>temp</span><span class=o>...</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>result</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>result</span><span class=p>,</span> <span class=nx>fullname</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>result</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=五file-path-operations>五：File Path Operations</h1><h2 id=51-join-a-path>5.1 Join a path</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>path</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Join</span><span class=p>(</span><span class=s>&#34;dir&#34;</span><span class=p>,</span> <span class=s>&#34;sub&#34;</span><span class=p>,</span> <span class=s>&#34;file.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;path: %s\n&#34;</span><span class=p>,</span> <span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// path: dir/sub/file.txt
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=52-split-a-path-into-a-directory-and-file>5.2 Split a path into a directory and file</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>path</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Join</span><span class=p>(</span><span class=s>&#34;dir&#34;</span><span class=p>,</span> <span class=s>&#34;file.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>file</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Base</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;path: %s, file: %s\n&#34;</span><span class=p>,</span> <span class=nx>path</span><span class=p>,</span> <span class=nx>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// path: dir/file.txt, file: file.txt
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=53-split-list-of-paths>5.3 Split list of paths</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>parts</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>SplitList</span><span class=p>(</span><span class=s>&#34;/usr/bin:/tmp&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;parts: %#v\n&#34;</span><span class=p>,</span> <span class=nx>parts</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// parts: []string{&#34;/usr/bin&#34;, &#34;/tmp&#34;}
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=54-get-file-name-from-path>5.4 Get file name from path</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>path</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Join</span><span class=p>(</span><span class=s>&#34;dir&#34;</span><span class=p>,</span> <span class=s>&#34;file.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>dir</span><span class=p>,</span> <span class=nx>file</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Split</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;dir: %s, file: %s\n&#34;</span><span class=p>,</span> <span class=nx>dir</span><span class=p>,</span> <span class=nx>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// dir: dir/, file: file.txt
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=55-get-directory-name-from-path>5.5 Get directory name from path</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>path</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Join</span><span class=p>(</span><span class=s>&#34;dir&#34;</span><span class=p>,</span> <span class=s>&#34;file.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>dir</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Dir</span><span class=p>(</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;path: %s, dif: %s\n&#34;</span><span class=p>,</span> <span class=nx>path</span><span class=p>,</span> <span class=nx>dir</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// path: dir/file.txt, dif: dir
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=56-获取文件拓展名-get-file-extension>5.6 获取文件拓展名 Get file extension</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>ext</span> <span class=o>:=</span> <span class=nx>filepath</span><span class=p>.</span><span class=nf>Ext</span><span class=p>(</span><span class=s>&#34;file.txt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;ext: %s\n&#34;</span><span class=p>,</span> <span class=nx>ext</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ext: .txt
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=六io-related-interface>六：IO related interface</h1><h2 id=61-ioreader>6.1 io.Reader</h2><ul>
+<li><code>io.Reader</code> 是读取顺序字节流的关键的抽象；</li><li><code>Read</code>函数将最多 len(p) byte 读入一个 buffer 缓冲区 p，返回一个读取的字节和错误的状态；</li><li>当它到达文件结尾的时候，返回一个<code>io.EOF</code>错误</li><li><code>io.Reader</code>不允许返回流中。为此，类型必须实现<code>io.Seeker</code>或<code>io.ReaderAt</code>接口;</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span>  <span class=nx>Reader</span>  <span class=kd>interface</span>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Read</span> <span class=p>(</span><span class=nx>p</span> <span class=p>[]</span> <span class=kt>byte</span><span class=p>)</span>  <span class=p>(</span><span class=nx>n</span>  <span class=kt>int</span> <span class=p>,</span>  <span class=nx>err</span>  <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=62-iowriter>6.2 io.Writer</h2><ul>
+<li><code>io.Writer</code>用于写入顺序的字节流 bytes stream;</li><li><code>Write</code> writes bytes in <code>p</code> and returns the number of bytes written and error status.</li><li>Write 保证它会写入所有数据或返回错误，即如果返回的 n 是 &lt; len(p) 则 err 必须非零;
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Writer</span> <span class=kd>interface</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Write</span> <span class=p>(</span><span class=nx>p</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>)</span> <span class=p>(</span><span class=nx>n</span> <span class=kt>int</span><span class=p>,</span><span class=nx>err</span> <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></li></ul><h2 id=63-iocloser>6.3 io.Closer</h2><ul>
+<li>Closer describes streams that must be explicitly closed.(Closer 描述必须显式的 close 的流)；</li><li>Close returns an error because it’s required in some real-world cases. For example, 在对文件进行缓冲写入时，Close 可能需要将剩余的缓冲数据刷新到文件中，这可能会失败.</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span>  <span class=nx>Closer</span>  <span class=kd>interface</span>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nf>Close</span> <span class=p>()</span>  <span class=kt>error</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=64-ioreaderat>6.4 io.ReaderAt</h2><ul>
+<li>io.ReaderAt is like io.Reader but allows to read at any position in the stream.</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>ReaderAt</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nf>ReadAt</span><span class=p>(</span><span class=nx>p</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>off</span> <span class=kt>int64</span><span class=p>)</span> <span class=p>(</span><span class=nx>n</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>err</span> <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=65-iowriterat>6.5 io.WriterAt</h2><ul>
 <li>io.WriterAt is like io.Write but allows to write at an arbitrary position in the stream.
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">WriterAt</span> <span class="kd">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">WriteAt</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">off</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ul>
-<h2 id="66-ioseeker">6.6 io.Seeker</h2>
-<ul>
-<li>io.Seeker allows seeking within the stream. If you can seek, you can also implement io.ReaderAt and io.WriterAt.</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Seeker</span> <span class="kd">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">Seek</span><span class="p">(</span><span class="nx">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">whence</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int64</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">lucas</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">
-        2022-03-04
-        <a href="/commit/b3cbdf7868304aa509d9f828f40747898f749166" title="test">(b3cbdf7)</a>
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/go/">Go</a>
-          <a href="/tags/file/">File</a>
-          <a href="/tags/io/">IO</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/c&#43;&#43;/001-c&#43;&#43;vscode%E9%85%8D%E7%BD%AE/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">01-C&#43;&#43;VScode 配置</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/golang/013-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/">
-            <span class="next-text nav-default">01-微服务限流简单实现</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-
-  
-
-  
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
-      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
-      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
-      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
-  <a href="https://lppgo.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2015 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>李平平</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-
-
-
-<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
-
-
-
-<script id="baidu_push">
-  (function(){
-    if (window.location.hostname === 'localhost') return;
-    var bp = document.createElement('script'); bp.async = true;
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-  })();
-</script>
-
-
-
-
-</body>
-</html>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>WriterAt</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nf>WriteAt</span><span class=p>(</span><span class=nx>p</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>off</span> <span class=kt>int64</span><span class=p>)</span> <span class=p>(</span><span class=nx>n</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>err</span> <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></li></ul><h2 id=66-ioseeker>6.6 io.Seeker</h2><ul>
+<li>io.Seeker allows seeking within the stream. If you can seek, you can also implement io.ReaderAt and io.WriterAt.</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Seeker</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nf>Seek</span><span class=p>(</span><span class=nx>offset</span> <span class=kt>int64</span><span class=p>,</span> <span class=nx>whence</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=kt>int64</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>lucas</span>
+</p><p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>
+2022-03-04
+<a href=/commit/b3cbdf7868304aa509d9f828f40747898f749166 title=test>(b3cbdf7)</a>
+</span>
+</p></div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/go/>Go</a>
+<a href=/tags/file/>File</a>
+<a href=/tags/io/>IO</a>
+</div><nav class=post-nav>
+<a class=prev href=/post/c++/001-c++vscode%E9%85%8D%E7%BD%AE/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">01-C++VScode 配置</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/golang/013-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/>
+<span class="next-text nav-default">01-微服务限流简单实现</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav></footer></article></div></div></main><footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a>
+<a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a>
+<a href=https://github.com/lppgo class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://lppgo.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div><div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2015 -
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+</span>
+</div></footer><div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js></script>
+<script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var e=document.createElement("script"),n,t;e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script>
+</body></html>
