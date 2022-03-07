@@ -29,5 +29,5 @@ echo -e "\033[0;32mgit commit -m "$msg"\033[0m"
 git commit -m "$msg"
 
 # Push source and build repos.
-echo -e "\033[0;32mgit push origin main\033[0m"
+echo -e "\033[0;32mgit push origin master\033[0m"
 git push origin master
