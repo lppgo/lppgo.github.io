@@ -29,7 +29,7 @@
 <meta itemprop=name content="01-Go语言 grpc入门教程">
 <meta itemprop=description content="go 语言 grpc 入门教程 1: 安装 go 语言 grpc 包 2:安装 protobuf 编译器 2.1 安装 protoc 编译器 2.2 安装编译器 go 语言插件 3: Example 目录结构 4: 定义服务 5: 编译 proto 协议文件 6: 实现服务端代码 7"><meta itemprop=datePublished content="2021-04-28T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-03-04T10:56:42+08:00">
-<meta itemprop=wordCount content="1701">
+<meta itemprop=wordCount content="2033">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="01-Go语言 grpc入门教程">
 <meta name=twitter:description content="go 语言 grpc 入门教程 1: 安装 go 语言 grpc 包 2:安装 protobuf 编译器 2.1 安装 protoc 编译器 2.2 安装编译器 go 语言插件 3: Example 目录结构 4: 定义服务 5: 编译 proto 协议文件 6: 实现服务端代码 7"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -80,13 +80,17 @@
 <ul>
 <li><a href=#1-安装-go-语言-grpc-包>1: 安装 go 语言 grpc 包</a></li><li><a href=#2安装-protobuf-编译器>2:安装 protobuf 编译器</a>
 <ul>
-<li><a href=#21-安装-protoc-编译器>2.1 安装 protoc 编译器</a></li><li><a href=#22-安装编译器-go-语言插件>2.2 安装编译器 go 语言插件</a></li></ul></li><li><a href=#3-example-目录结构>3: Example 目录结构</a></li><li><a href=#4-定义服务>4: 定义服务</a></li><li><a href=#5-编译-proto-协议文件>5: 编译 proto 协议文件</a></li><li><a href=#6-实现服务端代码>6: 实现服务端代码</a></li><li><a href=#7实现客户端代码>7:实现客户端代码</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<li><a href=#21-安装-protoc-编译器>2.1 安装 protoc 编译器</a></li><li><a href=#22-安装编译器-go-语言插件>2.2 安装编译器 go 语言插件</a></li></ul></li><li><a href=#3-example-目录结构>3: Example 目录结构</a></li><li><a href=#4-定义服务>4: 定义服务</a></li><li><a href=#5-编译-proto-协议文件>5: 编译 proto 协议文件</a></li><li><a href=#6-实现服务端代码>6: 实现服务端代码</a></li><li><a href=#7实现客户端代码>7:实现客户端代码</a></li><li><a href=#8-使用-grpc-gateway>8: 使用 grpc-gateway</a>
+<ul>
+<li><a href=#81-安装-grpc-hateway>8.1 安装 grpc-hateway</a></li></ul></li><li><a href=#82-修改-xproto-文件>8.2 修改 x.proto 文件</a></li><li><a href=#83-生成-pbgo-代码>8.3 生成 pb.go 代码</a></li></ul></li></ul></nav></div></div><div class=post-content>
 <ul>
 <li><a href=#go-%E8%AF%AD%E8%A8%80-grpc-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B>go 语言 grpc 入门教程</a>
 <ul>
 <li><a href=#1-%E5%AE%89%E8%A3%85-go-%E8%AF%AD%E8%A8%80-grpc-%E5%8C%85>1: 安装 go 语言 grpc 包</a></li><li><a href=#2%E5%AE%89%E8%A3%85-protobuf-%E7%BC%96%E8%AF%91%E5%99%A8>2:安装 protobuf 编译器</a>
 <ul>
-<li><a href=#21-%E5%AE%89%E8%A3%85-protoc-%E7%BC%96%E8%AF%91%E5%99%A8>2.1 安装 protoc 编译器</a></li><li><a href=#22-%E5%AE%89%E8%A3%85%E7%BC%96%E8%AF%91%E5%99%A8-go-%E8%AF%AD%E8%A8%80%E6%8F%92%E4%BB%B6>2.2 安装编译器 go 语言插件</a></li></ul></li><li><a href=#3-example-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84>3: Example 目录结构</a></li><li><a href=#4-%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1>4: 定义服务</a></li><li><a href=#5-%E7%BC%96%E8%AF%91-proto-%E5%8D%8F%E8%AE%AE%E6%96%87%E4%BB%B6>5: 编译 proto 协议文件</a></li><li><a href=#6-%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BB%A3%E7%A0%81>6: 实现服务端代码</a></li><li><a href=#7%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BB%A3%E7%A0%81>7:实现客户端代码</a></li></ul></li></ul><h1 id=go-语言-grpc-入门教程>go 语言 grpc 入门教程</h1><blockquote>
+<li><a href=#21-%E5%AE%89%E8%A3%85-protoc-%E7%BC%96%E8%AF%91%E5%99%A8>2.1 安装 protoc 编译器</a></li><li><a href=#22-%E5%AE%89%E8%A3%85%E7%BC%96%E8%AF%91%E5%99%A8-go-%E8%AF%AD%E8%A8%80%E6%8F%92%E4%BB%B6>2.2 安装编译器 go 语言插件</a></li></ul></li><li><a href=#3-example-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84>3: Example 目录结构</a></li><li><a href=#4-%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1>4: 定义服务</a></li><li><a href=#5-%E7%BC%96%E8%AF%91-proto-%E5%8D%8F%E8%AE%AE%E6%96%87%E4%BB%B6>5: 编译 proto 协议文件</a></li><li><a href=#6-%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BB%A3%E7%A0%81>6: 实现服务端代码</a></li><li><a href=#7%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BB%A3%E7%A0%81>7:实现客户端代码</a></li><li><a href=#8-%E4%BD%BF%E7%94%A8-grpc-gateway>8: 使用 grpc-gateway</a>
+<ul>
+<li><a href=#81-%E5%AE%89%E8%A3%85-grpc-hateway>8.1 安装 grpc-hateway</a></li></ul></li><li><a href=#82-%E4%BF%AE%E6%94%B9-xproto-%E6%96%87%E4%BB%B6>8.2 修改 x.proto 文件</a></li><li><a href=#83-%E7%94%9F%E6%88%90-pbgo-%E4%BB%A3%E7%A0%81>8.3 生成 pb.go 代码</a></li></ul></li></ul><h1 id=go-语言-grpc-入门教程>go 语言 grpc 入门教程</h1><blockquote>
 <p>前置知识点
 1: <a href=https://www.tizi365.com/archives/367.html>protobuf 语法</a>
 2: <a href=https://www.tizi365.com/archives/391.html>grpc 核心概念</a></p></blockquote><h2 id=1-安装-go-语言-grpc-包>1: 安装 go 语言 grpc 包</h2><div class=highlight><div class=chroma>
@@ -101,17 +105,34 @@
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>到下面github地址</span><span class=err>，</span><span class=nx>根据自己的系统版本选择下载</span><span class=err>，</span><span class=nx>解压缩安装即可</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/protocolbuffers/protobuf/releases
 </span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl><span class=nx>解压缩安装包之后</span><span class=err>，</span><span class=nx>将</span> <span class=p>[</span><span class=nx>安装目录</span><span class=p>]</span><span class=o>/</span><span class=nx>bin</span> <span class=nx>目录</span><span class=err>，</span><span class=nx>添加到PATH环境变量</span><span class=err>。</span>
-</span></span></code></pre></td></tr></table></div></div><h3 id=22-安装编译器-go-语言插件>2.2 安装编译器 go 语言插件</h3><p>因为目前的 protoc 编译器，默认没有包含 go 语言代码生成器，所以需要单独安装插件</p><div class=highlight><div class=chroma>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>-</span> <span class=s>`protoc`</span> <span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/protocolbuffers/protobuf
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=o>-</span> <span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=nx>编译安装</span>
+</span></span><span class=line><span class=cl>  <span class=o>-</span> <span class=p>(</span><span class=mi>2</span><span class=p>)</span> <span class=nx>直接安装编译好的包</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=22-安装编译器-go-语言插件>2.2 安装编译器 go 语言插件</h3><p>因为目前的 protoc 编译器，默认没有包含 go 语言代码生成器，所以需要单独安装插件</p><ul>
+<li>(1) protoc-gen-go</li><li>(2) protoc-gen-go-grpc</li><li>(3) protoc-gen-go-micro</li><li>(4) protoc-gen-go-gateway</li><li>(5) protoc-gen-grpc-swagger</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>go</span> <span class=nx>get</span> <span class=o>-</span><span class=nx>u</span> <span class=o>-</span><span class=nx>v</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>golang</span><span class=o>/</span><span class=nx>protobuf</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=k>go</span>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>go</span> <span class=nx>get</span> <span class=o>-</span><span class=nx>u</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>ecosystem</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>get</span> <span class=o>-</span><span class=nx>u</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>ecosystem</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=nx>swagger</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>get</span> <span class=o>-</span><span class=nx>u</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>golang</span><span class=o>/</span><span class=nx>protobuf</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=k>go</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>install</span> <span class=nx>google</span><span class=p>.</span><span class=nx>golang</span><span class=p>.</span><span class=nx>org</span><span class=o>/</span><span class=nx>protobuf</span><span class=o>/</span><span class=nx>cmd</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=k>go</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>install</span> <span class=k>go</span><span class=p>.</span><span class=nx>unistack</span><span class=p>.</span><span class=nx>org</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=k>go</span><span class=o>-</span><span class=nx>micro</span><span class=o>/</span><span class=nx>v3</span>
 </span></span></code></pre></td></tr></table></div></div><p>安装 go 语言插件后，需要将 $GOPATH/bin 路径加入到 PATH 环境变量中。</p><h2 id=3-example-目录结构>3: Example 目录结构</h2><p>本教程例子的目录结构如下：</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -418,6 +439,117 @@
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=err>#</span> <span class=nx>切换到项目根目录</span><span class=err>，</span><span class=nx>运行命令</span>
 </span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>run</span> <span class=nx>client</span><span class=p>.</span><span class=k>go</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=8-使用-grpc-gateway>8: 使用 grpc-gateway</h2><h3 id=81-安装-grpc-hateway>8.1 安装 grpc-hateway</h3><ul>
+<li><a href=https://github.com/grpc-ecosystem/grpc-gateway>https://github.com/grpc-ecosystem/grpc-gateway</a></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>go</span> <span class=nx>install</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>ecosystem</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>install</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>ecosystem</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=nx>swagger</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>install</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>golang</span><span class=o>/</span><span class=nx>protobuf</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=k>go</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>install</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>google</span><span class=o>/</span><span class=nx>gnostic</span><span class=o>/</span><span class=nx>cmd</span><span class=o>/</span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=nx>openapi</span><span class=err>@</span><span class=nx>latest</span>
+</span></span><span class=line><span class=cl><span class=c1>// go install github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2@latest
+</span></span></span><span class=line><span class=cl><span class=c1>// go install github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2@latest
+</span></span></span><span class=line><span class=cl><span class=c1>// go install
+</span></span></span><span class=line><span class=cl><span class=c1>// 上面执行成功后会在 $GOBIN (/usr/local/go/bin)目录下面 生成3个二进制文件
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span>
+</span></span><span class=line><span class=cl><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>swagger</span>
+</span></span><span class=line><span class=cl><span class=nx>protoc</span><span class=o>-</span><span class=nx>gen</span><span class=o>-</span><span class=k>go</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=82-修改-xproto-文件>8.2 修改 x.proto 文件</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>syntax</span> <span class=p>=</span> <span class=s>&#34;proto3&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>package</span> <span class=nx>hello</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;google/api/annotations.proto&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>message</span> <span class=nx>HelloRequest</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=nx>name</span> <span class=p>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int32</span> <span class=nx>age</span> <span class=p>=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>message</span> <span class=nx>HelloReply</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=nx>message</span> <span class=p>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>service</span> <span class=nx>HelloService</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>rpc</span> <span class=nf>SayHello</span> <span class=p>(</span><span class=nx>HelloRequest</span><span class=p>)</span> <span class=nf>returns</span> <span class=p>(</span><span class=nx>HelloReply</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>        <span class=nf>option</span> <span class=p>(</span><span class=nx>google</span><span class=p>.</span><span class=nx>api</span><span class=p>.</span><span class=nx>http</span><span class=p>)</span> <span class=p>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>post</span><span class=p>:</span><span class=s>&#34;/v1/examples/sayhello&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>body</span><span class=p>:</span><span class=s>&#34;*&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=p>};</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=83-生成-pbgo-代码>8.3 生成 pb.go 代码</h2><ul>
+<li>生成<code>xxx.pb.go</code></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>protoc</span> <span class=o>-</span><span class=nx>I</span><span class=p>.</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=nx>I</span><span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>include</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=nx>I</span><span class=err>$</span><span class=nx>GOPATH</span><span class=o>/</span><span class=nx>src</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=nx>I</span><span class=err>$</span><span class=nx>GOPATH</span><span class=o>/</span><span class=nx>src</span><span class=o>/</span><span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>ecosystem</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span><span class=o>/</span><span class=nx>third_party</span><span class=o>/</span><span class=nx>googleapis</span> \
+</span></span><span class=line><span class=cl><span class=o>--</span><span class=nx>go_out</span><span class=p>=</span><span class=nx>paths</span><span class=p>=</span><span class=nx>source_relative</span><span class=p>:.</span>  <span class=o>*</span><span class=p>.</span><span class=nx>proto</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li>生成<code>gw.pb.go</code></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>protoc</span> <span class=o>-</span><span class=nx>I</span><span class=p>.</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=nx>I</span><span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>include</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=nx>I</span><span class=err>$</span><span class=nx>GOPATH</span><span class=o>/</span><span class=nx>src</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=nx>I</span><span class=err>$</span><span class=nx>GOPATH</span><span class=o>/</span><span class=nx>src</span><span class=o>/</span><span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>ecosystem</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span><span class=o>/</span><span class=nx>third_party</span><span class=o>/</span><span class=nx>googleapis</span> \
+</span></span><span class=line><span class=cl><span class=o>--</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway_out</span><span class=p>=</span><span class=nx>logtostderr</span><span class=p>=</span><span class=kc>true</span><span class=p>:.</span> <span class=o>*</span><span class=p>.</span><span class=nx>proto</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li>生成<code>swagger</code>,hello.swagger.json</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>protoc</span> <span class=o>-</span><span class=nx>I</span><span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>include</span> <span class=o>-</span><span class=nx>I</span><span class=p>.</span> \
+</span></span><span class=line><span class=cl>  <span class=o>-</span><span class=nx>I</span><span class=err>$</span><span class=nx>GOPATH</span><span class=o>/</span><span class=nx>src</span> \
+</span></span><span class=line><span class=cl>  <span class=o>-</span><span class=nx>I</span><span class=err>$</span><span class=nx>GOPATH</span><span class=o>/</span><span class=nx>src</span><span class=o>/</span><span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>ecosystem</span><span class=o>/</span><span class=nx>grpc</span><span class=o>-</span><span class=nx>gateway</span><span class=o>/</span><span class=nx>third_party</span><span class=o>/</span><span class=nx>googleapis</span> \
+</span></span><span class=line><span class=cl>  <span class=o>--</span><span class=nx>swagger_out</span><span class=p>=</span><span class=nx>logtostderr</span><span class=p>=</span><span class=kc>true</span><span class=p>:.</span> <span class=o>*</span><span class=p>.</span><span class=nx>proto</span>
 </span></span></code></pre></td></tr></table></div></div></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>

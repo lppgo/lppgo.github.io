@@ -9,6 +9,10 @@
   - [5: 编译 proto 协议文件](#5-编译-proto-协议文件)
   - [6: 实现服务端代码](#6-实现服务端代码)
   - [7:实现客户端代码](#7实现客户端代码)
+  - [8: 使用 grpc-gateway](#8-使用-grpc-gateway)
+    - [8.1 安装 grpc-hateway](#81-安装-grpc-hateway)
+  - [8.2 修改 x.proto 文件](#82-修改-xproto-文件)
+  - [8.3 生成 pb.go 代码](#83-生成-pbgo-代码)
 
 # go 语言 grpc 入门教程
 
@@ -34,14 +38,28 @@ protobuf 编译器就叫 protoc.
 https://github.com/protocolbuffers/protobuf/releases
 
 解压缩安装包之后，将 [安装目录]/bin 目录，添加到PATH环境变量。
+
+- `protoc` https://github.com/protocolbuffers/protobuf
+  - (1) 编译安装
+  - (2) 直接安装编译好的包
 ```
 
 ### 2.2 安装编译器 go 语言插件
 
 因为目前的 protoc 编译器，默认没有包含 go 语言代码生成器，所以需要单独安装插件
 
+- (1) protoc-gen-go
+- (2) protoc-gen-go-grpc
+- (3) protoc-gen-go-micro
+- (4) protoc-gen-go-gateway
+- (5) protoc-gen-grpc-swagger
+
 ```go
-go get -u -v github.com/golang/protobuf/protoc-gen-go
+go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+go get -u github.com/golang/protobuf/protoc-gen-go
+go install google.golang.org/protobuf/cmd/protoc-gen-go
+go install go.unistack.org/protoc-gen-go-micro/v3
 ```
 
 安装 go 语言插件后，需要将 $GOPATH/bin 路径加入到 PATH 环境变量中。
@@ -239,4 +257,83 @@ func main() {
 ```go
 # 切换到项目根目录，运行命令
 go run client.go
+```
+
+## 8: 使用 grpc-gateway
+
+### 8.1 安装 grpc-hateway
+
+- https://github.com/grpc-ecosystem/grpc-gateway
+
+```go
+go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+go install github.com/golang/protobuf/protoc-gen-go
+go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
+// go install github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2@latest
+// go install github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2@latest
+// go install
+// 上面执行成功后会在 $GOBIN (/usr/local/go/bin)目录下面 生成3个二进制文件
+protoc-gen-grpc-gateway
+protoc-gen-grpc-swagger
+protoc-gen-go
+```
+
+## 8.2 修改 x.proto 文件
+
+```go
+syntax = "proto3";
+
+package hello;
+
+import "google/api/annotations.proto";
+
+message HelloRequest {
+    string name = 1;
+    int32 age = 2;
+}
+message HelloReply {
+    string message = 1;
+}
+service HelloService {
+    rpc SayHello (HelloRequest) returns (HelloReply){
+        option (google.api.http) = {
+            post:"/v1/examples/sayhello"
+            body:"*"
+        };
+    }
+}
+
+```
+
+## 8.3 生成 pb.go 代码
+
+- 生成`xxx.pb.go`
+
+```go
+protoc -I. \
+-I/usr/local/include \
+-I$GOPATH/src \
+-I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+--go_out=paths=source_relative:.  *.proto
+
+```
+
+- 生成`gw.pb.go`
+
+```go
+protoc -I. \
+-I/usr/local/include \
+-I$GOPATH/src \
+-I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+--grpc-gateway_out=logtostderr=true:. *.proto
+```
+
+- 生成`swagger`,hello.swagger.json
+
+```go
+protoc -I/usr/local/include -I. \
+  -I$GOPATH/src \
+  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --swagger_out=logtostderr=true:. *.proto
 ```
