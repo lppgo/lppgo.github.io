@@ -21,6 +21,8 @@
   - [11.1 限流](#111-限流)
   - [11.2 熔断](#112-熔断)
   - [11.3 链路追踪](#113-链路追踪)
+    - [11.3.1 openTracing](#1131-opentracing)
+    - [11.3.2 oepnTelemetry](#1132-oepntelemetry)
 - [12: 测试相关 related](#12-测试相关-related)
   - [12.1 单元测试](#121-单元测试)
   - [12.2 性能测试](#122-性能测试)
@@ -39,6 +41,8 @@
   - [15.4 任务调度工具](#154-任务调度工具)
   - [15.5 自动化运维平台](#155-自动化运维平台)
   - [15.6 deep preety print](#156-deep-preety-print)
+  - [15.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream](#157-juniper-是一个使用泛型扩展-go-标准库的库包括容器迭代器和-stream)
+  - [15.8 samber/lo](#158-samberlo)
 
 # 1：日志库
 
@@ -102,7 +106,10 @@ gocondor [A golang framework for building modern APIs]
 https://github.com/grpc/grpc-go
 
 // micro
+https://github.com/asim/go-micro
 
+// kratos
+https://go-kratos.dev/docs/getting-started/usage
 ```
 
 ## 7.1 Remote Procedure Call
@@ -193,6 +200,8 @@ https://github.com/grpc/grpc-go
 
 # 11：微服务组件库
 
+- https://github.com/go-micro-dev/plugins
+
 ## 11.1 限流
 
 ```go
@@ -205,7 +214,16 @@ https://github.com/juju/ratelimit
 
 ## 11.3 链路追踪
 
-https://studygolang.com/articles/23528?fr=sidebar
+### 11.3.1 openTracing
+
+### 11.3.2 oepnTelemetry
+
+- https://studygolang.com/articles/23528?fr=sidebar
+- https://github.com/go-micro-dev/plugins/blob/master/wrapper/trace/opentracing/opentracing.go
+- https://github.com/lppgo/my_test/tree/master/040_opentracing
+- https://github.com/uptrace/uptrace
+- https://github.com/uptrace/uptrace-go
+- https://github.com/Kashoo/go-micro-opentelemetry
 
 # 12: 测试相关 related
 
@@ -338,4 +356,21 @@ gaia
 ```go
 go-spew
 // https://github.com/davecgh/go-spew
+```
+
+## 15.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream
+
+```go
+juniper
+// https://github.com/bradenaw/juniper
+```
+
+## 15.8 samber/lo
+
+- Lodash 是一个内部封装了诸多对字符串、数组、对象等常见的数据类型的处理函数的一套工具库
+- A Lodash-style Go library based on Go 1.18+ Generics (map, filter, contains, find...)
+
+```go
+lo
+// https://github.com/samber/lo
 ```
