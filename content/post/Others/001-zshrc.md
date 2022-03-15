@@ -5,8 +5,8 @@ draft: false
 date: 2021-09-11
 lastmod: 2021-09-11
 
+categories: ["other", "Linux"]
 tags: ["zsh", "Linux"]
-categories: ["Others", "Linux"]
 keywords: ["zsh"]
 ---
 

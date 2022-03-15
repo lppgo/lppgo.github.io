@@ -5,7 +5,7 @@ date: 2021-06-09
 lastmod: 2021-06-09
 
 tags: ["go"]
-categories: ["go"]
+categories: ["Go"]
 keywords: ["go", "json", "csv"]
 ---
 

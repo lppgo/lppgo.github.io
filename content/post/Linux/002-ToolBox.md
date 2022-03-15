@@ -4,8 +4,8 @@ author: "lucas"
 date: 2021-05-06
 lastmod: 2021-05-06
 
+categories: ["Linux"]
 tags: ["ToolBox"]
-categories: ["ToolBox"]
 keywords: ["ToolBox"]
 ---
 

@@ -4,8 +4,8 @@ author: "lucas"
 date: 2022-02-07
 lastmod: 2022-02-07
 
+categories: ["Go"]
 tags: ["事务"]
-categories: ["Go", "transaction"]
 keywords: ["transaction", "事务"]
 ---
 

@@ -4,8 +4,8 @@ author: "lucas"
 date: 2022-03-10
 lastmod: 2022-03-10
 
+categories: ["Go"]
 tags: ["docker"]
-categories: ["Go", "docker"]
 keywords: ["dockerfile"]
 ---
 

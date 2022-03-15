@@ -66,10 +66,33 @@
 <section id=posts class=posts>
 <article class=post>
 <header class=post-header>
+<h1 class=post-title><a class=post-link href=/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/>01-grpc安装(cpp和go)</a></h1><div class=post-meta>
+<span class=post-time> 2021-10-08 </span>
+<div class=post-category>
+<a href=/categories/go/> Go </a>
+<a href=/categories/cpp/> CPP </a>
+</div></div></header><div class=post-content>
+<div class=post-summary>
+1 c++ 配置 GRPC 1.1 setup dir 1.2 install cmake 1.3 Install other required tools 1.4 git clone grpc repo 1.5 Build and install gRPC and Protocol Buffers 1.6 编写 proto 文件 1.7 编写 server/client 文件 1.8 执行 2 golang grpc 环境搭建 2.1 Prerequisites golang protobuffer 2.2 Get the example code 1 c++ 配置 GRPC https://grpc.io/docs/languages/cpp/quickstart/ 1.1 setup dir 1
+</div><div class=read-more>
+<a href=/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/ class=read-more-link>阅读更多</a>
+</div></div></article><article class=post>
+<header class=post-header>
+<h1 class=post-title><a class=post-link href=/post/dockerk8s/011-docker%E9%83%A8%E7%BD%B2gitlab/>011-docker部署gitlab</a></h1><div class=post-meta>
+<span class=post-time> 2021-09-28 </span>
+<div class=post-category>
+<a href=/categories/docker/> Docker </a>
+</div></div></header><div class=post-content>
+<div class=post-summary>
+docker部署gitlab 1：gitlab docker 镜像 pull 2：启动脚本 3：修改gitlab.rb 4：修改 password 1：gitlab docker 镜像 pull docker pull gitlab/gitlab-ce:latest 新建目录~
+</div><div class=read-more>
+<a href=/post/dockerk8s/011-docker%E9%83%A8%E7%BD%B2gitlab/ class=read-more-link>阅读更多</a>
+</div></div></article><article class=post>
+<header class=post-header>
 <h1 class=post-title><a class=post-link href=/post/others/003-note/>01-note笔记</a></h1><div class=post-meta>
 <span class=post-time> 2021-09-11 </span>
 <div class=post-category>
-<a href=/categories/others/> Others </a>
+<a href=/categories/other/> other </a>
 </div></div></header><div class=post-content>
 <div class=post-summary>
 note笔记 1：note 文件 1.1 alias 别名设置 1.2 git 局部代理 1.3 golang 交叉编译 1.4 date 和时间戳转换 1.5 minikube start 1.6 ip 相关 1.7 查看 Linux 详细 info 1.8 WSL2 压缩磁盘空间 1：note 文件
@@ -91,7 +114,7 @@ note笔记 1：note 文件 1.1 alias 别名设置 1.2 git 局部代理 1.3 golan
 <h1 class=post-title><a class=post-link href=/post/others/001-zshrc/>01-zshrc 笔记</a></h1><div class=post-meta>
 <span class=post-time> 2021-09-11 </span>
 <div class=post-category>
-<a href=/categories/others/> Others </a>
+<a href=/categories/other/> other </a>
 <a href=/categories/linux/> Linux </a>
 </div></div></header><div class=post-content>
 <div class=post-summary>
@@ -125,7 +148,7 @@ Golang Files and I/O Table of Contents Table of Contents 一：读文件 1.1 读
 <h1 class=post-title><a class=post-link href=/post/golang/013-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/>01-微服务限流简单实现</a></h1><div class=post-meta>
 <span class=post-time> 2021-08-03 </span>
 <div class=post-category>
-<a href=/categories/micro/> Micro </a>
+<a href=/categories/go/> Go </a>
 </div></div></header><div class=post-content>
 <div class=post-summary>
 微服务限流简单实现 Table of Contents Table of Contents 一：限流的目的 二：限流实现方式 1：固定窗口 思想 实现 问题 2：滑动窗口 思想 实现 相对于固定窗口的改进 3：漏桶 思想 实现
@@ -153,28 +176,6 @@ docker registry http api v2 Table of Contents Table of Contents 1: Overview 2: �
 WSL2中配置docker远程tcp 1: 修改 /lib/systemd/system/docker.service 2: 设置 DOCKER_HOST 环境变量 3: 修改 docker 启动配置文件/etc/default/docker 4: 重启 docker 1: 修改 /lib/systemd/system/docker.service 1 2 3
 </div><div class=read-more>
 <a href=/post/dockerk8s/001-wsl2%E4%B8%AD%E9%85%8D%E7%BD%AEdocker%E8%BF%9C%E7%A8%8Btcp/ class=read-more-link>阅读更多</a>
-</div></div></article><article class=post>
-<header class=post-header>
-<h1 class=post-title><a class=post-link href=/post/database/005-mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%9C%80%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/>01-mysql数据库优化最完整指南</a></h1><div class=post-meta>
-<span class=post-time> 2021-06-11 </span>
-<div class=post-category>
-<a href=/categories/database/> DataBase </a>
-</div></div></header><div class=post-content>
-<div class=post-summary>
-阶段一: 数据库表设计 阶段二: 数据库部署 阶段三: 数据库性能优化 3.1 硬件配置 3.2 数据库配置优化 3.3 系统内核参数优化 阶段四: SQL 语句优化 阶段五: 数据库架构
-</div><div class=read-more>
-<a href=/post/database/005-mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%9C%80%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/ class=read-more-link>阅读更多</a>
-</div></div></article><article class=post>
-<header class=post-header>
-<h1 class=post-title><a class=post-link href=/post/golang/011-convert-json-to-csv/>01-Convert json to csv</a></h1><div class=post-meta>
-<span class=post-time> 2021-06-09 </span>
-<div class=post-category>
-<a href=/categories/go/> go </a>
-</div></div></header><div class=post-content>
-<div class=post-summary>
-Table of Contents Table of Contents 1: Convert json to csv 1.1 json 文件 1.2 convert 1: Convert json to csv 1.1 json 文件 company.json 1 2 3 4 5 6 7 [ { "App": "Instagram", "Company": "Facebook", "Category": "Social Media" }, { "App": "WeChat", "Company": "Tencent", "Category": "Social Media" }, { "App": "Hotstar", "Company": "Disney", "Category": "Entertainment" }, { "App": "CNBC", "Company": "Comcast", "Category": "News" }, {
-</div><div class=read-more>
-<a href=/post/golang/011-convert-json-to-csv/ class=read-more-link>阅读更多</a>
 </div></div></article></section><nav class=pagination>
 <a class=prev href=/>
 <i class="iconfont icon-left"></i>

@@ -5,8 +5,8 @@ draft: false
 date: 2021-09-11
 lastmod: 2021-09-11
 
-tags: ["Others"]
-categories: ["Others"]
+tags: ["other"]
+categories: ["other"]
 keywords: ["note"]
 ---
 

@@ -1,11 +1,11 @@
 ---
-title: "01-适用于Go项目的Makefile指南"
+title: "02-适用于Go项目的Makefile指南"
 author: "lucas"
 date: 2022-03-10
 lastmod: 2022-03-10
 
+categories: ["Go"]
 tags: ["makefile"]
-categories: ["Go", "makefile"]
 keywords: ["makefile"]
 ---
 
