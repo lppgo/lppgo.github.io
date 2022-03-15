@@ -71,6 +71,7 @@ all:
 	make api;
 	# make generate;
 
+.PHONY: help
 # show help
 help:
 	@echo ''
