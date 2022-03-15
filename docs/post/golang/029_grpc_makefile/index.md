@@ -1,12 +1,15 @@
 
 <div align="center"><font size="35">GRPC Makefile脚本</font></div>
 
+- `Makefile`文件内容如下：
+
 ```makefile
+
 GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
 INTERNAL_PROTO_FILES=$(shell find internal -name *.proto)
-API_PROTO_FILES=$(shell find pb -name *.proto)
-PB_GO_DIR="./go_proto/pb"
+API_PROTO_FILES=$(shell find proto -name *.proto)
+
 
 
 .PHONY: init
@@ -27,10 +30,10 @@ init:
 api:
 	protoc --proto_path=. \
 	       --proto_path=./third_party \
- 	       --go_out=paths=source_relative:./go_proto \
- 	       --go-http_out=paths=source_relative:./go_proto \
- 	       --go-grpc_out=paths=source_relative:./go_proto \
- 	       --go-micro_out=debug=true,,components="micro",paths=source_relative:./go_proto \
+ 	       --go_out=paths=import:. \
+ 	       --go-http_out=paths=import:. \
+ 	       --go-grpc_out=paths=import:. \
+ 	       --go-micro_out=debug=true,,components="micro",paths=import:. \
 	       $(API_PROTO_FILES)
 
  	    #    --go-micro_out=debug=true,,components="micro|http",paths=source_relative:./go_proto
@@ -40,7 +43,7 @@ api:
 .PHONY: clean
 # rm -rf "./go_proto/pb"
 clean:
-	rm -rf $(PB_GO_DIR)
+	find ./go_proto -name "*.pb.go" | xargs rm -f
 
 .PHONY: build
 # build
@@ -76,5 +79,7 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
+
+
 
 ```
