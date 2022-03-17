@@ -29,7 +29,7 @@
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-03-10T14:10:22+08:00">
-<meta itemprop=wordCount content="1452">
+<meta itemprop=wordCount content="1571">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -88,7 +88,7 @@
 <ul>
 <li><a href=#121-单元测试>12.1 单元测试</a></li><li><a href=#122-性能测试>12.2 性能测试</a></li><li><a href=#123-fuzztesting>12.3 FuzzTesting</a></li></ul></li><li><a href=#14-性能分析>14: 性能分析</a>
 <ul>
-<li><a href=#141-prof>14.1 prof</a></li><li><a href=#142-trace>14.2 trace</a></li></ul></li><li><a href=#13-代码检测-related>13: 代码检测 related</a>
+<li><a href=#141-prof>14.1 prof</a></li><li><a href=#142-trace>14.2 trace</a></li><li><a href=#143-性能可视化分析>14.3 性能可视化分析</a></li></ul></li><li><a href=#13-代码检测-related>13: 代码检测 related</a>
 <ul>
 <li><a href=#131-竞态检测>13.1 竞态检测</a></li><li><a href=#132-go-vet-静态检查>13.2 go vet 静态检查</a></li><li><a href=#133-shadowing-variable>13.3 Shadowing variable</a></li></ul></li><li><a href=#15-others>15: Others</a>
 <ul>
@@ -108,7 +108,7 @@
 <ul>
 <li><a href=#121-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95>12.1 单元测试</a></li><li><a href=#122-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95>12.2 性能测试</a></li><li><a href=#123-fuzztesting>12.3 FuzzTesting</a></li></ul></li><li><a href=#14-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90>14: 性能分析</a>
 <ul>
-<li><a href=#141-prof>14.1 prof</a></li><li><a href=#142-trace>14.2 trace</a></li></ul></li><li><a href=#13-%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B-related>13: 代码检测 related</a>
+<li><a href=#141-prof>14.1 prof</a></li><li><a href=#142-trace>14.2 trace</a></li><li><a href=#143-%E6%80%A7%E8%83%BD%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90>14.3 性能可视化分析</a></li></ul></li><li><a href=#13-%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B-related>13: 代码检测 related</a>
 <ul>
 <li><a href=#131-%E7%AB%9E%E6%80%81%E6%A3%80%E6%B5%8B>13.1 竞态检测</a></li><li><a href=#132-go-vet-%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5>13.2 go vet 静态检查</a></li><li><a href=#133-shadowing-variable>13.3 Shadowing variable</a></li></ul></li><li><a href=#15-others>15: Others</a>
 <ul>
@@ -294,7 +294,42 @@
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//blog.csdn.net/chenchongg/article/details/85342086
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/juju/ratelimit
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=112-熔断>11.2 熔断</h2><h2 id=113-链路追踪>11.3 链路追踪</h2><h3 id=1131-opentracing>11.3.1 openTracing</h3><h3 id=1132-oepntelemetry>11.3.2 oepnTelemetry</h3><ul>
-<li><a href="https://studygolang.com/articles/23528?fr=sidebar">https://studygolang.com/articles/23528?fr=sidebar</a></li><li><a href=https://github.com/go-micro-dev/plugins/blob/master/wrapper/trace/opentracing/opentracing.go>https://github.com/go-micro-dev/plugins/blob/master/wrapper/trace/opentracing/opentracing.go</a></li><li><a href=https://github.com/lppgo/my_test/tree/master/040_opentracing>https://github.com/lppgo/my_test/tree/master/040_opentracing</a></li><li><a href=https://github.com/uptrace/uptrace>https://github.com/uptrace/uptrace</a></li><li><a href=https://github.com/uptrace/uptrace-go>https://github.com/uptrace/uptrace-go</a></li><li><a href=https://github.com/Kashoo/go-micro-opentelemetry>https://github.com/Kashoo/go-micro-opentelemetry</a></li></ul><h1 id=12-测试相关-related>12: 测试相关 related</h1><h2 id=121-单元测试>12.1 单元测试</h2><h2 id=122-性能测试>12.2 性能测试</h2><h2 id=123-fuzztesting>12.3 FuzzTesting</h2><h1 id=14-性能分析>14: 性能分析</h1><h2 id=141-prof>14.1 prof</h2><h2 id=142-trace>14.2 trace</h2><h1 id=13-代码检测-related>13: 代码检测 related</h1><h2 id=131-竞态检测>13.1 竞态检测</h2><p><code>go run -race xxx.go </code></p><h2 id=132-go-vet-静态检查>13.2 go vet 静态检查</h2><div class=highlight><div class=chroma>
+<li><a href="https://studygolang.com/articles/23528?fr=sidebar">https://studygolang.com/articles/23528?fr=sidebar</a></li><li><a href=https://github.com/go-micro-dev/plugins/blob/master/wrapper/trace/opentracing/opentracing.go>https://github.com/go-micro-dev/plugins/blob/master/wrapper/trace/opentracing/opentracing.go</a></li><li><a href=https://github.com/lppgo/my_test/tree/master/040_opentracing>https://github.com/lppgo/my_test/tree/master/040_opentracing</a></li><li><a href=https://github.com/uptrace/uptrace>https://github.com/uptrace/uptrace</a></li><li><a href=https://github.com/uptrace/uptrace-go>https://github.com/uptrace/uptrace-go</a></li><li><a href=https://github.com/Kashoo/go-micro-opentelemetry>https://github.com/Kashoo/go-micro-opentelemetry</a></li></ul><h1 id=12-测试相关-related>12: 测试相关 related</h1><h2 id=121-单元测试>12.1 单元测试</h2><h2 id=122-性能测试>12.2 性能测试</h2><h2 id=123-fuzztesting>12.3 FuzzTesting</h2><h1 id=14-性能分析>14: 性能分析</h1><h2 id=141-prof>14.1 prof</h2><h2 id=142-trace>14.2 trace</h2><h2 id=143-性能可视化分析>14.3 性能可视化分析</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// statsviz 即时实时可视化 Heap、Objects、Goroutines、GC 等
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/arl/statsviz
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//polarisxu.studygolang.com/posts/go/pkg/statsviz/
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// statsview  一个实时的 Golang runtime stats visualization profiler
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/go-echarts/statsview
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// parca 持续分析以分析 CPU、内存使用量随时间的变化，直至行号
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/parca-dev/parca
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>//
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//studygolang.com/topics/14979
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/xyctruth/profiler
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// autopprof
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/lppgo/autopprof
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=13-代码检测-related>13: 代码检测 related</h1><h2 id=131-竞态检测>13.1 竞态检测</h2><p><code>go run -race xxx.go </code></p><h2 id=132-go-vet-静态检查>13.2 go vet 静态检查</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2

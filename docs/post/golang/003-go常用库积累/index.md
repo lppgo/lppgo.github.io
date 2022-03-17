@@ -30,6 +30,7 @@
 - [14: 性能分析](#14-性能分析)
   - [14.1 prof](#141-prof)
   - [14.2 trace](#142-trace)
+  - [14.3 性能可视化分析](#143-性能可视化分析)
 - [13: 代码检测 related](#13-代码检测-related)
   - [13.1 竞态检测](#131-竞态检测)
   - [13.2 go vet 静态检查](#132-go-vet-静态检查)
@@ -238,6 +239,27 @@ https://github.com/juju/ratelimit
 ## 14.1 prof
 
 ## 14.2 trace
+
+## 14.3 性能可视化分析
+
+```go
+// statsviz 即时实时可视化 Heap、Objects、Goroutines、GC 等
+https://github.com/arl/statsviz
+https://polarisxu.studygolang.com/posts/go/pkg/statsviz/
+
+// statsview  一个实时的 Golang runtime stats visualization profiler
+https://github.com/go-echarts/statsview
+
+// parca 持续分析以分析 CPU、内存使用量随时间的变化，直至行号
+https://github.com/parca-dev/parca
+
+//
+https://studygolang.com/topics/14979
+https://github.com/xyctruth/profiler
+
+// autopprof
+https://github.com/lppgo/autopprof
+```
 
 # 13: 代码检测 related
 
