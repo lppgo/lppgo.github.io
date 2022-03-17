@@ -44,6 +44,7 @@
   - [15.6 deep preety print](#156-deep-preety-print)
   - [15.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream](#157-juniper-是一个使用泛型扩展-go-标准库的库包括容器迭代器和-stream)
   - [15.8 samber/lo](#158-samberlo)
+  - [15.9 gopsutil](#159-gopsutil)
 
 # 1：日志库
 
@@ -395,4 +396,13 @@ juniper
 ```go
 lo
 // https://github.com/samber/lo
+```
+
+## 15.9 gopsutil
+
+- gopsutil psutil for golang
+
+```go
+https://github.com/shirou/gopsutil
+https://mp.weixin.qq.com/s/yTblk9Js1Zcq5aWVcYGjOA
 ```
