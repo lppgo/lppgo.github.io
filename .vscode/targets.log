@@ -1,6 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
- 
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Apr 11 14:20:27 2022
+# Make data base, printed on Thu May 12 14:12:53 2022
 
 # Variables
 
@@ -49,7 +49,7 @@ VSCODE_CWD = /mnt/d/SoftBox/VScode
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/lucas/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/bin/remote-cli:/home/lucas/bin:/home/lucas/.local/bin:/home/lucas/go:/home/lucas/go/bin:/usr/local/go/bin:/home/lucas/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/d/SoftBox/Python39/Scripts/:/mnt/d/SoftBox/Python39/:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/d/SoftBox/Git/cmd:/mnt/c/Users/Administrator/AppData/Local/hyper/app-3.0.2/resources/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/d/SoftBox/Graphviz2.38/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/jre/bin:/mnt/e/envgo/bin:/mnt/d/SoftBox/Nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/SoftBox/hugo:/mnt/d/SoftBox/Rust/.cargo/bin:/mnt/d/SoftBox/gnuplot/bin:/mnt/d/SoftBox/LLVM/bin:/mnt/d/SoftBox/swigwin-4.0.2:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/mingw-w64/mingw64/bin:/mnt/c/Program Files/Intel/Intel(R) Memory and Storage Tool/:/mnt/d/SoftBox/Easyshare/x86/:/mnt/d/SoftBox/Easyshare/x64/:/mnt/d/SoftBox/Go/bin:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/d/SoftBox/VScode/bin:/mnt/d/SoftBox/JetBrains/GoLand/bin:/mnt/c/Users/Administrator/AppData/Roaming/npm:/mnt/d/SoftBox/JetBrains/Clion/bin:/mnt/d/SoftBox/JetBrains/PyCharm/bin:/mnt/c/Users/Administrator/go/bin:/mnt/c/Program\ Files/Docker/Docker/resources/bin:/usr/local/lib/node-v16.4.2-linux-x64/bin
+PATH = /home/lucas/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/bin/remote-cli:/home/lucas/bin:/home/lucas/.local/bin:/home/lucas/go:/home/lucas/go/bin:/usr/local/go/bin:/home/lucas/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/d/SoftBox/Python39/Scripts/:/mnt/d/SoftBox/Python39/:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/d/SoftBox/Git/cmd:/mnt/c/Users/Administrator/AppData/Local/hyper/app-3.0.2/resources/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/d/SoftBox/Graphviz2.38/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/jre/bin:/mnt/e/envgo/bin:/mnt/d/SoftBox/Nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/SoftBox/hugo:/mnt/d/SoftBox/Rust/.cargo/bin:/mnt/d/SoftBox/gnuplot/bin:/mnt/d/SoftBox/LLVM/bin:/mnt/d/SoftBox/swigwin-4.0.2:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/mingw-w64/mingw64/bin:/mnt/c/Program Files/Intel/Intel(R) Memory and Storage Tool/:/mnt/d/SoftBox/Easyshare/x86/:/mnt/d/SoftBox/Easyshare/x64/:/mnt/c/Program Files/Solidigm/Solidigm(TM) Storage Tool/:/mnt/d/SoftBox/Go/bin:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/d/SoftBox/VScode/bin:/mnt/d/SoftBox/JetBrains/GoLand/bin:/mnt/c/Users/Administrator/AppData/Roaming/npm:/mnt/d/SoftBox/JetBrains/CLion/bin:/mnt/d/SoftBox/JetBrains/PyCharm/bin:/mnt/c/Users/Administrator/go/bin:/mnt/c/Program\ Files/Docker/Docker/resources/bin:/usr/local/lib/node-v16.4.2-linux-x64/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -59,7 +59,7 @@ GOPATH = /home/lucas/go
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-4c981fc8-ff71-413b-a3c7-12869c4f37b3.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-e7d183d9-50da-4179-b5e6-9533532dccab.sock
 # environment
 RUSTUP_DIST_SERVER = https://mirrors.ustc.edu.cn/rust-static
 # default
@@ -77,11 +77,11 @@ PWD = /mnt/g/lppgo.github.io
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/23492_interop
+WSL_INTEROP = /run/WSL/20_interop
 # environment
 HISTTIMEFORMAT = %F %T 
 # environment
-WT_SESSION = 62a8ee43-c583-4342-a378-8db36e5d922a
+WT_SESSION = 4a9ceaee-5064-4ef5-998e-38c6cbfcffa8
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -91,7 +91,7 @@ LD_LIBRARY_PATH = :/usr/local/lib
 # environment
 LOGNAME = lucas
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ZSH = /home/lucas/.oh-my-zsh
 # environment
@@ -121,7 +121,7 @@ LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/Administrator/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.0
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/Administrator/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.2
 # default
 MAKE_COMMAND := make
 # default
@@ -138,6 +138,8 @@ MFLAGS = -pqrR
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
+# environment
+VSCODE_HANDLES_SIGPIPE = true
 # environment
 WT_PROFILE_ID = {07b52e3e-de2c-5db4-bd2d-ba144ed6c273}
 # default
@@ -171,7 +173,7 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 # environment
 RUSTUP_UPDATE_ROOT = https://mirrors.ustc.edu.cn/rust-static/rustup
 # variable set hash-table stats:
-# Load=79/1024=8%, Rehash=0, Collisions=5/101=5%
+# Load=80/1024=8%, Rehash=0, Collisions=5/102=5%
 
 # Pattern-specific Variable Values
 
@@ -237,6 +239,6 @@ GNUmakefile:
 # strcache performance: lookups = 30 / hit rate = 10%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/30=3%
-# Finished Make data base on Mon Apr 11 14:20:27 2022
+# Finished Make data base on Thu May 12 14:12:53 2022
 
  
