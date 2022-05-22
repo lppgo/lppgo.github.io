@@ -19,7 +19,7 @@
 - [10：MQ 库](#10mq-库)
 - [11：微服务组件库](#11微服务组件库)
   - [11.1 限流](#111-限流)
-  - [11.2 熔断](#112-熔断)
+  - [11.2 熔断 CircuitBreaker](#112-熔断-circuitbreaker)
   - [11.3 链路追踪](#113-链路追踪)
     - [11.3.1 openTracing](#1131-opentracing)
     - [11.3.2 oepnTelemetry](#1132-oepntelemetry)
@@ -225,7 +225,12 @@ https://github.com/RussellLuo/slidingwindow
 https://github.com/mennanov/limiters
 ```
 
-## 11.2 熔断
+## 11.2 熔断 CircuitBreaker
+
+```go
+// gobreaker
+https://github.com/sony/gobreaker
+```
 
 ## 11.3 链路追踪
 
