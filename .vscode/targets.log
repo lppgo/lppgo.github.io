@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May 22 17:12:13 2022
+# Make data base, printed on Tue May 24 10:23:30 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ GOPATH = /home/lucas/go
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-e59d769a-11e7-4990-8b98-f4e545a344e1.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-8d85467c-8505-42ac-8191-b5ec560c0c5e.sock
 # environment
 RUSTUP_DIST_SERVER = https://mirrors.ustc.edu.cn/rust-static
 # default
@@ -77,11 +77,11 @@ PWD = /mnt/g/lppgo.github.io
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/22736_interop
+WSL_INTEROP = /run/WSL/30923_interop
 # environment
 HISTTIMEFORMAT = %F %T 
 # environment
-WT_SESSION = 6401945f-5c3a-415a-901a-1f1f73bc338e
+WT_SESSION = 8b533cc2-ac52-4e4b-b1c3-2bf2da7226df
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -239,6 +239,6 @@ GNUmakefile:
 # strcache performance: lookups = 30 / hit rate = 10%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/30=3%
-# Finished Make data base on Sun May 22 17:12:13 2022
+# Finished Make data base on Tue May 24 10:23:30 2022
 
  
