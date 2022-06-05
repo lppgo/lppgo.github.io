@@ -11,8 +11,9 @@
     - [7.1.2 GRPC](#712-grpc)
       - [7.1.2.1 GRPC 安装](#7121-grpc-安装)
       - [7.1.2.2 GRPC 使用](#7122-grpc-使用)
-      - [7.1.2.3 GRPC 测试](#7123-grpc-测试)
-      - [7.1.2.4 GRPC 压测 ghz](#7124-grpc-压测-ghz)
+      - [7.1.2.3 grpc-middleware](#7123-grpc-middleware)
+      - [7.1.2.4 GRPC 测试](#7124-grpc-测试)
+      - [7.1.2.5 GRPC 压测 ghz](#7125-grpc-压测-ghz)
   - [7.2 Micro Services](#72-micro-services)
 - [8：标准库好用可替换库](#8标准库好用可替换库)
 - [9：数据库相关](#9数据库相关)
@@ -52,6 +53,11 @@
   - [16.12 FTP](#1612-ftp)
   - [16.13 使用 cmux 实现服务端连接多路复用](#1613-使用-cmux-实现服务端连接多路复用)
   - [16.14 Golang 时间处理库](#1614-golang-时间处理库)
+  - [16.15 Console progress bar 进度条](#1615-console-progress-bar-进度条)
+  - [16.16 时间与日期](#1616-时间与日期)
+  - [16.17 读写文件相关](#1617-读写文件相关)
+  - [16.18 数学 math](#1618-数学-math)
+  - [16.19 流量录制](#1619-流量录制)
 
 # 1：日志库
 
@@ -68,8 +74,15 @@ https://github.com/natefinch/lumberjack
 # 2：配置库
 
 ```go
-兼容 json，toml，yaml，hcl 等格式的日志库.
+// viper 兼容 json，toml，yaml，hcl 等格式的配置库.
 https://github.com/spf13/viper
+
+// configor Golang Configuration tool that support YAML, JSON, TOML, Shell Environment
+https://github.com/jinzhu/configor
+
+
+// env
+https://github.com/caarlos0/env
 ```
 
 # 3：存储相关
@@ -131,7 +144,13 @@ https://go-kratos.dev/docs/getting-started/usage
 
 #### 7.1.2.2 GRPC 使用
 
-#### 7.1.2.3 GRPC 测试
+#### 7.1.2.3 grpc-middleware
+
+```go
+https://github.com/grpc-ecosystem/go-grpc-middleware
+```
+
+#### 7.1.2.4 GRPC 测试
 
 - **(1): [BloomRPC](https://github.com/uw-labs/bloomrpc)**
 
@@ -168,7 +187,7 @@ https://go-kratos.dev/docs/getting-started/usage
 
   ```
 
-#### 7.1.2.4 GRPC 压测 ghz
+#### 7.1.2.5 GRPC 压测 ghz
 
 - https://ghz.sh/
 
@@ -487,4 +506,39 @@ https://github.com/soheilhy/cmux
 ```go
 // carbon 是一个轻量级、语义化、对开发者友好的golang时间处理库，支持链式调用
 https://github.com/golang-module/carbon
+```
+
+## 16.15 Console progress bar 进度条
+
+```go
+// Console progress bar for Golang
+https://github.com/cheggaaa/pb
+```
+
+## 16.16 时间与日期
+
+```go
+https://github.com/jinzhu/now
+```
+
+## 16.17 读写文件相关
+
+```go
+// excelize
+
+
+// cvs
+```
+
+## 16.18 数学 math
+
+```go
+// decimal
+https://github.com/shopspring/decimal
+```
+
+## 16.19 流量录制
+
+```go
+https://github.com/didi/sharingan
 ```
