@@ -25,11 +25,11 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/database/007-clickhouse%E5%B8%B8%E7%94%A8sql%E8%84%9A%E6%9C%AC/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2022-06-07T00:00:00+00:00">
-<meta property="article:modified_time" content="2022-06-07T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-06-08T17:51:25+08:00">
 <meta itemprop=name content="01-ClickHouse常用sql脚本">
 <meta itemprop=description content="ClickHouse常用sql脚本 一: ClickHouse 介绍 ClickHouse 是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS). https://clickhouse.com/docs/zh/ 数据文件路径： /var/lib/clickhouse/ 日志文件路径"><meta itemprop=datePublished content="2022-06-07T00:00:00+00:00">
-<meta itemprop=dateModified content="2022-06-07T00:00:00+00:00">
-<meta itemprop=wordCount content="275">
+<meta itemprop=dateModified content="2022-06-08T17:51:25+08:00">
+<meta itemprop=wordCount content="1349">
 <meta itemprop=keywords content="ClickHouse,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="01-ClickHouse常用sql脚本">
 <meta name=twitter:description content="ClickHouse常用sql脚本 一: ClickHouse 介绍 ClickHouse 是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS). https://clickhouse.com/docs/zh/ 数据文件路径： /var/lib/clickhouse/ 日志文件路径"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -80,7 +80,7 @@
 <ul>
 <li><a href=#31-数据库操作>3.1 数据库操作</a></li><li><a href=#32-表操作>3.2 表操作</a>
 <ul>
-<li><a href=#321-查看表结构>3.2.1 查看表结构</a></li></ul></li></ul></li><li><a href=#四-clickhouse-client>四: ClickHouse-client</a></li></ul></nav></div></div><div class=post-content>
+<li><a href=#321-查看表结构>3.2.1 查看表结构</a></li></ul></li></ul></li><li><a href=#四-view-视图>四: View 视图</a></li><li><a href=#四-clickhouse-client>四: ClickHouse-client</a></li></ul></nav></div></div><div class=post-content>
 <div align=center><font size=35>ClickHouse常用sql脚本</font></div><h1 id=一-clickhouse-介绍>一: ClickHouse 介绍</h1><ul>
 <li>ClickHouse 是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS).</li><li><a href=https://clickhouse.com/docs/zh/>https://clickhouse.com/docs/zh/</a></li><li>数据文件路径： /var/lib/clickhouse/</li><li>日志文件路径：/var/log/clickhouse-server/clickhouse-server.log</li></ul><h1 id=二-clickhouse-连接>二: Clickhouse 连接</h1><ul>
 <li><a href=https://clickhouse.com/docs/zh/interfaces/third-party/gui>https://clickhouse.com/docs/zh/interfaces/third-party/gui</a></li></ul><h1 id=三-clickhouse-database>三: ClickHouse Database</h1><h2 id=31-数据库操作>3.1 数据库操作</h2><ul>
@@ -100,6 +100,9 @@
 </span><span class=lnt>12
 </span><span class=lnt>13
 </span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=c1>-- 显示所有数据库
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>SHOW</span><span class=w> </span><span class=k>database</span><span class=w>
@@ -111,10 +114,13 @@
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>CREATE</span><span class=w> </span><span class=k>database</span><span class=w> </span><span class=k>if</span><span class=w> </span><span class=k>not</span><span class=w> </span><span class=k>exists</span><span class=w> </span><span class=n>tick</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 删除数据库
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>DROP</span><span class=w>  </span><span class=k>database</span><span class=w> </span><span class=n>tick</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>DROP</span><span class=w>  </span><span class=k>database</span><span class=w> </span><span class=n>tick</span><span class=w> </span><span class=k>ON</span><span class=w> </span><span class=k>CLUSTER</span><span class=w> </span><span class=o>&lt;</span><span class=err>集群名</span><span class=o>&gt;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 显示数据库中的所有表
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>show</span><span class=w> </span><span class=n>tables</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>tick</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>show</span><span class=w> </span><span class=n>tables</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>tick</span><span class=w> </span><span class=k>ON</span><span class=w> </span><span class=k>CLUSTER</span><span class=w> </span><span class=o>&lt;</span><span class=err>集群名</span><span class=o>&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 手动optimize，合并分区
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>optimize</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=n>tick</span><span class=w> </span><span class=k>final</span><span class=p>;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=32-表操作>3.2 表操作</h2><h3 id=321-查看表结构>3.2.1 查看表结构</h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
@@ -141,9 +147,24 @@
 </span><span class=lnt>22
 </span><span class=lnt>23
 </span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=c1>-- 建表
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>create</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=k>IF</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>EXISTS</span><span class=w> </span><span class=n>test</span><span class=p>.</span><span class=k>user</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>create</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=k>IF</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>EXISTS</span><span class=w> </span><span class=n>test</span><span class=p>.</span><span class=k>user</span><span class=w> </span><span class=k>ON</span><span class=w> </span><span class=k>CLUSTER</span><span class=w> </span><span class=o>&lt;</span><span class=err>集群名</span><span class=o>&gt;</span><span class=w> </span><span class=p>(</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=o>`</span><span class=n>uid</span><span class=o>`</span><span class=w> </span><span class=n>Int32</span><span class=p>,</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=o>`</span><span class=n>name</span><span class=o>`</span><span class=w> </span><span class=n>String</span><span class=p>,</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=o>`</span><span class=n>age</span><span class=o>`</span><span class=w> </span><span class=n>UInt32</span><span class=p>,</span><span class=w>
@@ -153,7 +174,10 @@
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ORDER</span><span class=w> </span><span class=k>BY</span><span class=w> </span><span class=p>(</span><span class=n>uid</span><span class=p>,</span><span class=n>birthday</span><span class=p>);</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 设置表TTL
+</span></span></span><span class=line><span class=cl><span class=c1>--    涉及判断的字段必须是Date或者Datetime类型，推荐使用分区的日期字段：
+</span></span></span><span class=line><span class=cl><span class=c1>--      SECOND , MINUTE , HOUR , DAY , WEEK , MONTH , QUARTER , YEAR
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>Alter</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=n>test</span><span class=p>.</span><span class=k>user</span><span class=w> </span><span class=k>Modify</span><span class=w> </span><span class=n>TTL</span><span class=w> </span><span class=n>createAt</span><span class=o>+</span><span class=nb>interval</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=k>day</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 显示表结构
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>DESCRIBE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>test</span><span class=p>.</span><span class=k>user</span><span class=p>;</span><span class=w>
@@ -163,14 +187,63 @@
 </span></span></span><span class=line><span class=cl><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 删除表
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>DROP</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=k>IF</span><span class=w> </span><span class=k>EXISTS</span><span class=w> </span><span class=n>test</span><span class=p>.</span><span class=n>student</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>--
-</span></span></span><span class=line><span class=cl><span class=c1>--
-</span></span></span><span class=line><span class=cl><span class=c1>--
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 添加字段
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>alter</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=n>product_test</span><span class=w> </span><span class=k>add</span><span class=w> </span><span class=k>column</span><span class=w> </span><span class=o>`</span><span class=n>test</span><span class=o>`</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=k>DEFAULT</span><span class=w> </span><span class=s1>&#39;&#39;</span><span class=w> </span><span class=k>COMMENT</span><span class=w> </span><span class=s1>&#39;注释&#39;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>--删除字段
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>alter</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=n>product_test</span><span class=w> </span><span class=k>drop</span><span class=w> </span><span class=k>column</span><span class=w> </span><span class=o>`</span><span class=n>test</span><span class=o>`</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>--修改字段
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>alter</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=n>product_test</span><span class=w> </span><span class=k>modify</span><span class=w> </span><span class=k>column</span><span class=w> </span><span class=o>`</span><span class=n>test</span><span class=o>`</span><span class=w> </span><span class=k>Nullable</span><span class=p>(</span><span class=n>String</span><span class=p>)</span><span class=w> </span><span class=k>DEFAULT</span><span class=w> </span><span class=k>NULL</span><span class=w> </span><span class=k>COMMENT</span><span class=w> </span><span class=s1>&#39;注释&#39;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>--删除数据
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>db_name</span><span class=p>.</span><span class=k>table_name</span><span class=w> </span><span class=k>DROP</span><span class=w> </span><span class=n>PARTITION</span><span class=w> </span><span class=s1>&#39;分区(例如：时间20220516)&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- 删除表中所有数据(清空表)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>alter</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=n>tableName</span><span class=w> </span><span class=k>delete</span><span class=w> </span><span class=k>where</span><span class=w> </span><span class=mi>1</span><span class=o>=</span><span class=mi>1</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=四-view-视图>四: View 视图</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=c1>--ClickHouse支持视图功能，目前一共支持两种视图：普通（Normal）视图和物化（Materialized）视图
+</span></span></span><span class=line><span class=cl><span class=c1>--通过DROP TABLE [$db_name.]$view_table_name语句可以直接删除视图，而通过SHOW TABLES可以展示所有的表，视图也会被认为是一种特殊的表一并进行展示
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>--普通视图
+</span></span></span><span class=line><span class=cl><span class=c1>--普通视图不会存储任何数据，它只是一个查询映射，起到了简化查询语义的作用，对查询的性能也不会有任何正负作用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>--物化视图
+</span></span></span><span class=line><span class=cl><span class=c1>--物化视图支持定义表引擎，因为其数据保存的形式由表引擎决定
+</span></span></span><span class=line><span class=cl><span class=c1>--需要定义表引擎，决定数据存储的形式
+</span></span></span><span class=line><span class=cl><span class=c1>--物化视图中的数据不支持同步删除，如果源表的数据不存在或者源表被删除了，物化视图的数据依然存在
+</span></span></span><span class=line><span class=cl><span class=c1>--物化视图不会随着基础表的变化而变化，所以它也称为快照（snapshot）
+</span></span></span><span class=line><span class=cl><span class=c1>--如果要更新数据的话，需要用户手动进行，如周期性执行SQL，或利用触发器等机制
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=四-clickhouse-client>四: ClickHouse-client</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>clickhouse</span><span class=o>-</span><span class=nx>client</span> <span class=o>--</span><span class=nx>host</span> <span class=nx>localhost</span> <span class=o>--</span><span class=nx>user</span> <span class=nx>admin</span> <span class=o>--</span><span class=nx>password</span> <span class=nx>admin</span>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>//
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>clickhouse</span><span class=o>-</span><span class=nx>client</span> <span class=o>--</span><span class=nx>host</span> <span class=nx>localhost</span> <span class=o>--</span><span class=nx>user</span> <span class=nx>admin</span> <span class=o>--</span><span class=nx>password</span> <span class=nx>admin</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 导出数据
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>clickhouse</span><span class=o>-</span><span class=nx>client</span> <span class=o>--</span><span class=nx>query</span> <span class=s>&#34;select * from t_order_mt where create_time=&#39;2020-06-01 12:00:00&#39;&#34;</span> <span class=o>--</span><span class=nx>format</span> <span class=nx>CSVWithNames</span><span class=p>&gt;</span> <span class=o>/</span><span class=nx>opt</span><span class=o>/</span><span class=nx>module</span><span class=o>/</span><span class=nx>data</span><span class=o>/</span><span class=nx>rs1</span><span class=p>.</span><span class=nx>csv</span>
 </span></span></code></pre></td></tr></table></div></div></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>
@@ -178,7 +251,8 @@
 </p><p class=copyright-item>
 <span class=item-title>上次更新</span>
 <span class=item-content>
-2022-06-07
+2022-06-08
+<a href=/commit/0b9fb50c611b6a132545ae3d013e5c194edf3e71 title="add clickhouse docs">(0b9fb50)</a>
 </span>
 </p></div><footer class=post-footer>
 <div class=post-tags>
