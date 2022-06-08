@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jun  4 23:50:48 2022
+# Make data base, printed on Tue Jun  7 14:17:30 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ GOPATH = /home/lucas/go
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-deb53d41-849d-4652-9203-5c779d675313.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-797beeef-ec30-47dc-9224-13bbc588da89.sock
 # environment
 RUSTUP_DIST_SERVER = https://mirrors.ustc.edu.cn/rust-static
 # default
@@ -81,7 +81,7 @@ WSL_INTEROP = /run/WSL/14_interop
 # environment
 HISTTIMEFORMAT = %F %T 
 # environment
-WT_SESSION = 91872401-5c4d-418a-bf5e-221a32e21fb4
+WT_SESSION = 6752cffa-667f-4551-a6a0-b8b3b91fa87e
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -91,7 +91,7 @@ LD_LIBRARY_PATH = :/usr/local/lib
 # environment
 LOGNAME = lucas
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ZSH = /home/lucas/.oh-my-zsh
 # environment
@@ -147,8 +147,6 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
-https_proxy = http://172.31.208.1:7078
-# environment
 EDITOR = /usr/bin/vim
 # environment
 PAGER = less
@@ -165,8 +163,6 @@ SUFFIXES :=
 # default
 .RECIPEPREFIX := 
 # environment
-http_proxy = http://172.31.208.1:7078
-# environment
 LANG = C
 # environment
 TERM = xterm-256color
@@ -177,7 +173,7 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 # environment
 RUSTUP_UPDATE_ROOT = https://mirrors.ustc.edu.cn/rust-static/rustup
 # variable set hash-table stats:
-# Load=82/1024=8%, Rehash=0, Collisions=5/104=5%
+# Load=80/1024=8%, Rehash=0, Collisions=5/102=5%
 
 # Pattern-specific Variable Values
 
@@ -243,6 +239,6 @@ GNUmakefile:
 # strcache performance: lookups = 30 / hit rate = 10%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/30=3%
-# Finished Make data base on Sat Jun  4 23:50:48 2022
+# Finished Make data base on Tue Jun  7 14:17:30 2022
 
  
