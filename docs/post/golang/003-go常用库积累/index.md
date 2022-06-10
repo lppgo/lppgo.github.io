@@ -52,9 +52,9 @@
   - [16.11 提供优化的算法以利用现代 CPU 的特性](#1611-提供优化的算法以利用现代-cpu-的特性)
   - [16.12 FTP](#1612-ftp)
   - [16.13 使用 cmux 实现服务端连接多路复用](#1613-使用-cmux-实现服务端连接多路复用)
-  - [16.14 Golang 时间处理库](#1614-golang-时间处理库)
+  - [16.14 Golang 时间与日期](#1614-golang-时间与日期)
   - [16.15 Console progress bar 进度条](#1615-console-progress-bar-进度条)
-  - [16.16 时间与日期](#1616-时间与日期)
+  - [16.16 图表 chart](#1616-图表-chart)
   - [16.17 读写文件相关](#1617-读写文件相关)
   - [16.18 数学 math](#1618-数学-math)
   - [16.19 流量录制](#1619-流量录制)
@@ -249,6 +249,9 @@ https://github.com/mennanov/limiters
 ```go
 // gobreaker
 https://github.com/sony/gobreaker
+
+// hystrix-go
+https://github.com/afex/hystrix-go
 ```
 
 ## 11.3 链路追踪
@@ -311,6 +314,9 @@ https://github.com/lppgo/autopprof
 
 //
 https://github.com/loov/goda
+
+//
+https://github.com/KyleBanks/depth
 ```
 
 # 13: 代码检测 related
@@ -501,11 +507,13 @@ https://mp.weixin.qq.com/s/2cERDCRKlmfHKv8gY324Hg
 https://github.com/soheilhy/cmux
 ```
 
-## 16.14 Golang 时间处理库
+## 16.14 Golang 时间与日期
 
 ```go
 // carbon 是一个轻量级、语义化、对开发者友好的golang时间处理库，支持链式调用
 https://github.com/golang-module/carbon
+
+https://github.com/jinzhu/now
 ```
 
 ## 16.15 Console progress bar 进度条
@@ -515,10 +523,10 @@ https://github.com/golang-module/carbon
 https://github.com/cheggaaa/pb
 ```
 
-## 16.16 时间与日期
+## 16.16 图表 chart
 
 ```go
-https://github.com/jinzhu/now
+https://github.com/go-echarts/go-echarts
 ```
 
 ## 16.17 读写文件相关

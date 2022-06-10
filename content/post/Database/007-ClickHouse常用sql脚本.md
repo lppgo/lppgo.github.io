@@ -112,7 +112,7 @@ alter table tableName delete where 1=1;
 --如果要更新数据的话，需要用户手动进行，如周期性执行SQL，或利用触发器等机制
 ```
 
-# 四: ClickHouse-client
+# 五: ClickHouse-client
 
 ```go
 //
@@ -122,3 +122,5 @@ clickhouse-client --host localhost --user admin --password admin
 clickhouse-client --query "select * from t_order_mt where create_time='2020-06-01 12:00:00'" --format CSVWithNames> /opt/module/data/rs1.csv
 
 ```
+
+# 六: clickhouse-local
