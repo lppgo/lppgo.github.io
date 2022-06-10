@@ -58,6 +58,7 @@
   - [16.17 读写文件相关](#1617-读写文件相关)
   - [16.18 数学 math](#1618-数学-math)
   - [16.19 流量录制](#1619-流量录制)
+- [17 一些特殊的库 Lib](#17-一些特殊的库-lib)
 
 # 1：日志库
 
@@ -549,4 +550,15 @@ https://github.com/shopspring/decimal
 
 ```go
 https://github.com/didi/sharingan
+```
+
+# 17 一些特殊的库 Lib
+
+```go
+// 端口复用
+https://github.com/libp2p/go-reuseport
+// 自动调整maxprocs
+https://github.com/uber-go/automaxprocs
+// auto adjust your GOGC value
+https://github.com/cch123/gogctuner
 ```

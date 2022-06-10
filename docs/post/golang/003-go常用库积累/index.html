@@ -25,11 +25,11 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-04-17T00:00:00+00:00">
-<meta property="article:modified_time" content="2022-06-05T22:14:51+08:00">
+<meta property="article:modified_time" content="2022-06-10T10:20:04+08:00">
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
-<meta itemprop=dateModified content="2022-06-05T22:14:51+08:00">
-<meta itemprop=wordCount content="2018">
+<meta itemprop=dateModified content="2022-06-10T10:20:04+08:00">
+<meta itemprop=wordCount content="2067">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -92,7 +92,7 @@
 <ul>
 <li><a href=#131-竞态检测>13.1 竞态检测</a></li><li><a href=#132-go-vet-静态检查>13.2 go vet 静态检查</a></li><li><a href=#133-shadowing-variable>13.3 Shadowing variable</a></li></ul></li><li><a href=#15-healthstatus-checking>15: health/status checking</a></li><li><a href=#16-others>16: Others</a>
 <ul>
-<li><a href=#161-email-电子邮件>16.1 email 电子邮件</a></li><li><a href=#162-热编译>16.2 热编译</a></li><li><a href=#163-参数校验>16.3 参数校验</a></li><li><a href=#164-任务调度工具>16.4 任务调度工具</a></li><li><a href=#165-自动化运维平台>16.5 自动化运维平台</a></li><li><a href=#166-deep-preety-print>16.6 deep preety print</a></li><li><a href=#167-juniper-是一个使用泛型扩展-go-标准库的库包括容器迭代器和-stream>16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</a></li><li><a href=#168-samberlo>16.8 samber/lo</a></li><li><a href=#169-gopsutil>16.9 gopsutil</a></li><li><a href=#1610-数学相关的库>16.10 数学相关的库</a></li><li><a href=#1611-提供优化的算法以利用现代-cpu-的特性>16.11 提供优化的算法以利用现代 CPU 的特性</a></li><li><a href=#1612-ftp>16.12 FTP</a></li><li><a href=#1613-使用-cmux-实现服务端连接多路复用>16.13 使用 cmux 实现服务端连接多路复用</a></li><li><a href=#1614-golang-时间与日期>16.14 Golang 时间与日期</a></li><li><a href=#1615-console-progress-bar-进度条>16.15 Console progress bar 进度条</a></li><li><a href=#1616-图表-chart>16.16 图表 chart</a></li><li><a href=#1617-读写文件相关>16.17 读写文件相关</a></li><li><a href=#1618-数学-math>16.18 数学 math</a></li><li><a href=#1619-流量录制>16.19 流量录制</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<li><a href=#161-email-电子邮件>16.1 email 电子邮件</a></li><li><a href=#162-热编译>16.2 热编译</a></li><li><a href=#163-参数校验>16.3 参数校验</a></li><li><a href=#164-任务调度工具>16.4 任务调度工具</a></li><li><a href=#165-自动化运维平台>16.5 自动化运维平台</a></li><li><a href=#166-deep-preety-print>16.6 deep preety print</a></li><li><a href=#167-juniper-是一个使用泛型扩展-go-标准库的库包括容器迭代器和-stream>16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</a></li><li><a href=#168-samberlo>16.8 samber/lo</a></li><li><a href=#169-gopsutil>16.9 gopsutil</a></li><li><a href=#1610-数学相关的库>16.10 数学相关的库</a></li><li><a href=#1611-提供优化的算法以利用现代-cpu-的特性>16.11 提供优化的算法以利用现代 CPU 的特性</a></li><li><a href=#1612-ftp>16.12 FTP</a></li><li><a href=#1613-使用-cmux-实现服务端连接多路复用>16.13 使用 cmux 实现服务端连接多路复用</a></li><li><a href=#1614-golang-时间与日期>16.14 Golang 时间与日期</a></li><li><a href=#1615-console-progress-bar-进度条>16.15 Console progress bar 进度条</a></li><li><a href=#1616-图表-chart>16.16 图表 chart</a></li><li><a href=#1617-读写文件相关>16.17 读写文件相关</a></li><li><a href=#1618-数学-math>16.18 数学 math</a></li><li><a href=#1619-流量录制>16.19 流量录制</a></li></ul></li><li><a href=#17-一些特殊的库-lib>17 一些特殊的库 Lib</a></li></ul></nav></div></div><div class=post-content>
 <ul>
 <li><a href=#1%E6%97%A5%E5%BF%97%E5%BA%93>1：日志库</a></li><li><a href=#2%E9%85%8D%E7%BD%AE%E5%BA%93>2：配置库</a></li><li><a href=#3%E5%AD%98%E5%82%A8%E7%9B%B8%E5%85%B3>3：存储相关</a></li><li><a href=#4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84>4：数据结构</a></li><li><a href=#5cli-%E5%91%BD%E4%BB%A4%E8%A1%8C>5：CLI 命令行</a></li><li><a href=#6web-%E6%A1%86%E6%9E%B6>6：web 框架</a></li><li><a href=#7rpc-%E5%92%8C%E5%BE%AE%E6%9C%8D%E5%8A%A1>7：RPC 和微服务</a>
 <ul>
@@ -112,7 +112,7 @@
 <ul>
 <li><a href=#131-%E7%AB%9E%E6%80%81%E6%A3%80%E6%B5%8B>13.1 竞态检测</a></li><li><a href=#132-go-vet-%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5>13.2 go vet 静态检查</a></li><li><a href=#133-shadowing-variable>13.3 Shadowing variable</a></li></ul></li><li><a href=#15-healthstatus-checking>15: health/status checking</a></li><li><a href=#16-others>16: Others</a>
 <ul>
-<li><a href=#161-email-%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6>16.1 email 电子邮件</a></li><li><a href=#162-%E7%83%AD%E7%BC%96%E8%AF%91>16.2 热编译</a></li><li><a href=#163-%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C>16.3 参数校验</a></li><li><a href=#164-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%B7%A5%E5%85%B7>16.4 任务调度工具</a></li><li><a href=#165-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0>16.5 自动化运维平台</a></li><li><a href=#166-deep-preety-print>16.6 deep preety print</a></li><li><a href=#167-juniper-%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E6%89%A9%E5%B1%95-go-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%BA%93%E5%8C%85%E6%8B%AC%E5%AE%B9%E5%99%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C-stream>16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</a></li><li><a href=#168-samberlo>16.8 samber/lo</a></li><li><a href=#169-gopsutil>16.9 gopsutil</a></li><li><a href=#1610-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>16.10 数学相关的库</a></li><li><a href=#1611-%E6%8F%90%E4%BE%9B%E4%BC%98%E5%8C%96%E7%9A%84%E7%AE%97%E6%B3%95%E4%BB%A5%E5%88%A9%E7%94%A8%E7%8E%B0%E4%BB%A3-cpu-%E7%9A%84%E7%89%B9%E6%80%A7>16.11 提供优化的算法以利用现代 CPU 的特性</a></li><li><a href=#1612-ftp>16.12 FTP</a></li><li><a href=#1613-%E4%BD%BF%E7%94%A8-cmux-%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%BF%9E%E6%8E%A5%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8>16.13 使用 cmux 实现服务端连接多路复用</a></li><li><a href=#1614-golang-%E6%97%B6%E9%97%B4%E4%B8%8E%E6%97%A5%E6%9C%9F>16.14 Golang 时间与日期</a></li><li><a href=#1615-console-progress-bar-%E8%BF%9B%E5%BA%A6%E6%9D%A1>16.15 Console progress bar 进度条</a></li><li><a href=#1616-%E5%9B%BE%E8%A1%A8-chart>16.16 图表 chart</a></li><li><a href=#1617-%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E7%9B%B8%E5%85%B3>16.17 读写文件相关</a></li><li><a href=#1618-%E6%95%B0%E5%AD%A6-math>16.18 数学 math</a></li><li><a href=#1619-%E6%B5%81%E9%87%8F%E5%BD%95%E5%88%B6>16.19 流量录制</a></li></ul></li></ul><h1 id=1日志库>1：日志库</h1><div class=highlight><div class=chroma>
+<li><a href=#161-email-%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6>16.1 email 电子邮件</a></li><li><a href=#162-%E7%83%AD%E7%BC%96%E8%AF%91>16.2 热编译</a></li><li><a href=#163-%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C>16.3 参数校验</a></li><li><a href=#164-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%B7%A5%E5%85%B7>16.4 任务调度工具</a></li><li><a href=#165-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0>16.5 自动化运维平台</a></li><li><a href=#166-deep-preety-print>16.6 deep preety print</a></li><li><a href=#167-juniper-%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E6%89%A9%E5%B1%95-go-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%BA%93%E5%8C%85%E6%8B%AC%E5%AE%B9%E5%99%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C-stream>16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</a></li><li><a href=#168-samberlo>16.8 samber/lo</a></li><li><a href=#169-gopsutil>16.9 gopsutil</a></li><li><a href=#1610-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>16.10 数学相关的库</a></li><li><a href=#1611-%E6%8F%90%E4%BE%9B%E4%BC%98%E5%8C%96%E7%9A%84%E7%AE%97%E6%B3%95%E4%BB%A5%E5%88%A9%E7%94%A8%E7%8E%B0%E4%BB%A3-cpu-%E7%9A%84%E7%89%B9%E6%80%A7>16.11 提供优化的算法以利用现代 CPU 的特性</a></li><li><a href=#1612-ftp>16.12 FTP</a></li><li><a href=#1613-%E4%BD%BF%E7%94%A8-cmux-%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%BF%9E%E6%8E%A5%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8>16.13 使用 cmux 实现服务端连接多路复用</a></li><li><a href=#1614-golang-%E6%97%B6%E9%97%B4%E4%B8%8E%E6%97%A5%E6%9C%9F>16.14 Golang 时间与日期</a></li><li><a href=#1615-console-progress-bar-%E8%BF%9B%E5%BA%A6%E6%9D%A1>16.15 Console progress bar 进度条</a></li><li><a href=#1616-%E5%9B%BE%E8%A1%A8-chart>16.16 图表 chart</a></li><li><a href=#1617-%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E7%9B%B8%E5%85%B3>16.17 读写文件相关</a></li><li><a href=#1618-%E6%95%B0%E5%AD%A6-math>16.18 数学 math</a></li><li><a href=#1619-%E6%B5%81%E9%87%8F%E5%BD%95%E5%88%B6>16.19 流量录制</a></li></ul></li><li><a href=#17-%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BA%93-lib>17 一些特殊的库 Lib</a></li></ul><h1 id=1日志库>1：日志库</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -643,6 +643,21 @@
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/didi/sharingan
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=17-一些特殊的库-lib>17 一些特殊的库 Lib</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 端口复用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/libp2p/go-reuseport
+</span></span></span><span class=line><span class=cl><span class=c1>// 自动调整maxprocs
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/uber-go/automaxprocs
+</span></span></span><span class=line><span class=cl><span class=c1>// auto adjust your GOGC value
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/cch123/gogctuner
 </span></span></span></code></pre></td></tr></table></div></div></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>
@@ -650,8 +665,8 @@
 </p><p class=copyright-item>
 <span class=item-title>上次更新</span>
 <span class=item-content>
-2022-06-05
-<a href=/commit/56f7d67361cb87d9eedbc715f8c0304153f686b2 title="add go lib & docker cheak sheet">(56f7d67)</a>
+2022-06-10
+<a href=/commit/fd24d6ce038b28c0885f0986c488192012800c7d title="update go libs">(fd24d6c)</a>
 </span>
 </p></div><footer class=post-footer>
 <div class=post-tags>
