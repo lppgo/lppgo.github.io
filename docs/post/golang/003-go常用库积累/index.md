@@ -59,6 +59,7 @@
   - [16.18 数学 math](#1618-数学-math)
   - [16.19 流量录制](#1619-流量录制)
 - [17 一些特殊的库 Lib](#17-一些特殊的库-lib)
+- [18 tools 工具库](#18-tools-工具库)
 
 # 1：日志库
 
@@ -561,4 +562,14 @@ https://github.com/libp2p/go-reuseport
 https://github.com/uber-go/automaxprocs
 // auto adjust your GOGC value
 https://github.com/cch123/gogctuner
+```
+
+# 18 tools 工具库
+
+```go
+// ztool
+https://github.com/druidcaesa/ztool
+https://studygolang.com/articles/35697#reply0
+
+
 ```
