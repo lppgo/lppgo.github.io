@@ -25,11 +25,11 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-04-17T00:00:00+00:00">
-<meta property="article:modified_time" content="2022-06-10T15:03:49+08:00">
+<meta property="article:modified_time" content="2022-06-13T07:55:30+08:00">
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
-<meta itemprop=dateModified content="2022-06-10T15:03:49+08:00">
-<meta itemprop=wordCount content="2084">
+<meta itemprop=dateModified content="2022-06-13T07:55:30+08:00">
+<meta itemprop=wordCount content="2096">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -287,13 +287,18 @@
 </span></span><span class=line><span class=cl>  <span class=o>-</span><span class=nx>c</span> <span class=mi>100</span> \
 </span></span><span class=line><span class=cl>  <span class=o>-</span><span class=nx>n</span> <span class=mi>100000</span> \
 </span></span><span class=line><span class=cl>  <span class=nx>localhost</span><span class=p>:</span><span class=mi>50051</span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=72-micro-services>7.2 Micro Services</h2><h1 id=8标准库好用可替换库>8：标准库好用可替换库</h1><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://github.com/crossoverjie/ptg>https://github.com/crossoverjie/ptg</a></li></ul><h2 id=72-micro-services>7.2 Micro Services</h2><h1 id=8标准库好用可替换库>8：标准库好用可替换库</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// json
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/bytedance/sonic
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/bytedance/sonic
 </span></span></span><span class=line><span class=cl><span class=c1>// map
 </span></span></span><span class=line><span class=cl><span class=c1>// go pool
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=9数据库相关>9：数据库相关</h1><div class=highlight><div class=chroma>
@@ -478,9 +483,11 @@
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>//
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/AfterShip/email-verifier
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/jordan-wright/email
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=162-热编译>16.2 热编译</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -612,9 +619,15 @@
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Console progress bar for Golang
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/cheggaaa/pb
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>//
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/schollz/progressbar
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=1616-图表-chart>16.16 图表 chart</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -674,8 +687,8 @@
 </p><p class=copyright-item>
 <span class=item-title>上次更新</span>
 <span class=item-content>
-2022-06-10
-<a href=/commit/684720cc9c471b41137783e3cb27fc151b32d292 title="update go libs">(684720c)</a>
+2022-06-13
+<a href=/commit/d5db8e81cdbdbd123ed00d5082896cf8bf32cc5e title="update go libs ztools">(d5db8e8)</a>
 </span>
 </p></div><footer class=post-footer>
 <div class=post-tags>

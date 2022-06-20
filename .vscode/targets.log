@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jun 10 14:30:36 2022
+# Make data base, printed on Mon Jun 20 10:56:11 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VSCODE_CWD = /mnt/d/SoftBox/VScode
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/lucas/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/home/lucas/.nvm/versions/node/v16.15.1/bin:/home/lucas/bin:/home/lucas/.local/bin:/home/lucas/go:/home/lucas/go/bin:/usr/local/go/bin:/home/lucas/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/d/SoftBox/Python39/Scripts/:/mnt/d/SoftBox/Python39/:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/d/SoftBox/Git/cmd:/mnt/c/Users/Administrator/AppData/Local/hyper/app-3.0.2/resources/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/d/SoftBox/Graphviz2.38/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/jre/bin:/mnt/e/envgo/bin:/mnt/d/SoftBox/Nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/SoftBox/hugo:/mnt/d/SoftBox/Rust/.cargo/bin:/mnt/d/SoftBox/gnuplot/bin:/mnt/d/SoftBox/LLVM/bin:/mnt/d/SoftBox/swigwin-4.0.2:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/mingw-w64/mingw64/bin:/mnt/c/Program Files/Intel/Intel(R) Memory and Storage Tool/:/mnt/d/SoftBox/Easyshare/x86/:/mnt/d/SoftBox/Easyshare/x64/:/mnt/c/Program Files/Solidigm/Solidigm(TM) Storage Tool/:/mnt/d/SoftBox/Go/bin:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/d/SoftBox/VScode/bin:/mnt/d/SoftBox/JetBrains/GoLand/GoLand 2022.1.2/bin:/mnt/c/Users/Administrator/AppData/Roaming/npm:/mnt/d/SoftBox/JetBrains/Clion/CLion 2022.1.2/bin:/mnt/d/SoftBox/JetBrains/PyCharm/PyCharm 2022.1.2/bin:/mnt/c/Users/Administrator/go/bin:/mnt/c/Program\ Files/Docker/Docker/resources/bin:/usr/local/lib/node-v16.4.2-linux-x64/bin
+PATH = /home/lucas/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/bin/remote-cli:/home/lucas/.nvm/versions/node/v16.15.1/bin:/home/lucas/bin:/home/lucas/.local/bin:/home/lucas/go:/home/lucas/go/bin:/usr/local/go/bin:/home/lucas/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/d/SoftBox/Python39/Scripts/:/mnt/d/SoftBox/Python39/:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/d/SoftBox/Git/cmd:/mnt/c/Users/Administrator/AppData/Local/hyper/app-3.0.2/resources/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/d/SoftBox/Graphviz2.38/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/bin:/mnt/d/SoftBox/Java/jdk-15.0.2/jre/bin:/mnt/e/envgo/bin:/mnt/d/SoftBox/Nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/SoftBox/hugo:/mnt/d/SoftBox/Rust/.cargo/bin:/mnt/d/SoftBox/gnuplot/bin:/mnt/d/SoftBox/LLVM/bin:/mnt/d/SoftBox/swigwin-4.0.2:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/cmake/bin:/mnt/d/SoftBox/mingw-w64/mingw64/bin:/mnt/c/Program Files/Intel/Intel(R) Memory and Storage Tool/:/mnt/d/SoftBox/Easyshare/x86/:/mnt/d/SoftBox/Easyshare/x64/:/mnt/c/Program Files/Solidigm/Solidigm(TM) Storage Tool/:/mnt/d/SoftBox/Go/bin:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/d/SoftBox/VScode/bin:/mnt/d/SoftBox/JetBrains/GoLand/GoLand 2022.1.2/bin:/mnt/c/Users/Administrator/AppData/Roaming/npm:/mnt/d/SoftBox/JetBrains/Clion/CLion 2022.1.2/bin:/mnt/d/SoftBox/JetBrains/PyCharm/PyCharm 2022.1.2/bin:/mnt/c/Users/Administrator/go/bin:/mnt/c/Program\ Files/Docker/Docker/resources/bin:/usr/local/lib/node-v16.4.2-linux-x64/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -63,7 +63,7 @@ NVM_BIN = /home/lucas/.nvm/versions/node/v16.15.1/bin
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-3699e169-270f-49bf-96a9-15eecb798efe.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-f71a0669-3c23-4089-b53a-6608d0b9224c.sock
 # environment
 RUSTUP_DIST_SERVER = https://mirrors.ustc.edu.cn/rust-static
 # default
@@ -81,11 +81,11 @@ PWD = /mnt/g/lppgo.github.io
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/31747_interop
+WSL_INTEROP = /run/WSL/13557_interop
 # environment
 HISTTIMEFORMAT = %F %T 
 # environment
-WT_SESSION = a3e3492f-aef0-441a-ba72-d99d1bb266be
+WT_SESSION = 29333855-f92c-4fde-9dee-00322edbd129
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -127,7 +127,7 @@ LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/Administrator/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.2
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/Administrator/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.3
 # default
 MAKE_COMMAND := make
 # default
@@ -155,8 +155,6 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
-https_proxy = http://172.25.176.1:7078
-# environment
 EDITOR = /usr/bin/vim
 # environment
 PAGER = less
@@ -173,8 +171,6 @@ SUFFIXES :=
 # default
 .RECIPEPREFIX := 
 # environment
-http_proxy = http://172.25.176.1:7078
-# environment
 LANG = C
 # environment
 TERM = xterm-256color
@@ -184,10 +180,8 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 WSL_DISTRO_NAME = Ubuntu-20.04
 # environment
 RUSTUP_UPDATE_ROOT = https://mirrors.ustc.edu.cn/rust-static/rustup
-# environment
-NVM_RC_VERSION = 
 # variable set hash-table stats:
-# Load=87/1024=8%, Rehash=0, Collisions=5/109=5%
+# Load=84/1024=8%, Rehash=0, Collisions=5/106=5%
 
 # Pattern-specific Variable Values
 
@@ -253,6 +247,6 @@ GNUmakefile:
 # strcache performance: lookups = 30 / hit rate = 10%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/30=3%
-# Finished Make data base on Fri Jun 10 14:30:36 2022
+# Finished Make data base on Mon Jun 20 10:56:11 2022
 
  

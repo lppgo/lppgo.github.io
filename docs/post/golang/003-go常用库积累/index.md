@@ -206,12 +206,16 @@ https://github.com/grpc-ecosystem/go-grpc-middleware
 
 ```
 
+- https://github.com/crossoverjie/ptg
+
 ## 7.2 Micro Services
 
 # 8：标准库好用可替换库
 
 ```go
 // json
+https://github.com/bytedance/sonic
+https://github.com/bytedance/sonic
 // map
 // go pool
 ```
@@ -401,6 +405,7 @@ https://github.com/megaease/easeprobe
 ```go
 //
 https://github.com/AfterShip/email-verifier
+https://github.com/jordan-wright/email
 
 ```
 
@@ -523,6 +528,9 @@ https://github.com/jinzhu/now
 ```go
 // Console progress bar for Golang
 https://github.com/cheggaaa/pb
+
+//
+https://github.com/schollz/progressbar
 ```
 
 ## 16.16 图表 chart
