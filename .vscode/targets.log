@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jun 20 10:56:11 2022
+# Make data base, printed on Sat Jun 25 23:01:14 2022
 
 # Variables
 
@@ -63,7 +63,7 @@ NVM_BIN = /home/lucas/.nvm/versions/node/v16.15.1/bin
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-f71a0669-3c23-4089-b53a-6608d0b9224c.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-c6788c9a-0f3a-4db2-9948-28cbcbca7bc0.sock
 # environment
 RUSTUP_DIST_SERVER = https://mirrors.ustc.edu.cn/rust-static
 # default
@@ -81,11 +81,11 @@ PWD = /mnt/g/lppgo.github.io
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/13557_interop
+WSL_INTEROP = /run/WSL/27571_interop
 # environment
 HISTTIMEFORMAT = %F %T 
 # environment
-WT_SESSION = 29333855-f92c-4fde-9dee-00322edbd129
+WT_SESSION = ce520854-0e81-404c-9b92-bc7029f75e36
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -155,6 +155,8 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
+https_proxy = http://172.28.48.1:7078
+# environment
 EDITOR = /usr/bin/vim
 # environment
 PAGER = less
@@ -171,6 +173,8 @@ SUFFIXES :=
 # default
 .RECIPEPREFIX := 
 # environment
+http_proxy = http://172.28.48.1:7078
+# environment
 LANG = C
 # environment
 TERM = xterm-256color
@@ -181,7 +185,7 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 # environment
 RUSTUP_UPDATE_ROOT = https://mirrors.ustc.edu.cn/rust-static/rustup
 # variable set hash-table stats:
-# Load=84/1024=8%, Rehash=0, Collisions=5/106=5%
+# Load=86/1024=8%, Rehash=0, Collisions=5/108=5%
 
 # Pattern-specific Variable Values
 
@@ -247,6 +251,6 @@ GNUmakefile:
 # strcache performance: lookups = 30 / hit rate = 10%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/30=3%
-# Finished Make data base on Mon Jun 20 10:56:11 2022
+# Finished Make data base on Sat Jun 25 23:01:14 2022
 
  
