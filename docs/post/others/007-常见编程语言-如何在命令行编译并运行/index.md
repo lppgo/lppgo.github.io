@@ -1,0 +1,260 @@
+
+<div align="center"><font size="35">常见编程语言-如何在命令行编译并运行</font></div>
+
+- [1 : Summary](#1--summary)
+- [2 : java 编译与运行](#2--java-编译与运行)
+  - [2.1 环境准备](#21-环境准备)
+  - [2.2 编写代码](#22-编写代码)
+  - [2.3 编译运行](#23-编译运行)
+- [3 : go 编译与运行](#3--go-编译与运行)
+  - [3.1 环境准备](#31-环境准备)
+  - [3.2 编写代码](#32-编写代码)
+  - [3.3 编译运行](#33-编译运行)
+- [4 : c 编译与运行](#4--c-编译与运行)
+  - [4.1 环境准备](#41-环境准备)
+  - [4.2 编写代码](#42-编写代码)
+  - [4.3 编译运行](#43-编译运行)
+- [5 : c++编译与运行](#5--c编译与运行)
+  - [5.1 环境准备](#51-环境准备)
+  - [5.2 编写代码](#52-编写代码)
+  - [5.3 编译运行](#53-编译运行)
+- [6 : rust 编译与运行](#6--rust-编译与运行)
+  - [6.1 环境准备](#61-环境准备)
+  - [6.2 编写代码](#62-编写代码)
+  - [6.3 编译运行](#63-编译运行)
+- [7 : typescript 编译与运行](#7--typescript-编译与运行)
+  - [7.1 环境准备](#71-环境准备)
+  - [7.2 编写代码](#72-编写代码)
+  - [7.3 编译运行](#73-编译运行)
+- [8: 其他](#8-其他)
+
+# 1 : Summary
+
+- 有时通过 jetbrains、vscode 这些 ide 的界面操作来运行项目，反而不懂简单的命令。绝大部分编程语言都有在命令行编译并运行方式的功能，有悟收集当前一些主流开发语言（java、go、c/c++、javascript/typescript、rust）的命令行编译并运行的命令。
+- 转自(https://youwu.today/skill/backend/how-to-compile-and-run-your-first-program-in-popular-languages/)
+
+# 2 : java 编译与运行
+
+## 2.1 环境准备
+
+- **环境准备** 安装 [oracle java sdk](https://www.oracle.com/java/technologies/downloads/) ，或者 [oracle open jdk](https://jdk.java.net/) ，然后将 java 可执行程序所在程序配置到 `$PATH` (windows 用户配置到 `%path%`)。
+- java open jdk 有非常多的版本，可通过 [jabba](https://github.com/shyiko/jabba) 安装，版本非常全。 windows 用户安装了 scoop 的，可以使用 scoop 来安装，使用 scoop search jdk 会提示相应的步骤 macos/linux 用户还可以使用 jenv 来管理多版本。
+
+## 2.2 编写代码
+
+```java
+// hello.java
+class Hello {
+  public static void main(String[] args){
+    System.out.println("I'm a Simple Program");
+  }
+}
+```
+
+## 2.3 编译运行
+
+- 命令`javac hello.java && java Hello`
+
+- **命令行编译运行：**
+  ```bash
+  ~/Projects/go/examples/firstprogram
+  ➜  javac hello.java && java Hello
+  youwu.today say hi.
+  ```
+- javac hello.java 会编译并在当前生成一个字节码文件 Hello.class。使用 java Hello 启动 java 程序，Hello 是 main 类的名称。
+- 常见的以 java 为开发语言的项目，使用 `gradle`、`maven` 等**构建工具**来完成构建，并不会直接手动在命令行执行 javac
+
+# 3 : go 编译与运行
+
+## 3.1 环境准备
+
+- 到官方网站 下载页 下载 sdk，按照[官方](https://golang.org/dl/) 安装说明 进行安装。如果下载的是 zip 压缩包版本，需要将 go 可执行程序所在程序配置到环境变量 path。
+- https://go.dev/learn/
+- windows 用户可以使用 scoop 来安装 go sdk。 macos/linux 用户可以使用 brew 安装。
+
+## 3.2 编写代码
+
+```go
+// hello.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("youwu.today say hi.")
+}
+```
+
+## 3.3 编译运行
+
+- 使用 `go run hello.go` 运行或者 `go build -o hello_go hello.go && ./hello_go` 编译生成可执行程序后运行
+- **命令行编译运行：**
+
+  ```bash
+    ~/Projects/go/examples/firstprogram
+    ➜  go run hello.go
+    youwu.today say hi.
+
+    ~/Projects/go/examples/firstprogram
+    ➜ go build -o hello_go hello.go && ./hello_go
+    youwu.today say hi.
+  ```
+
+# 4 : c 编译与运行
+
+## 4.1 环境准备
+
+- **安装 c 编译环境 gcc** linux 用户安装 `gcc` 环境，通过所用操作系统的包管理器安装。 windows 用户，安装 [mingw](https://www.mingw-w64.org/) ，如果是 windows 10 用户，可以启用 wls 来获得一个 linux 操作系统环境。 macos 用户安装 [xcode](https://developer.apple.com/xcode/) ，当然也你可以选择安装 gcc，不过如果你以后可能会在 macos 上搞程序开发工作，那么还是安装 xcode。
+
+还有一些定制的 c 编译器，如 tinyc，作用新手的话，不建议去玩。
+
+## 4.2 编写代码
+
+```c
+// hello.c
+#include <stdio.h>
+int main() {
+   printf("youwu.today say hi.\n");
+   return 0;
+}
+```
+
+## 4.3 编译运行
+
+- 使用命令 `gcc hello.c -o hello_c && hello_c` 编译并生成可执行程序 hello_c：
+- **命令行编译运行：**
+
+```bash
+~/Projects/go/examples/firstprogram
+➜  gcc hello.c -o hello_c && ./hello_c
+youwu.today say hi.
+
+~/Projects/go/examples/firstprogram
+➜  clang hello.c -o hello_c && ./hello_c
+
+~/Projects/go/examples/firstprogram
+➜  g++ hello.c -o hello_c && ./hello_c
+clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+youwu.today say hi.
+```
+
+- 即使使用 c++ 编译器，也可以编译上面的示例程序，当然会有一些警告信息。
+
+# 5 : c++编译与运行
+
+## 5.1 环境准备
+
+- 安装 c++ 编译环境
+- gcc 环境中包含有 c++ 编译器。
+
+## 5.2 编写代码
+
+```cpp
+// hello.cpp
+#include <iostream>
+
+using namespace std;
+
+int main ()
+{
+    cout << "youwu.today say hi." << endl;
+   return 0;
+}
+```
+
+## 5.3 编译运行
+
+- 使用命令 `g++` 或 `c++` 编译并生成可执行程序 `hello_cpp`：
+- **命令行编译运行：**
+
+```bash
+~/Projects/go/examples/firstprogram
+➜  g++ hello.cpp -o hello_cpp && ./hello_cpp
+youwu.today say hi.
+
+~/Projects/go/examples/firstprogram
+➜  c++ hello.cpp -o hello_cpp && ./hello_cpp
+youwu.today say hi.
+```
+
+# 6 : rust 编译与运行
+
+## 6.1 环境准备
+
+- 建议通过 rustup 来安装 rust 环境，rustup 是由官方提供的安装、更新工具。安装后需要将相关的路径配置到 PATH 环境变量中。详见 [官方的 安装说明](https://www.rust-lang.org/zh-CN/tools/install) 。当然，还是可以通过 scoop、brew 来安装。
+
+## 6.2 编写代码
+
+```rust
+// hello.rs
+fn main() {
+    println!("youwu.today say hi.");
+}
+```
+
+## 6.3 编译运行
+
+- 使用 `rustc` 来编译代码，会在当前目录下生成一个可执行文件，通过 -o 名称 来指定个可执行程序的名称：
+
+```bash
+~/Projects/go/examples/firstprogram
+➜  rustc hello.rs -o hello_rs && ./hello_rs
+youwu.today say hi.
+```
+
+- 通常，我们见到的使用 rust 所开发的项目，都是通过 cargo 来启动编译，而不会直接启动 rustc 编译。
+- cargo 之于 rust，如同 gradle/maven 之于 java，npm/yarn 之于 js。
+
+# 7 : typescript 编译与运行
+
+## 7.1 环境准备
+
+- `typescript` 是用来开发 javascript 的，不是用来直接运行的。不过，还是可以在命令行运行。
+
+- 如果使用 nodejs 作为 js 运行环境，那么需要安装 [typescript](https://www.typescriptlang.org/)编译器。通过使用 typescript 编译得到 js 脚本后再用 nodejs 来运行。
+
+除 nodejs 外，javascript 还有一个不错的服务端运行时环境， [deno](https://deno.land/) ，它可以直接运行 typescript，可按 [官方说明](https://deno.land/#installation) 安装。
+
+有需要安装 nodejs 的，可到 [官方网站](https://nodejs.org/en/) 下载。或者使用 scoop/brew 安装，还可以使用 nodejs 多版本管理器 nvm（如 [windows 版本](https://github.com/coreybutler/nvm-windows) / [macos、linux 版本](https://github.com/nvm-sh/nvm) ）安装。
+
+typescript， [官方下载页](https://www.typescriptlang.org/download)中有说明，通过 `npm`、`yarn` 等 js 工程的包管理器来安装。
+
+## 7.2 编写代码
+
+```ts
+// hello.ts
+function main() {
+  console.log("youwu.today say hi.");
+}
+
+main();
+```
+
+## 7.3 编译运行
+
+- 使用 `typescript + node` 运行的方式：
+
+```bash
+~/Projects/go/examples/firstprogram
+➜  tsc hello.ts && node hello.js
+youwu.today say hi.
+```
+
+- `tsc` 是 typescript 的命令行 cli，通过它将 hello.ts 编译成 hello.js，然后使用 node 运行 hello.js 脚本。
+
+- 使用 deno 直接运行 typescript 脚本文件：
+
+```bash
+~/Projects/go/examples/firstprogram
+➜  deno run hello.ts
+Check file:///Users/youwu.today/Projects/go/examples/firstprogram/hello.ts
+youwu.today say hi.
+
+~/Projects/go/examples/firstprogram
+➜  deno run hello.ts
+youwu.today say hi.
+```
+
+- 第一次运行会出现 Check file:///...，这是 deno 编译 typescript 文件。
+
+# 8: 其他

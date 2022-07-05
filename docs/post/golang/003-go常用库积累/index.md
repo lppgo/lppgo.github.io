@@ -218,6 +218,7 @@ https://github.com/bytedance/sonic
 https://github.com/bytedance/sonic
 // map
 // go pool
+https://gitee.com/xuesongtao/taskpool/tree/master
 ```
 
 # 9：数据库相关
