@@ -25,11 +25,11 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-04-17T00:00:00+00:00">
-<meta property="article:modified_time" content="2022-06-20T13:31:38+08:00">
+<meta property="article:modified_time" content="2022-07-05T20:49:03+08:00">
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
-<meta itemprop=dateModified content="2022-06-20T13:31:38+08:00">
-<meta itemprop=wordCount content="2098">
+<meta itemprop=dateModified content="2022-07-05T20:49:03+08:00">
+<meta itemprop=wordCount content="2138">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -305,8 +305,30 @@
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//gitee.com/xuesongtao/taskpool/tree/master
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=9数据库相关>9：数据库相关</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go></code></pre></td></tr></table></div></div><h1 id=10mq-库>10：MQ 库</h1><div class=highlight><div class=chroma>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// gorm
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// db2gorm 根据数据库表生成对应的struct
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/qmhball/db2gorm
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>gohouse</span><span class=o>/</span><span class=nx>converter</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// gormt
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//gitee.com/mirrors/gormt
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// table2struct
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/jiazhoulvke/table2struct
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=10mq-库>10：MQ 库</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go></code></pre></td></tr></table></div></div><h1 id=11微服务组件库>11：微服务组件库</h1><ul>
@@ -689,8 +711,8 @@
 </p><p class=copyright-item>
 <span class=item-title>上次更新</span>
 <span class=item-content>
-2022-06-20
-<a href=/commit/6537bc34f08a2eec4672be89da8e59f22fec47ba title="update go libs">(6537bc3)</a>
+2022-07-05
+<a href=/commit/f8a535062382d29a1b9f935408b4b459882bb866 title="add other/多种编程语言编译运行命令">(f8a5350)</a>
 </span>
 </p></div><footer class=post-footer>
 <div class=post-tags>

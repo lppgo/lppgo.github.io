@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul  5 20:14:24 2022
+# Make data base, printed on Sat Jul  9 16:38:31 2022
 
 # Variables
 
@@ -63,7 +63,7 @@ NVM_BIN = /home/lucas/.nvm/versions/node/v16.15.1/bin
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-4c6d7397-1583-4b57-bd65-0a4e25216006.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-089b1d6d-8e54-40b8-aa29-f1597042db7f.sock
 # environment
 RUSTUP_DIST_SERVER = https://mirrors.ustc.edu.cn/rust-static
 # default
@@ -247,6 +247,6 @@ GNUmakefile:
 # strcache performance: lookups = 30 / hit rate = 10%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/30=3%
-# Finished Make data base on Tue Jul  5 20:14:24 2022
+# Finished Make data base on Sat Jul  9 16:38:31 2022
 
  

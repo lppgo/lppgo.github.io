@@ -224,6 +224,17 @@ https://gitee.com/xuesongtao/taskpool/tree/master
 # 9：数据库相关
 
 ```go
+// gorm
+
+// db2gorm 根据数据库表生成对应的struct
+https://github.com/qmhball/db2gorm
+github.com/gohouse/converter
+
+// gormt
+https://gitee.com/mirrors/gormt
+
+// table2struct
+https://github.com/jiazhoulvke/table2struct
 
 ```
 
