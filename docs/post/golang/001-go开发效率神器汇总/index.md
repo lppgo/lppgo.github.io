@@ -102,4 +102,6 @@
 
 # 3：网络工具
 
-![](https://i0.hdslb.com/bfs/album/012a0b147350aeafa4f92fe5f197d71641018b2e.jpg)
+https://i0.hdslb.com/bfs/album/012a0b147350aeafa4f92fe5f197d71641018b2e.jpg
+
+![](/images/d71641018b2e.jpg)
