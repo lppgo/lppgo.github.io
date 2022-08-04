@@ -371,6 +371,12 @@
 
 # 22：其他库
 
+```go
+// 短信轰炸的库
+https://github.com/OpenEthan/SMSBoom
+https://mp.weixin.qq.com/s/NcmSHZH-Jl3IJWj8aQMIZg
+```
+
 # 23：配置库
 
 # 24：配置库
