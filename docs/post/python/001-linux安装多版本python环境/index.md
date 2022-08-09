@@ -62,6 +62,17 @@ update-alternatives --remove-all python
 
 ```
 
+## 2.3 创建软连接
+
+```go
+// python
+ln -s /usr/local/python3.8/bin/python3.8 /usr/bin/python38
+
+
+// pip
+ln -s /usr/local/python3.8/bin/pip3.8 /usr/bin/pip38
+```
+
 # 3: pip 源设置
 
 - `~/.pip/pip.conf`
