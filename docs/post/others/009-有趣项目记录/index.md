@@ -1,16 +1,6 @@
 
 <div align="center"><font size="35">有趣项目记录</font></div>
 
-- [1：note 文件](#1note-文件)
-  - [1.1 alias 别名设置](#11-alias-别名设置)
-  - [1.2 git 局部代理](#12-git-局部代理)
-  - [1.3 golang 交叉编译](#13-golang-交叉编译)
-  - [1.4 date 和时间戳转换](#14-date-和时间戳转换)
-  - [1.5 minikube start](#15-minikube-start)
-  - [1.6 ip 相关](#16-ip-相关)
-  - [1.7 查看 Linux 详细 info](#17-查看-linux-详细-info)
-  - [1.8 WSL2 压缩磁盘空间](#18-wsl2-压缩磁盘空间)
-
 # 1: 工具类
 
 # 2: 好玩类
@@ -43,3 +33,22 @@ https://github.com/seaweedfs/seaweedfs
 ```
 
 # 5: 工具类
+
+- **ctop**
+- **gotop**
+- **gops**
+- **pget**: https://github.com/Code-Hex/pget
+- **fuzzysearch**: https://github.com/lithammer/fuzzysearch
+- **sinffer**: https://github.com/chenjiandongx/sniffer
+
+- **go-admin**(基于 Gin + Vue + Element UI 的前后端分离权限管理系统) : https://github.com/go-admin-team/go-admin
+
+- **mindoc**(Golang 实现的基于 beego 框架的接口在线文档管理系统): https://github.com/mindoc-org/mindoc
+- **Dootask**(About
+  DooTask 是一款轻量级的开源在线项目任务管理工具，提供各类文档协作工具、在线思维导图、在线流程图、项目管理、任务分发、即时 IM，文件管理等工具): https://github.com/kuaifan/dootask
+
+- **spy-debugger**(手机抓包): https://github.com/wuchangming/spy-debugger
+
+- **Systemizer**(一款开源的系统设计工具，可用于创建、模拟大规模分布式系统数据流):https://github.com/honzaap/Systemizer
+
+- **Enscan 企业信息查询工具**: https://github.com/wgpsec/ENScan_GO
