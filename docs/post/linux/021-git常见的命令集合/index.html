@@ -10,7 +10,7 @@
 <meta name=msapplication-navbutton-color content="#f8f5ec">
 <meta name=apple-mobile-web-app-capable content="yes">
 <meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="lucas"><meta name=description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an"><meta name=keywords content="Git">
+<meta name=author content="lucas"><meta name=description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库 Repository 管理 2.1 clone 仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an existing Git repository 推送一个已存在的仓库"><meta name=keywords content="Git">
 <meta name=generator content="Hugo 0.93.1 with theme even">
 <link rel=canonical href=https://lppgo.github.io/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/>
 <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
@@ -21,18 +21,18 @@
 <link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
 <meta property="og:title" content="03-Git常见的命令集合">
-<meta property="og:description" content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an">
+<meta property="og:description" content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库 Repository 管理 2.1 clone 仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an existing Git repository 推送一个已存在的仓库">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-05-06T00:00:00+00:00">
 <meta property="article:modified_time" content="2022-03-04T10:56:42+08:00">
 <meta itemprop=name content="03-Git常见的命令集合">
-<meta itemprop=description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an"><meta itemprop=datePublished content="2021-05-06T00:00:00+00:00">
+<meta itemprop=description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库 Repository 管理 2.1 clone 仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an existing Git repository 推送一个已存在的仓库"><meta itemprop=datePublished content="2021-05-06T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-03-04T10:56:42+08:00">
-<meta itemprop=wordCount content="2452">
+<meta itemprop=wordCount content="2205">
 <meta itemprop=keywords content="Git,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="03-Git常见的命令集合">
-<meta name=twitter:description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库Repository管理 2.1 clone仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<meta name=twitter:description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库 Repository 管理 2.1 clone 仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an existing Git repository 推送一个已存在的仓库"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head><body>
 <div id=mobile-navbar class=mobile-navbar>
@@ -78,42 +78,42 @@
 <ul>
 <li><a href=#1-git-config>1: Git Config</a>
 <ul>
-<li><a href=#11-git-global-setup-全局设置>1.1 Git global setup 全局设置</a></li><li><a href=#12-修改-git-config>1.2 修改 git config</a></li></ul></li><li><a href=#2-仓库repository管理>2: 仓库Repository管理</a>
+<li><a href=#11-git-global-setup-全局设置>1.1 Git global setup 全局设置</a></li><li><a href=#12-修改-git-config>1.2 修改 git config</a></li></ul></li><li><a href=#2-仓库-repository-管理>2: 仓库 Repository 管理</a>
 <ul>
-<li><a href=#21-clone仓库>2.1 clone仓库</a></li><li><a href=#22-create-a-new-repository-创建一个新仓库>2.2 Create a new repository 创建一个新仓库</a></li><li><a href=#23-push-an-existing-folder-推送一个已存在的文件夹>2.3 Push an existing folder 推送一个已存在的文件夹</a></li><li><a href=#25-push-an-existing-git-repository-推送一个已存在的仓库>2.5 Push an existing Git repository 推送一个已存在的仓库</a></li></ul></li><li><a href=#3-history管理>3: History管理</a>
+<li><a href=#21-clone-仓库>2.1 clone 仓库</a></li><li><a href=#22-create-a-new-repository-创建一个新仓库>2.2 Create a new repository 创建一个新仓库</a></li><li><a href=#23-push-an-existing-folder-推送一个已存在的文件夹>2.3 Push an existing folder 推送一个已存在的文件夹</a></li><li><a href=#25-push-an-existing-git-repository-推送一个已存在的仓库>2.5 Push an existing Git repository 推送一个已存在的仓库</a></li></ul></li><li><a href=#3-history-管理>3: History 管理</a>
 <ul>
-<li><a href=#31-查看历史>3.1 查看历史</a></li><li><a href=#32-tag标签>3.2 Tag标签</a></li><li><a href=#33-rollback回滚>3.3 Rollback回滚</a></li><li><a href=#34-取消文件的修改>3.4 取消文件的修改</a></li><li><a href=#35-删除文件>3.5 删除文件</a></li><li><a href=#36-移动文件>3.6 移动文件</a></li><li><a href=#37-查看文件的修改>3.7 查看文件的修改</a></li><li><a href=#38-暂存和恢复当前staging>3.8 暂存和恢复当前staging</a></li><li><a href=#39-修改commit历史记录>3.9 修改commit历史记录</a></li></ul></li><li><a href=#4-branch分支管理>4: Branch分支管理</a>
+<li><a href=#31-查看历史>3.1 查看历史</a></li><li><a href=#32-tag-标签>3.2 Tag 标签</a></li><li><a href=#33-rollback-回滚>3.3 Rollback 回滚</a></li><li><a href=#34-取消文件的修改>3.4 取消文件的修改</a></li><li><a href=#35-删除文件>3.5 删除文件</a></li><li><a href=#36-移动文件>3.6 移动文件</a></li><li><a href=#37-查看文件的修改>3.7 查看文件的修改</a></li><li><a href=#38-暂存和恢复当前-staging>3.8 暂存和恢复当前 staging</a></li><li><a href=#39-修改-commit-历史记录>3.9 修改 commit 历史记录</a></li></ul></li><li><a href=#4-branch-分支管理>4: Branch 分支管理</a>
 <ul>
-<li><a href=#41-创建分支>4.1 创建分支</a></li><li><a href=#42-查看分支>4.2 查看分支</a></li><li><a href=#43-合并分支>4.3 合并分支</a></li><li><a href=#44-stash-当前分支中未提交的修改移动到其他分支>4.4 Stash 当前分支中未提交的修改移动到其他分支</a></li><li><a href=#45-强制更新到远程分支最新版本>4.5 强制更新到远程分支最新版本</a></li></ul></li><li><a href=#5-submodule使用>5: Submodule使用</a>
+<li><a href=#41-创建分支>4.1 创建分支</a></li><li><a href=#42-查看分支>4.2 查看分支</a></li><li><a href=#43-合并分支>4.3 合并分支</a></li><li><a href=#44-stash-当前分支中未提交的修改移动到其他分支>4.4 Stash 当前分支中未提交的修改移动到其他分支</a></li><li><a href=#45-强制更新到远程分支最新版本>4.5 强制更新到远程分支最新版本</a></li></ul></li><li><a href=#5-submodule-使用>5: Submodule 使用</a>
 <ul>
-<li><a href=#51-克隆带submodule的库>5.1 克隆带submodule的库</a></li><li><a href=#52-clone主库后再去clone-submodule>5.2 clone主库后再去clone submodule</a></li></ul></li><li><a href=#6-更新与发布>6: 更新与发布</a>
+<li><a href=#51-克隆带-submodule-的库>5.1 克隆带 submodule 的库</a></li><li><a href=#52-clone-主库后再去-clone-submodule>5.2 clone 主库后再去 clone submodule</a></li></ul></li><li><a href=#6-更新与发布>6: 更新与发布</a>
 <ul>
-<li><a href=#61-列出当前配置的远程端>6.1 列出当前配置的远程端</a></li><li><a href=#62-显示远程端的信息>6.2 显示远程端的信息</a></li><li><a href=#63-添加新的远程端>6.3 添加新的远程端</a></li><li><a href=#64-下载远程端版本但不合并到head中>6.4 下载远程端版本,但不合并到HEAD中</a></li><li><a href=#65-下载远程端版本并自动与head版本合并>6.5 下载远程端版本,并自动与HEAD版本合并</a></li><li><a href=#66-将远程端版本合并到本地版本中>6.6 将远程端版本合并到本地版本中</a></li><li><a href=#67-以rebase方式将远端分支与本地合并>6.7 以rebase方式将远端分支与本地合并</a></li><li><a href=#68-将本地版本发布到远程端>6.8 将本地版本发布到远程端</a></li><li><a href=#69-删除远程端分支>6.9 删除远程端分支</a></li><li><a href=#610-发布标签>6.10 发布标签</a></li><li><a href=#611-以rebase方式将远端分支与本地合并>6.11 以rebase方式将远端分支与本地合并</a></li></ul></li><li><a href=#7-合并merge与重置rebase>7: 合并(Merge)与重置(Rebase)</a>
+<li><a href=#61-列出当前配置的远程端>6.1 列出当前配置的远程端</a></li><li><a href=#62-显示远程端的信息>6.2 显示远程端的信息</a></li><li><a href=#63-添加新的远程端>6.3 添加新的远程端</a></li><li><a href=#64-下载远程端版本但不合并到-head-中>6.4 下载远程端版本,但不合并到 HEAD 中</a></li><li><a href=#65-下载远程端版本并自动与-head-版本合并>6.5 下载远程端版本,并自动与 HEAD 版本合并</a></li><li><a href=#66-将远程端版本合并到本地版本中>6.6 将远程端版本合并到本地版本中</a></li><li><a href=#67-以-rebase-方式将远端分支与本地合并>6.7 以 rebase 方式将远端分支与本地合并</a></li><li><a href=#68-将本地版本发布到远程端>6.8 将本地版本发布到远程端</a></li><li><a href=#69-删除远程端分支>6.9 删除远程端分支</a></li><li><a href=#610-发布标签>6.10 发布标签</a></li><li><a href=#611-以-rebase-方式将远端分支与本地合并>6.11 以 rebase 方式将远端分支与本地合并</a></li></ul></li><li><a href=#7-合并merge与重置rebase>7: 合并(Merge)与重置(Rebase)</a>
 <ul>
-<li><a href=#71-将分支合并>7.1 将分支合并</a></li><li><a href=#72-退出rebase>7.2 退出rebase</a></li><li><a href=#73-合并提交>7.3 合并提交</a></li></ul></li><li><a href=#8-撤销revoke>8: 撤销revoke</a>
+<li><a href=#71-将分支合并>7.1 将分支合并</a></li><li><a href=#72-退出-rebase>7.2 退出 rebase</a></li><li><a href=#73-合并提交>7.3 合并提交</a></li></ul></li><li><a href=#8-撤销-revoke>8: 撤销 revoke</a>
 <ul>
-<li><a href=#81-放弃工作目录下的所有修改>8.1 放弃工作目录下的所有修改</a></li><li><a href=#82-移除缓存区的所有文件ie-撤销上次git-add>8.2 移除缓存区的所有文件（i.e. 撤销上次git add）</a></li><li><a href=#83-放弃某个文件的所有本地修改>8.3 放弃某个文件的所有本地修改</a></li><li><a href=#84-重置一个提交通过创建一个截然不同的新提交>8.4 重置一个提交（通过创建一个截然不同的新提交）</a></li><li><a href=#85-将head重置到指定的版本并抛弃该版本之后的所有修改>8.5 将HEAD重置到指定的版本,并抛弃该版本之后的所有修改</a></li><li><a href=#86-用远端分支强制覆盖本地分支>8.6 用远端分支强制覆盖本地分支</a></li><li><a href=#87-将head重置到上一次提交的版本并将之后的修改标记为未添加到缓存区的修改>8.7 将HEAD重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</a></li><li><a href=#88-将head重置到上一次提交的版本并保留未提交的本地修改>8.8 将HEAD重置到上一次提交的版本,并保留未提交的本地修改</a></li><li><a href=#89-删除添加gitignore文件前错误提交的文件>8.9 删除添加.gitignore文件前错误提交的文件</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<li><a href=#81-放弃工作目录下的所有修改>8.1 放弃工作目录下的所有修改</a></li><li><a href=#82-移除缓存区的所有文件ie-撤销上次-git-add>8.2 移除缓存区的所有文件（i.e. 撤销上次 git add）</a></li><li><a href=#83-放弃某个文件的所有本地修改>8.3 放弃某个文件的所有本地修改</a></li><li><a href=#84-重置一个提交通过创建一个截然不同的新提交>8.4 重置一个提交（通过创建一个截然不同的新提交）</a></li><li><a href=#85-将-head-重置到指定的版本并抛弃该版本之后的所有修改>8.5 将 HEAD 重置到指定的版本,并抛弃该版本之后的所有修改</a></li><li><a href=#86-用远端分支强制覆盖本地分支>8.6 用远端分支强制覆盖本地分支</a></li><li><a href=#87-将-head-重置到上一次提交的版本并将之后的修改标记为未添加到缓存区的修改>8.7 将 HEAD 重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</a></li><li><a href=#88-将-head-重置到上一次提交的版本并保留未提交的本地修改>8.8 将 HEAD 重置到上一次提交的版本,并保留未提交的本地修改</a></li><li><a href=#89-删除添加gitignore-文件前错误提交的文件>8.9 删除添加.gitignore 文件前错误提交的文件</a></li></ul></li></ul></nav></div></div><div class=post-content>
 <ul>
 <li><a href=#1-git-config>1: Git Config</a>
 <ul>
-<li><a href=#11-git-global-setup-%E5%85%A8%E5%B1%80%E8%AE%BE%E7%BD%AE>1.1 Git global setup 全局设置</a></li><li><a href=#12-%E4%BF%AE%E6%94%B9-git-config>1.2 修改 git config</a></li></ul></li><li><a href=#2-%E4%BB%93%E5%BA%93repository%E7%AE%A1%E7%90%86>2: 仓库Repository管理</a>
+<li><a href=#11-git-global-setup-%E5%85%A8%E5%B1%80%E8%AE%BE%E7%BD%AE>1.1 Git global setup 全局设置</a></li><li><a href=#12-%E4%BF%AE%E6%94%B9-git-config>1.2 修改 git config</a></li></ul></li><li><a href=#2-%E4%BB%93%E5%BA%93repository%E7%AE%A1%E7%90%86>2: 仓库 Repository 管理</a>
 <ul>
-<li><a href=#21-clone%E4%BB%93%E5%BA%93>2.1 clone仓库</a></li><li><a href=#22-create-a-new-repository-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E4%BB%93%E5%BA%93>2.2 Create a new repository 创建一个新仓库</a></li><li><a href=#23-push-an-existing-folder-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9>2.3 Push an existing folder 推送一个已存在的文件夹</a></li><li><a href=#25-push-an-existing-git-repository-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E4%BB%93%E5%BA%93>2.5 Push an existing Git repository 推送一个已存在的仓库</a></li></ul></li><li><a href=#3-history%E7%AE%A1%E7%90%86>3: History管理</a>
+<li><a href=#21-clone%E4%BB%93%E5%BA%93>2.1 clone 仓库</a></li><li><a href=#22-create-a-new-repository-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E4%BB%93%E5%BA%93>2.2 Create a new repository 创建一个新仓库</a></li><li><a href=#23-push-an-existing-folder-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9>2.3 Push an existing folder 推送一个已存在的文件夹</a></li><li><a href=#25-push-an-existing-git-repository-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E4%BB%93%E5%BA%93>2.5 Push an existing Git repository 推送一个已存在的仓库</a></li></ul></li><li><a href=#3-history%E7%AE%A1%E7%90%86>3: History 管理</a>
 <ul>
-<li><a href=#31-%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2>3.1 查看历史</a></li><li><a href=#32-tag%E6%A0%87%E7%AD%BE>3.2 Tag标签</a></li><li><a href=#33-rollback%E5%9B%9E%E6%BB%9A>3.3 Rollback回滚</a></li><li><a href=#34-%E5%8F%96%E6%B6%88%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9>3.4 取消文件的修改</a></li><li><a href=#35-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6>3.5 删除文件</a></li><li><a href=#36-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6>3.6 移动文件</a></li><li><a href=#37-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9>3.7 查看文件的修改</a></li><li><a href=#38-%E6%9A%82%E5%AD%98%E5%92%8C%E6%81%A2%E5%A4%8D%E5%BD%93%E5%89%8Dstaging>3.8 暂存和恢复当前staging</a></li><li><a href=#39-%E4%BF%AE%E6%94%B9commit%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95>3.9 修改commit历史记录</a></li></ul></li><li><a href=#4-branch%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86>4: Branch分支管理</a>
+<li><a href=#31-%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2>3.1 查看历史</a></li><li><a href=#32-tag%E6%A0%87%E7%AD%BE>3.2 Tag 标签</a></li><li><a href=#33-rollback%E5%9B%9E%E6%BB%9A>3.3 Rollback 回滚</a></li><li><a href=#34-%E5%8F%96%E6%B6%88%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9>3.4 取消文件的修改</a></li><li><a href=#35-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6>3.5 删除文件</a></li><li><a href=#36-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6>3.6 移动文件</a></li><li><a href=#37-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9>3.7 查看文件的修改</a></li><li><a href=#38-%E6%9A%82%E5%AD%98%E5%92%8C%E6%81%A2%E5%A4%8D%E5%BD%93%E5%89%8Dstaging>3.8 暂存和恢复当前 staging</a></li><li><a href=#39-%E4%BF%AE%E6%94%B9commit%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95>3.9 修改 commit 历史记录</a></li></ul></li><li><a href=#4-branch%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86>4: Branch 分支管理</a>
 <ul>
-<li><a href=#41-%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF>4.1 创建分支</a></li><li><a href=#42-%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF>4.2 查看分支</a></li><li><a href=#43-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF>4.3 合并分支</a></li><li><a href=#44-stash-%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E4%B8%AD%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E4%BF%AE%E6%94%B9%E7%A7%BB%E5%8A%A8%E5%88%B0%E5%85%B6%E4%BB%96%E5%88%86%E6%94%AF>4.4 Stash 当前分支中未提交的修改移动到其他分支</a></li><li><a href=#45-%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E5%88%B0%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC>4.5 强制更新到远程分支最新版本</a></li></ul></li><li><a href=#5-submodule%E4%BD%BF%E7%94%A8>5: Submodule使用</a>
+<li><a href=#41-%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF>4.1 创建分支</a></li><li><a href=#42-%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF>4.2 查看分支</a></li><li><a href=#43-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF>4.3 合并分支</a></li><li><a href=#44-stash-%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E4%B8%AD%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E4%BF%AE%E6%94%B9%E7%A7%BB%E5%8A%A8%E5%88%B0%E5%85%B6%E4%BB%96%E5%88%86%E6%94%AF>4.4 Stash 当前分支中未提交的修改移动到其他分支</a></li><li><a href=#45-%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E5%88%B0%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC>4.5 强制更新到远程分支最新版本</a></li></ul></li><li><a href=#5-submodule%E4%BD%BF%E7%94%A8>5: Submodule 使用</a>
 <ul>
-<li><a href=#51-%E5%85%8B%E9%9A%86%E5%B8%A6submodule%E7%9A%84%E5%BA%93>5.1 克隆带submodule的库</a></li><li><a href=#52-clone%E4%B8%BB%E5%BA%93%E5%90%8E%E5%86%8D%E5%8E%BBclone-submodule>5.2 clone主库后再去clone submodule</a></li></ul></li><li><a href=#6-%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%8F%91%E5%B8%83>6: 更新与发布</a>
+<li><a href=#51-%E5%85%8B%E9%9A%86%E5%B8%A6submodule%E7%9A%84%E5%BA%93>5.1 克隆带 submodule 的库</a></li><li><a href=#52-clone%E4%B8%BB%E5%BA%93%E5%90%8E%E5%86%8D%E5%8E%BBclone-submodule>5.2 clone 主库后再去 clone submodule</a></li></ul></li><li><a href=#6-%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%8F%91%E5%B8%83>6: 更新与发布</a>
 <ul>
-<li><a href=#61-%E5%88%97%E5%87%BA%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.1 列出当前配置的远程端</a></li><li><a href=#62-%E6%98%BE%E7%A4%BA%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%9A%84%E4%BF%A1%E6%81%AF>6.2 显示远程端的信息</a></li><li><a href=#63-%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.3 添加新的远程端</a></li><li><a href=#64-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E4%BD%86%E4%B8%8D%E5%90%88%E5%B9%B6%E5%88%B0head%E4%B8%AD>6.4 下载远程端版本,但不合并到HEAD中</a></li><li><a href=#65-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%B9%B6%E8%87%AA%E5%8A%A8%E4%B8%8Ehead%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6>6.5 下载远程端版本,并自动与HEAD版本合并</a></li><li><a href=#66-%E5%B0%86%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E4%B8%AD>6.6 将远程端版本合并到本地版本中</a></li><li><a href=#67-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6>6.7 以rebase方式将远端分支与本地合并</a></li><li><a href=#68-%E5%B0%86%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.8 将本地版本发布到远程端</a></li><li><a href=#69-%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E7%AB%AF%E5%88%86%E6%94%AF>6.9 删除远程端分支</a></li><li><a href=#610-%E5%8F%91%E5%B8%83%E6%A0%87%E7%AD%BE>6.10 发布标签</a></li><li><a href=#611-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6>6.11 以rebase方式将远端分支与本地合并</a></li></ul></li><li><a href=#7-%E5%90%88%E5%B9%B6merge%E4%B8%8E%E9%87%8D%E7%BD%AErebase>7: 合并(Merge)与重置(Rebase)</a>
+<li><a href=#61-%E5%88%97%E5%87%BA%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.1 列出当前配置的远程端</a></li><li><a href=#62-%E6%98%BE%E7%A4%BA%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%9A%84%E4%BF%A1%E6%81%AF>6.2 显示远程端的信息</a></li><li><a href=#63-%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.3 添加新的远程端</a></li><li><a href=#64-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E4%BD%86%E4%B8%8D%E5%90%88%E5%B9%B6%E5%88%B0head%E4%B8%AD>6.4 下载远程端版本,但不合并到 HEAD 中</a></li><li><a href=#65-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%B9%B6%E8%87%AA%E5%8A%A8%E4%B8%8Ehead%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6>6.5 下载远程端版本,并自动与 HEAD 版本合并</a></li><li><a href=#66-%E5%B0%86%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E4%B8%AD>6.6 将远程端版本合并到本地版本中</a></li><li><a href=#67-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6>6.7 以 rebase 方式将远端分支与本地合并</a></li><li><a href=#68-%E5%B0%86%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.8 将本地版本发布到远程端</a></li><li><a href=#69-%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E7%AB%AF%E5%88%86%E6%94%AF>6.9 删除远程端分支</a></li><li><a href=#610-%E5%8F%91%E5%B8%83%E6%A0%87%E7%AD%BE>6.10 发布标签</a></li><li><a href=#611-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6>6.11 以 rebase 方式将远端分支与本地合并</a></li></ul></li><li><a href=#7-%E5%90%88%E5%B9%B6merge%E4%B8%8E%E9%87%8D%E7%BD%AErebase>7: 合并(Merge)与重置(Rebase)</a>
 <ul>
-<li><a href=#71-%E5%B0%86%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6>7.1 将分支合并</a></li><li><a href=#72-%E9%80%80%E5%87%BArebase>7.2 退出rebase</a></li><li><a href=#73-%E5%90%88%E5%B9%B6%E6%8F%90%E4%BA%A4>7.3 合并提交</a></li></ul></li><li><a href=#8-%E6%92%A4%E9%94%80revoke>8: 撤销revoke</a>
+<li><a href=#71-%E5%B0%86%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6>7.1 将分支合并</a></li><li><a href=#72-%E9%80%80%E5%87%BArebase>7.2 退出 rebase</a></li><li><a href=#73-%E5%90%88%E5%B9%B6%E6%8F%90%E4%BA%A4>7.3 合并提交</a></li></ul></li><li><a href=#8-%E6%92%A4%E9%94%80revoke>8: 撤销 revoke</a>
 <ul>
-<li><a href=#81-%E6%94%BE%E5%BC%83%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9>8.1 放弃工作目录下的所有修改</a></li><li><a href=#82-%E7%A7%BB%E9%99%A4%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6ie-%E6%92%A4%E9%94%80%E4%B8%8A%E6%AC%A1git-add>8.2 移除缓存区的所有文件（i.e. 撤销上次git add）</a></li><li><a href=#83-%E6%94%BE%E5%BC%83%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9>8.3 放弃某个文件的所有本地修改</a></li><li><a href=#84-%E9%87%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E6%8F%90%E4%BA%A4%E9%80%9A%E8%BF%87%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%88%AA%E7%84%B6%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%B0%E6%8F%90%E4%BA%A4>8.4 重置一个提交（通过创建一个截然不同的新提交）</a></li><li><a href=#85-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E6%8A%9B%E5%BC%83%E8%AF%A5%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9>8.5 将HEAD重置到指定的版本,并抛弃该版本之后的所有修改</a></li><li><a href=#86-%E7%94%A8%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF>8.6 用远端分支强制覆盖本地分支</a></li><li><a href=#87-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E5%B0%86%E4%B9%8B%E5%90%8E%E7%9A%84%E4%BF%AE%E6%94%B9%E6%A0%87%E8%AE%B0%E4%B8%BA%E6%9C%AA%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E4%BF%AE%E6%94%B9>8.7 将HEAD重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</a></li><li><a href=#88-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E4%BF%9D%E7%95%99%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9>8.8 将HEAD重置到上一次提交的版本,并保留未提交的本地修改</a></li><li><a href=#89-%E5%88%A0%E9%99%A4%E6%B7%BB%E5%8A%A0gitignore%E6%96%87%E4%BB%B6%E5%89%8D%E9%94%99%E8%AF%AF%E6%8F%90%E4%BA%A4%E7%9A%84%E6%96%87%E4%BB%B6>8.9 删除添加.gitignore文件前错误提交的文件</a></li></ul></li></ul><h1 id=1-git-config>1: Git Config</h1><ul>
+<li><a href=#81-%E6%94%BE%E5%BC%83%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9>8.1 放弃工作目录下的所有修改</a></li><li><a href=#82-%E7%A7%BB%E9%99%A4%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6ie-%E6%92%A4%E9%94%80%E4%B8%8A%E6%AC%A1git-add>8.2 移除缓存区的所有文件（i.e. 撤销上次 git add）</a></li><li><a href=#83-%E6%94%BE%E5%BC%83%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9>8.3 放弃某个文件的所有本地修改</a></li><li><a href=#84-%E9%87%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E6%8F%90%E4%BA%A4%E9%80%9A%E8%BF%87%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%88%AA%E7%84%B6%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%B0%E6%8F%90%E4%BA%A4>8.4 重置一个提交（通过创建一个截然不同的新提交）</a></li><li><a href=#85-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E6%8A%9B%E5%BC%83%E8%AF%A5%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9>8.5 将 HEAD 重置到指定的版本,并抛弃该版本之后的所有修改</a></li><li><a href=#86-%E7%94%A8%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF>8.6 用远端分支强制覆盖本地分支</a></li><li><a href=#87-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E5%B0%86%E4%B9%8B%E5%90%8E%E7%9A%84%E4%BF%AE%E6%94%B9%E6%A0%87%E8%AE%B0%E4%B8%BA%E6%9C%AA%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E4%BF%AE%E6%94%B9>8.7 将 HEAD 重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</a></li><li><a href=#88-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E4%BF%9D%E7%95%99%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9>8.8 将 HEAD 重置到上一次提交的版本,并保留未提交的本地修改</a></li><li><a href=#89-%E5%88%A0%E9%99%A4%E6%B7%BB%E5%8A%A0gitignore%E6%96%87%E4%BB%B6%E5%89%8D%E9%94%99%E8%AF%AF%E6%8F%90%E4%BA%A4%E7%9A%84%E6%96%87%E4%BB%B6>8.9 删除添加.gitignore 文件前错误提交的文件</a></li></ul></li></ul><p><img src=https://i0.hdslb.com/bfs/album/c61199aeb14daf36e493529c32d0fe8a56b03e28.jpg alt></p><h1 id=1-git-config>1: Git Config</h1><ul>
 <li>
-<p>Git的全局设置在~/.gitconfig中,单独设置-在project/.git/config下.</p></li><li>
-<p>忽略设置全局在~/.gitignore_global中,单独设置在project/.gitignore下.</p></li></ul><h2 id=11-git-global-setup-全局设置>1.1 Git global setup 全局设置</h2><div class=highlight><div class=chroma>
+<p>Git 的全局设置在~/.gitconfig 中,单独设置-在 project/.git/config 下.</p></li><li>
+<p>忽略设置全局在~/.gitignore_global 中,单独设置在 project/.gitignore 下.</p></li></ul><h2 id=11-git-global-setup-全局设置>1.1 Git global setup 全局设置</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -178,7 +178,7 @@
 </span></span><span class=line><span class=cl>git config --global color.diff auto
 </span></span><span class=line><span class=cl>git config --global color.status auto
 </span></span><span class=line><span class=cl>git config --global color.branch auto
-</span></span></code></pre></td></tr></table></div></div><h1 id=2-仓库repository管理>2: 仓库Repository管理</h1><h2 id=21-clone仓库>2.1 clone仓库</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-仓库-repository-管理>2: 仓库 Repository 管理</h1><h2 id=21-clone-仓库>2.1 clone 仓库</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -228,14 +228,14 @@
 </span></span><span class=line><span class=cl>git remote add origin http://192.168.1.100/myproject/test.git
 </span></span><span class=line><span class=cl>git push -u origin --all
 </span></span><span class=line><span class=cl>git push -u origin --tags
-</span></span></code></pre></td></tr></table></div></div><h1 id=3-history管理>3: History管理</h1><h2 id=31-查看历史>3.1 查看历史</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-history-管理>3: History 管理</h1><h2 id=31-查看历史>3.1 查看历史</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git log --pretty<span class=o>=</span>oneline filename <span class=c1># 一行显示</span>
 </span></span><span class=line><span class=cl>git show xxxx <span class=c1># 查看某次修改</span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=32-tag标签>3.2 Tag标签</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=32-tag-标签>3.2 Tag 标签</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -248,13 +248,13 @@
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git tag <span class=c1># 显示所有标签</span>
 </span></span><span class=line><span class=cl>git tag -l <span class=s1>&#39;v1.4.2.*&#39;</span> <span class=c1># 显示 1.4.2 开头标签</span>
-</span></span><span class=line><span class=cl>git tag v1.3 <span class=c1># 简单打标签   </span>
+</span></span><span class=line><span class=cl>git tag v1.3 <span class=c1># 简单打标签</span>
 </span></span><span class=line><span class=cl>git tag -a v1.2 9fceb02 <span class=c1># 后期加注标签</span>
 </span></span><span class=line><span class=cl>git tag -a v1.4 -m <span class=s1>&#39;my version 1.4&#39;</span> <span class=c1># 增加标签并注释, -a 为 annotated 缩写</span>
 </span></span><span class=line><span class=cl>git show v1.4 <span class=c1># 看某一标签详情</span>
 </span></span><span class=line><span class=cl>git push origin v1.5 <span class=c1># 分享某个标签</span>
 </span></span><span class=line><span class=cl>git push origin --tags <span class=c1># 分享所有标签</span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=33-rollback回滚>3.3 Rollback回滚</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=33-rollback-回滚>3.3 Rollback 回滚</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -285,9 +285,9 @@
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git diff          <span class=c1># 查看未暂存的文件更新 </span>
-</span></span><span class=line><span class=cl>git diff --cached <span class=c1># 查看已暂存文件的更新 </span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=38-暂存和恢复当前staging>3.8 暂存和恢复当前staging</h2><div class=highlight><div class=chroma>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git diff          <span class=c1># 查看未暂存的文件更新</span>
+</span></span><span class=line><span class=cl>git diff --cached <span class=c1># 查看已暂存文件的更新</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=38-暂存和恢复当前-staging>3.8 暂存和恢复当前 staging</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -304,12 +304,12 @@
 </span></span><span class=line><span class=cl>git stash drop stash@<span class=o>{</span>0<span class=o>}</span> <span class=c1># 删除某次暂存内容</span>
 </span></span><span class=line><span class=cl>git stash pop <span class=c1>#  从git栈中获取到最近一次stash进去的内容，恢复工作区的内容。获取之后，会删除栈中对应的stash</span>
 </span></span><span class=line><span class=cl> git stash clear <span class=c1># 清空git栈</span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=39-修改commit历史记录>3.9 修改commit历史记录</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=39-修改-commit-历史记录>3.9 修改 commit 历史记录</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git rebase -i 0580eab8
-</span></span></code></pre></td></tr></table></div></div><h1 id=4-branch分支管理>4: Branch分支管理</h1><h2 id=41-创建分支>4.1 创建分支</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-branch-分支管理>4: Branch 分支管理</h1><h2 id=41-创建分支>4.1 创建分支</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -352,12 +352,12 @@
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git reset --hard origin/master
 </span></span><span class=line><span class=cl>git submodule update --remote -f
-</span></span></code></pre></td></tr></table></div></div><h1 id=5-submodule使用>5: Submodule使用</h1><h2 id=51-克隆带submodule的库>5.1 克隆带submodule的库</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=5-submodule-使用>5: Submodule 使用</h1><h2 id=51-克隆带-submodule-的库>5.1 克隆带 submodule 的库</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone --recursive https://github.com/chaconinc/MainProject
-</span></span></code></pre></td></tr></table></div></div><h2 id=52-clone主库后再去clone-submodule>5.2 clone主库后再去clone submodule</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=52-clone-主库后再去-clone-submodule>5.2 clone 主库后再去 clone submodule</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -381,12 +381,12 @@
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git remote add &lt;remote&gt; &lt;url&gt;
-</span></span></code></pre></td></tr></table></div></div><h2 id=64-下载远程端版本但不合并到head中>6.4 下载远程端版本,但不合并到HEAD中</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=64-下载远程端版本但不合并到-head-中>6.4 下载远程端版本,但不合并到 HEAD 中</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl> git fetch &lt;remote&gt;
-</span></span></code></pre></td></tr></table></div></div><h2 id=65-下载远程端版本并自动与head版本合并>6.5 下载远程端版本,并自动与HEAD版本合并</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=65-下载远程端版本并自动与-head-版本合并>6.5 下载远程端版本,并自动与 HEAD 版本合并</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
@@ -396,7 +396,7 @@
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>将远程端版本合并到本地版本中
-</span></span></code></pre></td></tr></table></div></div><h2 id=67-以rebase方式将远端分支与本地合并>6.7 以rebase方式将远端分支与本地合并</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=67-以-rebase-方式将远端分支与本地合并>6.7 以 rebase 方式将远端分支与本地合并</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
@@ -420,7 +420,7 @@
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git push --tags
-</span></span></code></pre></td></tr></table></div></div><h2 id=611-以rebase方式将远端分支与本地合并>6.11 以rebase方式将远端分支与本地合并</h2><h1 id=7-合并merge与重置rebase>7: 合并(Merge)与重置(Rebase)</h1><h2 id=71-将分支合并>7.1 将分支合并</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=611-以-rebase-方式将远端分支与本地合并>6.11 以 rebase 方式将远端分支与本地合并</h2><h1 id=7-合并merge与重置rebase>7: 合并(Merge)与重置(Rebase)</h1><h2 id=71-将分支合并>7.1 将分支合并</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -433,7 +433,7 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># rebase</span>
 </span></span><span class=line><span class=cl>git rebase &lt;branch&gt;
-</span></span></code></pre></td></tr></table></div></div><h2 id=72-退出rebase>7.2 退出rebase</h2><p><code>git rebase --abort</code></p><h2 id=73-合并提交>7.3 合并提交</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=72-退出-rebase>7.2 退出 rebase</h2><p><code>git rebase --abort</code></p><h2 id=73-合并提交>7.3 合并提交</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
@@ -456,22 +456,22 @@
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>pick &lt;commit_id&gt;
 </span></span><span class=line><span class=cl>squash &lt;commit_id2&gt;
 </span></span><span class=line><span class=cl>squash &lt;commit_id3&gt;
-</span></span></code></pre></td></tr></table></div></div><h1 id=8-撤销revoke>8: 撤销revoke</h1><h2 id=81-放弃工作目录下的所有修改>8.1 放弃工作目录下的所有修改</h2><p><code>git reset --hard HEAD</code></p><h2 id=82-移除缓存区的所有文件ie-撤销上次git-add>8.2 移除缓存区的所有文件（i.e. 撤销上次git add）</h2><p><code>git reset HEAD</code></p><h2 id=83-放弃某个文件的所有本地修改>8.3 放弃某个文件的所有本地修改</h2><p><code>git checkout HEAD &lt;file></code></p><h2 id=84-重置一个提交通过创建一个截然不同的新提交>8.4 重置一个提交（通过创建一个截然不同的新提交）</h2><p><code>git revert &lt;commit></code></p><h2 id=85-将head重置到指定的版本并抛弃该版本之后的所有修改>8.5 将HEAD重置到指定的版本,并抛弃该版本之后的所有修改</h2><p><code>git reset --hard &lt;commit></code></p><h2 id=86-用远端分支强制覆盖本地分支>8.6 用远端分支强制覆盖本地分支</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=8-撤销-revoke>8: 撤销 revoke</h1><h2 id=81-放弃工作目录下的所有修改>8.1 放弃工作目录下的所有修改</h2><p><code>git reset --hard HEAD</code></p><h2 id=82-移除缓存区的所有文件ie-撤销上次-git-add>8.2 移除缓存区的所有文件（i.e. 撤销上次 git add）</h2><p><code>git reset HEAD</code></p><h2 id=83-放弃某个文件的所有本地修改>8.3 放弃某个文件的所有本地修改</h2><p><code>git checkout HEAD &lt;file></code></p><h2 id=84-重置一个提交通过创建一个截然不同的新提交>8.4 重置一个提交（通过创建一个截然不同的新提交）</h2><p><code>git revert &lt;commit></code></p><h2 id=85-将-head-重置到指定的版本并抛弃该版本之后的所有修改>8.5 将 HEAD 重置到指定的版本,并抛弃该版本之后的所有修改</h2><p><code>git reset --hard &lt;commit></code></p><h2 id=86-用远端分支强制覆盖本地分支>8.6 用远端分支强制覆盖本地分支</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git reset --hard &lt;remote/branch&gt; e.g., upstream/master, origin/my-feature
-</span></span></code></pre></td></tr></table></div></div><h2 id=87-将head重置到上一次提交的版本并将之后的修改标记为未添加到缓存区的修改>8.7 将HEAD重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=87-将-head-重置到上一次提交的版本并将之后的修改标记为未添加到缓存区的修改>8.7 将 HEAD 重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git reset &lt;commit&gt;
-</span></span></code></pre></td></tr></table></div></div><h2 id=88-将head重置到上一次提交的版本并保留未提交的本地修改>8.8 将HEAD重置到上一次提交的版本,并保留未提交的本地修改</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=88-将-head-重置到上一次提交的版本并保留未提交的本地修改>8.8 将 HEAD 重置到上一次提交的版本,并保留未提交的本地修改</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl> git reset --keep &lt;commit&gt;
-</span></span></code></pre></td></tr></table></div></div><h2 id=89-删除添加gitignore文件前错误提交的文件>8.9 删除添加.gitignore文件前错误提交的文件</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=89-删除添加gitignore-文件前错误提交的文件>8.9 删除添加.gitignore 文件前错误提交的文件</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
