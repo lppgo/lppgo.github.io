@@ -29,7 +29,7 @@
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-08-21T03:21:44+08:00">
-<meta itemprop=wordCount content="2914">
+<meta itemprop=wordCount content="2921">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -335,15 +335,18 @@
 <li><a href=https://github.com/crossoverjie/ptg>https://github.com/crossoverjie/ptg</a></li></ul><h2 id=72-micro-services>7.2 Micro Services</h2><h1 id=8标准库好用可替换库>8：标准库好用可替换库</h1><ul>
 <li><a href=https://github.com/nikgalushko/fx>https://github.com/nikgalushko/fx</a></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span><span class=lnt>9
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// json
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/bytedance/sonic
@@ -354,6 +357,9 @@
 </span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl><span class=c1>// map
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/heiyeluren/xmm
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>//
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/sasha-s/go-deadlock
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=9数据库相关>9：数据库相关</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
@@ -482,10 +488,10 @@
 </span></span><span class=line><span class=cl><span class=c1>// autopprof
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/lppgo/autopprof
 </span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl><span class=c1>//
+</span></span><span class=line><span class=cl><span class=c1>// 依赖分析
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/loov/goda
 </span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl><span class=c1>//
+</span></span><span class=line><span class=cl><span class=c1>// Visualize Go Dependency Trees
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/KyleBanks/depth
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=13-代码检测-related>13: 代码检测 related</h1><h2 id=131-竞态检测>13.1 竞态检测</h2><p><code>go run -race xxx.go </code></p><h2 id=132-go-vet-静态检查>13.2 go vet 静态检查</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
@@ -764,43 +770,32 @@
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/lppgo/my_test/tree/master/033_%E5%8A%A0%E8%A7%A3%E5%AF%86
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/deatil/go-cryptobin
-</span></span></span></code></pre></td></tr></table></div></div><h1 id=17-一些特殊的库-lib>17 一些特殊的库 Lib</h1><div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 端口复用
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/libp2p/go-reuseport
-</span></span></span><span class=line><span class=cl><span class=c1>// 自动调整maxprocs
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/uber-go/automaxprocs
-</span></span></span><span class=line><span class=cl><span class=c1>// auto adjust your GOGC value
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/cch123/gogctuner
-</span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl><span class=c1>//  GeoIP2
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/Hackl0us/GeoIP2-CN
-</span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl><span class=c1>// 汉字拼音
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/mozillazg/go-pinyin
-</span></span></span></code></pre></td></tr></table></div></div><h1 id=18-tools-工具库>18 tools 工具库</h1><div class=highlight><div class=chroma>
-<table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// ztool
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/druidcaesa/ztool
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//studygolang.com/articles/35697#reply0
-</span></span></span></code></pre></td></tr></table></div></div><h1 id=19-金融交易相关>19 金融交易相关</h1><div class=highlight><div class=chroma>
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=17-一些特殊的库-lib>17 一些特殊的库 Lib</h1><ul>
+<li>
+<ol>
+<li><strong>端口复用</strong>
+<a href=https://github.com/libp2p/go-reuseport>https://github.com/libp2p/go-reuseport</a></li></ol></li><li>
+<ol start=2>
+<li><strong>自动调整 maxprocs</strong>
+<a href=https://github.com/uber-go/automaxprocs>https://github.com/uber-go/automaxprocs</a></li></ol></li><li>
+<ol start=3>
+<li><strong>auto adjust your GOGC value</strong>
+<a href=https://github.com/cch123/gogctuner>https://github.com/cch123/gogctuner</a></li></ol></li><li>
+<ol start=4>
+<li><strong>GeoIP2</strong>
+<a href=https://github.com/Hackl0us/GeoIP2-CN>https://github.com/Hackl0us/GeoIP2-CN</a></li></ol></li><li>
+<ol start=5>
+<li><strong>汉字拼音</strong>
+<a href=https://github.com/mozillazg/go-pinyin>https://github.com/mozillazg/go-pinyin</a></li></ol></li><li>
+<ol start=6>
+<li><strong>Go 语言给编译出来的程序添加图标和版本信息</strong>
+<a href=https://github.com/josephspurrier/goversioninfo>https://github.com/josephspurrier/goversioninfo</a>
+<a href=https://studygolang.com/topics/15789>https://studygolang.com/topics/15789</a></li></ol></li></ul><h1 id=18-tools-工具库>18 tools 工具库</h1><ul>
+<li>
+<ol>
+<li><strong>ztool</strong>
+<a href=https://github.com/druidcaesa/ztool>https://github.com/druidcaesa/ztool</a>
+<a href=https://studygolang.com/articles/35697#reply0>https://studygolang.com/articles/35697#reply0</a></li></ol></li></ul><h1 id=19-金融交易相关>19 金融交易相关</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
