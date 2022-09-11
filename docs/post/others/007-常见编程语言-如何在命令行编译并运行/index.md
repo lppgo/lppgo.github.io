@@ -179,6 +179,9 @@ youwu.today say hi.
 
 # 6 : rust 编译与运行
 
+- **lapce 是 rust 开发的 Code Editor**
+  https://github.com/lapce/lapce
+
 ## 6.1 环境准备
 
 - 建议通过 rustup 来安装 rust 环境，rustup 是由官方提供的安装、更新工具。安装后需要将相关的路径配置到 PATH 环境变量中。详见 [官方的 安装说明](https://www.rust-lang.org/zh-CN/tools/install) 。当然，还是可以通过 scoop、brew 来安装。

@@ -382,11 +382,12 @@ keywords: ["python", "第三方库", "包", "tool", "库", "pkg"]
 
 # 22：其他库
 
-```go
-// 短信轰炸的库
-https://github.com/OpenEthan/SMSBoom
-https://mp.weixin.qq.com/s/NcmSHZH-Jl3IJWj8aQMIZg
-```
+- **短信轰炸的库**
+  https://github.com/OpenEthan/SMSBoom
+  https://mp.weixin.qq.com/s/NcmSHZH-Jl3IJWj8aQMIZg
+
+- **python 代码格式化工具 formatter**
+  https://github.com/psf/black
 
 # 23：配置库
 
