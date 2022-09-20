@@ -392,6 +392,10 @@ https://github.com/loov/goda
 
 // Visualize Go Dependency Trees
 https://github.com/KyleBanks/depth
+
+// 以Graphviz 点格式展示依赖图
+github.com/kisielk/godepgraph
+godepgraph -s import-cycle-example | dot -Tpng -o godepgraph.png
 ```
 
 # 13: 代码检测 related
@@ -674,6 +678,8 @@ https://github.com/deatil/go-cryptobin
 - 6. **Go 语言给编译出来的程序添加图标和版本信息**
      https://github.com/josephspurrier/goversioninfo
      https://studygolang.com/topics/15789
+- 7. **yaegi 是一个 go 语言解释器**
+     https://github.com/traefik/yaegi
 
 # 18 tools 工具库
 
