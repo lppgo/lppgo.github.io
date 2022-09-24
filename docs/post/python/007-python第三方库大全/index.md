@@ -100,6 +100,7 @@
 - **PyTime** ：一个简单易用的 Python 模块，用于通过字符串来操作日期/时间。
 - **pytz** ：现代以及历史版本的世界时区定义。将时区数据库引入 Python。
 - **when.py** ：提供用户友好的函数来帮助用户进行常用的日期和时间操作。
+  https://github.com/dirn/When.py
 
 # 6：文本处理相关
 
@@ -142,6 +143,8 @@
 - **python-nameparser** ：把一个人名分解为几个独立的部分。
 - **python-user-agents** ：浏览器 user agent 解析器。
 - **sqlparse** ：一个无验证的 SQL 解析器。
+- **schema** ：一个数据格式检查库。
+  https://github.com/halst/schema
 
 ## 6.4 PDF
 
@@ -163,7 +166,7 @@
 - **`cliff`** ：一个用于创建命令行程序的框架，可以创建具有多层命令的命令行程序。
 - **`clint`** ：Python 命令行程序工具。
 - **`colorama`** ：跨平台彩色终端文本。
-- **`docopt`** ：Python 风格的命令行参数解析器。
+- **[docopt](https://github.com/docopt/docopt)** ：Python 风格的命令行参数解析器。
 - **`Gooey`** ：一条命令，将命令行程序变成一个 GUI 程序。
 - **`python-prompt-toolkit`** ：一个用于构建强大的交互式命令行程序的库。
 - **`python-fire`** ：Google 出品的一个基于 Python 类的构建命令行界面的库。
@@ -245,10 +248,13 @@
 
 - **`aiohttp`** ：基于 asyncio 的异步 HTTP 网络库。
 - **`requests`** ：人性化的 HTTP 请求库。
+  https://github.com/kennethreitz/requests
 - **`grequests`** ：requests 库 + gevent ，用于异步 HTTP 请求.
 - **`httplib2`** ：全面的 HTTP 客户端库。
 - **`treq`** ：类似 requests 的 Python API 构建于 Twisted HTTP 客户端之上。
 - **`urllib3`** ：一个具有线程安全连接池，支持文件 post，清晰友好的 HTTP 库。
+- **`purl`** ：拥有简洁接口的 URL 处理器。
+  https://github.com/codeinthehole/purl
 
 # 12：WebSocket 相关的库
 
