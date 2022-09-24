@@ -317,6 +317,8 @@ https://github.com/mennanov/limiters
 
 // throttled 基于通用信元速率算法实现了对资源的访问速率限制，资源可以是特定的 URL、用户或者任何自定义的形式，可以很方便地与各种 http 和 rpc 框架进行集成。throttled 定义了限流元信息的存储抽象，并内置了 memstore，redis store 等元信息存储实现，我们可以根据具体的使用场景实现单机限流和集群限流
 https://github.com/throttled/throttled
+
+
 ```
 
 ## 11.2 熔断 CircuitBreaker
@@ -680,6 +682,8 @@ https://github.com/deatil/go-cryptobin
      https://studygolang.com/topics/15789
 - 7. **yaegi 是一个 go 语言解释器**
      https://github.com/traefik/yaegi
+- 8. **golang 进度条展示**
+     https://github.com/qianlnk/pgbar
 
 # 18 tools 工具库
 
