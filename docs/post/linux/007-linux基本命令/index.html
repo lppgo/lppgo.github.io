@@ -29,7 +29,7 @@
 <meta itemprop=name content="05-Linux基本命令">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-15T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-03-04T10:56:42+08:00">
-<meta itemprop=wordCount content="4615">
+<meta itemprop=wordCount content="7286">
 <meta itemprop=keywords content="Linux,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="05-Linux基本命令">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -78,15 +78,15 @@
 <ul>
 <li><a href=#1-系统的关机重启以及登出>1: 系统的关机、重启以及登出</a></li><li><a href=#2-文件和目录>2: 文件和目录</a></li><li><a href=#3-linux-查看磁盘-io-的几种方法>3: Linux 查看磁盘 io 的几种方法</a></li><li><a href=#4-查看网卡流量方法>4: 查看网卡流量方法</a></li><li><a href=#5-使用-watch-命令配合-ifconfigmore-procnetdevcat-procnetdev-来实时监控系统信息>5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</a></li><li><a href=#6-文件搜索>6: 文件搜索</a></li><li><a href=#7-磁盘空间>7: 磁盘空间</a></li><li><a href=#8-用户和群组>8: 用户和群组</a></li><li><a href=#9-文件的权限---使用--设置权限使用---用于取消>9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#10-文件的特殊属性---使用--设置权限使用---用于取消>10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#11-打包和压缩文件>11: 打包和压缩文件</a></li><li><a href=#12-查看文件内容>12: 查看文件内容</a></li><li><a href=#13-linux-包管理器>13: Linux 包管理器</a>
 <ul>
-<li><a href=#131-rpm--fedora-redhat-及类似系统>13.1 RPM -（Fedora, Redhat 及类似系统）</a></li><li><a href=#132-yum--fedora-redhat-及类似系统>13.2 YUM -（Fedora, RedHat 及类似系统）</a></li><li><a href=#132-deb--fedora-redhat-及类似系统>13.2 DEB -（Fedora, RedHat 及类似系统）</a></li><li><a href=#133-apt---debian-ubuntu-以及类似系统>13.3 APT - (Debian, Ubuntu 以及类似系统)</a></li></ul></li><li><a href=#14-常用命令>14: 常用命令</a>
+<li><a href=#131-dpkg---ubuntudebian>13.1 dpkg - (Ubuntu,Debian)</a></li><li><a href=#132-apt---ubuntudebian>13.2 apt - (Ubuntu,Debian)</a></li><li><a href=#133-rpm--rhel-centos-及类似系统>13.3 rpm -（RHEL, CentOS 及类似系统）</a></li><li><a href=#134-yum--fedora-redhatcentos-及类似系统>13.4 yum -（Fedora, RedHat,CentOS 及类似系统）</a></li><li><a href=#135-dnf--rhel8centos8>13.5 dnf -（RHEL8、CentOS8）</a></li></ul></li><li><a href=#14-常用命令>14: 常用命令</a>
 <ul>
-<li><a href=#141-查看端口的占用>14.1 查看端口的占用</a></li><li><a href=#142-查看进程>14.2 查看进程</a></li><li><a href=#143-批量杀死进程>14.3 批量杀死进程</a></li><li><a href=#144-查看当前时间>14.4 查看当前时间</a></li><li><a href=#145-查看进程内存使用情况>14.5 查看进程内存使用情况</a></li><li><a href=#145-查看linux内核版本或发布版本>14.5 查看Linux内核版本或发布版本</a></li><li><a href=#146-查看本地网络服务活动状态>14.6 查看本地网络服务活动状态</a></li><li><a href=#147-查看自己的外网ip>14.7 查看自己的外网ip</a></li><li><a href=#148-查看当前文件夹下文件文件夹大小>14.8 查看当前文件夹下文件（文件夹）大小</a></li><li><a href=#149-查看所有磁盘大小>14.9 查看所有磁盘大小</a></li><li><a href=#1410-诊断网络>14.10 诊断网络</a></li><li><a href=#1411-列出本机监听的端口号>14.11 列出本机监听的端口号</a></li><li><a href=#1412-在远程机器上运行一段脚本>14.12 在远程机器上运行一段脚本</a></li><li><a href=#1413-端口扫描>14.13 端口扫描</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<li><a href=#141-查看端口的占用>14.1 查看端口的占用</a></li><li><a href=#142-查看进程>14.2 查看进程</a></li><li><a href=#143-批量杀死进程>14.3 批量杀死进程</a></li><li><a href=#144-查看当前时间>14.4 查看当前时间</a></li><li><a href=#145-查看进程内存使用情况>14.5 查看进程内存使用情况</a></li><li><a href=#145-查看-linux-内核版本或发布版本>14.5 查看 Linux 内核版本或发布版本</a></li><li><a href=#146-查看本地网络服务活动状态>14.6 查看本地网络服务活动状态</a></li><li><a href=#147-查看自己的外网-ip>14.7 查看自己的外网 ip</a></li><li><a href=#148-查看当前文件夹下文件文件夹大小>14.8 查看当前文件夹下文件（文件夹）大小</a></li><li><a href=#149-查看所有磁盘大小>14.9 查看所有磁盘大小</a></li><li><a href=#1410-诊断网络>14.10 诊断网络</a></li><li><a href=#1411-列出本机监听的端口号>14.11 列出本机监听的端口号</a></li><li><a href=#1412-在远程机器上运行一段脚本>14.12 在远程机器上运行一段脚本</a></li><li><a href=#1413-端口扫描>14.13 端口扫描</a></li></ul></li></ul></nav></div></div><div class=post-content>
 <ul>
 <li><a href=#1-%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%B3%E6%9C%BA%E9%87%8D%E5%90%AF%E4%BB%A5%E5%8F%8A%E7%99%BB%E5%87%BA>1: 系统的关机、重启以及登出</a></li><li><a href=#2-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95>2: 文件和目录</a></li><li><a href=#3-linux-%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98-io-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95>3: Linux 查看磁盘 io 的几种方法</a></li><li><a href=#4-%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1%E6%B5%81%E9%87%8F%E6%96%B9%E6%B3%95>4: 查看网卡流量方法</a></li><li><a href=#5-%E4%BD%BF%E7%94%A8-watch-%E5%91%BD%E4%BB%A4%E9%85%8D%E5%90%88-ifconfigmore-procnetdevcat-procnetdev-%E6%9D%A5%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF>5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息</a></li><li><a href=#6-%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2>6: 文件搜索</a></li><li><a href=#7-%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4>7: 磁盘空间</a></li><li><a href=#8-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BE%A4%E7%BB%84>8: 用户和群组</a></li><li><a href=#9-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88>9: 文件的权限 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#10-%E6%96%87%E4%BB%B6%E7%9A%84%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88>10: 文件的特殊属性 - 使用 &ldquo;+&rdquo; 设置权限，使用 &ldquo;-&rdquo; 用于取消</a></li><li><a href=#11-%E6%89%93%E5%8C%85%E5%92%8C%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6>11: 打包和压缩文件</a></li><li><a href=#12-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9>12: 查看文件内容</a></li><li><a href=#13-linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8>13: Linux 包管理器</a>
 <ul>
-<li><a href=#131-rpm--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.1 RPM -（Fedora, Redhat 及类似系统）</a></li><li><a href=#132-yum--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.2 YUM -（Fedora, RedHat 及类似系统）</a></li><li><a href=#132-deb--fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.2 DEB -（Fedora, RedHat 及类似系统）</a></li><li><a href=#133-apt---debian-ubuntu-%E4%BB%A5%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.3 APT - (Debian, Ubuntu 以及类似系统)</a></li></ul></li><li><a href=#14-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4>14: 常用命令</a>
+<li><a href=#131-dpkg---ubuntudebian>13.1 dpkg - (Ubuntu,Debian)</a></li><li><a href=#132-apt---ubuntudebian>13.2 apt - (Ubuntu,Debian)</a></li><li><a href=#133-rpm--rhel-centos-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.3 rpm -（RHEL, CentOS 及类似系统）</a></li><li><a href=#134-yum--fedora-redhatcentos-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F>13.4 yum -（Fedora, RedHat,CentOS 及类似系统）</a></li><li><a href=#135-dnf--rhel8centos8>13.5 dnf -（RHEL8、CentOS8）</a></li></ul></li><li><a href=#14-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4>14: 常用命令</a>
 <ul>
-<li><a href=#141-%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%8D%A0%E7%94%A8>14.1 查看端口的占用</a></li><li><a href=#142-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B>14.2 查看进程</a></li><li><a href=#143-%E6%89%B9%E9%87%8F%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B>14.3 批量杀死进程</a></li><li><a href=#144-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4>14.4 查看当前时间</a></li><li><a href=#145-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5>14.5 查看进程内存使用情况</a></li><li><a href=#145-%E6%9F%A5%E7%9C%8Blinux%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E6%88%96%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC>14.5 查看Linux内核版本或发布版本</a></li><li><a href=#146-%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81>14.6 查看本地网络服务活动状态</a></li><li><a href=#147-%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%96%E7%BD%91ip>14.7 查看自己的外网ip</a></li><li><a href=#148-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E6%96%87%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%A7%E5%B0%8F>14.8 查看当前文件夹下文件（文件夹）大小</a></li><li><a href=#149-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F>14.9 查看所有磁盘大小</a></li><li><a href=#1410-%E8%AF%8A%E6%96%AD%E7%BD%91%E7%BB%9C>14.10 诊断网络</a></li><li><a href=#1411-%E5%88%97%E5%87%BA%E6%9C%AC%E6%9C%BA%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7>14.11 列出本机监听的端口号</a></li><li><a href=#1412-%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%BA%E5%99%A8%E4%B8%8A%E8%BF%90%E8%A1%8C%E4%B8%80%E6%AE%B5%E8%84%9A%E6%9C%AC>14.12 在远程机器上运行一段脚本</a></li><li><a href=#1413-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F>14.13 端口扫描</a></li></ul></li></ul><h1 id=1-系统的关机重启以及登出>1: 系统的关机、重启以及登出</h1><div class=highlight><div class=chroma>
+<li><a href=#141-%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%8D%A0%E7%94%A8>14.1 查看端口的占用</a></li><li><a href=#142-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B>14.2 查看进程</a></li><li><a href=#143-%E6%89%B9%E9%87%8F%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B>14.3 批量杀死进程</a></li><li><a href=#144-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4>14.4 查看当前时间</a></li><li><a href=#145-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5>14.5 查看进程内存使用情况</a></li><li><a href=#145-%E6%9F%A5%E7%9C%8B-linux-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E6%88%96%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC>14.5 查看 Linux 内核版本或发布版本</a></li><li><a href=#146-%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81>14.6 查看本地网络服务活动状态</a></li><li><a href=#147-%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%96%E7%BD%91-ip>14.7 查看自己的外网 ip</a></li><li><a href=#148-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E6%96%87%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%A7%E5%B0%8F>14.8 查看当前文件夹下文件（文件夹）大小</a></li><li><a href=#149-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F>14.9 查看所有磁盘大小</a></li><li><a href=#1410-%E8%AF%8A%E6%96%AD%E7%BD%91%E7%BB%9C>14.10 诊断网络</a></li><li><a href=#1411-%E5%88%97%E5%87%BA%E6%9C%AC%E6%9C%BA%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7>14.11 列出本机监听的端口号</a></li><li><a href=#1412-%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%BA%E5%99%A8%E4%B8%8A%E8%BF%90%E8%A1%8C%E4%B8%80%E6%AE%B5%E8%84%9A%E6%9C%AC>14.12 在远程机器上运行一段脚本</a></li><li><a href=#1413-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F>14.13 端口扫描</a></li></ul></li></ul><h1 id=1-系统的关机重启以及登出>1: 系统的关机、重启以及登出</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -436,7 +436,45 @@
 </span></span><span class=line><span class=cl>head -2 file1 查看一个文件的前两行 
 </span></span><span class=line><span class=cl>tail -2 file1 查看一个文件的最后两行 
 </span></span><span class=line><span class=cl>tail -f /var/log/messages 实时查看被添加到一个文件中的内容 
-</span></span></code></pre></td></tr></table></div></div><h1 id=13-linux-包管理器>13: Linux 包管理器</h1><h2 id=131-rpm--fedora-redhat-及类似系统>13.1 RPM -（Fedora, Redhat 及类似系统）</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=13-linux-包管理器>13: Linux 包管理器</h1><blockquote>
+<p>介绍常见 Linux 操作系统的安装包管理工具，主要介绍其使用命令.</p></blockquote><h2 id=131-dpkg---ubuntudebian>13.1 dpkg - (Ubuntu,Debian)</h2><ul>
+<li>dpkg 命令是 Debian Linux 系统用来安装、创建和管理软件包的实用工具</li><li><strong>命令行使用</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># -------------------dpkg(选项)(参数)---------------------</span>
+</span></span><span class=line><span class=cl>$ dpkg --help
+</span></span><span class=line><span class=cl>Usage: dpkg <span class=o>[</span>&lt;option&gt; ...<span class=o>]</span> &lt;command&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 选项</span>
+</span></span><span class=line><span class=cl>-i：安装软件包
+</span></span><span class=line><span class=cl>-r：删除软件包
+</span></span><span class=line><span class=cl>-P：删除软件包的同时删除其配置文件
+</span></span><span class=line><span class=cl>-L：显示于软件包关联的文件
+</span></span><span class=line><span class=cl>-l：显示已安装软件包列表
+</span></span><span class=line><span class=cl>--unpack：解开软件包
+</span></span><span class=line><span class=cl>-c：显示软件包内文件列表
+</span></span><span class=line><span class=cl>--confiugre：配置软件包
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 参数</span>
+</span></span><span class=line><span class=cl>Deb软件包：指定要操作的.deb软件包
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><strong>示例演示说明</strong></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -465,33 +503,34 @@
 </span><span class=lnt>25
 </span><span class=lnt>26
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>rpm -ivh package.rpm 安装一个rpm包 
-</span></span><span class=line><span class=cl>rpm -ivh --nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告 
-</span></span><span class=line><span class=cl>rpm -U package.rpm 更新一个rpm包但不改变其配置文件 
-</span></span><span class=line><span class=cl>rpm -F package.rpm 更新一个确定已经安装的rpm包 
-</span></span><span class=line><span class=cl>rpm -e package_name.rpm 删除一个rpm包 
-</span></span><span class=line><span class=cl>rpm -qa 显示系统中所有已经安装的rpm包 
-</span></span><span class=line><span class=cl>rpm -qa <span class=p>|</span> grep httpd 显示所有名称中包含 <span class=s2>&#34;httpd&#34;</span> 字样的rpm包 
-</span></span><span class=line><span class=cl>rpm -qi package_name 获取一个已安装包的特殊信息 
-</span></span><span class=line><span class=cl>rpm -qg <span class=s2>&#34;System Environment/Daemons&#34;</span> 显示一个组件的rpm包 
-</span></span><span class=line><span class=cl>rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表 
-</span></span><span class=line><span class=cl>rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表 
-</span></span><span class=line><span class=cl>rpm -q package_name --whatrequires 显示与一个rpm包存在依赖关系的列表 
-</span></span><span class=line><span class=cl>rpm -q package_name --whatprovides 显示一个rpm包所占的体积 
-</span></span><span class=line><span class=cl>rpm -q package_name --scripts 显示在安装/删除期间所执行的脚本l 
-</span></span><span class=line><span class=cl>rpm -q package_name --changelog 显示一个rpm包的修改历史 
-</span></span><span class=line><span class=cl>rpm -qf /etc/httpd/conf/httpd.conf 确认所给的文件由哪个rpm包所提供 
-</span></span><span class=line><span class=cl>rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表 
-</span></span><span class=line><span class=cl>rpm --import /media/cdrom/RPM-GPG-KEY 导入公钥数字证书 
-</span></span><span class=line><span class=cl>rpm --checksig package.rpm 确认一个rpm包的完整性 
-</span></span><span class=line><span class=cl>rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性 
-</span></span><span class=line><span class=cl>rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间 
-</span></span><span class=line><span class=cl>rpm -Va 检查系统中所有已安装的rpm包- 小心使用 
-</span></span><span class=line><span class=cl>rpm -Vp package.rpm 确认一个rpm包还未安装 
-</span></span><span class=line><span class=cl>rpm2cpio package.rpm <span class=p>|</span> cpio --extract --make-directories *bin* 从一个rpm包运行可执行文件 
-</span></span><span class=line><span class=cl>rpm -ivh /usr/src/redhat/RPMS/<span class=sb>`</span>arch<span class=sb>`</span>/package.rpm 从一个rpm源码安装一个构建好的包 
-</span></span><span class=line><span class=cl>rpmbuild --rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包 
-</span></span></code></pre></td></tr></table></div></div><h2 id=132-yum--fedora-redhat-及类似系统>13.2 YUM -（Fedora, RedHat 及类似系统）</h2><div class=highlight><div class=chroma>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># -------------------示例演示说明---------------------</span>
+</span></span><span class=line><span class=cl><span class=c1># 安装包</span>
+</span></span><span class=line><span class=cl>$ dpkg -i package.deb
+</span></span><span class=line><span class=cl><span class=c1># 删除包</span>
+</span></span><span class=line><span class=cl>$ dpkg -r package
+</span></span><span class=line><span class=cl><span class=c1># 删除包（包括配置文件）</span>
+</span></span><span class=line><span class=cl>$ dpkg -P package
+</span></span><span class=line><span class=cl><span class=c1># 列出与该包关联的文件</span>
+</span></span><span class=line><span class=cl>$ dpkg -L package
+</span></span><span class=line><span class=cl><span class=c1># 显示该包的版本</span>
+</span></span><span class=line><span class=cl>$ dpkg -l package
+</span></span><span class=line><span class=cl><span class=c1># 解开deb包的内容</span>
+</span></span><span class=line><span class=cl>$ dpkg --unpack package.deb
+</span></span><span class=line><span class=cl><span class=c1># 搜索所属的包内容</span>
+</span></span><span class=line><span class=cl>$ dpkg -S keyword
+</span></span><span class=line><span class=cl><span class=c1># 列出当前已安装的包</span>
+</span></span><span class=line><span class=cl>$ dpkg -l
+</span></span><span class=line><span class=cl><span class=c1># 列出deb包的内容</span>
+</span></span><span class=line><span class=cl>$ dpkg -c package.deb
+</span></span><span class=line><span class=cl><span class=c1># 配置包</span>
+</span></span><span class=line><span class=cl>$ dpkg --configure package
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 列出已安装软件包</span>
+</span></span><span class=line><span class=cl>$ sudo dpkg-query -l
+</span></span><span class=line><span class=cl>$ sudo dpkg-query -l <span class=p>|</span> less
+</span></span><span class=line><span class=cl>$ sudo dpkg-query -l <span class=p>|</span> grep tmux
+</span></span></code></pre></td></tr></table></div></div><h2 id=132-apt---ubuntudebian>13.2 apt - (Ubuntu,Debian)</h2><ul>
+<li>apt-get 命令是 Debian Linux 发行版中的 APT 软件包管理工具。所有基于 Debian 的发行都使用这个包管理系统。deb 包可以把一个应用的文件包在一起，大体就如同 Windows 上的安装文件.</li><li><strong>命令行使用</strong></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -504,17 +543,327 @@
 </span><span class=lnt> 9
 </span><span class=lnt>10
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>yum install package_name 下载并安装一个rpm包 
-</span></span><span class=line><span class=cl>yum localinstall package_name.rpm 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系 
-</span></span><span class=line><span class=cl>yum update package_name.rpm 更新当前系统中所有安装的rpm包 
-</span></span><span class=line><span class=cl>yum update package_name 更新一个rpm包 
-</span></span><span class=line><span class=cl>yum remove package_name 删除一个rpm包 
-</span></span><span class=line><span class=cl>yum list 列出当前系统中安装的所有包 
-</span></span><span class=line><span class=cl>yum search package_name 在rpm仓库中搜寻软件包 
-</span></span><span class=line><span class=cl>yum clean packages 清理rpm缓存删除下载的包 
-</span></span><span class=line><span class=cl>yum clean headers 删除所有头文件 
-</span></span><span class=line><span class=cl>yum clean all 删除所有缓存的包和头文件 
-</span></span></code></pre></td></tr></table></div></div><h2 id=132-deb--fedora-redhat-及类似系统>13.2 DEB -（Fedora, RedHat 及类似系统）</h2><div class=highlight><div class=chroma>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># apt-get(选项)(参数)</span>
+</span></span><span class=line><span class=cl>$ apt --help
+</span></span><span class=line><span class=cl>Usage: apt <span class=o>[</span>options<span class=o>]</span> <span class=nb>command</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 选项</span>
+</span></span><span class=line><span class=cl>-c：指定配置文件
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 参数</span>
+</span></span><span class=line><span class=cl>管理指令：对APT软件包的管理操作
+</span></span><span class=line><span class=cl>软件包：指定要操纵的软件包
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><strong>示例演示说明</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 更新所有已安装的软件包</span>
+</span></span><span class=line><span class=cl>$ apt-get upgrade
+</span></span><span class=line><span class=cl><span class=c1># 将系统升级到新版本</span>
+</span></span><span class=line><span class=cl>$ apt-get dist-upgrade
+</span></span><span class=line><span class=cl><span class=c1># 更新</span>
+</span></span><span class=line><span class=cl>$ apt-get update
+</span></span><span class=line><span class=cl><span class=c1># 安装一个新软件包</span>
+</span></span><span class=line><span class=cl>$ apt-get install packagename
+</span></span><span class=line><span class=cl><span class=c1># 卸载一个已安装的软件包（保留配置文件）</span>
+</span></span><span class=line><span class=cl>$ apt-get remove packagename
+</span></span><span class=line><span class=cl><span class=c1># 卸载一个已安装的软件包（删除配置文件）</span>
+</span></span><span class=line><span class=cl>$ apt-get –purge remove packagename
+</span></span><span class=line><span class=cl><span class=c1># 来删除你已经删掉的软件</span>
+</span></span><span class=line><span class=cl>$ apt-get autoclean apt
+</span></span><span class=line><span class=cl><span class=c1># 会把安装的软件的备份也删除</span>
+</span></span><span class=line><span class=cl>$ apt-get clean
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 列出已安装软件包</span>
+</span></span><span class=line><span class=cl>$ sudo apt list --installed
+</span></span><span class=line><span class=cl>$ sudo apt list --installed <span class=p>|</span> less
+</span></span><span class=line><span class=cl>$ sudo apt list --installed <span class=p>|</span> grep tmux
+</span></span></code></pre></td></tr></table></div></div><h2 id=133-rpm--rhel-centos-及类似系统>13.3 rpm -（RHEL, CentOS 及类似系统）</h2><ul>
+<li>rpm 命令是 RPM 软件包的管理工具。rpm 原本是 Red Hat Linux 发行版专门用来管理 Linux 各项套件的程序，由于它遵循 GPL 规则且功能强大方便，因而广受欢迎。逐渐受到其他发行版的采用。RPM 套件管理方式的出现，让 Linux 易于安装，升级，间接提升了 Linux 的适用度。</li><li><strong>命令行使用</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># yum(选项)(参数)</span>
+</span></span><span class=line><span class=cl>$ yum --help
+</span></span><span class=line><span class=cl>Loaded plugins: fastestmirror, langpacks
+</span></span><span class=line><span class=cl>Usage: yum <span class=o>[</span>options<span class=o>]</span> COMMAND
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 选项</span>
+</span></span><span class=line><span class=cl>-h：显示帮助信息；
+</span></span><span class=line><span class=cl>-y：对所有的提问都回答“yes”；
+</span></span><span class=line><span class=cl>-c：指定配置文件；
+</span></span><span class=line><span class=cl>-q：安静模式；
+</span></span><span class=line><span class=cl>-v：详细模式；
+</span></span><span class=line><span class=cl>-d：设置调试等级（0-10）；
+</span></span><span class=line><span class=cl>-e：设置错误等级（0-10）；
+</span></span><span class=line><span class=cl>-R：设置yum处理一个命令的最大等待时间；
+</span></span><span class=line><span class=cl>-C：完全从缓存中运行，而不去下载或者更新任何头文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 参数</span>
+</span></span><span class=line><span class=cl>install：安装rpm软件包；
+</span></span><span class=line><span class=cl>update：更新rpm软件包；
+</span></span><span class=line><span class=cl>check-update：检查是否有可用的更新rpm软件包；
+</span></span><span class=line><span class=cl>remove：删除指定的rpm软件包；
+</span></span><span class=line><span class=cl>list：显示软件包的信息；
+</span></span><span class=line><span class=cl>search：检查软件包的信息；
+</span></span><span class=line><span class=cl>info：显示指定的rpm软件包的描述信息和概要信息；
+</span></span><span class=line><span class=cl>clean：清理yum过期的缓存；
+</span></span><span class=line><span class=cl>shell：进入yum的shell提示符；
+</span></span><span class=line><span class=cl>resolvedep：显示rpm软件包的依赖关系；
+</span></span><span class=line><span class=cl>localinstall：安装本地的rpm软件包；
+</span></span><span class=line><span class=cl>localupdate：显示本地rpm软件包进行更新；
+</span></span><span class=line><span class=cl>deplist：显示rpm软件包的所有依赖关系。
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><strong>示例演示说明</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>rpm -ivh package.rpm 安装一个rpm包 
+</span></span><span class=line><span class=cl>rpm --force -ivh your-package.rpm 强制安装
+</span></span><span class=line><span class=cl>rpm -ivh --nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告 
+</span></span><span class=line><span class=cl>rpm -U package.rpm 更新一个rpm包但不改变其配置文件 
+</span></span><span class=line><span class=cl>rpm -F package.rpm 更新一个确定已经安装的rpm包 
+</span></span><span class=line><span class=cl>rpm -e package_name.rpm 卸载一个rpm包 
+</span></span><span class=line><span class=cl>rpm -qa 显示系统中所有已经安装的rpm包 
+</span></span><span class=line><span class=cl>rpm -qa <span class=p>|</span> grep httpd 显示所有名称中包含 <span class=s2>&#34;httpd&#34;</span> 字样的rpm包 
+</span></span><span class=line><span class=cl>rpm -qi package_name 获取一个已安装包的特殊信息 
+</span></span><span class=line><span class=cl>rpm -qg <span class=s2>&#34;System Environment/Daemons&#34;</span> 显示一个组件的rpm包 
+</span></span><span class=line><span class=cl>rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表 
+</span></span><span class=line><span class=cl>rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表 
+</span></span><span class=line><span class=cl>rpm -q package_name --whatrequires 显示与一个rpm包存在依赖关系的列表 
+</span></span><span class=line><span class=cl>rpm -q package_name --whatprovides 显示一个rpm包所占的体积 
+</span></span><span class=line><span class=cl>rpm -q package_name --scripts 显示在安装/删除期间所执行的脚本l 
+</span></span><span class=line><span class=cl>rpm -q package_name --changelog 显示一个rpm包的修改历史 
+</span></span><span class=line><span class=cl><span class=c1># rpm包中的文件安装到那里</span>
+</span></span><span class=line><span class=cl>$ rpm -ql ***.rpm
+</span></span><span class=line><span class=cl><span class=c1># 一个没有安装过的软件包</span>
+</span></span><span class=line><span class=cl>$ rpm -qlp ***.rpm
+</span></span><span class=line><span class=cl><span class=c1># 一个已经安装过的软件包</span>
+</span></span><span class=line><span class=cl>$ rpm -ql ***.rpm
+</span></span><span class=line><span class=cl>rpm -qf /etc/httpd/conf/httpd.conf 确认所给的文件由哪个rpm包所提供 
+</span></span><span class=line><span class=cl>rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表 
+</span></span><span class=line><span class=cl>rpm --import /media/cdrom/RPM-GPG-KEY 导入公钥数字证书 
+</span></span><span class=line><span class=cl>rpm --checksig package.rpm 确认一个rpm包的完整性 
+</span></span><span class=line><span class=cl>rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性 
+</span></span><span class=line><span class=cl>rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间 
+</span></span><span class=line><span class=cl>rpm -Va 检查系统中所有已安装的rpm包- 小心使用 
+</span></span><span class=line><span class=cl>rpm -Vp package.rpm 确认一个rpm包还未安装 
+</span></span><span class=line><span class=cl>rpm2cpio package.rpm <span class=p>|</span> cpio --extract --make-directories *bin* 从一个rpm包运行可执行文件 
+</span></span><span class=line><span class=cl>rpm -ivh /usr/src/redhat/RPMS/<span class=sb>`</span>arch<span class=sb>`</span>/package.rpm 从一个rpm源码安装一个构建好的包 
+</span></span><span class=line><span class=cl>rpmbuild --rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包 
+</span></span></code></pre></td></tr></table></div></div><h2 id=134-yum--fedora-redhatcentos-及类似系统>13.4 yum -（Fedora, RedHat,CentOS 及类似系统）</h2><ul>
+<li>yum 命令是在 Fedora 和 RedHat 以及 SUSE 中基于 rpm 的软件包管理器，它可以使系统管理人员交互和自动化地更新与管理 RPM 软件包，能够从指定的服务器自动下载 RPM 包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。</li><li><strong>命令行使用</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># yum(选项)(参数)</span>
+</span></span><span class=line><span class=cl>$ yum --help
+</span></span><span class=line><span class=cl>Loaded plugins: fastestmirror, langpacks
+</span></span><span class=line><span class=cl>Usage: yum <span class=o>[</span>options<span class=o>]</span> COMMAND
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 选项</span>
+</span></span><span class=line><span class=cl>-h：显示帮助信息；
+</span></span><span class=line><span class=cl>-y：对所有的提问都回答“yes”；
+</span></span><span class=line><span class=cl>-c：指定配置文件；
+</span></span><span class=line><span class=cl>-q：安静模式；
+</span></span><span class=line><span class=cl>-v：详细模式；
+</span></span><span class=line><span class=cl>-d：设置调试等级（0-10）；
+</span></span><span class=line><span class=cl>-e：设置错误等级（0-10）；
+</span></span><span class=line><span class=cl>-R：设置yum处理一个命令的最大等待时间；
+</span></span><span class=line><span class=cl>-C：完全从缓存中运行，而不去下载或者更新任何头文件。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 参数</span>
+</span></span><span class=line><span class=cl>install：安装rpm软件包；
+</span></span><span class=line><span class=cl>update：更新rpm软件包；
+</span></span><span class=line><span class=cl>check-update：检查是否有可用的更新rpm软件包；
+</span></span><span class=line><span class=cl>remove：删除指定的rpm软件包；
+</span></span><span class=line><span class=cl>list：显示软件包的信息；
+</span></span><span class=line><span class=cl>search：检查软件包的信息；
+</span></span><span class=line><span class=cl>info：显示指定的rpm软件包的描述信息和概要信息；
+</span></span><span class=line><span class=cl>clean：清理yum过期的缓存；
+</span></span><span class=line><span class=cl>shell：进入yum的shell提示符；
+</span></span><span class=line><span class=cl>resolvedep：显示rpm软件包的依赖关系；
+</span></span><span class=line><span class=cl>localinstall：安装本地的rpm软件包；
+</span></span><span class=line><span class=cl>localupdate：显示本地rpm软件包进行更新；
+</span></span><span class=line><span class=cl>deplist：显示rpm软件包的所有依赖关系。
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><strong>示例演示说明</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装</span>
+</span></span><span class=line><span class=cl>$ yum install             <span class=c1># 全部安装</span>
+</span></span><span class=line><span class=cl>$ yum install package1    <span class=c1># 安装指定的安装包package1</span>
+</span></span><span class=line><span class=cl>$ yum groupinsall group1  <span class=c1># 安装程序组group1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 更新和升级</span>
+</span></span><span class=line><span class=cl>$ yum update              <span class=c1># 全部更新</span>
+</span></span><span class=line><span class=cl>$ yum update package1     <span class=c1># 更新指定程序包package1</span>
+</span></span><span class=line><span class=cl>$ yum check-update        <span class=c1># 检查可更新的程序</span>
+</span></span><span class=line><span class=cl>$ yum upgrade package1    <span class=c1># 升级指定程序包package1</span>
+</span></span><span class=line><span class=cl>$ yum groupupdate group1  <span class=c1># 升级程序组group1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查找显示</span>
+</span></span><span class=line><span class=cl>$ yum list installed <span class=p>|</span> grep mysql
+</span></span><span class=line><span class=cl>$ yum list installed mysql*
+</span></span><span class=line><span class=cl>$ yum info package1     <span class=c1># 显示安装包信息package1</span>
+</span></span><span class=line><span class=cl>$ yum list              <span class=c1># 显示所有已经安装和可以安装的程序包</span>
+</span></span><span class=line><span class=cl>$ yum list package1     <span class=c1># 显示指定程序包安装情况package1</span>
+</span></span><span class=line><span class=cl>$ yum groupinfo group1  <span class=c1># 显示程序组group1信息</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 删除程序</span>
+</span></span><span class=line><span class=cl>$ yum remove/erase package1  <span class=c1># 删除程序包package1</span>
+</span></span><span class=line><span class=cl>$ yum groupremove group1     <span class=c1># 删除程序组group1</span>
+</span></span><span class=line><span class=cl>$ yum deplist package1       <span class=c1># 查看程序package1依赖情况</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 清除缓存</span>
+</span></span><span class=line><span class=cl>$ yum clean packages    <span class=c1># 清除缓存目录下的软件包</span>
+</span></span><span class=line><span class=cl>$ yum clean headers     <span class=c1># 清除缓存目录下的 headers</span>
+</span></span><span class=line><span class=cl>$ yum clean oldheaders  <span class=c1># 清除缓存目录下旧的 headers</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=135-dnf--rhel8centos8>13.5 dnf -（RHEL8、CentOS8）</h2><ul>
+<li>
+<p>DNF 使用 libsolv 进行依赖解析，由 SUSE 开发和维护，旨在提高性能。Yum 主要是用 Python 编写的，它有自己的应对依赖解析的方法。它的 API 没有完整的文档，它的扩展系统只允许 Python 插件。Yum 是 RPM 的前端工具，它管理依赖关系和资源库，然后使用 RPM 来安装、下载和删除包。</p></li><li>
+<p>由于 Yum 中许多长期存在的问题仍未得到解决，因此 Yum 包管理器已被 DNF 包管理器取代。这些问题包括性能差、内存占用过多、依赖解析速度变慢等。两个管理包工具的更多区别可以查看，What is the difference between DNF and YUM? 进行阅读。</p></li><li>
+<p><strong>安装 DNF 包管理器</strong></p></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -522,36 +871,117 @@
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>dpkg -i package.deb 安装/更新一个 deb 包 
-</span></span><span class=line><span class=cl>dpkg -r package_name 从系统删除一个 deb 包 
-</span></span><span class=line><span class=cl>dpkg -l 显示系统中所有已经安装的 deb 包 
-</span></span><span class=line><span class=cl>dpkg -l <span class=p>|</span> grep httpd 显示所有名称中包含 <span class=s2>&#34;httpd&#34;</span> 字样的deb包 
-</span></span><span class=line><span class=cl>dpkg -s package_name 获得已经安装在系统中一个特殊包的信息 
-</span></span><span class=line><span class=cl>dpkg -L package_name 显示系统中已经安装的一个deb包所提供的文件列表 
-</span></span><span class=line><span class=cl>dpkg --contents package.deb 显示尚未安装的一个包所提供的文件列表 
-</span></span><span class=line><span class=cl>dpkg -S /bin/ping 确认所给的文件由哪个deb包提供 
-</span></span></code></pre></td></tr></table></div></div><h2 id=133-apt---debian-ubuntu-以及类似系统>13.3 APT - (Debian, Ubuntu 以及类似系统)</h2><div class=highlight><div class=chroma>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 依赖</span>
+</span></span><span class=line><span class=cl>$ yum install -y epel-release
+</span></span><span class=line><span class=cl><span class=c1># 安装</span>
+</span></span><span class=line><span class=cl>$ yum install -y dnf
+</span></span><span class=line><span class=cl><span class=c1># 检查</span>
+</span></span><span class=line><span class=cl>$ dnf –version
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><strong>常用命令介绍</strong></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>apt-get install package_name 安装/更新一个 deb 包 
-</span></span><span class=line><span class=cl>apt-cdrom install package_name 从光盘安装/更新一个 deb 包 
-</span></span><span class=line><span class=cl>apt-get update 升级列表中的软件包 
-</span></span><span class=line><span class=cl>apt-get upgrade 升级所有已安装的软件 
-</span></span><span class=line><span class=cl>apt-get remove package_name 从系统删除一个deb包 
-</span></span><span class=line><span class=cl>apt-get check 确认依赖的软件仓库正确 
-</span></span><span class=line><span class=cl>apt-get clean 从下载的软件包中清理缓存 
-</span></span><span class=line><span class=cl>apt-cache search searched-package 返回包含所要搜索字符串的软件包名称 
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装软件包</span>
+</span></span><span class=line><span class=cl>$ dnf install nano
+</span></span><span class=line><span class=cl><span class=c1># 升级软件包</span>
+</span></span><span class=line><span class=cl>$ dnf update systemd
+</span></span><span class=line><span class=cl><span class=c1># 升级所有系统软件包</span>
+</span></span><span class=line><span class=cl>$ dnf update
+</span></span><span class=line><span class=cl>$ dnf upgrade
+</span></span><span class=line><span class=cl><span class=c1># 检查系统软件包的更新</span>
+</span></span><span class=line><span class=cl>$ dnf check-update
+</span></span><span class=line><span class=cl><span class=c1># 删除软件包</span>
+</span></span><span class=line><span class=cl>$ dnf remove nano
+</span></span><span class=line><span class=cl>$ dnf erase nano
+</span></span><span class=line><span class=cl><span class=c1># 删除无用孤立的软件包</span>
+</span></span><span class=line><span class=cl>$ dnf autoremove
+</span></span><span class=line><span class=cl><span class=c1># 删除缓存的无用软件包</span>
+</span></span><span class=line><span class=cl>$ dnf clean all
+</span></span><span class=line><span class=cl><span class=c1># 查看系统中可用的DNF软件库</span>
+</span></span><span class=line><span class=cl>$ dnf repolist
+</span></span><span class=line><span class=cl><span class=c1># 查看系统中可用和不可用的所有的DNF软件库</span>
+</span></span><span class=line><span class=cl>$ dnf repolist all
+</span></span><span class=line><span class=cl><span class=c1># 列出所有RPM包</span>
+</span></span><span class=line><span class=cl>$ dnf list
+</span></span><span class=line><span class=cl><span class=c1># 列出所有安装了的RPM包</span>
+</span></span><span class=line><span class=cl>$ dnf list installed
+</span></span><span class=line><span class=cl><span class=c1># 列出所有可供安装的RPM包</span>
+</span></span><span class=line><span class=cl>$ dnf list available
+</span></span><span class=line><span class=cl><span class=c1># 搜索软件库中的RPM包</span>
+</span></span><span class=line><span class=cl>$ dnf search nano
+</span></span><span class=line><span class=cl><span class=c1># 查找某一文件的提供者</span>
+</span></span><span class=line><span class=cl>$ dnf provides /bin/bash
+</span></span><span class=line><span class=cl><span class=c1># 查看软件包详情</span>
+</span></span><span class=line><span class=cl>$ dnf info nano
+</span></span><span class=line><span class=cl><span class=c1># 查看所有的软件包组</span>
+</span></span><span class=line><span class=cl>$ dnf grouplist
+</span></span><span class=line><span class=cl><span class=c1># 安装一个软件包组</span>
+</span></span><span class=line><span class=cl>$ dnf groupinstall <span class=s1>&#39;Educational Software&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1># 升级一个软件包组中的软件包</span>
+</span></span><span class=line><span class=cl>$ dnf groupupdate <span class=s1>&#39;Educational Software&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1># 删除一个软件包组</span>
+</span></span><span class=line><span class=cl>$ dnf groupremove <span class=s1>&#39;Educational Software&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1># 重新安装特定软件包</span>
+</span></span><span class=line><span class=cl>$ dnf reinstall nano
+</span></span><span class=line><span class=cl><span class=c1># 回滚某个特定软件的版本</span>
+</span></span><span class=line><span class=cl>$ dnf downgrade acpid
+</span></span><span class=line><span class=cl><span class=c1># 查看DNF命令的执行历史</span>
+</span></span><span class=line><span class=cl>$ dnf <span class=nb>history</span>
+</span></span><span class=line><span class=cl><span class=c1># 查看所有的DNF命令及其用途</span>
+</span></span><span class=line><span class=cl>$ dnf <span class=nb>help</span>
+</span></span><span class=line><span class=cl><span class=c1># 获取有关某条命令的使用帮助</span>
+</span></span><span class=line><span class=cl>$ dnf <span class=nb>help</span> clean
 </span></span></code></pre></td></tr></table></div></div><h1 id=14-常用命令>14: 常用命令</h1><h2 id=141-查看端口的占用>14.1 查看端口的占用</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -591,7 +1021,7 @@
 </span></span><span class=line><span class=cl>date +%s   时间戳
 </span></span><span class=line><span class=cl>date -d <span class=s2>&#34;2010-07-20 10:25:30&#34;</span> +%s  指定时间时间戳
 </span></span><span class=line><span class=cl>date -d <span class=s2>&#34;@1279592730&#34;</span>    时间戳转时间
-</span></span><span class=line><span class=cl>date -d <span class=s2>&#34;1970-01-01 14781 days&#34;</span> <span class=s2>&#34;+%Y/%m/%d %H:%M:%S&#34;</span> 
+</span></span><span class=line><span class=cl>date -d <span class=s2>&#34;1970-01-01 14781 days&#34;</span> <span class=s2>&#34;+%Y/%m/%d %H:%M:%S&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h2 id=145-查看进程内存使用情况>14.5 查看进程内存使用情况</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -600,10 +1030,10 @@
 </span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>top -d <span class=m>1</span> -p pid <span class=o>[</span>,pid ...<span class=o>]</span>
-</span></span><span class=line><span class=cl>pmap pid 
+</span></span><span class=line><span class=cl>pmap pid
 </span></span><span class=line><span class=cl>ps aux<span class=p>|</span>grep process_name
 </span></span><span class=line><span class=cl>查看/proc/process_id/文件夹下的status文件
-</span></span></code></pre></td></tr></table></div></div><h2 id=145-查看linux内核版本或发布版本>14.5 查看Linux内核版本或发布版本</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=145-查看-linux-内核版本或发布版本>14.5 查看 Linux 内核版本或发布版本</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -615,7 +1045,7 @@
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lsof -i
-</span></span></code></pre></td></tr></table></div></div><h2 id=147-查看自己的外网ip>14.7 查看自己的外网ip</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h2 id=147-查看自己的外网-ip>14.7 查看自己的外网 ip</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
@@ -637,7 +1067,7 @@
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mtr 
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mtr
 </span></span><span class=line><span class=cl>ping
 </span></span><span class=line><span class=cl>traceroute
 </span></span><span class=line><span class=cl>dig

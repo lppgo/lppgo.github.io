@@ -1,0 +1,264 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>01-基于 Python 的任务调度 - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="lucas"><meta name=description content="..."><meta name=keywords content="python,调度">
+<meta name=generator content="Hugo 0.93.1 with theme even">
+<link rel=canonical href=https://lppgo.github.io/post/python/011-%E5%9F%BA%E4%BA%8E-python-%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="01-基于 Python 的任务调度">
+<meta property="og:description" content="...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://lppgo.github.io/post/python/011-%E5%9F%BA%E4%BA%8E-python-%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-09-25T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-09-25T14:36:44+08:00">
+<meta itemprop=name content="01-基于 Python 的任务调度">
+<meta itemprop=description content="..."><meta itemprop=datePublished content="2022-09-25T00:00:00+00:00">
+<meta itemprop=dateModified content="2022-09-25T14:36:44+08:00">
+<meta itemprop=wordCount content="762">
+<meta itemprop=keywords content="Python,schedule,task,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="01-基于 Python 的任务调度">
+<meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head><body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>lppgo</a>
+</div><div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div></div><nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li></a><a href=/post/>
+<li class=mobile-menu-item>Archives</li></a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li></a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li></a>
+</ul></nav><div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>lppgo</a>
+</div><nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li></ul></nav></header><main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>01-基于 Python 的任务调度</h1><div class=post-meta>
+<span class=post-time> 2022-09-25 </span>
+<div class=post-category>
+<a href=/categories/python/> Python </a>
+</div></div></header><div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1快速安装与应用>1：快速安装与应用</a></li><li><a href=#2-快速安装与应用>2: 快速安装与应用</a></li><li><a href=#3-定时发送邮件>3: 定时发送邮件</a></li><li><a href=#4-使用装饰器进行调度>4: 使用装饰器进行调度</a></li><li><a href=#5-使用参数运行计划任务>5: 使用参数运行计划任务</a></li><li><a href=#6>6:</a></li></ul></nav></div></div><div class=post-content>
+<h1 id=table-of-contents>Table of Contents</h1><ul>
+<li><a href=#1%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8>1：快速安装与应用</a></li><li><a href=#2-%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8>2: 快速安装与应用</a></li><li><a href=#3-%E5%AE%9A%E6%97%B6%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6>3: 定时发送邮件</a></li><li><a href=#4-%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%B0%83%E5%BA%A6>4: 使用装饰器进行调度</a></li><li><a href=#5-%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0%E8%BF%90%E8%A1%8C%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1>5: 使用参数运行计划任务</a></li></ul><h1 id=1快速安装与应用>1：快速安装与应用</h1><ul>
+<li>crontab 定时任务</li></ul><h1 id=2-快速安装与应用>2: 快速安装与应用</h1><p>Python 工具包 <strong><a href=https://schedule.readthedocs.io/en/stable/>schedule</a></strong> 可以轻松地在 Python 中进行任务调度，我们可以通过 PyPI 快速安装它。</p><ul>
+<li><code>pip install schedule</code></li><li>借助于 schedule，我们几乎可以像用自然语言说话一样快速构建任务计划和时间表。比如，你想每小时运行一次某个功能函数（比如功能是发邮件的函数 send_email) ，写法是这样的：<code>schedule.every().hour.do(send_email)</code></li></ul><h1 id=3-定时发送邮件>3: 定时发送邮件</h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>schedule</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>send_email</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 发送邮件的操作可以加在这里</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Sending email...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 下面的代码将在每天下午14:45 调用send_email函数</span>
+</span></span><span class=line><span class=cl><span class=n>schedule</span><span class=o>.</span><span class=n>every</span><span class=p>()</span><span class=o>.</span><span class=n>day</span><span class=o>.</span><span class=n>at</span><span class=p>(</span><span class=s2>&#34;14:45&#34;</span><span class=p>)</span><span class=o>.</span><span class=n>do</span><span class=p>(</span><span class=n>send_email</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>schedule</span><span class=o>.</span><span class=n>run_pending</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-使用装饰器进行调度>4: 使用装饰器进行调度</h1><ul>
+<li>我们可以使用装饰器让代码更加干净和优雅。schedule 工具包支持开箱即用的装饰器。我们把上面发送电子邮件的示例改用装饰器完成，代码如下</li><li></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>schedule</span> <span class=kn>import</span> <span class=n>repeat</span><span class=p>,</span> <span class=n>every</span><span class=p>,</span> <span class=n>run_pending</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@repeat</span><span class=p>(</span><span class=n>every</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span><span class=o>.</span><span class=n>seconds</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nd>@repeat</span><span class=p>(</span><span class=n>every</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span><span class=o>.</span><span class=n>seconds</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>send_email</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 发送邮件的操作可以加在这里</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Sending email...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>run_pending</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li>上述代码示例中，我们为同一个任务定制了两个计划。第一个将每 10 秒调用一次功能函数，第二个将每 5 秒调用一次.</li></ul><h1 id=5-使用参数运行计划任务>5: 使用参数运行计划任务</h1><ul>
+<li>我们有时候会希望任务的调用更灵活一些，比如如果可以通过传递参数来控制任务调度，那就免去了写死各种细节的问题。下面我们把发邮件的任务写成可接受参数的形式：</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nd>@repeat</span><span class=p>(</span><span class=n>every</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span><span class=o>.</span><span class=n>seconds</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nd>@repeat</span><span class=p>(</span><span class=n>every</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span><span class=o>.</span><span class=n>seconds</span><span class=p>,</span> <span class=n>email</span><span class=o>=</span><span class=s2>&#34;showmeai@yeah.net&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>send_email</span><span class=p>(</span><span class=n>email</span><span class=o>=</span><span class=s2>&#34;default_email@yeah.net&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 发送邮件的操作可以加在这里</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Sending email...: to </span><span class=si>{</span><span class=n>email</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li>经过上面的简单处理，我们可以把电子邮箱当作参数传递给调度任务。如果我们希望通过命令行参数给脚本传参，一个示例的代码如下：</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>argparse</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>send_email</span><span class=p>(</span><span class=n>email</span><span class=o>=</span><span class=s2>&#34;default_email@yeah.net&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 发送邮件的操作可以加在这里</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Sending email...: to </span><span class=si>{</span><span class=n>email</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>parser</span> <span class=o>=</span> <span class=n>argparse</span><span class=o>.</span><span class=n>ArgumentParser</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s2>&#34;-e&#34;</span><span class=p>,</span> <span class=s2>&#34;--email&#34;</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s2>&#34;Email to send&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>args</span> <span class=o>=</span> <span class=n>parser</span><span class=o>.</span><span class=n>parse_args</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>args</span><span class=o>.</span><span class=n>email</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>send_email</span><span class=p>(</span><span class=n>args</span><span class=o>.</span><span class=n>email</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>send_email</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li>接下来我们就可以在终端中运行上述脚本，如下所示</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=err>$</span> <span class=n>python</span> <span class=n>send_mail</span><span class=o>.</span><span class=n>py</span> <span class=o>-</span><span class=n>e</span> <span class=n>showmeai</span><span class=nd>@yeah</span><span class=o>.</span><span class=n>net</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 我们也可以使用默认的邮箱参数</span>
+</span></span><span class=line><span class=cl><span class=err>$</span> <span class=n>python</span> <span class=n>send_email</span><span class=o>.</span><span class=n>py</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=6>6:</h1></div><div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>lucas</span>
+</p><p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>
+2022-09-25
+<a href=/commit/58f1a0a68f195e222534825c8b987be705ac318f title="add 011-基于 Python 的任务调度">(58f1a0a)</a>
+</span>
+</p></div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/python/>Python</a>
+<a href=/tags/schedule/>schedule</a>
+<a href=/tags/task/>task</a>
+</div><nav class=post-nav>
+<a class=next href=/post/python/005-10%E5%88%86%E9%92%9F%E6%90%9E%E5%AE%9Apandas/>
+<span class="next-text nav-default">10分钟搞定pandas+实例</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav></footer></article></div></div></main><footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a>
+<a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a>
+<a href=https://github.com/lppgo class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://lppgo.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div><div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2015 -
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+</span>
+</div></footer><div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js></script>
+<script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var e=document.createElement("script"),n,t;e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script>
+</body></html>

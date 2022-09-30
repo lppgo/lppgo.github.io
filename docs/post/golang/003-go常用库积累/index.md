@@ -684,6 +684,9 @@ https://github.com/deatil/go-cryptobin
      https://github.com/traefik/yaegi
 - 8. **golang 进度条展示**
      https://github.com/qianlnk/pgbar
+- 9. **go+web 开发桌面应用**
+     现代化 Web 技术开发桌面应用的 Go 框架
+     https://wails.io/docs/introduction
 
 # 18 tools 工具库
 
