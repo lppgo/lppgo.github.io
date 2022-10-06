@@ -193,6 +193,18 @@ https://github.com/air-go/rpc
 https://github.com/grpc-ecosystem/go-grpc-middleware
 ```
 
+- [Go gRPC Middleware](https://github.com/grpc-ecosystem/go-grpc-middleware):提供了拦截器的 interceptor 链式的功能，可以将多个拦截器组合成一个拦截器链，当然它还提供了其它的功能，所以以 gRPC 中间件命名;
+- [grpc-multi-interceptor](https://github.com/kazegusuri/grpc-multi-interceptor): 是另一个 interceptor 链式功能的库，也可以将单向的或者流式的拦截器组合;
+- [grpc_auth](https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/auth): 身份验证拦截器;
+- [grpc_ctxtags](https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/tags): 为上下文增加 Tag map 对象;
+- [grpc_zap](https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/logging/zap): 支持 zap 日志框架;
+- [grpc_logrus](https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/logging/logrus): 支持 logrus 日志框架;
+- [grpc_prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus): 支持 prometheus;
+- [otgrpc](https://github.com/grpc-ecosystem/grpc-opentracing/tree/master/go/otgrpc): 支持 opentracing/zipkin;
+- [grpc_opentracing](https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/tracing/opentracing):支持 opentracing/zipkin;
+- [grpc_retry](https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/retry): 为客户端增加重试的功能;
+- [grpc_validator](https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/validator): 为服务器端增加校验的功能
+
 #### 7.1.2.4 GRPC 测试
 
 - **(1): [BloomRPC](https://github.com/uw-labs/bloomrpc)**

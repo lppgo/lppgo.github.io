@@ -25,11 +25,11 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-04-17T00:00:00+00:00">
-<meta property="article:modified_time" content="2022-09-24T15:07:26+08:00">
+<meta property="article:modified_time" content="2022-09-30T11:10:32+08:00">
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
-<meta itemprop=dateModified content="2022-09-24T15:07:26+08:00">
-<meta itemprop=wordCount content="3268">
+<meta itemprop=dateModified content="2022-09-30T11:10:32+08:00">
+<meta itemprop=wordCount content="3460">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -294,7 +294,8 @@
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/grpc-ecosystem/go-grpc-middleware
-</span></span></span></code></pre></td></tr></table></div></div><h4 id=7124-grpc-测试>7.1.2.4 GRPC 测试</h4><ul>
+</span></span></span></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware>Go gRPC Middleware</a>:提供了拦截器的 interceptor 链式的功能，可以将多个拦截器组合成一个拦截器链，当然它还提供了其它的功能，所以以 gRPC 中间件命名;</li><li><a href=https://github.com/kazegusuri/grpc-multi-interceptor>grpc-multi-interceptor</a>: 是另一个 interceptor 链式功能的库，也可以将单向的或者流式的拦截器组合;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/auth>grpc_auth</a>: 身份验证拦截器;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/tags>grpc_ctxtags</a>: 为上下文增加 Tag map 对象;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/logging/zap>grpc_zap</a>: 支持 zap 日志框架;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/logging/logrus>grpc_logrus</a>: 支持 logrus 日志框架;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-prometheus>grpc_prometheus</a>: 支持 prometheus;</li><li><a href=https://github.com/grpc-ecosystem/grpc-opentracing/tree/master/go/otgrpc>otgrpc</a>: 支持 opentracing/zipkin;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/tracing/opentracing>grpc_opentracing</a>:支持 opentracing/zipkin;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/retry>grpc_retry</a>: 为客户端增加重试的功能;</li><li><a href=https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/validator>grpc_validator</a>: 为服务器端增加校验的功能</li></ul><h4 id=7124-grpc-测试>7.1.2.4 GRPC 测试</h4><ul>
 <li>
 <p><strong>(1): <a href=https://github.com/uw-labs/bloomrpc>BloomRPC</a></strong></p><ul>
 <li>&lt;1> <strong>二进制安装</strong>[https://github.com/uw-labs/bloomrpc/releases]</li><li>&lt;2> <strong>Source Code 安装</strong></li></ul><div class=highlight><div class=chroma>
@@ -1039,8 +1040,8 @@
 </p><p class=copyright-item>
 <span class=item-title>上次更新</span>
 <span class=item-content>
-2022-09-24
-<a href=/commit/306a8b55fcf215f9f8410a952ade0d3871ce4fde title="add go 并发文件下载，断点续传">(306a8b5)</a>
+2022-09-30
+<a href=/commit/40799df063f1dce778b7f217903df7393b63cab4 title="update 007-Linux基本命令.md">(40799df)</a>
 </span>
 </p></div><footer class=post-footer>
 <div class=post-tags>
