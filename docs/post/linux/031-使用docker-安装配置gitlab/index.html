@@ -1,0 +1,291 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>使用 docker 安装配置 gitlab - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="lucas"><meta name=description content="使用 docker 安装配置 gitlab 1: 下载 gitlab images 2: 编写 docker-compose 3: 启动 gitlab 容器并设置 root 3.1 修改配置 3.2 修改 root 密码 1: 下载 gitlab images Gitlab是一个开源的版本管理系统，实现一个自托管的"><meta name=keywords content="Git,gitlab,docker">
+<meta name=generator content="Hugo 0.93.1 with theme even">
+<link rel=canonical href=https://lppgo.github.io/post/linux/031-%E4%BD%BF%E7%94%A8docker-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEgitlab/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="使用 docker 安装配置 gitlab">
+<meta property="og:description" content="使用 docker 安装配置 gitlab 1: 下载 gitlab images 2: 编写 docker-compose 3: 启动 gitlab 容器并设置 root 3.1 修改配置 3.2 修改 root 密码 1: 下载 gitlab images Gitlab是一个开源的版本管理系统，实现一个自托管的">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://lppgo.github.io/post/linux/031-%E4%BD%BF%E7%94%A8docker-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEgitlab/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-11-02T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-11-02T00:00:00+00:00">
+<meta itemprop=name content="使用 docker 安装配置 gitlab">
+<meta itemprop=description content="使用 docker 安装配置 gitlab 1: 下载 gitlab images 2: 编写 docker-compose 3: 启动 gitlab 容器并设置 root 3.1 修改配置 3.2 修改 root 密码 1: 下载 gitlab images Gitlab是一个开源的版本管理系统，实现一个自托管的"><meta itemprop=datePublished content="2022-11-02T00:00:00+00:00">
+<meta itemprop=dateModified content="2022-11-02T00:00:00+00:00">
+<meta itemprop=wordCount content="934">
+<meta itemprop=keywords content="Git,gitlab,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="使用 docker 安装配置 gitlab">
+<meta name=twitter:description content="使用 docker 安装配置 gitlab 1: 下载 gitlab images 2: 编写 docker-compose 3: 启动 gitlab 容器并设置 root 3.1 修改配置 3.2 修改 root 密码 1: 下载 gitlab images Gitlab是一个开源的版本管理系统，实现一个自托管的"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head><body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>lppgo</a>
+</div><div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div></div><nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li></a><a href=/post/>
+<li class=mobile-menu-item>Archives</li></a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li></a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li></a>
+</ul></nav><div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>lppgo</a>
+</div><nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li></ul></nav></header><main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>使用 docker 安装配置 gitlab</h1><div class=post-meta>
+<span class=post-time> 2022-11-02 </span>
+<div class=post-category>
+<a href=/categories/git/> Git </a>
+</div></div></header><div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#1-下载-gitlab-images>1: 下载 gitlab images</a></li><li><a href=#2-编写-docker-compose>2: 编写 docker-compose</a></li><li><a href=#3-启动-gitlab-容器并设置-root>3: 启动 gitlab 容器并设置 root</a>
+<ul>
+<li><a href=#31-修改配置>3.1 修改配置</a></li><li><a href=#32-修改-root-密码>3.2 修改 root 密码</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<div align=center><font size=35>使用 docker 安装配置 gitlab</font></div><ul>
+<li><a href=#1-%E4%B8%8B%E8%BD%BD-gitlab-images>1: 下载 gitlab images</a>
+<ul>
+<li><a href=#2-%E7%BC%96%E5%86%99-docker-compose>2: 编写 docker-compose</a></li><li><a href=#3-%E5%90%AF%E5%8A%A8-gitlab-%E5%AE%B9%E5%99%A8%E5%B9%B6%E8%AE%BE%E7%BD%AE-root>3: 启动 gitlab 容器并设置 root</a>
+<ul>
+<li><a href=#31-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE>3.1 修改配置</a></li><li><a href=#32-%E4%BF%AE%E6%94%B9-root-%E5%AF%86%E7%A0%81>3.2 修改 root 密码</a></li></ul></li></ul></li></ul><h1 id=1-下载-gitlab-images>1: 下载 gitlab images</h1><ul>
+<li>
+<p><strong>Gitlab</strong>是一个开源的版本管理系统，实现一个自托管的 Git 项目仓库，可通过 Web 界面进行访问公开的或者私人项目。它拥有与 Github 类似的功能，能够浏览源码，管理缺陷和注释，可以管理团队对仓库的访问，它非常易于浏览提交的版本并提供一个文件历史库。团队成员可以利用内置的简单的聊天程序进行交流。它还提供一个代码片段收集功能可以实现代码复用。</p></li><li>
+<p>GitLab 对于系统性能有要求，所以我们需要将克隆出来的虚拟机的内存提高到至少 2G 以上。</p></li><li>
+<p><code>docker pull gitlab/gitlab-ce:latest</code></p></li><li>
+<p><code>docker pull twang2218/gitlab-ce-zh:latest</code></p></li><li>
+<p>通过虚拟主机的 ip+端口访问，此时需要设置管理员密码，账号为 root，密码最少为 8 位</p></li></ul><h1 id=2-编写-docker-compose>2: 编写 docker-compose</h1><p>docker-compose-gitlab.yml</p><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;3&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>web</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;gitlab/gitlab-ce:latest&#34;</span><span class=w> </span><span class=c>#gitlab镜像</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>always</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>privileged</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w> </span><span class=c>#权限</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&#34;</span><span class=w> </span><span class=c>#主机名,即虚拟机的ip</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>TZ</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Asia/Shanghai&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>GITLAB_OMNIBUS_CONFIG</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>        external_url &#39;&#39; #主机名,即虚拟机的ip
+</span></span></span><span class=line><span class=cl><span class=sd>        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 2222
+</span></span></span><span class=line><span class=cl><span class=sd>        unicorn[&#39;port&#39;] = 8888
+</span></span></span><span class=line><span class=cl><span class=sd>        nginx[&#39;listen_port&#39;] = 8084</span><span class=w>        
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;8084:8084&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;8443:443&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;2222:22&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;./config:/etc/gitlab&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;./log:/var/log/gitlab&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;./opt:/var/opt/gitlab&#34;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=3-启动-gitlab-容器并设置-root>3: 启动 gitlab 容器并设置 root</h1><h2 id=31-修改配置>3.1 修改配置</h2><ul>
+<li>docker-compose up</li><li>或者进入容器 config</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker <span class=nb>exec</span> -it gitlab /bin/bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#修改gitlab.rb</span>
+</span></span><span class=line><span class=cl>vi /etc/gitlab/gitlab.rb
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#gitlab访问地址,可以写域名。如果端口不写的话默认为80端口</span>
+</span></span><span class=line><span class=cl>external_url <span class=s1>&#39;http://47.115.218.14&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1>#ssh主机ip</span>
+</span></span><span class=line><span class=cl>gitlab_rails<span class=o>[</span><span class=s1>&#39;gitlab_ssh_host&#39;</span><span class=o>]</span> <span class=o>=</span> <span class=s1>&#39;47.115.218.14&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1>#ssh连接端口</span>
+</span></span><span class=line><span class=cl>gitlab_rails<span class=o>[</span><span class=s1>&#39;gitlab_shell_ssh_port&#39;</span><span class=o>]</span> <span class=o>=</span> <span class=m>22</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 修改http和ssh配置</span>
+</span></span><span class=line><span class=cl>vi /opt/gitlab/embedded/service/gitlab-rails/config/gitlab.yml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  gitlab:
+</span></span><span class=line><span class=cl>    host: 192.168.249.132
+</span></span><span class=line><span class=cl>    port: <span class=m>9980</span> <span class=c1># 这里改为9980</span>
+</span></span><span class=line><span class=cl>    https: <span class=nb>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 在gitlab上生成的http地址应该是http://192.168.249.132:9980</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1>#重启gitlab</span>
+</span></span><span class=line><span class=cl>gitlab-ctl restart
+</span></span><span class=line><span class=cl><span class=c1>#退出容器</span>
+</span></span><span class=line><span class=cl><span class=nb>exit</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li>路径访问：http://192.168.249.132:9980/</li><li>机器配置要大于 4g，否则很容易启动不了，报 502</li></ul><h2 id=32-修改-root-密码>3.2 修改 root 密码</h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 进入容器内部</span>
+</span></span><span class=line><span class=cl>docker <span class=nb>exec</span> -it gitlab /bin/bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 进入控制台</span>
+</span></span><span class=line><span class=cl>gitlab-rails console -e production
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查询id为1的用户，id为1的用户是超级管理员</span>
+</span></span><span class=line><span class=cl><span class=nv>user</span> <span class=o>=</span> User.where<span class=o>(</span>id:1<span class=o>)</span>.first
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>user.password<span class=o>=</span><span class=s1>&#39;Lpp19952058&#39;</span>
+</span></span><span class=line><span class=cl>user.password_confirmation<span class=o>=</span><span class=s1>&#39;Lpp19952058&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 保存</span>
+</span></span><span class=line><span class=cl>user.save!
+</span></span><span class=line><span class=cl><span class=c1># 退出</span>
+</span></span><span class=line><span class=cl><span class=nb>exit</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li>root 用户登录</li><li>新建 user lipingping 并登录</li><li>lipingping 创建仓库</li></ul></div><div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>lucas</span>
+</p><p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>
+2022-11-02
+</span>
+</p></div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/git/>Git</a>
+<a href=/tags/gitlab/>gitlab</a>
+</div><nav class=post-nav>
+<a class=prev href=/post/linux/033-git%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E4%BB%93%E5%BA%93/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">git初始化新仓库</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/python/011-%E5%9F%BA%E4%BA%8E-python-%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/>
+<span class="next-text nav-default">01-基于 Python 的任务调度</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav></footer></article></div></div></main><footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a>
+<a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a>
+<a href=https://github.com/lppgo class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://lppgo.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div><div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2015 -
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+</span>
+</div></footer><div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js></script>
+<script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var e=document.createElement("script"),n,t;e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script>
+</body></html>

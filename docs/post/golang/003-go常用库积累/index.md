@@ -98,6 +98,9 @@ https://github.com/jinzhu/configor
 
 // env
 https://github.com/caarlos0/env
+
+// Support for JSON, TOML, YAML, env, command line, file, S3 etc. Alternative to viper.
+https://github.com/knadh/koanf
 ```
 
 # 3：存储相关
@@ -671,6 +674,7 @@ https://github.com/zhaoyunxing92/dingtalk
 ## 16.21 go 加解密
 
 ```go
+https://github.com/golang-module/dongle
 https://github.com/lppgo/my_test/tree/master/033_%E5%8A%A0%E8%A7%A3%E5%AF%86
 https://github.com/deatil/go-cryptobin
 ```
