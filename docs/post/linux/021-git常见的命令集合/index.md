@@ -146,6 +146,12 @@ git push -u origin --tags
 
 # 3: History 管理
 
+- stash：存储临时代码
+- reset --soft：软回溯，回退 commit 的同时保留修改内容
+- cherry-pick：复制 commit
+- revert：撤销 commit 的修改内容
+- reflog：记录了 commit 的历史操作
+
 ## 3.1 查看历史
 
 ```bash
@@ -171,6 +177,12 @@ git push origin --tags # 分享所有标签
 ```bash
 git reset 9fceb02 # 保留修改
 git reset 9fceb02 --hard # 删除之后的修改
+git reset --hard HEAD # commit 记录强制回溯到某一个节点
+git reset --soft HEAD 的作用正如其名，--soft (柔软的) 除了回溯节点外，还会保留节点的修改内容
+
+git revert <commitHash> # 将现有的提交还原，恢复提交的内容，并生成一条还原记录
+git revert -m 1 <commitHash>
+
 ```
 
 ## 3.4 取消文件的修改
@@ -203,13 +215,13 @@ git diff --cached # 查看已暂存文件的更新
 ## 3.8 暂存和恢复当前 staging
 
 ```bash
-git stash # 暂存当前分支的修改
-git stash apply # 恢复最近一次暂存
-git stash list # 查看暂存内容
-git stash apply stash@{2} # 指定恢复某次暂存内容
-git stash drop stash@{0} # 删除某次暂存内容
-git stash pop #  从git栈中获取到最近一次stash进去的内容，恢复工作区的内容。获取之后，会删除栈中对应的stash
- git stash clear # 清空git栈
+git stash # 暂存当前分支的修改，保存当前未commit的代码
+git stash save "备注的内容" # 保存当前未commit的代码并添加备注
+git stash list # 保存当前未commit的代码并添加备注
+git stash apply # 应用最近一次的stash
+git stash pop # 应用最近一次的stash，随后删除该记录
+git stash drop # 删除最近的一次stash
+git stash clear # 清空git栈
 ```
 
 ## 3.9 修改 commit 历史记录

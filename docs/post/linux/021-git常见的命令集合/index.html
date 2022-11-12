@@ -29,7 +29,7 @@
 <meta itemprop=name content="03-Git常见的命令集合">
 <meta itemprop=description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库 Repository 管理 2.1 clone 仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an existing Git repository 推送一个已存在的仓库"><meta itemprop=datePublished content="2021-05-06T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-08-21T18:54:17+08:00">
-<meta itemprop=wordCount content="2205">
+<meta itemprop=wordCount content="2419">
 <meta itemprop=keywords content="Git,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="03-Git常见的命令集合">
 <meta name=twitter:description content="1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库 Repository 管理 2.1 clone 仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an existing Git repository 推送一个已存在的仓库"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -228,7 +228,8 @@
 </span></span><span class=line><span class=cl>git remote add origin http://192.168.1.100/myproject/test.git
 </span></span><span class=line><span class=cl>git push -u origin --all
 </span></span><span class=line><span class=cl>git push -u origin --tags
-</span></span></code></pre></td></tr></table></div></div><h1 id=3-history-管理>3: History 管理</h1><h2 id=31-查看历史>3.1 查看历史</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-history-管理>3: History 管理</h1><ul>
+<li>stash：存储临时代码</li><li>reset &ndash;soft：软回溯，回退 commit 的同时保留修改内容</li><li>cherry-pick：复制 commit</li><li>revert：撤销 commit 的修改内容</li><li>reflog：记录了 commit 的历史操作</li></ul><h2 id=31-查看历史>3.1 查看历史</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -258,9 +259,19 @@
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git reset 9fceb02 <span class=c1># 保留修改</span>
 </span></span><span class=line><span class=cl>git reset 9fceb02 --hard <span class=c1># 删除之后的修改</span>
+</span></span><span class=line><span class=cl>git reset --hard HEAD <span class=c1># commit 记录强制回溯到某一个节点</span>
+</span></span><span class=line><span class=cl>git reset --soft HEAD 的作用正如其名，--soft <span class=o>(</span>柔软的<span class=o>)</span> 除了回溯节点外，还会保留节点的修改内容
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>git revert &lt;commitHash&gt; <span class=c1># 将现有的提交还原，恢复提交的内容，并生成一条还原记录</span>
+</span></span><span class=line><span class=cl>git revert -m <span class=m>1</span> &lt;commitHash&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=34-取消文件的修改>3.4 取消文件的修改</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -297,13 +308,13 @@
 </span><span class=lnt>6
 </span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git stash <span class=c1># 暂存当前分支的修改</span>
-</span></span><span class=line><span class=cl>git stash apply <span class=c1># 恢复最近一次暂存</span>
-</span></span><span class=line><span class=cl>git stash list <span class=c1># 查看暂存内容</span>
-</span></span><span class=line><span class=cl>git stash apply stash@<span class=o>{</span>2<span class=o>}</span> <span class=c1># 指定恢复某次暂存内容</span>
-</span></span><span class=line><span class=cl>git stash drop stash@<span class=o>{</span>0<span class=o>}</span> <span class=c1># 删除某次暂存内容</span>
-</span></span><span class=line><span class=cl>git stash pop <span class=c1>#  从git栈中获取到最近一次stash进去的内容，恢复工作区的内容。获取之后，会删除栈中对应的stash</span>
-</span></span><span class=line><span class=cl> git stash clear <span class=c1># 清空git栈</span>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git stash <span class=c1># 暂存当前分支的修改，保存当前未commit的代码</span>
+</span></span><span class=line><span class=cl>git stash save <span class=s2>&#34;备注的内容&#34;</span> <span class=c1># 保存当前未commit的代码并添加备注</span>
+</span></span><span class=line><span class=cl>git stash list <span class=c1># 保存当前未commit的代码并添加备注</span>
+</span></span><span class=line><span class=cl>git stash apply <span class=c1># 应用最近一次的stash</span>
+</span></span><span class=line><span class=cl>git stash pop <span class=c1># 应用最近一次的stash，随后删除该记录</span>
+</span></span><span class=line><span class=cl>git stash drop <span class=c1># 删除最近的一次stash</span>
+</span></span><span class=line><span class=cl>git stash clear <span class=c1># 清空git栈</span>
 </span></span></code></pre></td></tr></table></div></div><h2 id=39-修改-commit-历史记录>3.9 修改 commit 历史记录</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
