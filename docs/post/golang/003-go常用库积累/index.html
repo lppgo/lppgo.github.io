@@ -29,7 +29,7 @@
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-11-06T22:03:54+08:00">
-<meta itemprop=wordCount content="3485">
+<meta itemprop=wordCount content="4004">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -96,7 +96,7 @@
 <ul>
 <li><a href=#16201-钉钉-dingtalk>16.20.1 钉钉 dingtalk</a></li><li><a href=#16201-微信-wechat>16.20.1 微信 wechat</a></li></ul></li><li><a href=#1621-go-加解密>16.21 go 加解密</a></li></ul></li><li><a href=#17-一些特殊的库-lib>17 一些特殊的库 Lib</a></li><li><a href=#18-tools-工具库>18 tools 工具库</a></li><li><a href=#19-金融交易相关>19 金融交易相关</a></li><li><a href=#20-gosdk>20 gosdk</a>
 <ul>
-<li><a href=#201-微信>20.1 微信</a></li><li><a href=#202-钉钉>20.2 钉钉</a></li></ul></li><li><a href=#21-go-devops>21 go devops</a></li></ul></nav></div></div><div class=post-content>
+<li><a href=#201-微信>20.1 微信</a></li><li><a href=#202-钉钉>20.2 钉钉</a></li></ul></li><li><a href=#21-go-devops>21 go devops</a></li><li><a href=#22-数据分析>22 数据分析</a></li></ul></nav></div></div><div class=post-content>
 <ul>
 <li><a href=#1%E6%97%A5%E5%BF%97%E5%BA%93>1：日志库</a></li><li><a href=#2%E9%85%8D%E7%BD%AE%E5%BA%93>2：配置库</a></li><li><a href=#3%E5%AD%98%E5%82%A8%E7%9B%B8%E5%85%B3>3：存储相关</a></li><li><a href=#4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84>4：数据结构</a></li><li><a href=#5cli-%E5%91%BD%E4%BB%A4%E8%A1%8C>5：CLI 命令行</a></li><li><a href=#6web-%E6%A1%86%E6%9E%B6>6：web 框架</a></li><li><a href=#7rpc-%E5%92%8C%E5%BE%AE%E6%9C%8D%E5%8A%A1>7：RPC 和微服务</a>
 <ul>
@@ -118,7 +118,7 @@
 <ul>
 <li><a href=#161-email-%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6>16.1 email 电子邮件</a></li><li><a href=#162-%E7%83%AD%E7%BC%96%E8%AF%91>16.2 热编译</a></li><li><a href=#163-%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C>16.3 参数校验</a></li><li><a href=#164-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%B7%A5%E5%85%B7>16.4 任务调度工具</a></li><li><a href=#165-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0>16.5 自动化运维平台</a></li><li><a href=#166-deep-preety-print>16.6 deep preety print</a></li><li><a href=#167-juniper-%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E6%89%A9%E5%B1%95-go-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%BA%93%E5%8C%85%E6%8B%AC%E5%AE%B9%E5%99%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C-stream>16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</a></li><li><a href=#168-samberlo>16.8 samber/lo</a></li><li><a href=#169-gopsutil>16.9 gopsutil</a></li><li><a href=#1610-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>16.10 数学相关的库</a></li><li><a href=#1611-%E6%8F%90%E4%BE%9B%E4%BC%98%E5%8C%96%E7%9A%84%E7%AE%97%E6%B3%95%E4%BB%A5%E5%88%A9%E7%94%A8%E7%8E%B0%E4%BB%A3-cpu-%E7%9A%84%E7%89%B9%E6%80%A7>16.11 提供优化的算法以利用现代 CPU 的特性</a></li><li><a href=#1612-ftp>16.12 FTP</a></li><li><a href=#1613-%E4%BD%BF%E7%94%A8-cmux-%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%BF%9E%E6%8E%A5%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8>16.13 使用 cmux 实现服务端连接多路复用</a></li><li><a href=#1614-golang-%E6%97%B6%E9%97%B4%E4%B8%8E%E6%97%A5%E6%9C%9F>16.14 Golang 时间与日期</a></li><li><a href=#1615-console-progress-bar-%E8%BF%9B%E5%BA%A6%E6%9D%A1>16.15 Console progress bar 进度条</a></li><li><a href=#1616-%E5%9B%BE%E8%A1%A8-chart>16.16 图表 chart</a></li><li><a href=#1617-%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E7%9B%B8%E5%85%B3>16.17 读写文件相关</a></li><li><a href=#1618-%E6%95%B0%E5%AD%A6-math>16.18 数学 math</a></li><li><a href=#1619-%E6%B5%81%E9%87%8F%E5%BD%95%E5%88%B6>16.19 流量录制</a></li><li><a href=#1620-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6-sdk>16.20 常用软件 SDK</a>
 <ul>
-<li><a href=#16201-%E9%92%89%E9%92%89-dingtalk>16.20.1 钉钉 dingtalk</a></li><li><a href=#16201-%E5%BE%AE%E4%BF%A1-wechat>16.20.1 微信 wechat</a></li></ul></li></ul></li><li><a href=#17-%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BA%93-lib>17 一些特殊的库 Lib</a></li><li><a href=#18-tools-%E5%B7%A5%E5%85%B7%E5%BA%93>18 tools 工具库</a></li><li><a href=#19-%E9%87%91%E8%9E%8D%E4%BA%A4%E6%98%93%E7%9B%B8%E5%85%B3>19 金融交易相关</a></li><li><a href=#20-gosdk>20 gosdk</a></li><li><a href=#21-go-devops>21 go devops</a></li></ul><h1 id=1日志库>1：日志库</h1><div class=highlight><div class=chroma>
+<li><a href=#16201-%E9%92%89%E9%92%89-dingtalk>16.20.1 钉钉 dingtalk</a></li><li><a href=#16201-%E5%BE%AE%E4%BF%A1-wechat>16.20.1 微信 wechat</a></li></ul></li></ul></li><li><a href=#17-%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BA%93-lib>17 一些特殊的库 Lib</a></li><li><a href=#18-tools-%E5%B7%A5%E5%85%B7%E5%BA%93>18 tools 工具库</a></li><li><a href=#19-%E9%87%91%E8%9E%8D%E4%BA%A4%E6%98%93%E7%9B%B8%E5%85%B3>19 金融交易相关</a></li><li><a href=#20-gosdk>20 gosdk</a></li><li><a href=#21-go-devops>21 go devops</a></li><li><a href=#22-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90>22 go 数据分析</a></li></ul><h1 id=1日志库>1：日志库</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -162,6 +162,9 @@
 </span><span class=lnt>11
 </span><span class=lnt>12
 </span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// viper 兼容 json，toml，yaml，hcl 等格式的配置库.
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/spf13/viper
@@ -176,6 +179,9 @@
 </span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl><span class=c1>// Support for JSON, TOML, YAML, env, command line, file, S3 etc. Alternative to viper.
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/knadh/koanf
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// A dead simple configuration manager for Go applications.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/tucnak/store
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=3存储相关>3：存储相关</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -876,6 +882,24 @@
 </span><span class=lnt>11
 </span><span class=lnt>12
 </span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 期货期权 ctp 接口 Golang版 (for linux64)
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//gitee.com/mayiweb/goctp
@@ -890,7 +914,25 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1>//
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/krenx1983/openctp
-</span></span></span></code></pre></td></tr></table></div></div><h1 id=20-gosdk>20 gosdk</h1><ul>
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// 处理货币与金融领域的库
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/jobbole/awesome-go-cn#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>accounting</span> <span class=p>:</span> <span class=nx>Go语言金钱及货币格式</span>  <span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/leekchan/accounting
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>currency</span> <span class=p>:</span> <span class=nx>处理货币金额</span><span class=p>,</span><span class=nx>提供货币信息和格式</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=nx>currency</span> <span class=p>:</span> <span class=nx>高性能</span><span class=err>、</span><span class=nx>精确的货币计算包</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=nx>decimal</span> <span class=p>:</span> <span class=nx>支持任意精度的十进制数的go包</span>  <span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/shopspring/decimal
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>fastme</span> <span class=p>:</span> <span class=nx>Go实现的</span> <span class=nx>快速可扩展的匹配引擎</span> <span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=k>go</span><span class=o>-</span><span class=nx>finance</span> <span class=p>:</span> <span class=nx>Go中的综合金融市场数据</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=k>go</span><span class=o>-</span><span class=nx>finance</span> <span class=p>:</span> <span class=nx>用于货币时间价值</span><span class=err>（</span><span class=nx>年金</span><span class=err>）、</span><span class=nx>现金流</span><span class=err>、</span><span class=nx>利率转换</span><span class=err>、</span><span class=nx>债券和折旧计算的金融函数库</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=k>go</span><span class=o>-</span><span class=nx>finance</span> <span class=p>:</span> <span class=nx>用于获取汇率</span><span class=err>、</span><span class=nx>通过VIES查询增值税号和查询IBAN银行账号的模块</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=k>go</span><span class=o>-</span><span class=nx>finnhub</span> <span class=p>:</span> <span class=nx>来自finnhub</span><span class=p>.</span><span class=nx>io的股市</span><span class=err>、</span><span class=nx>外汇和加密数据客户端</span><span class=err>。</span><span class=nx>访问来自60多家证券交易所</span><span class=err>、</span><span class=mi>10</span><span class=nx>家外汇经纪商和15家以上加密交易所的实时金融市场数据</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=k>go</span><span class=o>-</span><span class=nx>money</span> <span class=p>:</span> <span class=nx>Fowler</span><span class=err>&#39;</span><span class=nx>s</span> <span class=nx>Money模式的实现</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=nx>ofxgo</span> <span class=p>:</span> <span class=nx>查询</span> <span class=nx>OFX</span> <span class=nx>服务器并解析其响应</span> <span class=p>(</span><span class=nx>有一个示例的命令行客户端</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>orderbook</span> <span class=p>:</span> <span class=nx>Golang中的限价订单簿的匹配引擎</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=nx>techan</span> <span class=p>:</span> <span class=nx>具有高级市场分析和交易策略的技术分析库</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=nx>transaction</span> <span class=p>:</span> <span class=nx>以多线程模式运行的嵌入式的账户交易数据库</span><span class=p>,</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=nx>vat</span> <span class=p>:</span> <span class=nx>VAT</span> <span class=nx>验证及欧洲增值税率工具</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=20-gosdk>20 gosdk</h1><ul>
 <li>sdk 三方库:https://github.com/eryajf/third-tools</li><li>Go 开发常用工具库, Google2 步验证客户端,AES 加密解密,RSA 加密解密,钉钉机器人,邮件发送,JWT 生成解析,Log,BoltDB 操作,图片操作,json 操作,struct 序列化
 <ul>
 <li><a href=https://github.com/chanyipiaomiao/hltool>https://github.com/chanyipiaomiao/hltool</a></li></ul></li></ul><h2 id=201-微信>20.1 微信</h2><div class=highlight><div class=chroma>
@@ -1042,7 +1084,8 @@
 </span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl><span class=c1>// gossh
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/krilor/gossh
-</span></span></span></code></pre></td></tr></table></div></div></div><div class=post-copyright>
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=22-数据分析>22 数据分析</h1><ul>
+<li>类似于 numpay,pandas</li><li>Go 中的数据分析——如何使用 Gota 包:https://www.freecodecamp.org/news/exploratory-data-analysis-in-go-with-gota/</li></ul></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>
 <span class=item-content>lucas</span>
