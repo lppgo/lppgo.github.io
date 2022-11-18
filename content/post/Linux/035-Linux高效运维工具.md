@@ -257,3 +257,43 @@ URL: http://iZf8z3ylerfr8lt1be68xpZ:9999/
 # 9: 会话 Session 终端
 
 ## 9.1 连接会话终端持续化-Tmux
+
+> tmux 是一个可以让人们通过一个窗口操作多个会话的工具.
+
+- **install:** `yum install -y tmux`,`apt-get install tmux`;
+- **tmux 应用场景:**
+
+  - 终端长时间连接运行 task，session 断开导致 task 运行失败;也可以用 nohup xxx \*;
+  - 多窗口切换;
+  - 一屏显示多窗口;
+
+- **Usage:**
+
+```bash
+
+# ----------session-----------
+tmux new -s lpp # 创建一个新的session,同时会创建一个windows 0:bash
+tmux detach -s lpp # tmux与当前 lpp session 分离，lpp session进入后台
+快捷键[ctrb+b , d]  # tmux与当前 lpp session 分离，lpp session进入后台
+# tmux与当前 lpp session 分离，lpp session进入后台
+tmux ls # 查看已创建的后台sessions
+
+tmux attach -t lpp # 重新接入已创建的会话lpp session
+tmux a      -t lpp # 重新接入已创建的会话lpp session,简写
+
+
+
+# ----------windows-----------
+# 星号（*）在这里表示的是“当前处于活跃状态的窗口”;
+ctrl + b 组合键，松开后再按c; # 创建一个新窗口, 1:bash
+ctrl + b 组合键，松开后再按0; # 切换到窗口0
+# 给新建的窗口重命名
+先按Ctrl+b之后再按 : , 输入命名： rename-window [窗口名字]
+
+ctrl + d ，kill 当前session的swindows;# kill 0 bash之后只剩1了
+ctrl + d # 当把当前的session的所有窗口都kill之后，session也就被kill了
+
+```
+
+![tmux快捷键1](/images/tmux快捷键_001.png)
+![tmux快捷键2](/images/tmux快捷键_002.png)
