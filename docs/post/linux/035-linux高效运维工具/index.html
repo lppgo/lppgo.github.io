@@ -1,0 +1,458 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>035-Linux高效运维工具 - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="lucas"><meta name=description content="[toc] Linux高效运维工具 1: 系统性能，资源 1.1 top 1.2 htop 1.3 btop/gotop 1.4 系统资源监控-NMON 2: 网络 Network 2.1 网络流量监控 iftop 2.2 查看进程占用带宽情况 nethogs 2.3 网络流量监控 IPtraf"><meta name=keywords content="Linux">
+<meta name=generator content="Hugo 0.93.1 with theme even">
+<link rel=canonical href=https://lppgo.github.io/post/linux/035-linux%E9%AB%98%E6%95%88%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="035-Linux高效运维工具">
+<meta property="og:description" content="[toc] Linux高效运维工具 1: 系统性能，资源 1.1 top 1.2 htop 1.3 btop/gotop 1.4 系统资源监控-NMON 2: 网络 Network 2.1 网络流量监控 iftop 2.2 查看进程占用带宽情况 nethogs 2.3 网络流量监控 IPtraf">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://lppgo.github.io/post/linux/035-linux%E9%AB%98%E6%95%88%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-11-19T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-11-18T11:14:24+08:00">
+<meta itemprop=name content="035-Linux高效运维工具">
+<meta itemprop=description content="[toc] Linux高效运维工具 1: 系统性能，资源 1.1 top 1.2 htop 1.3 btop/gotop 1.4 系统资源监控-NMON 2: 网络 Network 2.1 网络流量监控 iftop 2.2 查看进程占用带宽情况 nethogs 2.3 网络流量监控 IPtraf"><meta itemprop=datePublished content="2022-11-19T00:00:00+00:00">
+<meta itemprop=dateModified content="2022-11-18T11:14:24+08:00">
+<meta itemprop=wordCount content="2295">
+<meta itemprop=keywords content="Linux,运维,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="035-Linux高效运维工具">
+<meta name=twitter:description content="[toc] Linux高效运维工具 1: 系统性能，资源 1.1 top 1.2 htop 1.3 btop/gotop 1.4 系统资源监控-NMON 2: 网络 Network 2.1 网络流量监控 iftop 2.2 查看进程占用带宽情况 nethogs 2.3 网络流量监控 IPtraf"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head><body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>lppgo</a>
+</div><div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div></div><nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li></a><a href=/post/>
+<li class=mobile-menu-item>Archives</li></a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li></a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li></a>
+</ul></nav><div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>lppgo</a>
+</div><nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li></ul></nav></header><main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>035-Linux高效运维工具</h1><div class=post-meta>
+<span class=post-time> 2022-11-19 </span>
+<div class=post-category>
+<a href=/categories/linux/> Linux </a>
+</div></div></header><div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#1-系统性能资源>1: 系统性能，资源</a>
+<ul>
+<li><a href=#11-top>1.1 top</a></li><li><a href=#12-htop>1.2 htop</a></li><li><a href=#13-btopgotop>1.3 btop/gotop</a></li><li><a href=#14-系统资源监控-nmon>1.4 系统资源监控-NMON</a></li></ul></li><li><a href=#2-网络-network>2: 网络 Network</a>
+<ul>
+<li><a href=#21-网络流量监控-iftop>2.1 网络流量监控 iftop</a></li><li><a href=#22-查看进程占用带宽情况-nethogs>2.2 查看进程占用带宽情况 nethogs</a></li><li><a href=#23-网络流量监控-iptraf>2.3 网络流量监控 IPtraf</a></li></ul></li><li><a href=#3-磁盘>3: 磁盘</a>
+<ul>
+<li><a href=#31-硬盘读取性能测试-iozone>3.1 硬盘读取性能测试 iozone</a></li><li><a href=#32-实时监控磁盘-io-iotop>3.2 实时监控磁盘 IO ioTop</a></li><li><a href=#33-页面显示磁盘空间使用情况-agedu>3.3 页面显示磁盘空间使用情况-Agedu</a></li><li><a href=#34-iostat>3.4 iostat</a></li></ul></li><li><a href=#4-进程监控>4: 进程监控</a></li><li><a href=#5-container>5: Container</a></li><li><a href=#6-安全扫描>6: 安全扫描</a>
+<ul>
+<li><a href=#61-安全扫描工具-nmap>6.1 安全扫描工具-NMap</a></li></ul></li><li><a href=#7-web>7: web</a></li><li><a href=#71-web-压力测试-httperf>7.1 Web 压力测试-Httperf</a></li><li><a href=#8-文件监控>8: 文件监控</a>
+<ul>
+<li><a href=#81-监控多个日志-multitail>8.1 监控多个日志-MultiTail</a></li><li><a href=#82-页面显示磁盘空间使用情况-agedu>8.2 页面显示磁盘空间使用情况-Agedu</a></li></ul></li><li><a href=#9-会话-session-终端>9: 会话 Session 终端</a>
+<ul>
+<li><a href=#91-连接会话终端持续化-tmux>9.1 连接会话终端持续化-Tmux</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<p>[toc]</p><div align=center><font size=35>Linux高效运维工具</font></div><ul>
+<li><a href=#1-%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E8%B5%84%E6%BA%90>1: 系统性能，资源</a>
+<ul>
+<li><a href=#11-top>1.1 top</a></li><li><a href=#12-htop>1.2 htop</a></li><li><a href=#13-btopgotop>1.3 btop/gotop</a></li><li><a href=#14-%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7-nmon>1.4 系统资源监控-NMON</a></li></ul></li><li><a href=#2-%E7%BD%91%E7%BB%9C-network>2: 网络 Network</a>
+<ul>
+<li><a href=#21-%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7-iftop>2.1 网络流量监控 iftop</a></li><li><a href=#22-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%8D%A0%E7%94%A8%E5%B8%A6%E5%AE%BD%E6%83%85%E5%86%B5-nethogs>2.2 查看进程占用带宽情况 nethogs</a></li><li><a href=#23-%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7-iptraf>2.3 网络流量监控 IPtraf</a></li></ul></li><li><a href=#3-%E7%A3%81%E7%9B%98>3: 磁盘</a>
+<ul>
+<li><a href=#31-%E7%A1%AC%E7%9B%98%E8%AF%BB%E5%8F%96%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95-iozone>3.1 硬盘读取性能测试 iozone</a></li><li><a href=#32-%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E7%A3%81%E7%9B%98-io-iotop>3.2 实时监控磁盘 IO ioTop</a></li><li><a href=#33-%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5-agedu>3.3 页面显示磁盘空间使用情况-Agedu</a></li><li><a href=#34-iostat>3.4 iostat</a></li></ul></li><li><a href=#4-%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7>4: 进程监控</a></li><li><a href=#5-container>5: Container</a></li><li><a href=#6-%E5%AE%89%E5%85%A8%E6%89%AB%E6%8F%8F>6: 安全扫描</a>
+<ul>
+<li><a href=#61-%E5%AE%89%E5%85%A8%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7-nmap>6.1 安全扫描工具-NMap</a></li></ul></li><li><a href=#7-web>7: web</a></li><li><a href=#71-web-%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95-httperf>7.1 Web 压力测试-Httperf</a></li><li><a href=#8-%E6%96%87%E4%BB%B6%E7%9B%91%E6%8E%A7>8: 文件监控</a>
+<ul>
+<li><a href=#81-%E7%9B%91%E6%8E%A7%E5%A4%9A%E4%B8%AA%E6%97%A5%E5%BF%97-multitail>8.1 监控多个日志-MultiTail</a></li><li><a href=#82-%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5-agedu>8.2 页面显示磁盘空间使用情况-Agedu</a></li></ul></li><li><a href=#9-%E4%BC%9A%E8%AF%9D-session-%E7%BB%88%E7%AB%AF>9: 会话 Session 终端</a>
+<ul>
+<li><a href=#91-%E8%BF%9E%E6%8E%A5%E4%BC%9A%E8%AF%9D%E7%BB%88%E7%AB%AF%E6%8C%81%E7%BB%AD%E5%8C%96-tmux>9.1 连接会话终端持续化-Tmux</a></li></ul></li></ul><hr>
+<h1 id=1-系统性能资源>1: 系统性能，资源</h1><h2 id=11-top>1.1 top</h2><h2 id=12-htop>1.2 htop</h2><ul>
+<li><code>yum -y install htop</code></li></ul><h2 id=13-btopgotop>1.3 btop/gotop</h2><h2 id=14-系统资源监控-nmon>1.4 系统资源监控-NMON</h2><blockquote>
+<p>NMON 是一种在 AIX 与各种 Linux 操作系统上广泛使用的监控与分析工具.</p></blockquote><ul>
+<li><code>apt install -y nmon</code></li></ul><h1 id=2-网络-network>2: 网络 Network</h1><h2 id=21-网络流量监控-iftop>2.1 网络流量监控 iftop</h2><ul>
+<li><strong>install:</strong> <code>sudo apt install iftop</code></li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>iftop</span> <span class=o>-</span><span class=nx>i</span> <span class=nx>eth0</span> <span class=o>-</span><span class=nx>B</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// TX：发送流量
+</span></span></span><span class=line><span class=cl><span class=c1>// RX：接收流量
+</span></span></span><span class=line><span class=cl><span class=c1>// TOTAL：总流量
+</span></span></span><span class=line><span class=cl><span class=c1>// Cumm：运行iftop到目前时间的总流量
+</span></span></span><span class=line><span class=cl><span class=c1>// peak：流量峰值
+</span></span></span><span class=line><span class=cl><span class=c1>// rates：分别表示过去 2s 10s 40s 的平均流量
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=22-查看进程占用带宽情况-nethogs>2.2 查看进程占用带宽情况 nethogs</h2><ul>
+<li><strong>install:</strong> <code>sudo apt install nethogs -y</code></li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>nethogs</span> <span class=nx>eth0</span> <span class=c1>// 指定某个网卡
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>nethogs</span> <span class=o>-</span><span class=nx>d</span> <span class=mi>1</span> <span class=c1>//设置刷新频率
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// 交互模式，在进入 nethogs 之后，可以使用如下的交互命令:
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>m</span><span class=p>:</span> <span class=nx>修改网速单位</span>
+</span></span><span class=line><span class=cl><span class=nx>r</span><span class=p>:</span> <span class=nx>按照流量排序</span>
+</span></span><span class=line><span class=cl><span class=nx>s</span><span class=p>:</span> <span class=nx>按照发送流量排序</span>
+</span></span><span class=line><span class=cl><span class=nx>q</span><span class=p>:</span> <span class=nx>退出</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=23-网络流量监控-iptraf>2.3 网络流量监控 IPtraf</h2><blockquote>
+<p>IPtraf 是一个运行在 Linux 下的简单的网络状况分析工具.</p></blockquote><ul>
+<li><strong>install:</strong> <code>yum -y install iptraf</code></li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash></code></pre></td></tr></table></div></div><h1 id=3-磁盘>3: 磁盘</h1><h2 id=31-硬盘读取性能测试-iozone>3.1 硬盘读取性能测试 iozone</h2><ul>
+<li><strong>install:</strong> <code>sudo apt install nethogs -y</code></li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>iozone -a -i <span class=m>0</span> -i <span class=m>1</span> -i <span class=m>2</span> -f /home/hdd/testfile -r 16m -s 8G <span class=p>|</span> tee -a iozone1.log
+</span></span><span class=line><span class=cl><span class=c1># #设置大小为物理内存的一半；存放到iozone1.log下查看</span>
+</span></span><span class=line><span class=cl>tee 命令
+</span></span><span class=line><span class=cl>iozone -a -n 512m -g 16g -i <span class=m>0</span> -i <span class=m>1</span> -i <span class=m>5</span> -f /mnt/iozone -Rb ./iozone.xls
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-a使用全自动模式
+</span></span><span class=line><span class=cl>-n为自动模式设置最小文件大小<span class=o>(</span>Kbytes<span class=o>)</span>。
+</span></span><span class=line><span class=cl>-g设置自动模式可使用的最大文件大小Kbytes。
+</span></span><span class=line><span class=cl>-i用来指定运行哪个测试。
+</span></span><span class=line><span class=cl>-f指定测试文件的名字完成后自动删除
+</span></span><span class=line><span class=cl>-R产生Excel到标准输出
+</span></span><span class=line><span class=cl>-b指定输出到指定文件上
+</span></span><span class=line><span class=cl><span class=c1># ------ 备注：各参数的含义 ------</span>
+</span></span><span class=line><span class=cl>-a <span class=c1>#使用全自动模式</span>
+</span></span><span class=line><span class=cl>-i <span class=c1>#指定运行于哪种模式测试。可以使用-i # -i # -i #进行多个测试</span>
+</span></span><span class=line><span class=cl><span class=nv>0</span><span class=o>=</span>write/rewrite
+</span></span><span class=line><span class=cl><span class=nv>1</span><span class=o>=</span>read/re-read
+</span></span><span class=line><span class=cl><span class=nv>2</span><span class=o>=</span>random read/random write
+</span></span><span class=line><span class=cl>-f <span class=c1>#指定用来测试的临时文件，测试完后会自动删除</span>
+</span></span><span class=line><span class=cl>-r <span class=c1>#设置测试文件的块大小</span>
+</span></span><span class=line><span class=cl>-s <span class=c1>#设置测试文件的大小，要求为物理内存的1/2，1倍，2倍</span>
+</span></span><span class=line><span class=cl>-I <span class=c1>#直接IO，可排除掉缓存的影响，直接对硬盘读写</span>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://blog.csdn.net/weixin_42480467/article/details/121744677>https://blog.csdn.net/weixin_42480467/article/details/121744677</a></li></ul><h2 id=32-实时监控磁盘-io-iotop>3.2 实时监控磁盘 IO ioTop</h2><blockquote>
+<p>IOTop 命令是专门显示硬盘 IO 的命令,界面风格类似 top 命令.</p></blockquote><ul>
+<li><strong>install:</strong> <code>yum -y install iotop</code></li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash></code></pre></td></tr></table></div></div><h2 id=33-页面显示磁盘空间使用情况-agedu>3.3 页面显示磁盘空间使用情况-Agedu</h2><ul>
+<li><strong>install:</strong> <code>yum -y install iotop</code></li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://blog.csdn.net/carefree2005/article/details/124254821>https://blog.csdn.net/carefree2005/article/details/124254821</a></li></ul><h2 id=34-iostat>3.4 iostat</h2><ul>
+<li><strong>install:</strong> <code>apt-get install sysstat -y</code></li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>iostat -d -k <span class=m>1</span> <span class=m>10</span>
+</span></span><span class=line><span class=cl>Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn
+</span></span><span class=line><span class=cl>sda              39.29        21.14         1.44  <span class=m>441339807</span>   <span class=m>29990031</span>
+</span></span><span class=line><span class=cl>sda1              0.00         0.00         0.00       <span class=m>1623</span>        <span class=m>523</span>
+</span></span><span class=line><span class=cl>sda2              1.32         1.43         4.54   <span class=m>29834273</span>   <span class=m>94827104</span>
+</span></span><span class=line><span class=cl>sda3              6.30         0.85        24.95   <span class=m>17816289</span>  <span class=m>520725244</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn
+</span></span><span class=line><span class=cl>sda             327.55      5159.18       102.04       <span class=m>5056</span>        <span class=m>100</span>
+</span></span><span class=line><span class=cl>sda1              0.00         0.00         0.00          <span class=m>0</span>          <span class=m>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 输出信息的意义</span>
+</span></span><span class=line><span class=cl>tps：该设备每秒的传输次数（Indicate the number of transfers per second that were issued to the device.）。<span class=s2>&#34;一次传输&#34;</span>意思是<span class=s2>&#34;一次I/O请求&#34;</span>。多个逻辑请求可能会被合并为<span class=s2>&#34;一次I/O请求&#34;</span>。<span class=s2>&#34;一次传输&#34;</span>请求的大小是未知的。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>kB_read/s：每秒从设备（drive expressed）读取的数据量；
+</span></span><span class=line><span class=cl>kB_wrtn/s：每秒向设备（drive expressed）写入的数据量；
+</span></span><span class=line><span class=cl>kB_read：读取的总数据量；
+</span></span><span class=line><span class=cl>kB_wrtn：写入的总数量数据量；这些单位都为Kilobytes。
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://blog.csdn.net/carefree2005/article/details/124254821>https://blog.csdn.net/carefree2005/article/details/124254821</a></li></ul><h1 id=4-进程监控>4: 进程监控</h1><h1 id=5-container>5: Container</h1><h1 id=6-安全扫描>6: 安全扫描</h1><h2 id=61-安全扫描工具-nmap>6.1 安全扫描工具-NMap</h2><blockquote>
+<p>NMap 是 Linux 下的网络连接扫描和嗅探工具包,用来扫描网上电脑开放的网络连接端。</p></blockquote><ul>
+<li><strong>install:</strong> <code>yum -y install nmap</code>;</li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://www.cnblogs.com/gxn8638/p/16274195.html>https://www.cnblogs.com/gxn8638/p/16274195.html</a></li></ul><h1 id=7-web>7: web</h1><h1 id=71-web-压力测试-httperf>7.1 Web 压力测试-Httperf</h1><blockquote>
+<p>Httperf 比 ab 更强大，能测试出 web 服务能承载的最大服务量及发现潜在问题；比如：内存使用、稳定性。最大优势：可以指定规律进行压力测试，模拟真实环境。</p></blockquote><ul>
+<li><strong>install:</strong> <code>yum -y install multitail</code>,<code>apt -y install multitail</code>;</li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://www.cnblogs.com/wangguishe/p/15264244.html>https://www.cnblogs.com/wangguishe/p/15264244.html</a></li></ul><h1 id=8-文件监控>8: 文件监控</h1><h2 id=81-监控多个日志-multitail>8.1 监控多个日志-MultiTail</h2><blockquote>
+<p>MultiTail 是个用来实现同时监控多个文档、类似 tail 命令的功能的软件.</p></blockquote><ul>
+<li><strong>install:</strong> <code>yum -y install multitail</code>,<code>apt -y install multitail</code>;</li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://www.cnblogs.com/wangguishe/p/15264244.html>https://www.cnblogs.com/wangguishe/p/15264244.html</a></li></ul><h2 id=82-页面显示磁盘空间使用情况-agedu>8.2 页面显示磁盘空间使用情况-Agedu</h2><ul>
+<li><strong>install:</strong> <code>yum install -y agedu</code>;</li><li><strong>Usage:</strong></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ agedu -s / -w --address 0.0.0.0:9999 --auth basic
+</span></span><span class=line><span class=cl>Built pathname index, <span class=m>453297</span> entries, <span class=m>40723929</span> bytes of index
+</span></span><span class=line><span class=cl>Faking directory atimes
+</span></span><span class=line><span class=cl>Building index
+</span></span><span class=line><span class=cl>Final index file <span class=nv>size</span> <span class=o>=</span> <span class=m>149385592</span> bytes
+</span></span><span class=line><span class=cl>Username: agedu
+</span></span><span class=line><span class=cl>Password: 0h9bbda14yg532rh
+</span></span><span class=line><span class=cl>URL: http://iZf8z3ylerfr8lt1be68xpZ:9999/
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://blog.csdn.net/carefree2005/article/details/124254821>https://blog.csdn.net/carefree2005/article/details/124254821</a></li></ul><h1 id=9-会话-session-终端>9: 会话 Session 终端</h1><h2 id=91-连接会话终端持续化-tmux>9.1 连接会话终端持续化-Tmux</h2><blockquote>
+<p>tmux 是一个可以让人们通过一个窗口操作多个会话的工具.</p></blockquote><ul>
+<li>
+<p><strong>install:</strong> <code>yum install -y tmux</code>,<code>apt-get install tmux</code>;</p></li><li>
+<p><strong>tmux 应用场景:</strong></p><ul>
+<li>终端长时间连接运行 task，session 断开导致 task 运行失败;也可以用 nohup xxx *;</li><li>多窗口切换;</li><li>一屏显示多窗口;</li></ul></li><li>
+<p><strong>Usage:</strong></p></li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ----------session-----------</span>
+</span></span><span class=line><span class=cl>tmux new -s lpp <span class=c1># 创建一个新的session,同时会创建一个windows 0:bash</span>
+</span></span><span class=line><span class=cl>tmux detach -s lpp <span class=c1># tmux与当前 lpp session 分离，lpp session进入后台</span>
+</span></span><span class=line><span class=cl>快捷键<span class=o>[</span>ctrb+b , d<span class=o>]</span>  <span class=c1># tmux与当前 lpp session 分离，lpp session进入后台</span>
+</span></span><span class=line><span class=cl><span class=c1># tmux与当前 lpp session 分离，lpp session进入后台</span>
+</span></span><span class=line><span class=cl>tmux ls <span class=c1># 查看已创建的后台sessions</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>tmux attach -t lpp <span class=c1># 重新接入已创建的会话lpp session</span>
+</span></span><span class=line><span class=cl>tmux a      -t lpp <span class=c1># 重新接入已创建的会话lpp session,简写</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ----------windows-----------</span>
+</span></span><span class=line><span class=cl><span class=c1># 星号（*）在这里表示的是“当前处于活跃状态的窗口”;</span>
+</span></span><span class=line><span class=cl>ctrl + b 组合键，松开后再按c<span class=p>;</span> <span class=c1># 创建一个新窗口, 1:bash</span>
+</span></span><span class=line><span class=cl>ctrl + b 组合键，松开后再按0<span class=p>;</span> <span class=c1># 切换到窗口0</span>
+</span></span><span class=line><span class=cl><span class=c1># 给新建的窗口重命名</span>
+</span></span><span class=line><span class=cl>先按Ctrl+b之后再按 : , 输入命名： rename-window <span class=o>[</span>窗口名字<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ctrl + d ，kill 当前session的swindows<span class=p>;</span><span class=c1># kill 0 bash之后只剩1了</span>
+</span></span><span class=line><span class=cl>ctrl + d <span class=c1># 当把当前的session的所有窗口都kill之后，session也就被kill了</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --------------------------------</span>
+</span></span><span class=line><span class=cl>命令：
+</span></span><span class=line><span class=cl>tmux 启动tmux
+</span></span><span class=line><span class=cl>tmux a 恢复最近关闭会话
+</span></span><span class=line><span class=cl>tmux ls 查看所有会话
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>常用快捷键：
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Ctrl+b,c（按Ctrl+b，放开后马上按c） 创建新窗口
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Ctrl+b,, 重命名当前窗口
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Ctrl+b,p 前一个窗口
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Ctrl+b,n 后一个窗口
+</span></span><span class=line><span class=cl>Ctrl+b,w 选择窗口
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Ctrl+b,<span class=p>&amp;</span> 关掉当前窗口
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Ctrl+b,d 离开当前会话 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Ctrl+b,% 分成左右两个窗格
+</span></span><span class=line><span class=cl>Ctrl+b,<span class=s2>&#34; 分成上下两个窗格
+</span></span></span><span class=line><span class=cl><span class=s2>Ctrl+b,方向键 光标移到窗格
+</span></span></span><span class=line><span class=cl><span class=s2>Ctrl+b,x 关闭当前窗格
+</span></span></span></code></pre></td></tr></table></div></div><p><img src=/images/tmux%E5%BF%AB%E6%8D%B7%E9%94%AE_001.png alt=tmux快捷键1>
+<img src=/images/tmux%E5%BF%AB%E6%8D%B7%E9%94%AE_002.png alt=tmux快捷键2></p></div><div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>lucas</span>
+</p><p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>
+2022-11-18
+<a href=/commit/8bcfe0e37b42d7b8af78614de6022b73517aaf3d title="add 035-Linux高效运维工具.md 2">(8bcfe0e)</a>
+</span>
+</p></div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/linux/>Linux</a>
+<a href=/tags/%E8%BF%90%E7%BB%B4/>运维</a>
+</div><nav class=post-nav>
+<a class=prev href=/post/linux/037-linux%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%846%E7%A7%8D%E6%96%B9%E6%B3%95/>
+<i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">037-Linux配置环境变量的6种方法</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/golang/035_gozap%E6%97%A5%E5%BF%97%E5%BA%93/>
+<span class="next-text nav-default">go zap日志库</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav></footer></article></div></div></main><footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a>
+<a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a>
+<a href=https://github.com/lppgo class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://lppgo.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div><div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2015 -
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+</span>
+</div></footer><div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js></script>
+<script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var e=document.createElement("script"),n,t;e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script>
+</body></html>

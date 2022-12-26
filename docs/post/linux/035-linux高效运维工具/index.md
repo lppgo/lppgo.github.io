@@ -1,13 +1,3 @@
----
-title: "035-Linux高效运维工具"
-author: "lucas"
-date: 2022-11-19
-lastmod: 2022-11-19
-
-tags: ["Linux", "运维"]
-categories: ["Linux"]
-keywords: ["Linux"]
----
 
 [toc]
 
