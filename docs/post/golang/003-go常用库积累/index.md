@@ -270,7 +270,7 @@ https://github.com/grpc-ecosystem/go-grpc-middleware
 
 ## 7.2 Micro Services
 
-# 8：标准库好用可替换库
+# 8：好用可替换库
 
 - https://github.com/nikgalushko/fx
 
@@ -279,14 +279,21 @@ https://github.com/grpc-ecosystem/go-grpc-middleware
 https://github.com/bytedance/sonic
 
 // map
+
 // go pool
 https://gitee.com/xuesongtao/taskpool/tree/master
+ants
+https://github.com/sourcegraph/conc // Better structured concurrency for go
 
 // map
 https://github.com/heiyeluren/xmm
 
 //
 https://github.com/sasha-s/go-deadlock
+
+// websocket
+https://pkg.go.dev/github.com/gorilla/websocket
+https://github.com/lxzan/gws
 ```
 
 # 9：数据库相关

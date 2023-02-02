@@ -29,7 +29,7 @@
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-12-26T21:11:31+08:00">
-<meta itemprop=wordCount content="4042">
+<meta itemprop=wordCount content="4058">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -80,7 +80,7 @@
 <ul>
 <li><a href=#71-remote-procedure-call>7.1 Remote Procedure Call</a>
 <ul>
-<li><a href=#711-原生-rpc>7.1.1 原生 RPC</a></li><li><a href=#712-grpc>7.1.2 GRPC</a></li></ul></li><li><a href=#72-micro-services>7.2 Micro Services</a></li></ul></li><li><a href=#8标准库好用可替换库>8：标准库好用可替换库</a></li><li><a href=#9数据库相关>9：数据库相关</a></li><li><a href=#10mq-库>10：MQ 库</a></li><li><a href=#11微服务组件库>11：微服务组件库</a>
+<li><a href=#711-原生-rpc>7.1.1 原生 RPC</a></li><li><a href=#712-grpc>7.1.2 GRPC</a></li></ul></li><li><a href=#72-micro-services>7.2 Micro Services</a></li></ul></li><li><a href=#8好用可替换库>8：好用可替换库</a></li><li><a href=#9数据库相关>9：数据库相关</a></li><li><a href=#10mq-库>10：MQ 库</a></li><li><a href=#11微服务组件库>11：微服务组件库</a>
 <ul>
 <li><a href=#111-限流>11.1 限流</a></li><li><a href=#112-熔断-circuitbreaker>11.2 熔断 CircuitBreaker</a></li><li><a href=#113-链路追踪>11.3 链路追踪</a>
 <ul>
@@ -377,7 +377,7 @@
 </span></span><span class=line><span class=cl>  <span class=o>-</span><span class=nx>n</span> <span class=mi>100000</span> \
 </span></span><span class=line><span class=cl>  <span class=nx>localhost</span><span class=p>:</span><span class=mi>50051</span>
 </span></span></code></pre></td></tr></table></div></div><ul>
-<li><a href=https://github.com/crossoverjie/ptg>https://github.com/crossoverjie/ptg</a></li></ul><h2 id=72-micro-services>7.2 Micro Services</h2><h1 id=8标准库好用可替换库>8：标准库好用可替换库</h1><ul>
+<li><a href=https://github.com/crossoverjie/ptg>https://github.com/crossoverjie/ptg</a></li></ul><h2 id=72-micro-services>7.2 Micro Services</h2><h1 id=8好用可替换库>8：好用可替换库</h1><ul>
 <li><a href=https://github.com/nikgalushko/fx>https://github.com/nikgalushko/fx</a></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
@@ -392,19 +392,33 @@
 </span><span class=lnt>10
 </span><span class=lnt>11
 </span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// json
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/bytedance/sonic
 </span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl><span class=c1>// map
-</span></span></span><span class=line><span class=cl><span class=c1>// go pool
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// go pool
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//gitee.com/xuesongtao/taskpool/tree/master
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>ants</span>
+</span></span><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/sourcegraph/conc // Better structured concurrency for go
 </span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl><span class=c1>// map
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/heiyeluren/xmm
 </span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl><span class=c1>//
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/sasha-s/go-deadlock
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// websocket
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//pkg.go.dev/github.com/gorilla/websocket
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/lxzan/gws
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=9数据库相关>9：数据库相关</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
