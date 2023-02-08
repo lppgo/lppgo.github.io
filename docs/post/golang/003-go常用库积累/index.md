@@ -294,6 +294,9 @@ https://github.com/sasha-s/go-deadlock
 // websocket
 https://pkg.go.dev/github.com/gorilla/websocket
 https://github.com/lxzan/gws
+
+// channel
+https://github.com/bruceshao/lockfree  比原生channel更快的lockfree队列
 ```
 
 # 9：数据库相关

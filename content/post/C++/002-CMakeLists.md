@@ -54,7 +54,7 @@ aux_source_directory(src DIR_SRCS)
 #add_library(calculate SHARED hello.cpp)
 
 #添加编译参数 -Wall -std=c++11
-add_compile_options(-Wall -std=c++17 -o2)
+add_compile_options(-Wall -std=c++17 -O2) # 注意是大写的O
 
 # 链接共享库,将calculate.so动态库链接到可执行文件main
 #target_link_libraries(main calculate)
