@@ -5,7 +5,7 @@ date: 2021-12-17
 lastmod: 2021-12-17
 
 tags: ["GRPC"]
-categories: ["Go", "CPP"]
+categories: ["Go", "C++"]
 keywords: ["grpc"]
 ---
 

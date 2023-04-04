@@ -722,6 +722,8 @@ https://github.com/deatil/go-cryptobin
 - 9. **go+web 开发桌面应用**
      现代化 Web 技术开发桌面应用的 Go 框架
      https://wails.io/docs/introduction
+- 10. **将 c 代码转成 go 代码**
+      https://gitlab.com/cznic/ccgo
 
 # 18 tools 工具库
 

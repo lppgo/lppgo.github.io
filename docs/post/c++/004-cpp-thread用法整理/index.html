@@ -1,0 +1,236 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>004-Cpp thread多线程用法整理 - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="lucas"><meta name=description content="Cpp thread用法整理 1: Cpp thread 多线程 2: std::thread 类成员函数 3: 创建一个 thread 线程 4: mutex 和 std::lock_guard 的使用 4.1 mutex 1: Cpp thread 多线程 C++11 中加入了&amp;lt;thread&amp;gt;头文件，"><meta name=keywords content="C++,thread,多线程,CPP">
+<meta name=generator content="Hugo 0.93.1 with theme even">
+<link rel=canonical href=https://lppgo.github.io/post/c++/004-cpp-thread%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="004-Cpp thread多线程用法整理">
+<meta property="og:description" content="Cpp thread用法整理 1: Cpp thread 多线程 2: std::thread 类成员函数 3: 创建一个 thread 线程 4: mutex 和 std::lock_guard 的使用 4.1 mutex 1: Cpp thread 多线程 C++11 中加入了<thread>头文件，">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://lppgo.github.io/post/c++/004-cpp-thread%E7%94%A8%E6%B3%95%E6%95%B4%E7%90%86/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2023-02-10T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-02-10T00:00:00+00:00">
+<meta itemprop=name content="004-Cpp thread多线程用法整理">
+<meta itemprop=description content="Cpp thread用法整理 1: Cpp thread 多线程 2: std::thread 类成员函数 3: 创建一个 thread 线程 4: mutex 和 std::lock_guard 的使用 4.1 mutex 1: Cpp thread 多线程 C++11 中加入了<thread>头文件，"><meta itemprop=datePublished content="2023-02-10T00:00:00+00:00">
+<meta itemprop=dateModified content="2021-02-10T00:00:00+00:00">
+<meta itemprop=wordCount content="1653">
+<meta itemprop=keywords content="C++,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="004-Cpp thread多线程用法整理">
+<meta name=twitter:description content="Cpp thread用法整理 1: Cpp thread 多线程 2: std::thread 类成员函数 3: 创建一个 thread 线程 4: mutex 和 std::lock_guard 的使用 4.1 mutex 1: Cpp thread 多线程 C++11 中加入了<thread>头文件，"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head><body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>lppgo</a>
+</div><div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div></div><nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li></a><a href=/post/>
+<li class=mobile-menu-item>Archives</li></a><a href=/categories/>
+<li class=mobile-menu-item>Categories</li></a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li></a>
+</ul></nav><div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>lppgo</a>
+</div><nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>Categories</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li></ul></nav></header><main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>004-Cpp thread多线程用法整理</h1><div class=post-meta>
+<span class=post-time> 2023-02-10 </span>
+<div class=post-category>
+<a href=/categories/c++/> C++ </a>
+</div></div></header><div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#1-cpp-thread-多线程>1: Cpp thread 多线程</a></li><li><a href=#2-stdthread-类成员函数>2: std::thread 类成员函数</a></li><li><a href=#3-创建一个-thread-线程>3: 创建一个 thread 线程</a></li><li><a href=#4-mutex-和-stdlock_guard-的使用>4: mutex 和 std::lock_guard 的使用</a>
+<ul>
+<li><a href=#41-mutex>4.1 mutex</a></li></ul></li></ul></nav></div></div><div class=post-content>
+<div align=center><font size=50>Cpp thread用法整理</font></div><ul>
+<li><a href=#1-cpp-thread-%E5%A4%9A%E7%BA%BF%E7%A8%8B>1: Cpp thread 多线程</a></li><li><a href=#2-stdthread-%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0>2: std::thread 类成员函数</a></li><li><a href=#3-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-thread-%E7%BA%BF%E7%A8%8B>3: 创建一个 thread 线程</a></li><li><a href=#4-mutex-%E5%92%8C-stdlock_guard-%E7%9A%84%E4%BD%BF%E7%94%A8>4: mutex 和 std::lock_guard 的使用</a>
+<ul>
+<li><a href=#41-mutex>4.1 mutex</a></li></ul></li></ul><h1 id=1-cpp-thread-多线程>1: Cpp thread 多线程</h1><ul>
+<li><strong>C++11</strong> 中加入了&lt;<strong>thread</strong>>头文件，此头文件主要声明了<code>std::thread</code>线程类。C++11 的标准类<code>std::thread</code>对线程进行了封装，定义了 C++11 标准中的一些表示线程的类、用于互斥访问的类与方法等。</li></ul><h1 id=2-stdthread-类成员函数>2: std::thread 类成员函数</h1><ul>
+<li>
+<p><strong><a href>get_id</a></strong>: 获取线程 ID，返回一个类型为 std:🧵:id 的对象;</p></li><li>
+<p><strong><a href>joinable</a></strong>: 检查线程是否可被 join。检查当前的线程对象是否表示了一个活动的执行线程。缺省构造的 thread 对象、已经完成 join 的 thread 对象、已经 detach 的 thread 对象都不是 joinable;</p></li><li>
+<p><strong><a href>join</a></strong>: 调用该函数会阻塞当前线程（主调线程）。阻塞调用者(caller)所在的线程（主调线程）直至被 join 的<code>std::thread</code>对象标识的线程（被调线程）执行结束;</p></li><li>
+<p><strong><a href>detach</a></strong>: 将当前线程对象所代表的执行实例与该线程对象分离，使得线程的执行可以单独进行。一旦线程执行完毕，它所分配的资源将会被释放;</p></li><li>
+<p><strong><a href>native_handle</a></strong>: 该函数返回与<code>std::thread</code>具体实现相关的线程句柄。native_handle_type 是连接 thread 类和操作系统 SDK API 之间的桥梁，如在 Linux g++(libstdc++)里，native_handle_type 其实就是 pthread 里面的 pthread_t 类型，当 thread 类的功能不能满足我们的要求的时候(比如改变某个线程的优先级)，可以通过 thread 类实例的 native_handle()返回值作为参数来调用相关的 pthread 函数达到目录。This member function is only present in class thread if the library implementation supports it. If present, it returns a value used to access implementation-specific information associated to the thread.</p></li><li>
+<p><strong><a href>swap</a></strong>: 交换两个线程对象所代表的底层句柄;</p></li><li>
+<p><strong><a href>operator=</a></strong>:moves the thread object;</p></li><li>
+<p><strong><a href>hardware_concurrency</a></strong>:静态成员函数，返回当前计算机最大的硬件并发线程数目。基本上可以视为处理器的核心数目;</p></li><li>
+<p>另外，<code>std:🧵:id</code> 表示线程 ID，定义了在运行时操作系统内唯一能够标识该线程的标识符，同时其值还能指示所标识的线程的状态。Values of this type are returned by thread::get_id and this_thread::get_id to identify threads.</p></li><li>
+<p>有时候我们需要在线程执行代码里面对当前调用者线程进行操作，针对这种情况，C++11 里面专门定义了一个命名空间</p><ul>
+<li><strong><code>this_thread</code></strong>，此命名空间也声明在<thread>头文件中，其中包括 get_id()函数用来获取当前调用者线程的 ID；</li><li><code>yield()</code> 函数（yield，放弃的意思）可以用来将调用者线程跳出运行状态，重新交给操作系统进行调度，即当前线程放弃执行，操作系统调度另一线程继续执行；</li><li><code>sleep_until()</code>函数是将线程休眠至某个指定的时刻(time point),该线程才被重新唤醒；</li><li><code>sleep_for()</code>函数是将线程休眠某个指定的时间片(time span)，该线程才被重新唤醒，不过由于线程调度等原因，实际休眠实际可能比 sleep_duration 所表示的时间片更长。</li></ul></li></ul><h1 id=3-创建一个-thread-线程>3: 创建一个 thread 线程</h1><ul>
+<li>创建线程比较简单，使用 std 的 thread 实例化一个线程对象就创建完成了，示例：</li></ul><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;thread&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdlib.h&gt; //sleep</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>t1</span><span class=p>()</span>  <span class=c1>//普通的函数，用来执行线程
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;t1111</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>sleep</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>t2</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>20</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;t22222</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>sleep</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>thread</span> <span class=n>th1</span><span class=p>(</span><span class=n>t1</span><span class=p>);</span>  <span class=c1>//实例化一个线程对象th1，使用函数t1构造，然后该线程就开始执行了（t1()）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>thread</span> <span class=n>th2</span><span class=p>(</span><span class=n>t2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>th1</span><span class=p>.</span><span class=n>join</span><span class=p>();</span> <span class=c1>// 必须将线程join或者detach 等待子线程结束主进程才可以退出
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>th2</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//or use detach
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//th1.detach();
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//th2.detach();
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;here is main</span><span class=se>\n\n</span><span class=s>&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-mutex-和-stdlock_guard-的使用>4: mutex 和 std::lock_guard 的使用</h1><h2 id=41-mutex>4.1 mutex</h2><p><a href=https://www.cnblogs.com/haippy/p/3237213.html>https://www.cnblogs.com/haippy/p/3237213.html</a></p><ul>
+<li>
+<p><code>#include &lt;mutex></code>: <strong>mutex</strong>互斥锁是用来保证线程同步的，防止不同的线程同时操作同一个共享数据;</p></li><li>
+<p><strong>四种 mutex 类</strong>:</p><ul>
+<li><code>std::mutex</code>: 最基本的 mutex 类;</li><li><code>std::recursive_mutex</code>: 递归 mutex 类;</li><li><code>std::timed_mutex</code>: 定时的 mutex 类;</li><li><code>std::recursive_timed_mutex</code>: 定时递归 mutex 类;</li></ul></li><li>
+<p><strong>两种 Lock 类</strong>:</p><ul>
+<li><code>std::lock_guard&lt;></code>:但使用 lock_guard 则相对安全，它是基于作用域的，能够自解锁，当该对象创建时，它会像 m.lock()一样获得互斥锁，当生命周期结束时，它会自动析构(unlock)，不会因为某个线程异常退出而影响其他线程 ;</li><li><code>std::unique_lock&lt;></code>: ;</li></ul></li><li>
+<p>函数</p><ul>
+<li><code>std::try_lock</code>，尝试同时对多个互斥量上锁。</li><li><code>std::lock</code>，可以同时对多个互斥量上锁。</li><li><code>std::call_once</code>，如果多个线程需要同时调用某个函数，call_once 可以保证多个线程对该函数只调用一次。</li></ul></li></ul></div><div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>文章作者</span>
+<span class=item-content>lucas</span>
+</p><p class=copyright-item>
+<span class=item-title>上次更新</span>
+<span class=item-content>
+2021-02-10
+</span>
+</p></div><footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/c++/>C++</a>
+</div><nav class=post-nav>
+<a class=next href=/post/c++/003-cpp%E5%B8%B8%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6/>
+<span class="next-text nav-default">03-C/Cpp常用头文件大全</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav></footer></article></div></div></main><footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a>
+<a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a>
+<a href=https://github.com/lppgo class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://lppgo.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div><div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2015 -
+2023<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+</span>
+</div></footer><div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js></script>
+<script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var e=document.createElement("script"),n,t;e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script>
+</body></html>
