@@ -10,7 +10,7 @@
 <meta name=msapplication-navbutton-color content="#f8f5ec">
 <meta name=apple-mobile-web-app-capable content="yes">
 <meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="lucas"><meta name=description content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps ![DevOps全景图](/images/"><meta name=keywords content="云原生,CloudNative,DevOps,CICD">
+<meta name=author content="lucas"><meta name=description content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps"><meta name=keywords content="云原生,CloudNative,DevOps,CICD">
 <meta name=generator content="Hugo 0.93.1 with theme even">
 <link rel=canonical href=https://lppgo.github.io/post/%E4%BA%91%E5%8E%9F%E7%94%9F/001-cloudnative%E5%85%A8%E6%99%AF%E5%9B%BE/>
 <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
@@ -21,18 +21,18 @@
 <link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
 <meta property="og:title" content="01-云原生全景图">
-<meta property="og:description" content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps ![DevOps全景图](/images/">
+<meta property="og:description" content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/%E4%BA%91%E5%8E%9F%E7%94%9F/001-cloudnative%E5%85%A8%E6%99%AF%E5%9B%BE/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2023-04-04T00:00:00+00:00">
-<meta property="article:modified_time" content="2023-04-04T19:19:30+08:00">
+<meta property="article:modified_time" content="2023-04-04T19:41:26+08:00">
 <meta itemprop=name content="01-云原生全景图">
-<meta itemprop=description content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps ![DevOps全景图](/images/"><meta itemprop=datePublished content="2023-04-04T00:00:00+00:00">
-<meta itemprop=dateModified content="2023-04-04T19:19:30+08:00">
-<meta itemprop=wordCount content="84">
+<meta itemprop=description content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps"><meta itemprop=datePublished content="2023-04-04T00:00:00+00:00">
+<meta itemprop=dateModified content="2023-04-04T19:41:26+08:00">
+<meta itemprop=wordCount content="49">
 <meta itemprop=keywords content="云原生,CloudNative,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="01-云原生全景图">
-<meta name=twitter:description content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps ![DevOps全景图](/images/"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<meta name=twitter:description content="云原生全景图 1: 什么是云原生 2: 云原生发展 3: 云原生组成 3.1 不可变基础设施 3.2 微服务和服务网格 3.3 容器技术 3.4 DevOps"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head><body>
 <div id=mobile-navbar class=mobile-navbar>
@@ -79,7 +79,7 @@
 <li><a href=#1-什么是云原生>1: 什么是云原生</a></li><li><a href=#2-云原生发展>2: 云原生发展</a></li><li><a href=#3-云原生组成>3: 云原生组成</a>
 <ul>
 <li><a href=#31-不可变基础设施>3.1 不可变基础设施</a></li><li><a href=#32-微服务和服务网格>3.2 微服务和服务网格</a></li><li><a href=#33-容器技术>3.3 容器技术</a></li><li><a href=#34-devops>3.4 DevOps</a></li></ul></li></ul></nav></div></div><div class=post-content>
-<div align=center><font size=35>云原生全景图</font></div><h1 id=1-什么是云原生>1: 什么是云原生</h1><h1 id=2-云原生发展>2: 云原生发展</h1><h1 id=3-云原生组成>3: 云原生组成</h1><h2 id=31-不可变基础设施>3.1 不可变基础设施</h2><h2 id=32-微服务和服务网格>3.2 微服务和服务网格</h2><h2 id=33-容器技术>3.3 容器技术</h2><h2 id=34-devops>3.4 DevOps</h2><p>![DevOps全景图](/images/云原生 DevOps 工具全景图.png)</p></div><div class=post-copyright>
+<div align=center><font size=35>云原生全景图</font></div><h1 id=1-什么是云原生>1: 什么是云原生</h1><h1 id=2-云原生发展>2: 云原生发展</h1><h1 id=3-云原生组成>3: 云原生组成</h1><h2 id=31-不可变基础设施>3.1 不可变基础设施</h2><h2 id=32-微服务和服务网格>3.2 微服务和服务网格</h2><h2 id=33-容器技术>3.3 容器技术</h2><h2 id=34-devops>3.4 DevOps</h2><p><img src=/images/%E4%BA%91%E5%8E%9F%E7%94%9FDevOps%E5%B7%A5%E5%85%B7%E5%85%A8%E6%99%AF%E5%9B%BE.png alt=DevOps全景图></p></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>
 <span class=item-content>lucas</span>
@@ -87,7 +87,7 @@
 <span class=item-title>上次更新</span>
 <span class=item-content>
 2023-04-04
-<a href=/commit/52283bfc83f83644f285bcb3a40b7100ec2c2377 title=新增云原生section>(52283bf)</a>
+<a href=/commit/5ecff99982726ae983d9320069b10bbd5bf79d25 title=新增云原生section>(5ecff99)</a>
 </span>
 </p></div><footer class=post-footer>
 <div class=post-tags>

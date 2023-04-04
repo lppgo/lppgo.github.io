@@ -15,4 +15,4 @@
 
 ## 3.4 DevOps
 
-![DevOps全景图](/images/云原生 DevOps 工具全景图.png)
+![DevOps全景图](/images/云原生DevOps工具全景图.png)
