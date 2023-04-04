@@ -1,14 +1,3 @@
----
-title: "01-云原生全景图"
-author: "lucas"
-description: ""
-date: 2023-04-04
-lastmod: 2023-04-05
-
-tags: ["云原生", "CloudNative"]
-categories: ["云原生"]
-keywords: ["云原生", "CloudNative", "DevOps", "CICD"]
----
 
 <div align="center"><font size=35>云原生全景图</font></div>
 
