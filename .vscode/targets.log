@@ -1,4 +1,345 @@
 make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
-'make.exe' �����ڲ����ⲿ���Ҳ���ǿ����еĳ���
-���������ļ���
+make.exe: *** No rule to make target 'all'.  Stop.
 
+# GNU Make 4.2.1
+# Built for x86_64-w64-mingw32
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Mon Apr 17 15:26:14 2023
+
+# Variables
+
+# 'override' directive
+GNUMAKEFLAGS := 
+# automatic
+<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
+# automatic
+?F = $(notdir $?)
+# environment
+WSLENV = BASH_ENV/u
+# default
+.SHELLFLAGS := -c
+# environment
+GATEWAY_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\gateway.vmoptions
+# makefile
+MAKEFLAGS = pqrR
+# automatic
+?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+# environment
+WEBSTORM_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\webstorm.vmoptions
+# automatic
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+# environment
+HOMEDRIVE = C:
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.2.1
+# automatic
+^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
+# makefile
+CURDIR := g:/lppgo.github.io
+# default
+SHELL := sh.exe
+# environment
+CLION = D:\SoftBox\JetBrains\Clion\CLion 2022.1.2\bin;
+# environment
+APPCODE_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\appcode.vmoptions
+# environment
+WINDIR = C:\Windows
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","osLocale":"zh-cn","availableLanguages":{},"_languagePackSupport":true}
+# environment
+ONEDRIVE = C:\Users\Administrator\OneDrive
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
+# makefile
+MAKEFILE_LIST := 
+# environment
+FPS_BROWSER_USER_PROFILE_STRING = Default
+# environment
+TMP = C:\Users\ADMINI~1\AppData\Local\Temp
+# environment
+RUSTBINPATH = %CARGO_PATH%\bin
+# environment
+PROGRAMW6432 = C:\Program Files
+# environment
+PROGRAMDATA = C:\ProgramData
+# environment
+STUDIO_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\studio.vmoptions
+# environment
+WEBIDE_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\webide.vmoptions
+# environment
+VSCODE_CWD = G:\lppgo.github.io
+# default
+MAKE_HOST := x86_64-w64-mingw32
+# environment
+PATH = D:\SoftBox\Python311\Scripts\;D:\SoftBox\Python311\;D:\SoftBox\Python38\Scripts\;D:\SoftBox\Python38\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\SoftBox\Git\cmd;C:\Users\Administrator\AppData\Local\hyper\app-3.0.2\resources\bin;C:\Program Files\dotnet\;C:\Program Files (x86)\dotnet\;D:\SoftBox\Graphviz2.38\bin;D:\SoftBox\Java\jdk-15.0.2\bin;D:\SoftBox\Java\jdk-15.0.2\jre\bin;E:\envgo\bin;D:\SoftBox\Nodejs\;C:\ProgramData\chocolatey\bin;D:\SoftBox\hugo;D:\SoftBox\Rust\.cargo\bin;D:\SoftBox\gnuplot\bin;D:\SoftBox\LLVM\bin;D:\SoftBox\swigwin-4.0.2;D:\SoftBox\cmake\bin;D:\SoftBox\cmake\bin;D:\SoftBox\mingw-w64\mingw64\bin;D:\SoftBox\Easyshare\x86\;D:\SoftBox\Easyshare\x64\;C:\Program Files\Solidigm\Solidigm(TM) Storage Tool\;D:\SoftBox\Anaconda3\Library\mingw-w64;D:\SoftBox\Go\bin;C:\q\w64;D:\SoftBox\Rust\.cargo\bin;D:\SoftBox\VScode\bin;D:\SoftBox\JetBrains\GoLand\GoLand 2022.1.2\bin;;C:\Users\Administrator\AppData\Local\hyper\app-3.0.2\resources\bin;E:\envgo\bin;C:\Users\Administrator\AppData\Roaming\npm;D:\SoftBox\JetBrains\Clion\CLion 2022.1.2\bin;;D:\SoftBox\JetBrains\PyCharm\PyCharm 2022.1.2\bin;;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\go\bin
+# environment
+PHPSTORM_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\phpstorm.vmoptions
+# environment
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# environment
+ZES_ENABLE_SYSMAN = 1
+# environment
+PROCESSOR_ARCHITECTURE = AMD64
+# environment
+USERPROFILE = C:\Users\Administrator
+# environment
+BASH_ENV = /etc/bash.bashrc
+# environment
+ALLUSERSPROFILE = C:\ProgramData
+# environment
+GOPATH = E:\envgo
+# environment
+GOLAND_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\goland.vmoptions
+# environment
+NUMBER_OF_PROCESSORS = 8
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+JETBRAINSCLIENT_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\jetbrainsclient.vmoptions
+# environment
+RUSTUP_DIST_SERVER = https://mirrors.ustc.edu.cn/rust-static
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync
+# environment
+IDEA_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\idea.vmoptions
+# environment
+DATASPELL_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\dataspell.vmoptions
+# automatic
+%F = $(notdir $%)
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\LOCAL\crashpad_17204_MBDMLQNJJIVTIYVG
+# environment
+COMPUTERNAME = LUCAS
+# environment
+VSCODE_CRASH_REPORTER_PROCESS_TYPE = extensionHost
+# environment
+PROGRAMFILES = C:\Program Files
+# environment
+GOLAND = D:\SoftBox\JetBrains\GoLand\GoLand 2022.1.2\bin;
+# default
+.LOADED := 
+# environment
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+JETBRAINS_CLIENT_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\jetbrains_client.vmoptions
+# environment
+RUSTUP_HOME = D:\SoftBox\Rust\.rustup
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+USERNAME = Administrator
+# environment
+PUBLIC = C:\Users\Public
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+DEVECOSTUDIO_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\devecostudio.vmoptions
+# environment
+RIDER_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\rider.vmoptions
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\Administrator\AppData\Roaming\Code\CachedData\704ed70d4fd1c6bd6342c436f1ede30d1cff4710
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+COMMONPROGRAMFILES = C:\Program Files\Common Files
+# environment
+LOGONSERVER = \\LUCAS
+# environment
+ONEDRIVECONSUMER = C:\Users\Administrator\OneDrive
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+USERDOMAIN = LUCAS
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+RUST_SRC_PATH = D:\SoftBox\Rust\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\src\rust\src
+# environment
+JAVA_HOME = D:\SoftBox\Java\jdk-15.0.2
+# environment
+VSCODE_CRASH_REPORTER_SANDBOXED_HINT = 1
+# environment
+RUST = D:\SoftBox\Rust\.rustup\toolchains\stable-x86_64-pc-windows-msvc
+# makefile
+.DEFAULT_GOAL := 
+# default
+MAKECMDGOALS := all
+# environment
+GOROOT = D:\SoftBox\Go
+# environment
+CLASSPATH = .;D:\SoftBox\Java\jdk-15.0.2\lib\dt.jar;D:\SoftBox\Java\jdk-15.0.2\lib\tools.jar;
+# environment
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# automatic
+%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# environment
+LOCALAPPDATA = C:\Users\Administrator\AppData\Local
+# environment
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+# default
+MAKE_COMMAND := make.exe
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+# environment
+OS = Windows_NT
+# environment
+VSCODE_IPC_HOOK = \\.\pipe\9e7283c68e6159fd1e9872b65f264be5-1.77.3-main-sock
+# environment
+WXDRIVE_START_ARGS = --wxdrive-setting=0 --disable-gpu --disable-software-rasterizer --enable-features=NetworkServiceInProcess
+# environment
+HOMEPATH = \Users\Administrator
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+PROMPT = $P$G
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
+# environment
+QHOME = C:\q
+# environment
+SYSTEMROOT = C:\Windows
+# environment
+RUBYMINE_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\rubymine.vmoptions
+# automatic
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
+# environment
+DATAGRIP_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\datagrip.vmoptions
+# environment
+VSCODE_L10N_BUNDLE_LOCATION = 
+# automatic
++F = $(notdir $+)
+# environment
+APPDATA = C:\Users\Administrator\AppData\Roaming
+# environment
+TEMP = C:\Users\ADMINI~1\AppData\Local\Temp
+# environment
+COMSPEC = C:\Windows\system32\cmd.exe
+# environment
+PYCHARM_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\pycharm.vmoptions
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+LC_ALL = C
+# environment
+CARGO_HOME = D:\SoftBox\Rust\.cargo
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+SYSTEMDRIVE = C:
+# environment
+SESSIONNAME = Console
+# environment
+PROCESSOR_REVISION = 8e0c
+# environment
+PYCHARM = D:\SoftBox\JetBrains\PyCharm\PyCharm 2022.1.2\bin;
+# default
+.RECIPEPREFIX := 
+# environment
+CLION_VM_OPTIONS = D:\SoftBox\JetBrains\crack\jetbra\vmoptions\clion.vmoptions
+# environment
+LANG = C
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
+# environment
+VSCODE_PID = 17204
+# environment
+RUSTUP_UPDATE_ROOT = https://mirrors.ustc.edu.cn/rust-static/rustup
+# environment
+USERDOMAIN_ROAMINGPROFILE = LUCAS
+# variable set hash-table stats:
+# Load=127/1024=12%, Rehash=0, Collisions=20/145=14%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (key g:/lppgo.github.io, mtime 1681215052): 19 files, no impossibilities.
+
+# 19 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+makefile.mak:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=7/1024=1%, Rehash=0, Collisions=0/16=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 26 / storage = 238 B / avg = 9 B
+# current buf: size = 8162 B / used = 238 B / count = 26 / avg = 9 B
+
+# strcache performance: lookups = 28 / hit rate = 7%
+# hash-table stats:
+# Load=26/8192=0%, Rehash=0, Collisions=1/28=4%
+# Finished Make data base on Mon Apr 17 15:26:14 2023
+
+ 
