@@ -10,7 +10,7 @@
 <meta name=msapplication-navbutton-color content="#f8f5ec">
 <meta name=apple-mobile-web-app-capable content="yes">
 <meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
-<meta name=author content="lucas"><meta name=description content="Table of Contents 1: docker 2: docker的使用命令 2.1 docker &amp;ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9"><meta name=keywords content="Docker,容器">
+<meta name=author content="lucas"><meta name=description content="Table of Contents 1: docker 2: docker 的使用命令 2.1 docker &amp;ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9 10 11 # 1: pdocker"><meta name=keywords content="Docker,容器">
 <meta name=generator content="Hugo 0.93.1 with theme even">
 <link rel=canonical href=https://lppgo.github.io/post/dockerk8s/003-docker%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/>
 <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
@@ -21,18 +21,18 @@
 <link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
 <meta property="og:title" content="01-Docker命令详解.md">
-<meta property="og:description" content="Table of Contents 1: docker 2: docker的使用命令 2.1 docker &ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9">
+<meta property="og:description" content="Table of Contents 1: docker 2: docker 的使用命令 2.1 docker &ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9 10 11 # 1: pdocker">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/dockerk8s/003-docker%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-05-31T00:00:00+00:00">
 <meta property="article:modified_time" content="2022-03-04T10:56:42+08:00">
 <meta itemprop=name content="01-Docker命令详解.md">
-<meta itemprop=description content="Table of Contents 1: docker 2: docker的使用命令 2.1 docker &ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9"><meta itemprop=datePublished content="2021-05-31T00:00:00+00:00">
+<meta itemprop=description content="Table of Contents 1: docker 2: docker 的使用命令 2.1 docker &ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9 10 11 # 1: pdocker"><meta itemprop=datePublished content="2021-05-31T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-03-04T10:56:42+08:00">
-<meta itemprop=wordCount content="3039">
+<meta itemprop=wordCount content="3032">
 <meta itemprop=keywords content="Docker,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="01-Docker命令详解.md">
-<meta name=twitter:description content="Table of Contents 1: docker 2: docker的使用命令 2.1 docker &ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<meta name=twitter:description content="Table of Contents 1: docker 2: docker 的使用命令 2.1 docker &ndash;help 2.2 docker build 2.3 docker run 2.4 保存和加载镜像 3: docker Container 4: docker Network 5: docker volume 6: 发布镜像 7: Dockerfile 8: other 1: docker 容器技术 image container repository 1 2 3 4 5 6 7 8 9 10 11 # 1: pdocker"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head><body>
 <div id=mobile-navbar class=mobile-navbar>
@@ -76,11 +76,11 @@
 <h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active">
 <nav id=TableOfContents>
 <ul>
-<li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1-docker>1: docker</a></li><li><a href=#2-docker的使用命令>2: docker的使用命令</a>
+<li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1-docker>1: docker</a></li><li><a href=#2-docker-的使用命令>2: docker 的使用命令</a>
 <ul>
 <li><a href=#21-docker---help>2.1 docker &ndash;help</a></li><li><a href=#22-docker-build>2.2 docker build</a></li><li><a href=#23-docker-run>2.3 docker run</a></li><li><a href=#24-保存和加载镜像>2.4 保存和加载镜像</a></li></ul></li><li><a href=#3-docker-container>3: docker Container</a></li><li><a href=#4-docker-network>4: docker Network</a></li><li><a href=#5-docker-volume>5: docker volume</a></li><li><a href=#6-发布镜像>6: 发布镜像</a></li><li><a href=#7-dockerfile>7: Dockerfile</a></li><li><a href=#8-other>8: other</a></li></ul></nav></div></div><div class=post-content>
 <h1 id=table-of-contents>Table of Contents</h1><ul>
-<li><a href=#1-docker>1: docker</a></li><li><a href=#2-docker%E7%9A%84%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4>2: docker的使用命令</a>
+<li><a href=#1-docker>1: docker</a></li><li><a href=#2-docker%E7%9A%84%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4>2: docker 的使用命令</a>
 <ul>
 <li><a href=#21-docker---help>2.1 docker &ndash;help</a></li><li><a href=#22-docker-build>2.2 docker build</a></li><li><a href=#23-docker-run>2.3 docker run</a></li><li><a href=#24-%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%E9%95%9C%E5%83%8F>2.4 保存和加载镜像</a></li></ul></li><li><a href=#3-docker-container>3: docker Container</a></li><li><a href=#4-docker-network>4: docker Network</a></li><li><a href=#5-docker-volume>5: docker volume</a></li><li><a href=#6-%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F>6: 发布镜像</a></li><li><a href=#7-dockerfile>7: Dockerfile</a></li><li><a href=#8-other>8: other</a></li></ul><h1 id=1-docker>1: docker</h1><ul>
 <li>容器技术</li><li>image</li><li>container</li><li>repository</li></ul><div class=highlight><div class=chroma>
@@ -105,10 +105,10 @@
 </span></span><span class=line><span class=cl><span class=c1># 2: docker如何将容器内文件复制到本地</span>
 </span></span><span class=line><span class=cl>docker container cp -a c56d9375ff28:/etc/kraken ./
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># 3: </span>
+</span></span><span class=line><span class=cl><span class=c1># 3:</span>
 </span></span><span class=line><span class=cl>CMD: 指定容器被启动时要运行的命令
 </span></span><span class=line><span class=cl>ENTRYPOINT: 同 CMD ,但不会被 docker run -t 覆盖
-</span></span></code></pre></td></tr></table></div></div><h1 id=2-docker的使用命令>2: docker的使用命令</h1><h2 id=21-docker---help>2.1 docker &ndash;help</h2><div class=highlight><div class=chroma>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-docker-的使用命令>2: docker 的使用命令</h1><h2 id=21-docker---help>2.1 docker &ndash;help</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -157,7 +157,7 @@
 </span></span><span class=line><span class=cl>  create      创建一个新容器
 </span></span><span class=line><span class=cl>  <span class=nb>exec</span>        在容器中执行一条命令
 </span></span><span class=line><span class=cl>  images      列出镜像
-</span></span><span class=line><span class=cl>  <span class=nb>kill</span>        杀死一个或多个正在运行的容器    
+</span></span><span class=line><span class=cl>  <span class=nb>kill</span>        杀死一个或多个正在运行的容器
 </span></span><span class=line><span class=cl>  logs        取得容器的日志
 </span></span><span class=line><span class=cl>  pause       暂停一个或多个容器的所有进程
 </span></span><span class=line><span class=cl>  ps          列出所有容器
@@ -195,7 +195,6 @@
 </span><span class=lnt>16
 </span><span class=lnt>17
 </span><span class=lnt>18
-</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>命令格式：docker build <span class=o>[</span>OPTIONS<span class=o>]</span> &lt;PATH <span class=p>|</span> URL <span class=p>|</span> -&gt;
 </span></span><span class=line><span class=cl>Usage: Build an image from a Dockerfile.
@@ -215,10 +214,9 @@
 </span></span><span class=line><span class=cl>--quiet, -q       默认false。设置该选项，Suppress the build output and print image ID on success
 </span></span><span class=line><span class=cl>--force-rm        默认false。设置该选项，总是删除掉中间环节的容器
 </span></span><span class=line><span class=cl>--rm，默认--rm<span class=o>=</span><span class=nb>true</span> 即整个构建过程成功后删除中间环节的容器
-</span></span><span class=line><span class=cl>  
 </span></span></code></pre></td></tr></table></div></div><blockquote>
 <p>示例</p></blockquote><p><code>docker build -t bjc/demo:latest --rm .</code></p><ul>
-<li>-t bjc/demo:latest，为构建的镜像标记名称，即镜像名为：bjc/demo，打标为latest；</li><li>&ndash;rm，整个构建过程成功后删除中间环节的容器；<code>.</code>，单独的点，意思为根据当前目录下的Dockerfile文件生成镜像</li></ul><h2 id=23-docker-run>2.3 docker run</h2><div class=highlight><div class=chroma>
+<li>-t bjc/demo:latest，为构建的镜像标记名称，即镜像名为：bjc/demo，打标为 latest；</li><li>&ndash;rm，整个构建过程成功后删除中间环节的容器；<code>.</code>，单独的点，意思为根据当前目录下的 Dockerfile 文件生成镜像</li></ul><h2 id=23-docker-run>2.3 docker run</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -262,46 +260,46 @@
 </span><span class=lnt>40
 </span><span class=lnt>41
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run <span class=o>[</span>OPTIONS<span class=o>]</span> IMAGE <span class=o>[</span>COMMAND<span class=o>]</span> <span class=o>[</span>ARG...<span class=o>]</span>    
-</span></span><span class=line><span class=cl>  
-</span></span><span class=line><span class=cl>-d, --detach<span class=o>=</span>false， 指定容器运行于前台还是后台，默认为false 
-</span></span><span class=line><span class=cl>-i, --interactive<span class=o>=</span>false， 打开STDIN，用于控制台交互 
-</span></span><span class=line><span class=cl>-t, --tty<span class=o>=</span>false， 分配tty设备，该可以支持终端登录，默认为false 
-</span></span><span class=line><span class=cl>-u, --user<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的用户 
-</span></span><span class=line><span class=cl>-a, --attach<span class=o>=[]</span>， 登录容器（必须是以docker run -d启动的容器） 
-</span></span><span class=line><span class=cl>-w, --workdir<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的工作目录 
-</span></span><span class=line><span class=cl>-c, --cpu-shares<span class=o>=</span>0， 设置容器CPU权重，在CPU共享场景使用 
-</span></span><span class=line><span class=cl>-e, --env<span class=o>=[]</span>， 指定环境变量，容器中可以使用该环境变量 
-</span></span><span class=line><span class=cl>-m, --memory<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的内存上限 
-</span></span><span class=line><span class=cl>-P, --publish-all<span class=o>=</span>false， 指定容器暴露的端口 
-</span></span><span class=line><span class=cl>-p, --publish<span class=o>=[]</span>， 指定容器暴露的端口 
-</span></span><span class=line><span class=cl>-h, --hostname<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的主机名 
-</span></span><span class=line><span class=cl>-v, --volume<span class=o>=[]</span>， 给容器挂载存储卷，挂载到容器的某个目录 
-</span></span><span class=line><span class=cl>--volumes-from<span class=o>=[]</span>， 给容器挂载其他容器上的卷，挂载到容器的某个目录 
-</span></span><span class=line><span class=cl>--cap-add<span class=o>=[]</span>， 添加权限，权限清单详见：http://linux.die.net/man/7/capabilities 
-</span></span><span class=line><span class=cl>--cap-drop<span class=o>=[]</span>， 删除权限，权限清单详见：http://linux.die.net/man/7/capabilities 
-</span></span><span class=line><span class=cl>--cidfile<span class=o>=</span><span class=s2>&#34;&#34;</span>， 运行容器后，在指定文件中写入容器PID值，一种典型的监控系统用法 
-</span></span><span class=line><span class=cl>--cpuset<span class=o>=</span><span class=s2>&#34;&#34;</span>， 设置容器可以使用哪些CPU，此参数可以用来容器独占CPU 
-</span></span><span class=line><span class=cl>--device<span class=o>=[]</span>， 添加主机设备给容器，相当于设备直通 
-</span></span><span class=line><span class=cl>--dns<span class=o>=[]</span>， 指定容器的dns服务器 
-</span></span><span class=line><span class=cl>--dns-search<span class=o>=[]</span>， 指定容器的dns搜索域名，写入到容器的/etc/resolv.conf文件 
-</span></span><span class=line><span class=cl>--entrypoint<span class=o>=</span><span class=s2>&#34;&#34;</span>， 覆盖image的入口点 
-</span></span><span class=line><span class=cl>--env-file<span class=o>=[]</span>， 指定环境变量文件，文件格式为每行一个环境变量 
-</span></span><span class=line><span class=cl>--expose<span class=o>=[]</span>， 指定容器暴露的端口，即修改镜像的暴露端口 
-</span></span><span class=line><span class=cl>--link<span class=o>=[]</span>， 指定容器间的关联，使用其他容器的IP、env等信息 
-</span></span><span class=line><span class=cl>--lxc-conf<span class=o>=[]</span>， 指定容器的配置文件，只有在指定--exec-driver<span class=o>=</span>lxc时使用 
-</span></span><span class=line><span class=cl>--name<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器名字，后续可以通过名字进行容器管理，links特性需要使用名字 
-</span></span><span class=line><span class=cl>--net<span class=o>=</span><span class=s2>&#34;bridge&#34;</span>， 容器网络设置: 
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run <span class=o>[</span>OPTIONS<span class=o>]</span> IMAGE <span class=o>[</span>COMMAND<span class=o>]</span> <span class=o>[</span>ARG...<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-d, --detach<span class=o>=</span>false， 指定容器运行于前台还是后台，默认为false
+</span></span><span class=line><span class=cl>-i, --interactive<span class=o>=</span>false， 打开STDIN，用于控制台交互
+</span></span><span class=line><span class=cl>-t, --tty<span class=o>=</span>false， 分配tty设备，该可以支持终端登录，默认为false
+</span></span><span class=line><span class=cl>-u, --user<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的用户
+</span></span><span class=line><span class=cl>-a, --attach<span class=o>=[]</span>， 登录容器（必须是以docker run -d启动的容器）
+</span></span><span class=line><span class=cl>-w, --workdir<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的工作目录
+</span></span><span class=line><span class=cl>-c, --cpu-shares<span class=o>=</span>0， 设置容器CPU权重，在CPU共享场景使用
+</span></span><span class=line><span class=cl>-e, --env<span class=o>=[]</span>， 指定环境变量，容器中可以使用该环境变量
+</span></span><span class=line><span class=cl>-m, --memory<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的内存上限
+</span></span><span class=line><span class=cl>-P, --publish-all<span class=o>=</span>false， 指定容器暴露的端口
+</span></span><span class=line><span class=cl>-p, --publish<span class=o>=[]</span>， 指定容器暴露的端口
+</span></span><span class=line><span class=cl>-h, --hostname<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器的主机名
+</span></span><span class=line><span class=cl>-v, --volume<span class=o>=[]</span>， 给容器挂载存储卷，挂载到容器的某个目录
+</span></span><span class=line><span class=cl>--volumes-from<span class=o>=[]</span>， 给容器挂载其他容器上的卷，挂载到容器的某个目录
+</span></span><span class=line><span class=cl>--cap-add<span class=o>=[]</span>， 添加权限，权限清单详见：http://linux.die.net/man/7/capabilities
+</span></span><span class=line><span class=cl>--cap-drop<span class=o>=[]</span>， 删除权限，权限清单详见：http://linux.die.net/man/7/capabilities
+</span></span><span class=line><span class=cl>--cidfile<span class=o>=</span><span class=s2>&#34;&#34;</span>， 运行容器后，在指定文件中写入容器PID值，一种典型的监控系统用法
+</span></span><span class=line><span class=cl>--cpuset<span class=o>=</span><span class=s2>&#34;&#34;</span>， 设置容器可以使用哪些CPU，此参数可以用来容器独占CPU
+</span></span><span class=line><span class=cl>--device<span class=o>=[]</span>， 添加主机设备给容器，相当于设备直通
+</span></span><span class=line><span class=cl>--dns<span class=o>=[]</span>， 指定容器的dns服务器
+</span></span><span class=line><span class=cl>--dns-search<span class=o>=[]</span>， 指定容器的dns搜索域名，写入到容器的/etc/resolv.conf文件
+</span></span><span class=line><span class=cl>--entrypoint<span class=o>=</span><span class=s2>&#34;&#34;</span>， 覆盖image的入口点
+</span></span><span class=line><span class=cl>--env-file<span class=o>=[]</span>， 指定环境变量文件，文件格式为每行一个环境变量
+</span></span><span class=line><span class=cl>--expose<span class=o>=[]</span>， 指定容器暴露的端口，即修改镜像的暴露端口
+</span></span><span class=line><span class=cl>--link<span class=o>=[]</span>， 指定容器间的关联，使用其他容器的IP、env等信息
+</span></span><span class=line><span class=cl>--lxc-conf<span class=o>=[]</span>， 指定容器的配置文件，只有在指定--exec-driver<span class=o>=</span>lxc时使用
+</span></span><span class=line><span class=cl>--name<span class=o>=</span><span class=s2>&#34;&#34;</span>， 指定容器名字，后续可以通过名字进行容器管理，links特性需要使用名字
+</span></span><span class=line><span class=cl>--net<span class=o>=</span><span class=s2>&#34;bridge&#34;</span>， 容器网络设置:
 </span></span><span class=line><span class=cl>    bridge 使用docker daemon指定的网桥
 </span></span><span class=line><span class=cl>    host //容器使用主机的网络
 </span></span><span class=line><span class=cl>    container:NAME_or_ID &gt;//使用其他容器的网路，共享IP和PORT等网络资源
-</span></span><span class=line><span class=cl>    none 容器使用自己的网络（类似--net<span class=o>=</span>bridge），但是不进行配置 
-</span></span><span class=line><span class=cl>--privileged<span class=o>=</span>false， 指定容器是否为特权容器，特权容器拥有所有的capabilities 
+</span></span><span class=line><span class=cl>    none 容器使用自己的网络（类似--net<span class=o>=</span>bridge），但是不进行配置
+</span></span><span class=line><span class=cl>--privileged<span class=o>=</span>false， 指定容器是否为特权容器，特权容器拥有所有的capabilities
 </span></span><span class=line><span class=cl>--restart<span class=o>=</span><span class=s2>&#34;no&#34;</span>， 指定容器停止后的重启策略:
 </span></span><span class=line><span class=cl>    no：容器退出时不重启
 </span></span><span class=line><span class=cl>    on-failure：容器故障退出（返回值非零）时重启
-</span></span><span class=line><span class=cl>    always：容器退出时总是重启 
-</span></span><span class=line><span class=cl>--rm<span class=o>=</span>false， 指定容器停止后自动删除容器<span class=o>(</span>不支持以docker run -d启动的容器<span class=o>)</span> 
+</span></span><span class=line><span class=cl>    always：容器退出时总是重启
+</span></span><span class=line><span class=cl>--rm<span class=o>=</span>false， 指定容器停止后自动删除容器<span class=o>(</span>不支持以docker run -d启动的容器<span class=o>)</span>
 </span></span><span class=line><span class=cl>--sig-proxy<span class=o>=</span>true， 设置由代理接受并处理信号，但是SIGCHLD、SIGSTOP和SIGKILL不能被代理
 </span></span></code></pre></td></tr></table></div></div><h2 id=24-保存和加载镜像>2.4 保存和加载镜像</h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
@@ -311,7 +309,7 @@
 </span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>ocker save -o mysql.8.0.25.tar mysql:8.0.25 
+</span></span><span class=line><span class=cl>ocker save -o mysql.8.0.25.tar mysql:8.0.25
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>docker load -i mysql.8.0.25.tar
 </span></span></code></pre></td></tr></table></div></div><h1 id=3-docker-container>3: docker Container</h1><div class=highlight><div class=chroma>
@@ -338,10 +336,10 @@
 </span><span class=lnt>20
 </span><span class=lnt>21
 </span></code></pre></td><td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ls </span>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ls</span>
 </span></span><span class=line><span class=cl>docker container ls <span class=c1># -a</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># rm </span>
+</span></span><span class=line><span class=cl><span class=c1># rm</span>
 </span></span><span class=line><span class=cl>docker container rm &lt;containerID&gt; <span class=c1># -f  强制删除; &lt;name&gt;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># top 查询容器中的进程</span>
@@ -375,10 +373,10 @@
 </span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1: ls显示所有网络</span>
-</span></span><span class=line><span class=cl>docker network ls 
+</span></span><span class=line><span class=cl>docker network ls
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 2: inspect查看网络具体信息</span>
-</span></span><span class=line><span class=cl>docker network inspect &lt;network_name&gt; 
+</span></span><span class=line><span class=cl>docker network inspect &lt;network_name&gt;
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 3：create创建网络</span>
 </span></span><span class=line><span class=cl>docker network create &lt;custom_network_name&gt;
@@ -408,13 +406,13 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 2.rm 删除指定volume</span>
 </span></span><span class=line><span class=cl>docker volume rm &lt;volume_name&gt;
-</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 3.inspect 查询volume信息</span>
 </span></span><span class=line><span class=cl>docker volume inspect &lt;volume_name&gt;
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 4.prune 删除所有未使用的本地数据卷</span>
 </span></span><span class=line><span class=cl>docker volume inspect &lt;volume_name&gt;
-</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 5.create 创建数据卷</span>
 </span></span><span class=line><span class=cl>docker volume create &lt;volume_name&gt;
 </span></span></code></pre></td></tr></table></div></div><h1 id=6-发布镜像>6: 发布镜像</h1><div class=highlight><div class=chroma>
@@ -427,8 +425,9 @@
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>docker login
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>docker push new-image-name 
-</span></span></code></pre></td></tr></table></div></div><h1 id=7-dockerfile>7: Dockerfile</h1><h1 id=8-other>8: other</h1></div><div class=post-copyright>
+</span></span><span class=line><span class=cl>docker push new-image-name
+</span></span></code></pre></td></tr></table></div></div><h1 id=7-dockerfile>7: Dockerfile</h1><h1 id=8-other>8: other</h1><ul>
+<li><a href=https://github.com/amir20/dozzle>dozzle</a>: docker 容器 log 实时查看的工具。</li></ul></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>
 <span class=item-content>lucas</span>
