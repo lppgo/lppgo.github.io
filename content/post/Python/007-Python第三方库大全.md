@@ -200,6 +200,10 @@ keywords: ["python", "第三方库", "包", "tool", "库", "pkg"]
 - **`mycli`** ：一个 MySQL 命令行客户端，具有自动补全和语法高亮功能。
 - **`pgcli`** ：Postgres 命令行工具，具有自动补全和语法高亮功能。
 - **`try`** ：一个从来没有更简单的命令行工具，用来试用 python 库。
+- [**`pyinstrument`**](https://github.com/joerick/pyinstrument) ：简单易用的 Python 代码性能分析库，优化 Python 代码的工具
+
+- [**`ray`**](https://github.com/ray-project/ray) ：基于 Python 的分布式计算框架，采用动态图计算模型
+- [**`pillow`**](https://github.com/python-pillow/Pillow) ：最流行的 Python 图像处理库
 
 # 9：数据库
 
@@ -244,6 +248,7 @@ keywords: ["python", "第三方库", "包", "tool", "库", "pkg"]
 - **`redis-py`** ：Redis 的 Python 客户端。
 - **`telephus`** ：基于 Twisted 的 Cassandra 客户端。
 - **`txRedis`** ：基于 Twisted 的 Redis 客户端。
+- [**`pottery`**](https://github.com/brainix/pottery)：以 Python 的方式操作 Redis 的库
 
 # 10：网络编程的库
 
@@ -395,7 +400,13 @@ keywords: ["python", "第三方库", "包", "tool", "库", "pkg"]
 - **python 代码格式化工具 formatter**
   https://github.com/psf/black
 
-# 23：配置库
+# 23：金融与量化交易
+
+- [**`tqsdk-python`**](https://github.com/shinnytech/tqsdk-python) :开源的 Python 量化交易框架.
+- 使用少量代码即可实现量化交易程序，还支持历史数据、实时数据、策略回测、实盘交易、图形化界面展示等功能。但免费版本仅提供全部的期货、商品/金融期权和上证 50、沪深 300 和中证 500 的实时行情，付费版支持更多种类以及更加稳定的服务;
+- [**`polars`**](https://github.com/pola-rs/polars) ：多线程、类 Pandas 的数据处理库.
+- 底层采用 Apache Arrow 从而带来了更高效的数据处理性能、占用内存更少、处理速度更快，再加上简单易用的 API，让你在处理大数据集（50GB）时，更加游刃有余。支持 Rust、Python 等语言，值得一试;
+- [**`modin`**](https://github.com/modin-project/modin)：更快、类似 pandas 的数据处理和分析库。底层通过 Ray 或 Dask 加速计算，上层兼容大部分 pandas API。所以使用起来十分简单，仅需更改一行代码即可从 pandas 无缝切换到 Modin，同时获得更快的数据处理速度
 
 # 24：配置库
 

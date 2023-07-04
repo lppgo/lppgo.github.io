@@ -29,7 +29,7 @@
 <meta itemprop=name content="02-Go常用库积累">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2021-04-17T00:00:00+00:00">
 <meta itemprop=dateModified content="2023-04-04T19:19:30+08:00">
-<meta itemprop=wordCount content="4097">
+<meta itemprop=wordCount content="4132">
 <meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="02-Go常用库积累">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -354,7 +354,8 @@
 </span></span><span class=line><span class=cl><span class=c1>// 错误
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>Failed</span> <span class=nx>to</span> <span class=nx>compute</span> <span class=nx>set</span> <span class=nx>of</span> <span class=nx>methods</span> <span class=nx>to</span> <span class=nx>expose</span><span class=p>:</span> <span class=nx>server</span> <span class=nx>does</span> <span class=nx>not</span> <span class=nx>support</span> <span class=nx>the</span> <span class=nx>reflection</span> <span class=nx>API</span>
 </span></span><span class=line><span class=cl><span class=nx>这种情况下</span><span class=err>，</span><span class=nx>加个反射就可以了</span><span class=err>，</span><span class=nx>在</span> <span class=nx>listen</span> <span class=nx>的</span> <span class=nx>main</span><span class=p>.</span><span class=k>go</span> <span class=nx>新增如下代码即可</span><span class=err>：</span><span class=s>`reflection.Register(s)`</span>
-</span></span></code></pre></td></tr></table></div></div></li></ul><h4 id=7125-grpc-压测-ghz>7.1.2.5 GRPC 压测 ghz</h4><ul>
+</span></span></code></pre></td></tr></table></div></div><ul>
+<li><a href=https://github.com/crossoverJie/ptg><strong><code>ptg</code></strong></a>: 用 Go 写的 GUI gRPC 客户端</li></ul></li></ul><h4 id=7125-grpc-压测-ghz>7.1.2.5 GRPC 压测 ghz</h4><ul>
 <li><a href=https://ghz.sh/>https://ghz.sh/</a></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -1114,7 +1115,12 @@
 </span></span><span class=line><span class=cl><span class=c1>// gossh
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/krilor/gossh
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=22-数据分析>22 数据分析</h1><ul>
-<li>类似于 numpay,pandas</li><li>Go 中的数据分析——如何使用 Gota 包:https://www.freecodecamp.org/news/exploratory-data-analysis-in-go-with-gota/</li></ul></div><div class=post-copyright>
+<li>
+<p>类似于 numpay,pandas</p></li><li>
+<p>Go 中的数据分析——如何使用 <code>Gota</code> 包:https://www.freecodecamp.org/news/exploratory-data-analysis-in-go-with-gota/</p></li><li>
+<p><strong>feature</strong>格式: <code>https://github.com/lppgo/feather</code></p></li><li>
+<p><strong>dbf</strong>格式:</p><ul>
+<li><code>https://github.com/kcasctiv/dbf3</code></li><li><code>github.com/LindsayBradford/go-dbf v0.0.0-20181206104747-5f7a16f88561</code> // 注意版本</li></ul></li></ul></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>
 <span class=item-content>lucas</span>
