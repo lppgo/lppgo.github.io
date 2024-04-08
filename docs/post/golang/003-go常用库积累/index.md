@@ -727,6 +727,11 @@ https://github.com/deatil/go-cryptobin
 - 10. **将 c 代码转成 go 代码**
       https://gitlab.com/cznic/ccgo
 
+- 11. **将 proto 和 json 转换的库 protojson**
+      Go 实现 Protocol Buffers 与 JSON 转换：protojson
+      https://juejin.cn/post/7281905382484672523
+      google.golang.org/protobuf/encoding/protojson
+
 # 18 tools 工具库
 
 - 1. **ztool**

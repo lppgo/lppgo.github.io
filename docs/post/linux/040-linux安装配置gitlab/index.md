@@ -10,6 +10,7 @@
 
 ## 1.1 安装
 
+- https://packages.gitlab.com/gitlab/gitlab-ce/install
 - 安装工具包: `apt install  policycoreutils-python-utils`
 - 安装 gitlab: `curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash`
 - `sudo apt install gitlab-ce`

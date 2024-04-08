@@ -29,7 +29,7 @@
 <meta itemprop=name content="01-Python第三方库大全">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2022-07-10T00:00:00+00:00">
 <meta itemprop=dateModified content="2023-07-04T10:54:38+08:00">
-<meta itemprop=wordCount content="5219">
+<meta itemprop=wordCount content="5388">
 <meta itemprop=keywords content="Python,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="01-Python第三方库大全">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
@@ -84,7 +84,7 @@
 <ul>
 <li><a href=#921-mysqlawesome-mysql>9.2.1 MySQL：awesome-mysql</a></li><li><a href=#922-postgresql>9.2.2 PostgreSQL</a></li><li><a href=#923-其他关系型数据库>9.2.3 其他关系型数据库</a></li><li><a href=#924-nosql-数据库>9.2.4 NoSQL 数据库</a></li></ul></li></ul></li><li><a href=#10网络编程的库>10：网络编程的库</a></li><li><a href=#11http-相关的库>11：HTTP 相关的库</a></li><li><a href=#12websocket-相关的库>12：WebSocket 相关的库</a></li><li><a href=#13-wsgi-服务器>13： WSGI 服务器</a></li><li><a href=#14web-框架>14：Web 框架</a></li><li><a href=#15restful-api>15：RESTful API</a>
 <ul>
-<li><a href=#151-django>15.1 Django</a></li><li><a href=#152-flask>15.2 Flask</a></li><li><a href=#153-pyramid>15.3 Pyramid</a></li><li><a href=#154-与框架无关的库>15.4 与框架无关的库</a></li></ul></li><li><a href=#16模板引擎>16：模板引擎</a></li><li><a href=#17队列>17：队列</a></li><li><a href=#18搜索>18：搜索</a></li><li><a href=#19解析-urls-的库>19：解析 URLs 的库</a></li><li><a href=#20进程>20：进程</a></li><li><a href=#21并发和并行>21：并发和并行</a></li><li><a href=#22其他库>22：其他库</a></li><li><a href=#23金融与量化交易>23：金融与量化交易</a></li><li><a href=#24配置库>24：配置库</a></li><li><a href=#25配置库>25：配置库</a></li></ul></nav></div></div><div class=post-content>
+<li><a href=#151-django>15.1 Django</a></li><li><a href=#152-flask>15.2 Flask</a></li><li><a href=#153-pyramid>15.3 Pyramid</a></li><li><a href=#154-与框架无关的库>15.4 与框架无关的库</a></li></ul></li><li><a href=#16模板引擎>16：模板引擎</a></li><li><a href=#17队列>17：队列</a></li><li><a href=#18搜索>18：搜索</a></li><li><a href=#19解析-urls-的库>19：解析 URLs 的库</a></li><li><a href=#20进程>20：进程</a></li><li><a href=#21并发和并行>21：并发和并行</a></li><li><a href=#22其他库>22：其他库</a></li><li><a href=#23金融与量化交易>23：金融与量化交易</a></li><li><a href=#24数据科学领域>24：数据科学领域</a></li><li><a href=#25配置库>25：配置库</a></li></ul></nav></div></div><div class=post-content>
 <ul>
 <li><a href=#1%E5%8C%85%E7%AE%A1%E7%90%86%E5%92%8C%E4%BE%9D%E8%B5%96%E5%B7%A5%E5%85%B7>1：包管理和依赖工具</a></li><li><a href=#2%E5%88%86%E5%8F%91>2：分发</a></li><li><a href=#3%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>3：配置相关的库</a></li><li><a href=#4%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>4：文件操作相关的库</a></li><li><a href=#5%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4>5：日期和时间</a></li><li><a href=#6%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3>6：文本处理相关</a>
 <ul>
@@ -94,7 +94,7 @@
 <ul>
 <li><a href=#921-mysqlawesome-mysql>9.2.1 MySQL：awesome-mysql</a></li><li><a href=#922-postgresql>9.2.2 PostgreSQL</a></li><li><a href=#923-%E5%85%B6%E4%BB%96%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93>9.2.3 其他关系型数据库</a></li><li><a href=#924-nosql-%E6%95%B0%E6%8D%AE%E5%BA%93>9.2.4 NoSQL 数据库</a></li></ul></li></ul></li><li><a href=#10%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%9A%84%E5%BA%93>10：网络编程的库</a></li><li><a href=#11http-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>11：HTTP 相关的库</a></li><li><a href=#12websocket-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>12：WebSocket 相关的库</a></li><li><a href=#13-wsgi-%E6%9C%8D%E5%8A%A1%E5%99%A8>13： WSGI 服务器</a></li><li><a href=#14web-%E6%A1%86%E6%9E%B6>14：Web 框架</a></li><li><a href=#15restful-api>15：RESTful API</a>
 <ul>
-<li><a href=#151-django>15.1 Django</a></li><li><a href=#152-flask>15.2 Flask</a></li><li><a href=#153-pyramid>15.3 Pyramid</a></li><li><a href=#154-%E4%B8%8E%E6%A1%86%E6%9E%B6%E6%97%A0%E5%85%B3%E7%9A%84%E5%BA%93>15.4 与框架无关的库</a></li></ul></li><li><a href=#16%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E>16：模板引擎</a></li><li><a href=#17%E9%98%9F%E5%88%97>17：队列</a></li><li><a href=#18%E6%90%9C%E7%B4%A2>18：搜索</a></li><li><a href=#19%E8%A7%A3%E6%9E%90-urls-%E7%9A%84%E5%BA%93>19：解析 URLs 的库</a></li><li><a href=#20%E8%BF%9B%E7%A8%8B>20：进程</a></li><li><a href=#21%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C>21：并发和并行</a></li><li><a href=#22%E5%85%B6%E4%BB%96%E5%BA%93>22：其他库</a></li><li><a href=#23%E9%85%8D%E7%BD%AE%E5%BA%93>23：配置库</a></li><li><a href=#24%E9%85%8D%E7%BD%AE%E5%BA%93>24：配置库</a></li><li><a href=#25%E9%85%8D%E7%BD%AE%E5%BA%93>25：配置库</a></li></ul><p>部分转自:https://www.ctq6.cn/python%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%A4%A7%E5%85%A8/#wsgi-%E6%9C%8D%E5%8A%A1%E5%99%A8</p><h1 id=1包管理和依赖工具>1：包管理和依赖工具</h1><ul>
+<li><a href=#151-django>15.1 Django</a></li><li><a href=#152-flask>15.2 Flask</a></li><li><a href=#153-pyramid>15.3 Pyramid</a></li><li><a href=#154-%E4%B8%8E%E6%A1%86%E6%9E%B6%E6%97%A0%E5%85%B3%E7%9A%84%E5%BA%93>15.4 与框架无关的库</a></li></ul></li><li><a href=#16%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E>16：模板引擎</a></li><li><a href=#17%E9%98%9F%E5%88%97>17：队列</a></li><li><a href=#18%E6%90%9C%E7%B4%A2>18：搜索</a></li><li><a href=#19%E8%A7%A3%E6%9E%90-urls-%E7%9A%84%E5%BA%93>19：解析 URLs 的库</a></li><li><a href=#20%E8%BF%9B%E7%A8%8B>20：进程</a></li><li><a href=#21%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C>21：并发和并行</a></li><li><a href=#22%E5%85%B6%E4%BB%96%E5%BA%93>22：其他库</a></li><li><a href=#23%E9%87%91%E8%9E%8D%E4%B8%8E%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93>23：金融与量化交易</a></li><li><a href=#24%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E9%A2%86%E5%9F%9F>24：数据科学领域</a></li><li><a href=#25%E9%85%8D%E7%BD%AE%E5%BA%93>25：配置库</a></li></ul><p>部分转自:https://www.ctq6.cn/python%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%A4%A7%E5%85%A8/#wsgi-%E6%9C%8D%E5%8A%A1%E5%99%A8</p><h1 id=1包管理和依赖工具>1：包管理和依赖工具</h1><ul>
 <li><strong>pip</strong>: python 包和依赖管理工具;
 <ul>
 <li><a href=https://pypi.org/>https://pypi.org/</a></li></ul></li><li><strong>pip-tools</strong>：保证 Python 包依赖关系更新的一组工具;</li><li><strong>pipenv</strong>：Python 官方推荐的新一代包管理工具。可以利用 pipenv 来实现同时管理项目中的 python 虚拟环境和相关包依赖。<strong><code>pipenv</code></strong> 是 python 官方推荐的包管理工具，集成了 <strong><code>virtualenv</code></strong>、<strong><code>pyenv</code></strong> 和 <strong><code>pip</code></strong> 三者的功能于一身；</li><li><strong>poetry</strong>: 可完全取代 <code>setup.py</code> 的包管理工具。</li><li><strong>conda</strong>：跨平台，Python 二进制包管理工具；</li><li><strong>Curdling</strong>：管理 Python 包的命令行工具；</li><li><strong>wheel</strong>：Python 分发的新标准，意在取代 eggs；</li></ul><h1 id=2分发>2：分发</h1><blockquote>
@@ -172,7 +172,10 @@
 <a href=https://mp.weixin.qq.com/s/NcmSHZH-Jl3IJWj8aQMIZg>https://mp.weixin.qq.com/s/NcmSHZH-Jl3IJWj8aQMIZg</a></p></li><li>
 <p><strong>python 代码格式化工具 formatter</strong>
 <a href=https://github.com/psf/black>https://github.com/psf/black</a></p></li></ul><h1 id=23金融与量化交易>23：金融与量化交易</h1><ul>
-<li><a href=https://github.com/shinnytech/tqsdk-python><strong><code>tqsdk-python</code></strong></a> :开源的 Python 量化交易框架.</li><li>使用少量代码即可实现量化交易程序，还支持历史数据、实时数据、策略回测、实盘交易、图形化界面展示等功能。但免费版本仅提供全部的期货、商品/金融期权和上证 50、沪深 300 和中证 500 的实时行情，付费版支持更多种类以及更加稳定的服务;</li><li><a href=https://github.com/pola-rs/polars><strong><code>polars</code></strong></a> ：多线程、类 Pandas 的数据处理库.</li><li>底层采用 Apache Arrow 从而带来了更高效的数据处理性能、占用内存更少、处理速度更快，再加上简单易用的 API，让你在处理大数据集（50GB）时，更加游刃有余。支持 Rust、Python 等语言，值得一试;</li><li><a href=https://github.com/modin-project/modin><strong><code>modin</code></strong></a>：更快、类似 pandas 的数据处理和分析库。底层通过 Ray 或 Dask 加速计算，上层兼容大部分 pandas API。所以使用起来十分简单，仅需更改一行代码即可从 pandas 无缝切换到 Modin，同时获得更快的数据处理速度</li></ul><h1 id=24配置库>24：配置库</h1><h1 id=25配置库>25：配置库</h1></div><div class=post-copyright>
+<li><a href=https://github.com/shinnytech/tqsdk-python><strong><code>tqsdk-python</code></strong></a> :开源的 Python 量化交易框架.</li><li>使用少量代码即可实现量化交易程序，还支持历史数据、实时数据、策略回测、实盘交易、图形化界面展示等功能。但免费版本仅提供全部的期货、商品/金融期权和上证 50、沪深 300 和中证 500 的实时行情，付费版支持更多种类以及更加稳定的服务;</li><li><a href=https://github.com/pola-rs/polars><strong><code>polars</code></strong></a> ：多线程、类 Pandas 的数据处理库.</li><li>底层采用 Apache Arrow 从而带来了更高效的数据处理性能、占用内存更少、处理速度更快，再加上简单易用的 API，让你在处理大数据集（50GB）时，更加游刃有余。支持 Rust、Python 等语言，值得一试;</li><li><a href=https://github.com/modin-project/modin><strong><code>modin</code></strong></a>：更快、类似 pandas 的数据处理和分析库。底层通过 Ray 或 Dask 加速计算，上层兼容大部分 pandas API。所以使用起来十分简单，仅需更改一行代码即可从 pandas 无缝切换到 Modin，同时获得更快的数据处理速度</li></ul><h1 id=24数据科学领域>24：数据科学领域</h1><ul>
+<li><strong><code>pandas</code></strong>:</li><li><strong><code>numpy</code></strong>:</li><li><a href=https://github.com/dask/dask><strong><code>dask</code></strong></a>:Dask 是一款用于并行计算的灵活、开源的库，它使得处理大规模数据变得更加容易。</li><li><a href=https://github.com/cupy/cupy><strong><code>CuPy</code></strong></a>:类似于 numpy
+<ul>
+<li>CuPy 是一个开源的 Python 库，它的设计初衷是为了使得在 GPU 上的计算变得简单快捷。</li><li>它提供了与 NumPy 非常相似的 API，这意味着如果你已经熟悉 NumPy，那么使用 CuPy 将会非常容易。</li><li>CuPy 的亮点在于它能够利用 NVIDIA GPU 来加速计算，这在处理大规模数据时尤其有用。</li></ul></li></ul><h1 id=25配置库>25：配置库</h1></div><div class=post-copyright>
 <p class=copyright-item>
 <span class=item-title>文章作者</span>
 <span class=item-content>lucas</span>
@@ -219,7 +222,7 @@
 <span class=copyright-year>
 &copy;
 2015 -
-2023<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+2024<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
 </span>
 </div></footer><div class=back-to-top id=back-to-top>
 <i class="iconfont icon-up"></i>

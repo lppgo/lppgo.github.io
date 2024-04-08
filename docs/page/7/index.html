@@ -66,6 +66,28 @@
 <section id=posts class=posts>
 <article class=post>
 <header class=post-header>
+<h1 class=post-title><a class=post-link href=/post/golang/011-convert-json-to-csv/>01-Convert json to csv</a></h1><div class=post-meta>
+<span class=post-time> 2021-06-09 </span>
+<div class=post-category>
+<a href=/categories/go/> Go </a>
+</div></div></header><div class=post-content>
+<div class=post-summary>
+Table of Contents Table of Contents 1: Convert json to csv 1.1 json 文件 1.2 convert 1: Convert json to csv 1.1 json 文件 company.json 1 2 3 4 5 6 7 [ { "App": "Instagram", "Company": "Facebook", "Category": "Social Media" }, { "App": "WeChat", "Company": "Tencent", "Category": "Social Media" }, { "App": "Hotstar", "Company": "Disney", "Category": "Entertainment" }, { "App": "CNBC", "Company": "Comcast", "Category": "News" }, {
+</div><div class=read-more>
+<a href=/post/golang/011-convert-json-to-csv/ class=read-more-link>阅读更多</a>
+</div></div></article><article class=post>
+<header class=post-header>
+<h1 class=post-title><a class=post-link href=/post/dockerk8s/005-minikube%E6%90%AD%E5%BB%BA/>01-MInikube搭建</a></h1><div class=post-meta>
+<span class=post-time> 2021-06-07 </span>
+<div class=post-category>
+<a href=/categories/k8s/> k8s </a>
+</div></div></header><div class=post-content>
+<div class=post-summary>
+[toc] 1: 安装 Docker 环境 1.1: 安装 docker 1.2: 配置 docker docker 加速 /etc/docker/daemon.json 重启 docker,使配置生效 1 2 3 sudo systemctl daemon-reload sudo systemctl restart docker 2: 安装 Minikube https://cloud.tencent.com/developer/article/1817826 2.1 使用普通的 minikube 2.1.1 更新软件源 2.1.2 更新软件包 2.1.3 安装
+</div><div class=read-more>
+<a href=/post/dockerk8s/005-minikube%E6%90%AD%E5%BB%BA/ class=read-more-link>阅读更多</a>
+</div></div></article><article class=post>
+<header class=post-header>
 <h1 class=post-title><a class=post-link href=/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/>01-Nginx 常用配置清单.md</a></h1><div class=post-meta>
 <span class=post-time> 2021-06-06 </span>
 <div class=post-category>
@@ -152,28 +174,6 @@ ToolBox 工具箱 1: 压测工具 2: 网络相关 3: 3 4: 4 5: 5 6: 6 7: 7 8: 8 
 1: go 交叉编译 1.1 查看可支 platform 1.2 Go 交叉编译命令 1.3 编译命令 1.4 编译时传入参数 2: shell 脚本 3: Makefile 1: go 交叉编译 1.1 查看可支 platform 1 2 3 go tool dist list // 支持的OS跟ARCH 1.2
 </div><div class=read-more>
 <a href=/post/golang/009-go%E7%BC%96%E8%AF%91%E7%9B%B8%E5%85%B3/ class=read-more-link>阅读更多</a>
-</div></div></article><article class=post>
-<header class=post-header>
-<h1 class=post-title><a class=post-link href=/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/>03-Git常见的命令集合</a></h1><div class=post-meta>
-<span class=post-time> 2021-05-06 </span>
-<div class=post-category>
-<a href=/categories/git/> Git </a>
-</div></div></header><div class=post-content>
-<div class=post-summary>
-1: Git Config 1.1 Git global setup 全局设置 1.2 修改 git config 2: 仓库 Repository 管理 2.1 clone 仓库 2.2 Create a new repository 创建一个新仓库 2.3 Push an existing folder 推送一个已存在的文件夹 2.5 Push an existing Git repository 推送一个已存在的仓库
-</div><div class=read-more>
-<a href=/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/ class=read-more-link>阅读更多</a>
-</div></div></article><article class=post>
-<header class=post-header>
-<h1 class=post-title><a class=post-link href=/post/dockerk8s/007-docker%E6%B8%85%E7%90%86/>01-docker清理</a></h1><div class=post-meta>
-<span class=post-time> 2021-05-05 </span>
-<div class=post-category>
-<a href=/categories/docker/> Docker </a>
-</div></div></header><div class=post-content>
-<div class=post-summary>
-Docker 清理常用方法 1：Docker 积累的东西 2：使用 docker 清理 2.1：docker system 2.1: 清理已经停止的容器 2.2: 清理磁盘卷 2.3: 清理镜像 2.4: 清理网络 2.5: 使用 docker-compose 清理
-</div><div class=read-more>
-<a href=/post/dockerk8s/007-docker%E6%B8%85%E7%90%86/ class=read-more-link>阅读更多</a>
 </div></div></article></section><nav class=pagination>
 <a class=prev href=/page/6/>
 <i class="iconfont icon-left"></i>
@@ -206,7 +206,7 @@ Docker 清理常用方法 1：Docker 积累的东西 2：使用 docker 清理 2.
 <span class=copyright-year>
 &copy;
 2015 -
-2023<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
+2024<span class=heart><i class="iconfont icon-heart"></i></span><span>李平平</span>
 </span>
 </div></footer><div class=back-to-top id=back-to-top>
 <i class="iconfont icon-up"></i>
