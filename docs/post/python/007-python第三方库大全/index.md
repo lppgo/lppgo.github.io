@@ -396,6 +396,8 @@
 - [**`polars`**](https://github.com/pola-rs/polars) ：多线程、类 Pandas 的数据处理库.
 - 底层采用 Apache Arrow 从而带来了更高效的数据处理性能、占用内存更少、处理速度更快，再加上简单易用的 API，让你在处理大数据集（50GB）时，更加游刃有余。支持 Rust、Python 等语言，值得一试;
 - [**`modin`**](https://github.com/modin-project/modin)：更快、类似 pandas 的数据处理和分析库。底层通过 Ray 或 Dask 加速计算，上层兼容大部分 pandas API。所以使用起来十分简单，仅需更改一行代码即可从 pandas 无缝切换到 Modin，同时获得更快的数据处理速度
+- [**`gs-quant`**](https://github.com/goldmansachs/gs-quant):高盛开源的量化金融 Python 库：gs-quant.
+- 
 
 # 24：数据科学领域
 
