@@ -1,5 +1,5 @@
 ---
-title: "01-001-linux安装多版本python环境"
+title: "001-linux安装多版本python环境"
 author: "lucas"
 description: "..."
 date: 2022-08-08
@@ -14,6 +14,7 @@ keywords: ["python"]
 - [2：Linux 安装多个版本 python](#2linux-安装多个版本-python)
   - [2.1 下载 python 安装包](#21-下载-python-安装包)
   - [2.2 update-alternative 管理多版本 python](#22-update-alternative-管理多版本-python)
+  - [2.3 创建软连接](#23-创建软连接)
 - [3: pip 源设置](#3-pip-源设置)
 
 # 1：简介

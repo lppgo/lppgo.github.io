@@ -1,3 +1,8 @@
+
+# pysftp SFTP Pool
+
+```python3
+
 import pysftp
 import os
 import sys
@@ -26,7 +31,7 @@ class SFTPConnectionPool:
     def __init__(self,host,port,username,password,max_connections=20):
         self.host = host
         self.port = port
-        self.username = username 
+        self.username = username
         self.password = password
         self.max_connections = max_connections
         self.pool=Queue(maxsize=max_connections)
@@ -34,7 +39,7 @@ class SFTPConnectionPool:
         self.cnopts.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         # self.cnopts.hostkeys = None
         self._init_pool()
-        
+
     def _init_pool(self):
         for _ in range(self.max_connections):
             conn=self._create_conn()
@@ -42,24 +47,24 @@ class SFTPConnectionPool:
                 self.pool.put(conn)
             else:
                 logger.error("初始化SFTP连接池失败")
-    
+
     def _create_conn(self):
         transport=paramiko.Transport((self.host,self.port))
         transport.connect(username=self.username,password=self.password)
         return paramiko.SFTPClient.from_transport(transport)
-    
+
     def get_conn(self):
-        try: 
+        try:
             return self.pool.get(timeout=10)
         except Empty:
             logger.error("SFTPConnPool no avaiable connections ...")
-            
+
     def release_conn(self,conn):
         if conn:
             self.pool.put(conn) # 将对象放回连接池
         else:
             logger.warning("SFTPConnPool attempted to release a None connection")
-    
+
     def close_all_conn(self):
         while not self.pool.empty():
             conn=self.pool.get()
@@ -67,15 +72,15 @@ class SFTPConnectionPool:
                 conn.close()
             else:
                 logger.warning("SFTPConnPool Found a None connection in the pool")
-                
-            
-            
+
+
+
 
 class SFTPClient:
     def __init__(self, host,port, username, password, upload_dir, download_dir):
         self.host = host
         self.port = port
-        self.username = username 
+        self.username = username
         self.password = password
         self.upload_dir = upload_dir
         self.download_dir = download_dir
@@ -87,10 +92,10 @@ class SFTPClient:
         """确保SFTP连接是活跃的，如果断开则重连"""
         sftp=self.pool.get_conn()
         if not sftp:
-            return False 
+            return False
         try:
             sftp.listdir()
-            return True 
+            return True
         except Exception as e:
             logger.error("SFTPClient connection check failed, error={}".format(e))
             self.pool.release_conn(sftp)
@@ -162,7 +167,4 @@ class SFTPClient:
                         os.remove(f"{local_path}/{file}")  # 删除可能的部分下载文件
         return False
 
-    
-        
-                
-                
+```

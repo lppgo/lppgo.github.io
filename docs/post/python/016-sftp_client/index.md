@@ -1,3 +1,8 @@
+
+# pysftp SFTP
+
+```python
+
 import pysftp
 import os
 import sys
@@ -20,7 +25,7 @@ class SFTPClient:
     def __init__(self, host,port, username, password, upload_dir, download_dir,gpg_key_id='D7B7817A'):
         self.host = host
         self.port = port
-        self.username = username 
+        self.username = username
         self.password = password
         self.upload_dir = upload_dir
         self.download_dir = download_dir
@@ -73,7 +78,7 @@ class SFTPClient:
         if not os.path.exists(local_path):
             logger.error("SFTPClient UploadFile ={} does not exist".format(local_path))
             return False
-            
+
         for attempt in range(self.max_retries):
             try:
                 self.ensure_connected()
@@ -82,7 +87,7 @@ class SFTPClient:
                 self.sftp.put(local_path)
                 logger.info("SFTPClient Successfully upload file={} to remote_path={}".format(filename, self.upload_dir))
                 self.close()
-                utils.send_message('markdown', "{} SFTP upload_file".format(broker), 
+                utils.send_message('markdown', "{} SFTP upload_file".format(broker),
                            "## {} SFTP upload_file success\nFtpSide={}\nFtpUser={}\nfile={}\n".format(broker,
                             config.LMS['ftp_url'],config.LMS['ftp_user'],filename),notifier_list)
                 local_csvfile=local_path.replace(".pgp",'')
@@ -129,7 +134,7 @@ class SFTPClient:
                 self.sftp.get(remote_filename, local_file)
                 logger.info("SFTPClient Successfully downloaded {} to {}".format(remote_filename, local_file))
                 self.close()
-                utils.send_message('markdown', "{} SFTP download_file".format(broker), 
+                utils.send_message('markdown', "{} SFTP download_file".format(broker),
                            "## {} SFTP download_file success\nFtpSide={}\nFtpUser={}\nfile={}\n".format(broker,
                             config.LMS['ftp_url'],config.LMS['ftp_user'],remote_filename),notifier_list)
                 return True
@@ -152,3 +157,4 @@ class SFTPClient:
                 self.sftp.close()
             except Exception as e:
                 logger.error("SFTPClient close has error:{}".format(e))
+```

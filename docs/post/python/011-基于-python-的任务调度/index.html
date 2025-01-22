@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
-<title>01-基于 Python 的任务调度 - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
+<title>011-基于 Python 的任务调度 - Even - A super concise theme for Hugo</title><meta name=renderer content="webkit">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta http-equiv=cache-control content="no-transform">
 <meta http-equiv=cache-control content="no-siteapp">
@@ -20,18 +20,18 @@
 <link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
 <link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
-<meta property="og:title" content="01-基于 Python 的任务调度">
+<meta property="og:title" content="011-基于 Python 的任务调度">
 <meta property="og:description" content="...">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://lppgo.github.io/post/python/011-%E5%9F%BA%E4%BA%8E-python-%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2022-09-25T00:00:00+00:00">
 <meta property="article:modified_time" content="2022-09-25T14:36:44+08:00">
-<meta itemprop=name content="01-基于 Python 的任务调度">
+<meta itemprop=name content="011-基于 Python 的任务调度">
 <meta itemprop=description content="..."><meta itemprop=datePublished content="2022-09-25T00:00:00+00:00">
 <meta itemprop=dateModified content="2022-09-25T14:36:44+08:00">
-<meta itemprop=wordCount content="762">
+<meta itemprop=wordCount content="766">
 <meta itemprop=keywords content="Python,schedule,task,"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="01-基于 Python 的任务调度">
+<meta name=twitter:title content="011-基于 Python 的任务调度">
 <meta name=twitter:description content="..."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
 </head><body>
@@ -68,7 +68,7 @@
 <div id=content class=content>
 <article class=post>
 <header class=post-header>
-<h1 class=post-title>01-基于 Python 的任务调度</h1><div class=post-meta>
+<h1 class=post-title>011-基于 Python 的任务调度</h1><div class=post-meta>
 <span class=post-time> 2022-09-25 </span>
 <div class=post-category>
 <a href=/categories/python/> Python </a>
@@ -78,7 +78,7 @@
 <ul>
 <li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1快速安装与应用>1：快速安装与应用</a></li><li><a href=#2-快速安装与应用>2: 快速安装与应用</a></li><li><a href=#3-定时发送邮件>3: 定时发送邮件</a></li><li><a href=#4-使用装饰器进行调度>4: 使用装饰器进行调度</a></li><li><a href=#5-使用参数运行计划任务>5: 使用参数运行计划任务</a></li><li><a href=#6>6:</a></li></ul></nav></div></div><div class=post-content>
 <h1 id=table-of-contents>Table of Contents</h1><ul>
-<li><a href=#1%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8>1：快速安装与应用</a></li><li><a href=#2-%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8>2: 快速安装与应用</a></li><li><a href=#3-%E5%AE%9A%E6%97%B6%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6>3: 定时发送邮件</a></li><li><a href=#4-%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%B0%83%E5%BA%A6>4: 使用装饰器进行调度</a></li><li><a href=#5-%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0%E8%BF%90%E8%A1%8C%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1>5: 使用参数运行计划任务</a></li></ul><h1 id=1快速安装与应用>1：快速安装与应用</h1><ul>
+<li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8>1：快速安装与应用</a></li><li><a href=#2-%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8>2: 快速安装与应用</a></li><li><a href=#3-%E5%AE%9A%E6%97%B6%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6>3: 定时发送邮件</a></li><li><a href=#4-%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%B0%83%E5%BA%A6>4: 使用装饰器进行调度</a></li><li><a href=#5-%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0%E8%BF%90%E8%A1%8C%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1>5: 使用参数运行计划任务</a></li><li><a href=#6>6:</a></li></ul><h1 id=1快速安装与应用>1：快速安装与应用</h1><ul>
 <li>crontab 定时任务</li></ul><h1 id=2-快速安装与应用>2: 快速安装与应用</h1><p>Python 工具包 <strong><a href=https://schedule.readthedocs.io/en/stable/>schedule</a></strong> 可以轻松地在 Python 中进行任务调度，我们可以通过 PyPI 快速安装它。</p><ul>
 <li><code>pip install schedule</code></li><li>借助于 schedule，我们几乎可以像用自然语言说话一样快速构建任务计划和时间表。比如，你想每小时运行一次某个功能函数（比如功能是发邮件的函数 send_email) ，写法是这样的：<code>schedule.every().hour.do(send_email)</code></li></ul><h1 id=3-定时发送邮件>3: 定时发送邮件</h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
@@ -230,7 +230,7 @@
 <span class="prev-text nav-mobile">上一篇</span>
 </a>
 <a class=next href=/post/python/005-10%E5%88%86%E9%92%9F%E6%90%9E%E5%AE%9Apandas/>
-<span class="next-text nav-default">10分钟搞定pandas+实例</span>
+<span class="next-text nav-default">005-10分钟搞定pandas+实例</span>
 <span class="next-text nav-mobile">下一篇</span>
 <i class="iconfont icon-right"></i>
 </a>

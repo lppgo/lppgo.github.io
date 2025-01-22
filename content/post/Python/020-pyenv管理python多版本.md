@@ -1,3 +1,15 @@
+---
+title: "020-pyenv管理python多版本"
+author: "lucas"
+description: ""
+date: 2024-12-25
+lastmod: 2025-01-22
+
+categories: ["Python"]
+tags: ["Python", "pyenv", "virtualenv"]
+keywords: ["Python", "pyenv", "virtualenv"]
+---
+
 # pyenv 管理 python 多版本
 
 ## 1：virtualenv
