@@ -66,24 +66,24 @@ deactivate
 # 安装 pyenv（推荐方法，此脚本会自动安装若干插件，包括下文即将提到的 pyenv virtualenv）
 curl https://pyenv.run | bash
 
-#
-pyenv version
+pyenv --version # 查看pyenv版本
+pyenv update # 升级
 
-#
-pyenv versions
 
-# 查看所有支持安装的 Python 版本
-pyenv install -l
-# 安装 Python 2.7.17 和 3.8.2
-pyenv install 2.7.17
-pyenv install 3.8.2
-# 指定全局使用 Python 2.7.17
-pyenv global 2.7.17
-# 指定 myproject 使用 Python 3.8.2
-cd myproject
-pyenv local 3.8.2
-# 在当前 shell 中临时使用 Python 3.8.2
-pyenv shell 3.8.2
+pyenv versions # 本地可用可用python版本
+pyenv install -list # 查看所有可用的Python版本
+pyenv install 3.7.0 # 安装指定版本
+pyenv uninstall 3.7.0  # 卸载指定版本
+
+pyenv version # 当前活动的Python版本
+pyenv shell 3.7.0 # 当前shell
+pyenv local 3.7.0 # 当前目录
+pyenv global 3.7.0 # 全局
+
+pyenv shell --unset # 取消设置
+pyenv local --unset # 取消设置
+pyenv global --unset # 取消设置
+
 
 ```
 
