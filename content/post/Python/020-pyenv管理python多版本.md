@@ -3,7 +3,7 @@ title: "020-pyenv管理python多版本"
 author: "lucas"
 description: ""
 date: 2025-01-22
-lastmod: 2025-01-23
+lastmod: 2025-02-11
 
 categories: ["Python"]
 tags: ["Python", "pyenv", "virtualenv"]
@@ -75,6 +75,7 @@ deactivate
 
 ```bash
 # 安装 pyenv（推荐方法，此脚本会自动安装若干插件，包括下文即将提到的 pyenv virtualenv）
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 curl https://pyenv.run | bash
 
 pyenv --version # 查看pyenv版本
