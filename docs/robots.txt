@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: https://lppgo.github.io/sitemap.xml
