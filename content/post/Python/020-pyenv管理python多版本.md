@@ -107,8 +107,8 @@ pyenv global --unset # 取消设置
 
 ```bash
 # 分别安装基于 Python 2.7.17 和 Python 3.8.2 的虚拟环境
-pyenv virtualenv 2.7.17 venv2
-pyenv virtualenv 3.8.2 venv3
+pyenv virtualenv 2.7.17 .venv-2.7.17
+pyenv virtualenv 3.8.2 venv3-3.8.2
 # 指定全局使用虚拟环境 venv2
 pyenv global venv2
 # 指定 myproject 使用虚拟环境 venv3
@@ -117,4 +117,9 @@ pyenv local venv3
 # 在当前 shell 中临时使用虚拟环境 venv3
 pyenv shell venv3
 
+# 查看当前的pyenv虚拟环境
+pyenv virtualenvs
+
+# 删除venv
+pyenv uninstall .venv-3.10.16
 ```
