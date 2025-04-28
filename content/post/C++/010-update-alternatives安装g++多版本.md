@@ -9,7 +9,7 @@ categories: ["C++"]
 keywords: ["多版本", "update", "alternatives","update-alternatives","linux"]
 ---
 
-
+<div align='center' ><font size='50'>update-alternatives安装gcc多版本</font></div>
 
 # 1: 安装update-alternatives
 - 该工具属于dpkg软件包管理系统的核心组件，一般系统已预装。若提示命令不存在，可通过以下命令安装
@@ -35,24 +35,28 @@ sudo apt install gcc-7 g++-7
 
 #（默认源支持）
 sudo apt install gcc-9 g++-9
+
+
+# 如果apt 安装不了，手动下载安装
+https://ftp.gnu.org/gnu/gcc/
 ```
 
 # 4: 配置update-alternatives
 ```bash
 # 添加gcc版本（优先级数值越大优先级越高）
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 40 \
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 40 \ 
 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8 \
 --slave /usr/bin/gcov gcov /usr/bin/gcov-4.8
 
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 \
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 \ 
 --slave /usr/bin/g++ g++ /usr/bin/g++-7 \
 --slave /usr/bin/gcov gcov /usr/bin/gcov-7
 
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 \
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 \ 
 --slave /usr/bin/g++ g++ /usr/bin/g++-9 \
 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
 
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 130 \
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 130 \ 
 --slave /usr/bin/g++ g++ /usr/bin/g++-13 \
 --slave /usr/bin/gcov gcov /usr/bin/gcov-13
 ```
@@ -81,3 +85,5 @@ Press <Enter> to keep the current choice[*], or type selection number:
 gcc --version  # 应显示当前选择的版本
 g++ --version  # 应与gcc版本一致
 ```
+
+
