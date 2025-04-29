@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pdf on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/pdf/</link>
+    <description>Recent content in Pdf on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 22 Jan 2025 16:29:22 +0800</lastBuildDate>
+    <atom:link href="https://lppgo.github.io/tags/pdf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>018-pdf2zh</title>
+      <link>https://lppgo.github.io/post/python/018-pdf2zh/</link>
+      <pubDate>Wed, 25 Dec 2024 00:00:00 +0000</pubDate>
+      <guid>https://lppgo.github.io/post/python/018-pdf2zh/</guid>
+      <description>&lt;h1 id=&#34;pdf-翻译&#34;&gt;PDF 翻译&lt;/h1&gt;&#xA;&lt;h2 id=&#34;1url&#34;&gt;1：URL&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/README_zh-CN.md#gui&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

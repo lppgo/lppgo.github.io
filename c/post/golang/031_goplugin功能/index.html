@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>goplugin功能 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas(lpp)" /><meta name="description" content="Go Plugin插件(so动态库) 1: 官方实现 golang 1.8 及以上版本提供了一个创建共享库（shared object）的新工具，称为 Plugins。 目前 Plugins 仅在 Linux、FreeBSD 和 macOS 上受支持，且只支持 golang 调用。 2: 使用示例，定义一个 plugin.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 package main import ( &#34;log&#34; ) func init() { log.Println(&#34;plugin init&#34;) } type SayHello struct { } func (s *SayHello) CallMe(name string) string { log.Println(&#34;hello &#34;, name) return &#34;I am plugin&#34; } // SayHelloPlugin 导出变量 var SayHelloPlugin SayHello /* 使用 -buildmode=plugin 模式编译出 plugin.so 共享库 go build -o plugin.so -buildmode=plugin plugin.go */ 使用 -buildmode=plugin 模式编译出 plugin.so 共享库; go build -o plugin.so -buildmode=plugin plugin.go 3: main.go 中调用插件(共享库) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 package main import ( &#34;log&#34; &#34;plugin&#34; ) type CustomPlugin interface { CallMe(name string) string } func main() { // 打开插件（并发安全） p, err := plugin.Open(&#34;plugin.so&#34;) if err != nil { panic(err) } // 在插件中搜索可导出的变量或函数 sayHelloPlugin, err := p.Lookup(&#34;SayHelloPlugin&#34;) if err != nil { panic(err) } // 断言插件类型 if sayHello, ok := sayHelloPlugin.(CustomPlugin); ok { log.Println(sayHello.CallMe(&#34;togettoyou&#34;)) } } // go run main.go // # 输出 // 2021/07/28 17:07:21 plugin init // 2021/07/28 17:07:21 hello togettoyou // 2021/07/28 17:07:21 I am plugin 4:定义一个插件共享库总结： 1 2 3 4 5 6 7 package 包名需要定义为 main 必须有可导出的变量或函数 不需要 main 函数 插件加载时会先执行 init 函数 5:Traefik Yaegi 实现 yaegi 是一个 go 解释器; https://github.com/traefik/yaegi Yaegi 运行在 Go 运行时之上，可以直接作为嵌入式解释器，或使用交互式 shell ，解释运行 Go 代码 5.1 代码结构 这里有个注意点，Yaegi 的插件需要放在 src 目录下; 1 2 3 4 5 6 7 8 9 │ go.mod │ go.sum │ main.go │ └─plugin └─src └─hello go.mod hello.go 5.2 hello.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 package hello import ( &#34;fmt&#34; ) func init() { fmt.Println(&#34;hello plugin init&#34;) } func CallMe(msg string) string { fmt.Println(msg) return &#34;I am plugin&#34; } 5.3 main.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 package main import ( &#34;fmt&#34; &#34;github.com/traefik/yaegi/interp&#34; &#34;github.com/traefik/yaegi/stdlib&#34; ) func main() { // 初始化解释器 i := interp.New(interp.Options{GoPath: &#34;./plugin/&#34;}) // 插件需要使用标准库 if err := i.Use(stdlib.Symbols); err != nil { panic(err) } // 导入 hello 包 if _, err := i.Eval(`import &#34;hello&#34;`); err != nil { panic(err) } // 调用 hello.CallMe v, err := i.Eval(&#34;hello.CallMe&#34;) if err != nil { panic(err) } callMe := v.Interface().(func(string) string) fmt.Println(callMe(&#34;togettoyou&#34;)) } go run main.go # 输出 hello plugin init togettoyou I am plugin " /><meta name="keywords" content="go, 共享库" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/golang/031_goplugin%E5%8A%9F%E8%83%BD/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/golang/031_goplugin%E5%8A%9F%E8%83%BD/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="goplugin功能">
+  <meta property="og:description" content="Go Plugin插件(so动态库) 1: 官方实现 golang 1.8 及以上版本提供了一个创建共享库（shared object）的新工具，称为 Plugins。 目前 Plugins 仅在 Linux、FreeBSD 和 macOS 上受支持，且只支持 golang 调用。 2: 使用示例，定义一个 plugin.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 package main import ( &#34;log&#34; ) func init() { log.Println(&#34;plugin init&#34;) } type SayHello struct { } func (s *SayHello) CallMe(name string) string { log.Println(&#34;hello &#34;, name) return &#34;I am plugin&#34; } // SayHelloPlugin 导出变量 var SayHelloPlugin SayHello /* 使用 -buildmode=plugin 模式编译出 plugin.so 共享库 go build -o plugin.so -buildmode=plugin plugin.go */ 使用 -buildmode=plugin 模式编译出 plugin.so 共享库; go build -o plugin.so -buildmode=plugin plugin.go 3: main.go 中调用插件(共享库) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 package main import ( &#34;log&#34; &#34;plugin&#34; ) type CustomPlugin interface { CallMe(name string) string } func main() { // 打开插件（并发安全） p, err := plugin.Open(&#34;plugin.so&#34;) if err != nil { panic(err) } // 在插件中搜索可导出的变量或函数 sayHelloPlugin, err := p.Lookup(&#34;SayHelloPlugin&#34;) if err != nil { panic(err) } // 断言插件类型 if sayHello, ok := sayHelloPlugin.(CustomPlugin); ok { log.Println(sayHello.CallMe(&#34;togettoyou&#34;)) } } // go run main.go // # 输出 // 2021/07/28 17:07:21 plugin init // 2021/07/28 17:07:21 hello togettoyou // 2021/07/28 17:07:21 I am plugin 4:定义一个插件共享库总结： 1 2 3 4 5 6 7 package 包名需要定义为 main 必须有可导出的变量或函数 不需要 main 函数 插件加载时会先执行 init 函数 5:Traefik Yaegi 实现 yaegi 是一个 go 解释器; https://github.com/traefik/yaegi Yaegi 运行在 Go 运行时之上，可以直接作为嵌入式解释器，或使用交互式 shell ，解释运行 Go 代码 5.1 代码结构 这里有个注意点，Yaegi 的插件需要放在 src 目录下; 1 2 3 4 5 6 7 8 9 │ go.mod │ go.sum │ main.go │ └─plugin └─src └─hello go.mod hello.go 5.2 hello.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 package hello import ( &#34;fmt&#34; ) func init() { fmt.Println(&#34;hello plugin init&#34;) } func CallMe(msg string) string { fmt.Println(msg) return &#34;I am plugin&#34; } 5.3 main.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 package main import ( &#34;fmt&#34; &#34;github.com/traefik/yaegi/interp&#34; &#34;github.com/traefik/yaegi/stdlib&#34; ) func main() { // 初始化解释器 i := interp.New(interp.Options{GoPath: &#34;./plugin/&#34;}) // 插件需要使用标准库 if err := i.Use(stdlib.Symbols); err != nil { panic(err) } // 导入 hello 包 if _, err := i.Eval(`import &#34;hello&#34;`); err != nil { panic(err) } // 调用 hello.CallMe v, err := i.Eval(&#34;hello.CallMe&#34;) if err != nil { panic(err) } callMe := v.Interface().(func(string) string) fmt.Println(callMe(&#34;togettoyou&#34;)) } go run main.go # 输出 hello plugin init togettoyou I am plugin">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-09-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-09-20T00:00:00+00:00">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="So">
+    <meta property="article:tag" content="Plugin">
+    <meta property="article:tag" content="共享库">
+
+  <meta itemprop="name" content="goplugin功能">
+  <meta itemprop="description" content="Go Plugin插件(so动态库) 1: 官方实现 golang 1.8 及以上版本提供了一个创建共享库（shared object）的新工具，称为 Plugins。 目前 Plugins 仅在 Linux、FreeBSD 和 macOS 上受支持，且只支持 golang 调用。 2: 使用示例，定义一个 plugin.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 package main import ( &#34;log&#34; ) func init() { log.Println(&#34;plugin init&#34;) } type SayHello struct { } func (s *SayHello) CallMe(name string) string { log.Println(&#34;hello &#34;, name) return &#34;I am plugin&#34; } // SayHelloPlugin 导出变量 var SayHelloPlugin SayHello /* 使用 -buildmode=plugin 模式编译出 plugin.so 共享库 go build -o plugin.so -buildmode=plugin plugin.go */ 使用 -buildmode=plugin 模式编译出 plugin.so 共享库; go build -o plugin.so -buildmode=plugin plugin.go 3: main.go 中调用插件(共享库) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 package main import ( &#34;log&#34; &#34;plugin&#34; ) type CustomPlugin interface { CallMe(name string) string } func main() { // 打开插件（并发安全） p, err := plugin.Open(&#34;plugin.so&#34;) if err != nil { panic(err) } // 在插件中搜索可导出的变量或函数 sayHelloPlugin, err := p.Lookup(&#34;SayHelloPlugin&#34;) if err != nil { panic(err) } // 断言插件类型 if sayHello, ok := sayHelloPlugin.(CustomPlugin); ok { log.Println(sayHello.CallMe(&#34;togettoyou&#34;)) } } // go run main.go // # 输出 // 2021/07/28 17:07:21 plugin init // 2021/07/28 17:07:21 hello togettoyou // 2021/07/28 17:07:21 I am plugin 4:定义一个插件共享库总结： 1 2 3 4 5 6 7 package 包名需要定义为 main 必须有可导出的变量或函数 不需要 main 函数 插件加载时会先执行 init 函数 5:Traefik Yaegi 实现 yaegi 是一个 go 解释器; https://github.com/traefik/yaegi Yaegi 运行在 Go 运行时之上，可以直接作为嵌入式解释器，或使用交互式 shell ，解释运行 Go 代码 5.1 代码结构 这里有个注意点，Yaegi 的插件需要放在 src 目录下; 1 2 3 4 5 6 7 8 9 │ go.mod │ go.sum │ main.go │ └─plugin └─src └─hello go.mod hello.go 5.2 hello.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 package hello import ( &#34;fmt&#34; ) func init() { fmt.Println(&#34;hello plugin init&#34;) } func CallMe(msg string) string { fmt.Println(msg) return &#34;I am plugin&#34; } 5.3 main.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 package main import ( &#34;fmt&#34; &#34;github.com/traefik/yaegi/interp&#34; &#34;github.com/traefik/yaegi/stdlib&#34; ) func main() { // 初始化解释器 i := interp.New(interp.Options{GoPath: &#34;./plugin/&#34;}) // 插件需要使用标准库 if err := i.Use(stdlib.Symbols); err != nil { panic(err) } // 导入 hello 包 if _, err := i.Eval(`import &#34;hello&#34;`); err != nil { panic(err) } // 调用 hello.CallMe v, err := i.Eval(&#34;hello.CallMe&#34;) if err != nil { panic(err) } callMe := v.Interface().(func(string) string) fmt.Println(callMe(&#34;togettoyou&#34;)) } go run main.go # 输出 hello plugin init togettoyou I am plugin">
+  <meta itemprop="datePublished" content="2022-09-20T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-09-20T00:00:00+00:00">
+  <meta itemprop="wordCount" content="722">
+  <meta itemprop="keywords" content="go,共享库">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="goplugin功能">
+  <meta name="twitter:description" content="Go Plugin插件(so动态库) 1: 官方实现 golang 1.8 及以上版本提供了一个创建共享库（shared object）的新工具，称为 Plugins。 目前 Plugins 仅在 Linux、FreeBSD 和 macOS 上受支持，且只支持 golang 调用。 2: 使用示例，定义一个 plugin.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 package main import ( &#34;log&#34; ) func init() { log.Println(&#34;plugin init&#34;) } type SayHello struct { } func (s *SayHello) CallMe(name string) string { log.Println(&#34;hello &#34;, name) return &#34;I am plugin&#34; } // SayHelloPlugin 导出变量 var SayHelloPlugin SayHello /* 使用 -buildmode=plugin 模式编译出 plugin.so 共享库 go build -o plugin.so -buildmode=plugin plugin.go */ 使用 -buildmode=plugin 模式编译出 plugin.so 共享库; go build -o plugin.so -buildmode=plugin plugin.go 3: main.go 中调用插件(共享库) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 package main import ( &#34;log&#34; &#34;plugin&#34; ) type CustomPlugin interface { CallMe(name string) string } func main() { // 打开插件（并发安全） p, err := plugin.Open(&#34;plugin.so&#34;) if err != nil { panic(err) } // 在插件中搜索可导出的变量或函数 sayHelloPlugin, err := p.Lookup(&#34;SayHelloPlugin&#34;) if err != nil { panic(err) } // 断言插件类型 if sayHello, ok := sayHelloPlugin.(CustomPlugin); ok { log.Println(sayHello.CallMe(&#34;togettoyou&#34;)) } } // go run main.go // # 输出 // 2021/07/28 17:07:21 plugin init // 2021/07/28 17:07:21 hello togettoyou // 2021/07/28 17:07:21 I am plugin 4:定义一个插件共享库总结： 1 2 3 4 5 6 7 package 包名需要定义为 main 必须有可导出的变量或函数 不需要 main 函数 插件加载时会先执行 init 函数 5:Traefik Yaegi 实现 yaegi 是一个 go 解释器; https://github.com/traefik/yaegi Yaegi 运行在 Go 运行时之上，可以直接作为嵌入式解释器，或使用交互式 shell ，解释运行 Go 代码 5.1 代码结构 这里有个注意点，Yaegi 的插件需要放在 src 目录下; 1 2 3 4 5 6 7 8 9 │ go.mod │ go.sum │ main.go │ └─plugin └─src └─hello go.mod hello.go 5.2 hello.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 package hello import ( &#34;fmt&#34; ) func init() { fmt.Println(&#34;hello plugin init&#34;) } func CallMe(msg string) string { fmt.Println(msg) return &#34;I am plugin&#34; } 5.3 main.go 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 package main import ( &#34;fmt&#34; &#34;github.com/traefik/yaegi/interp&#34; &#34;github.com/traefik/yaegi/stdlib&#34; ) func main() { // 初始化解释器 i := interp.New(interp.Options{GoPath: &#34;./plugin/&#34;}) // 插件需要使用标准库 if err := i.Use(stdlib.Symbols); err != nil { panic(err) } // 导入 hello 包 if _, err := i.Eval(`import &#34;hello&#34;`); err != nil { panic(err) } // 调用 hello.CallMe v, err := i.Eval(&#34;hello.CallMe&#34;) if err != nil { panic(err) } callMe := v.Interface().(func(string) string) fmt.Println(callMe(&#34;togettoyou&#34;)) } go run main.go # 输出 hello plugin init togettoyou I am plugin">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">goplugin功能</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-09-20 </span>
+        <div class="post-category">
+            <a href="/categories/go/"> Go </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-官方实现">1: 官方实现</a></li>
+    <li><a href="#2-使用示例定义一个-plugingo">2: 使用示例，定义一个 plugin.go</a></li>
+    <li><a href="#3-maingo-中调用插件共享库">3: main.go 中调用插件(共享库)</a></li>
+    <li><a href="#4定义一个插件共享库总结">4:定义一个插件共享库总结：</a></li>
+    <li><a href="#5traefik-yaegi-实现">5:Traefik Yaegi 实现</a>
+      <ul>
+        <li><a href="#51-代码结构">5.1 代码结构</a></li>
+        <li><a href="#52-hellogo">5.2 hello.go</a></li>
+        <li><a href="#53-maingo">5.3 main.go</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <div align="center"><font size="35">Go Plugin插件(so动态库)</font></div>
+<h1 id="1-官方实现">1: 官方实现</h1>
+<ul>
+<li>golang 1.8 及以上版本提供了一个创建共享库（shared object）的新工具，称为 Plugins。</li>
+<li>目前 Plugins 仅在 Linux、FreeBSD 和 macOS 上受支持，且只支持 golang 调用。</li>
+</ul>
+<h1 id="2-使用示例定义一个-plugingo">2: 使用示例，定义一个 plugin.go</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;plugin init&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">SayHello</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">SayHello</span><span class="p">)</span> <span class="nf">CallMe</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello &#34;</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s">&#34;I am plugin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// SayHelloPlugin 导出变量</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">SayHelloPlugin</span> <span class="nx">SayHello</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">使用 -buildmode=plugin 模式编译出 plugin.so 共享库
+</span></span></span><span class="line"><span class="cl"><span class="cm">go build -o plugin.so -buildmode=plugin plugin.go
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 -buildmode=plugin 模式编译出 plugin.so 共享库;</li>
+<li><code>go build -o plugin.so -buildmode=plugin plugin.go</code></li>
+</ul>
+<h1 id="3-maingo-中调用插件共享库">3: main.go 中调用插件(共享库)</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;plugin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">CustomPlugin</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">CallMe</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 打开插件（并发安全）</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">plugin</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;plugin.so&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 在插件中搜索可导出的变量或函数</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sayHelloPlugin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">p</span><span class="p">.</span><span class="nf">Lookup</span><span class="p">(</span><span class="s">&#34;SayHelloPlugin&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 断言插件类型</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">sayHello</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">sayHelloPlugin</span><span class="p">.(</span><span class="nx">CustomPlugin</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">sayHello</span><span class="p">.</span><span class="nf">CallMe</span><span class="p">(</span><span class="s">&#34;togettoyou&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// go run main.go</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// # 输出</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 2021/07/28 17:07:21 plugin init</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 2021/07/28 17:07:21 hello  togettoyou</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 2021/07/28 17:07:21 I am plugin</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4定义一个插件共享库总结">4:定义一个插件共享库总结：</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">包名需要定义为</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">必须有可导出的变量或函数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">不需要</span> <span class="nx">main</span> <span class="nx">函数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">插件加载时会先执行</span> <span class="nx">init</span> <span class="nx">函数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5traefik-yaegi-实现">5:Traefik Yaegi 实现</h1>
+<ul>
+<li>yaegi 是一个 go 解释器;</li>
+<li><a href="https://github.com/traefik/yaegi">https://github.com/traefik/yaegi</a></li>
+<li>Yaegi 运行在 Go 运行时之上，可以直接作为嵌入式解释器，或使用交互式 shell ，解释运行 Go 代码</li>
+</ul>
+<h2 id="51-代码结构">5.1 代码结构</h2>
+<ul>
+<li>这里有个注意点，Yaegi 的插件需要放在 src 目录下;</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="err">│</span>  <span class="k">go</span><span class="p">.</span><span class="nx">mod</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="k">go</span><span class="p">.</span><span class="nx">sum</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="nx">main</span><span class="p">.</span><span class="k">go</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">└─</span><span class="nx">plugin</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└─</span><span class="nx">src</span>
+</span></span><span class="line"><span class="cl">        <span class="err">└─</span><span class="nx">hello</span>
+</span></span><span class="line"><span class="cl">                <span class="k">go</span><span class="p">.</span><span class="nx">mod</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">hello</span><span class="p">.</span><span class="k">go</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="52-hellogo">5.2 hello.go</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">hello</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello plugin init&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">CallMe</span><span class="p">(</span><span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="s">&#34;I am plugin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="53-maingo">5.3 main.go</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/traefik/yaegi/interp&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;github.com/traefik/yaegi/stdlib&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">// 初始化解释器</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">interp</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">interp</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span><span class="nx">GoPath</span><span class="p">:</span> <span class="s">&#34;./plugin/&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">// 插件需要使用标准库</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">i</span><span class="p">.</span><span class="nf">Use</span><span class="p">(</span><span class="nx">stdlib</span><span class="p">.</span><span class="nx">Symbols</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">// 导入 hello 包</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">i</span><span class="p">.</span><span class="nf">Eval</span><span class="p">(</span><span class="s">`import &#34;hello&#34;`</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c1">// 调用 hello.CallMe</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">v</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">i</span><span class="p">.</span><span class="nf">Eval</span><span class="p">(</span><span class="s">&#34;hello.CallMe&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">callMe</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Interface</span><span class="p">().(</span><span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">callMe</span><span class="p">(</span><span class="s">&#34;togettoyou&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">run</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">输出</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hello</span> <span class="nx">plugin</span> <span class="nx">init</span>
+</span></span><span class="line"><span class="cl"><span class="nx">togettoyou</span>
+</span></span><span class="line"><span class="cl"><span class="nx">I</span> <span class="nx">am</span> <span class="nx">plugin</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas(lpp)</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-09-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">Go</a>
+          <a href="/tags/so/">so</a>
+          <a href="/tags/plugin/">plugin</a>
+          <a href="/tags/%E5%85%B1%E4%BA%AB%E5%BA%93/">共享库</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang/033_go%E5%B9%B6%E5%8F%91%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">go实现并发文件传输，断点续传</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/python/009-python%E5%A5%BD%E7%94%A8%E7%9A%84%E8%84%9A%E6%9C%AC/">
+            <span class="next-text nav-default">0091-python好用的脚本</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

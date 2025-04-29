@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/docker/</link><description>Recent content in Docker on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 21 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>01-k8s部署</title><link>https://lppgo.github.io/post/dockerk8s/017-k8s%E9%83%A8%E7%BD%B2/</link><pubDate>Sun, 21 Aug 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/017-k8s%E9%83%A8%E7%BD%B2/</guid><description>&lt;div align="center">&lt;font size="35">k8s安装部署&lt;/font>&lt;/div>
+&lt;p>&lt;a href="https://github.com/labring/sealos">https://github.com/labring/sealos&lt;/a>&lt;/p></description></item><item><title>01-docker cheat sheet</title><link>https://lppgo.github.io/post/dockerk8s/015-docker-cheat-sheet/</link><pubDate>Mon, 06 Jun 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/015-docker-cheat-sheet/</guid><description>&lt;div align="center">&lt;font size="35">Docker Cheat Sheet&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1-process-management">1: Process Management&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-imagesrepository">2: Images/Repository&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-volumes--ports">3: Volumes &amp;amp; Ports&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-troubleshooting%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4">4: Troubleshooting(故障排除)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-docker-compose">5: Docker Compose&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-process-management">1: Process Management&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show all running docker containers&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker ps
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show all docker containers&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker ps -a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Run a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run &amp;lt;image&amp;gt;:&amp;lt;tag&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Run a container and connect to it&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -it &amp;lt;image&amp;gt;:&amp;lt;tag&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Run a container in the background&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -d &amp;lt;image&amp;gt;:&amp;lt;tag&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Stop a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker stop &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Kill a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">kill&lt;/span> &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-imagesrepository">2: Images/Repository&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># List available local images&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker images
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Search for docker images&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker search &amp;lt;image&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Pull a docker image&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker pull &amp;lt;image&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Build an image with a dockerfile&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker build -t &amp;lt;image&amp;gt;:&amp;lt;tag&amp;gt; &amp;lt;run_directory&amp;gt; -f &amp;lt;dockerfile&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Login to a remote repository&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker login &amp;lt;repository&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Push an image to your remotee repository&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker push &amp;lt;image&amp;gt;:&amp;lt;tag&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Remove a local docker image&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker rmi &amp;lt;image&amp;gt;:&amp;lt;tag&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show metadata for an image&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker inspect &amp;lt;image&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Remove all unused docker images&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker image prune
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-volumes--ports">3: Volumes &amp;amp; Ports&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># List volumes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Create a volume&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume create &amp;lt;volume&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Delete a volume&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume rm &amp;lt;volume&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show volume metadata&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume inspect &amp;lt;volume&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Delete all volumes not attached to a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume prune
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Mount a local directory to your container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -v &amp;lt;local_dir&amp;gt;:&amp;lt;container_dir&amp;gt; &amp;lt;image&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Copy file or folder from a docker container to host machine&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker cp &amp;lt;container&amp;gt;:&amp;lt;container_dir&amp;gt; &amp;lt;local_dir&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Copy file or folder from local machine onto a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker cp &amp;lt;local_dir&amp;gt; &amp;lt;container&amp;gt;:&amp;lt;container_dir&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Map a local port to a docker instance&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -d -p 127.0.0.1:&amp;lt;local_port&amp;gt;:&amp;lt;docker_port&amp;gt; &amp;lt;image&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># List the ports a docker container is running on&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker port &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-troubleshooting故障排除">4: Troubleshooting(故障排除)&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show the logs of a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker logs &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Follow/tail the logs of a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker logs -f &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show timestamps on docker logs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker logs -t &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show details/metadata of a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker inspect &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show a &amp;#39;top&amp;#39; view of processes running on a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker top &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show a &amp;#39;top&amp;#39; view of all docker containers&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker stats
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show any files that have changed since startup&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker diff &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Connect to an already running container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker attach &amp;lt;container&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Execute a command on a container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> -it &amp;lt;container_id&amp;gt; /bin/bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show docker system wide information&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker system info
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show docker disk space used&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker system df
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-docker-compose">5: Docker Compose&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Start your docker-compose defined resources in detached mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose up -d -f &amp;lt;docker_compose_yaml&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Stop all docker-compose resources&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose stop
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Destroy all docker-compose resources&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose down
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show docker-compose processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose ps
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show docker-compose logs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose logs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Show docker-compose resource consumption&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose top
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>01-Go Dockerfile</title><link>https://lppgo.github.io/post/golang/026_godockerfile%E6%A8%A1%E6%9D%BF/</link><pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/026_godockerfile%E6%A8%A1%E6%9D%BF/</guid><description>&lt;div align="center">&lt;font size="35">Go Dockerfile模板&lt;/font>&lt;/div>
+&lt;h1 id="1">1：&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-dockerfile" data-lang="dockerfile">&lt;span class="line">&lt;span class="cl">&lt;span class="k">FROM&lt;/span>&lt;span class="s"> golang:alpine AS builder&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">LABEL&lt;/span> &lt;span class="nv">stage&lt;/span>&lt;span class="o">=&lt;/span>gobuilder
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">ENV&lt;/span> CGO_ENABLED &lt;span class="m">0&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">ENV&lt;/span> GOOS linux&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">ENV&lt;/span> GOPROXY https://goproxy.cn,direct&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">WORKDIR&lt;/span>&lt;span class="s"> /build&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">ADD&lt;/span> go.mod .&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">ADD&lt;/span> go.sum .&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">RUN&lt;/span> go mod download&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">COPY&lt;/span> . .&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">RUN&lt;/span> go build -ldflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-s -w&amp;#34;&lt;/span> -o /app/hello ./hello.go&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="s"> alpine&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">RUN&lt;/span> apk update --no-cache &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apk add --no-cache ca-certificates tzdata&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">ENV&lt;/span> TZ Asia/Shanghai&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">WORKDIR&lt;/span>&lt;span class="s"> /app&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">COPY&lt;/span> --from&lt;span class="o">=&lt;/span>builder /app/hello /app/hello&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">CMD&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;./hello&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-说明">2: 说明&lt;/h1>
+&lt;ul>
+&lt;li>默认禁用了 cgo&lt;/li>
+&lt;li>启用了 GOPROXY&lt;/li>
+&lt;li>去掉了调试信息 -ldflags=&amp;quot;-s -w&amp;quot; 以减小镜像尺寸&lt;/li>
+&lt;li>安装了 ca-certificates，这样使用 TLS 证书就没问题了&lt;/li>
+&lt;li>自动设置了本地时区，这样我们在日志里看到的是北京时间了&lt;/li>
+&lt;/ul></description></item><item><title>01-docker log管理和时区设置</title><link>https://lppgo.github.io/post/dockerk8s/013-docker-log%E7%AE%A1%E7%90%86%E5%92%8C%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link><pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/013-docker-log%E7%AE%A1%E7%90%86%E5%92%8C%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid><description>&lt;div align="center">&lt;font size="35">docker log管理和时区设置&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1docker-log">1：docker log&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-docker-log-description">1.1 docker log Description&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-%E7%A3%81%E7%9B%98%E5%8D%A0%E7%94%A8%E5%88%86%E6%9E%90">1.2 磁盘占用分析&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#121-df--ah-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5">1.2.1 &lt;strong>df -ah&lt;/strong> 查看系统中文件的使用情况&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#122-du--sh-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%90%84%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8F%8A%E7%9B%AE%E5%BD%95%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4%E5%A4%A7%E5%B0%8F">1.2.2 &lt;strong>du -sh&lt;/strong> 查看当前目录下各个文件及目录占用空间大小&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#123-df--h-%E5%92%8C-du--sh-%E6%98%BE%E7%A4%BA%E7%9A%84%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F%E4%B8%8D%E4%B8%80%E8%87%B4%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95">1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#13-docker-log-%E7%AE%A1%E7%90%86">1.3 docker log 管理&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2%E5%85%B3%E4%BA%8E-timezone-%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98">2：关于 TimeZone 时区问题&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-%E9%80%9A%E8%BF%87%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%94%B9%E5%8F%98%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA">2.1 通过传递环境变量改变容器时区&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-%E5%9C%A8-docker-compose-%E7%BC%96%E6%8E%92%E6%97%B6%E6%8C%87%E5%AE%9A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">2.2 在 docker-compose 编排时指定环境变量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-%E5%BD%BB%E5%BA%95%E7%9A%84%E8%A7%A3%E5%86%B3%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98%E9%80%9A%E8%BF%87-dockerfile-%E9%87%8D%E6%96%B0%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F">2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#231-alpine">2.3.1 Alpine&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#232-debian">2.3.2 Debian&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#233-ubuntu">2.3.3 Ubuntu&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#234-centos">2.3.4 CentOS&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1docker-log">1：docker log&lt;/h1>
+&lt;h2 id="11-docker-log-description">1.1 docker log Description&lt;/h2>
+&lt;ul>
+&lt;li>docker 的日志分为两种，第一种是 docker 引擎的日志，第二种是 docker 容器运行时的服务日志，默认为 json-file 格式;&lt;/li>
+&lt;li>json-file 日志驱动 记录从容器的 STOUT/STDERR 的输出 ，用 JSON 的格式写到文件中，日志中不仅包含着 输出日志，还有时间戳和 输出格式.&lt;/li>
+&lt;li>docker 所有的日志驱动如下：
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">日志驱动&lt;/th>
+ &lt;th style="text-align: left">description&lt;/th>
+ &lt;th style="text-align: left">others&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">none&lt;/td>
+ &lt;td style="text-align: left">运行的容器没有日志，docker logs 也不返回任何输出&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">local&lt;/td>
+ &lt;td style="text-align: left">日志以自定义格式存储，旨在实现最小开销&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">json-file&lt;/td>
+ &lt;td style="text-align: left">日志格式为 JSON,Docker 的默认日志记录驱动程序&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">syslog&lt;/td>
+ &lt;td style="text-align: left">将日志消息写入 syslog。该 syslog 守护程序必须在主机上运行&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">journald&lt;/td>
+ &lt;td style="text-align: left">将日志消息写入 journald。该 journald 守护程序必须在主机上运行&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">gelf&lt;/td>
+ &lt;td style="text-align: left">将日志消息写入 Graylog 扩展日志格式（GELF）端点，例如 Graylog 或 Logstash&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">fluentd&lt;/td>
+ &lt;td style="text-align: left">将日志消息写入 fluentd（转发输入）。该 fluentd 守护程序必须在主机上运行&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">awslogs&lt;/td>
+ &lt;td style="text-align: left">将日志消息写入 Amazon CloudWatch Logs&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">splunk&lt;/td>
+ &lt;td style="text-align: left">使用 HTTP 事件收集器将日志消息写入 splunk&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">etwlogs&lt;/td>
+ &lt;td style="text-align: left">将日志消息写为 Windows 事件跟踪（ETW）事件。仅适用于 Windows 平台&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">gcplogs&lt;/td>
+ &lt;td style="text-align: left">将日志消息写入 Google Cloud Platform（GCP）Logging&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">logentries&lt;/td>
+ &lt;td style="text-align: left">将日志消息写入 Rapid7 Logentries&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;/li>
+&lt;li>常用的驱动是 &lt;code>json-file&lt;/code>，&lt;code>syslog&lt;/code> ,&lt;code>journald&lt;/code> 这三种，json-file 是默认的日志驱动;&lt;/li>
+&lt;li>docker 的日志通常默认是保存在 /var/lib/docker/containers/容器 ID/ 目录下,日志文件名称为 &lt;strong>容器 ID-json-log&lt;/strong>,当然，docker 日志也有级别，通常级别为 info。&lt;/li>
+&lt;/ul>
+&lt;h2 id="12-磁盘占用分析">1.2 磁盘占用分析&lt;/h2>
+&lt;h3 id="121-df--ah-查看系统中文件的使用情况">1.2.1 &lt;strong>&lt;a href="">df -ah&lt;/a>&lt;/strong> 查看系统中文件的使用情况&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>df&lt;/strong> （disk free） 检查文件系统占用磁盘情况；&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="err">Size&lt;/span> &lt;span class="err">分割区总容量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">Used&lt;/span> &lt;span class="err">已使用的大小&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">Avail&lt;/span> &lt;span class="err">剩下的大小&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">Use%&lt;/span> &lt;span class="err">使用的百分比&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">Mounted&lt;/span> &lt;span class="err">on&lt;/span> &lt;span class="err">路径地址&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="122-du--sh-查看当前目录下各个文件及目录占用空间大小">1.2.2 &lt;strong>&lt;a href="">du -sh&lt;/a>&lt;/strong> 查看当前目录下各个文件及目录占用空间大小&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>du&lt;/strong> （disk usage） 检查目录占用磁盘情况；&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="err">du&lt;/span> &lt;span class="err">-h&lt;/span> &lt;span class="err">--max-depth=&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="err">/root/*&lt;/span> &lt;span class="err">查看目录下的所有文件大小&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">du&lt;/span> &lt;span class="err">-h&lt;/span> &lt;span class="err">--max-depth=&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="err">/root&lt;/span> &lt;span class="err">列出root目录下面所有的一级目录文件大小；&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="123-df--h-和-du--sh-显示的磁盘大小不一致原因及解决办法">1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>原因&lt;/strong> du 是根据文件名进行的空间统计，使用 rm 时该文件对系统来说已经不可见，所以不会统计这个文件。
+df 则是磁盘实际占用的数量&lt;/li>
+&lt;li>&lt;code>du -h /var/lib/docker/&lt;/code>&lt;/li>
+&lt;li>&lt;code>df -h /var/lib/docker/&lt;/code>&lt;/li>
+&lt;li>&lt;strong>解决办法&lt;/strong>
+&lt;ul>
+&lt;li>(1/2) lsof 查看使用文件的进程，结束进程。
+&lt;ul>
+&lt;li>&lt;code>lsof | grep test.log&lt;/code>&lt;/li>
+&lt;li>&lt;code>ps aux | grep 28600&lt;/code>&lt;/li>
+&lt;li>&lt;code>kill -9 28600&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>(2/2) 或使用清空的方式代替 rm，如 &lt;a href="">echo &amp;gt; /tmp/test.log&lt;/a>
+&lt;ul>
+&lt;li>日志文件清空一般不是删除 rm 命令，而是 &amp;gt; 文件名这样的清空方式.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="13-docker-log-管理">1.3 docker log 管理&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>日志文件清空一般不是删除 rm 命令，而是 &amp;gt; 文件名这样的清空方式；&lt;/p></description></item><item><title>011-docker部署gitlab</title><link>https://lppgo.github.io/post/dockerk8s/011-docker%E9%83%A8%E7%BD%B2gitlab/</link><pubDate>Tue, 28 Sep 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/011-docker%E9%83%A8%E7%BD%B2gitlab/</guid><description>&lt;div align="center">&lt;font size="35">docker部署gitlab&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1gitlab-docker-%E9%95%9C%E5%83%8F-pull">1：gitlab docker 镜像 pull&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC">2：启动脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3%E4%BF%AE%E6%94%B9gitlabrb">3：修改&lt;code>gitlab.rb&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4%E4%BF%AE%E6%94%B9-password">4：修改 password&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1gitlab-docker-镜像-pull">1：gitlab docker 镜像 pull&lt;/h1>
+&lt;ul>
+&lt;li>&lt;code>docker pull gitlab/gitlab-ce:latest&lt;/code>&lt;/li>
+&lt;li>新建目录&lt;code>~/gitlab&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="2启动脚本">2：启动脚本&lt;/h1>
+&lt;p>&lt;code>~/gitlab/start.sh&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nv">GITLAB_DIR&lt;/span>&lt;span class="o">=&lt;/span>/home/lucas/gitlab/data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -d &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -p 5443:443 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -p 9998:9998 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -p 2222:22 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --name gitlab &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -v &lt;span class="si">${&lt;/span>&lt;span class="nv">GITLAB_DIR&lt;/span>&lt;span class="si">}&lt;/span>/config:/etc/gitlab &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -v &lt;span class="si">${&lt;/span>&lt;span class="nv">GITLAB_DIR&lt;/span>&lt;span class="si">}&lt;/span>/logs:/var/log/gitlab &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -v &lt;span class="si">${&lt;/span>&lt;span class="nv">GITLAB_DIR&lt;/span>&lt;span class="si">}&lt;/span>/data:/var/opt/gitlab &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> gitlab/gitlab-ce:latest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3修改gitlabrb">3：修改&lt;code>gitlab.rb&lt;/code>&lt;/h1>
+&lt;p>&lt;code>~/gitlab/data/config/gitlab.rb&lt;/code>&lt;/p></description></item><item><title>01-docker registry http api v2</title><link>https://lppgo.github.io/post/dockerk8s/009-docker-registry-http-api-v2/</link><pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/009-docker-registry-http-api-v2/</guid><description>&lt;div align='center' >&lt;font size='50'>docker registry http api v2&lt;/font>&lt;/div>
+&lt;!-- [toc] -->
+&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-overview">1: Overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E4%B8%93%E6%9C%89%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A">2: 专有名词解释&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-push-image-%E8%BF%87%E7%A8%8B">3: Push image 过程&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-pushing-a-layer%E4%B8%8A%E4%BC%A0%E5%B1%82">3.1 Pushing a Layer（上传层）&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#311-existing-layers%E6%A3%80%E6%9F%A5%E5%B1%82%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8">3.1.1 Existing Layers(检查层是否存在)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#312-starting-an-upload%E5%90%AF%E5%8A%A8%E4%B8%8A%E4%BC%A0%E6%9C%8D%E5%8A%A1">3.1.2 Starting An Upload(启动上传服务)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#313-uploading-the-layer%E4%B8%8A%E4%BC%A0%E5%B1%82">3.1.3 Uploading the Layer(上传层)&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#3131-upload-progress%E4%B8%8A%E4%BC%A0%E8%BF%9B%E5%BA%A6">3.1.3.1 Upload Progress(上传进度)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3132-monolithic-upload%E6%95%B4%E5%9D%97%E4%B8%8A%E4%BC%A0">3.1.3.2 Monolithic Upload(整块上传）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3133-chunked-upload%E5%88%86%E5%9D%97%E4%B8%8A%E4%BC%A0">3.1.3.3 Chunked Upload（分块上传）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3134-completed-upload%E4%B8%8A%E4%BC%A0%E5%AE%8C%E6%88%90">3.1.3.4 Completed Upload(上传完成)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3135-canceling-an-upload%E5%8F%96%E6%B6%88%E4%B8%8A%E4%BC%A0">3.1.3.5 Canceling an Upload(取消上传)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3136-cross-repository-blob-mount%E4%BA%A4%E5%8F%89%E6%8C%82%E8%BD%BD%E5%B1%82">3.1.3.6 Cross Repository Blob Mount（交叉挂载层）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#32-deleting-a-layer%E5%88%A0%E9%99%A4%E5%B1%82">3.2 Deleting a Layer(删除层)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-pushing-an-image-manifest%E4%B8%8A%E4%BC%A0%E9%95%9C%E5%83%8F%E6%B8%85%E5%8D%95">3.3 Pushing an Image Manifest（上传镜像清单）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4-pull-image-%E8%BF%87%E7%A8%8B">4: Pull image 过程&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-pulling-an-image-manifest%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F%E6%B8%85%E5%8D%95">4.1 Pulling an Image Manifest（拉取镜像清单）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#42-pulling-a-layer%E6%8B%89%E5%8F%96%E5%B1%82">4.2 Pulling a Layer（拉取层）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#5-retrieve-%E6%A3%80%E7%B4%A2%E5%8A%9F%E8%83%BD">5: Retrieve 检索功能&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#51-listing-repositories%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E5%BA%93">5.1 Listing Repositories（列出存储库）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#52-pagination%E9%83%A8%E5%88%86%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E5%BA%93">5.2 Pagination(部分列出存储库)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#53-listing-image-tags%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F-tag">5.3 Listing Image Tags(列出镜像 tag)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#54-pagination%E9%83%A8%E5%88%86%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F-tag">5.4 Pagination(部分列出镜像 tag)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#6-deleteing-an-image%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F">6: Deleteing an Image（删除镜像）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-errors-%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF">7: Errors 错误信息&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-overview">1: Overview&lt;/h1>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>methods&lt;/th>
+ &lt;th>path&lt;/th>
+ &lt;th>Entity&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/&lt;/td>
+ &lt;td>Base&lt;/td>
+ &lt;td>检查 the endpoint 是否实现了 Docker Registry API V2.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/tags/list&lt;/td>
+ &lt;td>Tags&lt;/td>
+ &lt;td>通过 name 获取 repository 下的 tags&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/manifests/{reference}&lt;/td>
+ &lt;td>Manifest&lt;/td>
+ &lt;td>获取由 name 和 references 标识的 manifest，其中 referencec 可以是 tag 或 digest。还可以向该 endpoint 发出 HEAD 请求以获取资源信息，而不接收所有数据。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>PUT&lt;/td>
+ &lt;td>/v2/{name}/manifests/{reference}&lt;/td>
+ &lt;td>Manifest&lt;/td>
+ &lt;td>Put 由 name 和 reference 标识的 manifest&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DELETE&lt;/td>
+ &lt;td>/v2/{name}/manifests/{reference}&lt;/td>
+ &lt;td>Manifest&lt;/td>
+ &lt;td>删除由 digest 标识的 manifest&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/blobs/{digest}&lt;/td>
+ &lt;td>Blob&lt;/td>
+ &lt;td>从 registry retrieve 由 digest 标识的 blobs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DELETE&lt;/td>
+ &lt;td>/v2/{name}/blobs/{digest}&lt;/td>
+ &lt;td>Blob&lt;/td>
+ &lt;td>Delete the blob identified by name and digest&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>POST&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/&lt;/td>
+ &lt;td>Initiate(启动) Blob upload 服务&lt;/td>
+ &lt;td>启动可恢复的 blob upload 服务。如果成功，将提供上载位置以完成上载。或者，如果存在 digest 参数，则请求正文将用于在单个请求中完成上载。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>检索由 uuid 标识的上传状态。此 endpoint 的主要目的是 resolve 可恢复 upload 的当前状态。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>PATCH&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>上传 指定 upload 的 chunk 数据块&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>PUT&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>完成 uuid 指定的上传，可以选择附加 body 作为最后一个块&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DELETE&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>Cancel &lt;strong>outstanding&lt;/strong> upload processes, releasing associated resources. If this is not called, the unfinished uploads will &lt;strong>eventually&lt;/strong> timeout.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/_catalog&lt;/td>
+ &lt;td>Catalog&lt;/td>
+ &lt;td>在 registry 中检索一个有序的，可用的 repositry 的 json 列表&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h1 id="2-专有名词解释">2: 专有名词解释&lt;/h1>
+&lt;ul>
+&lt;li>&lt;strong>repositry name&lt;/strong>(存储库名称):存储库指在库中存储的镜像&lt;/li>
+&lt;li>&lt;strong>digest&lt;/strong>(摘要):是 image 各个层的唯一标识。虽然算法允许使用任意算法，但是为了兼容性应该使用 sha256。
+例：&lt;code>sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-push-image-过程">3: Push image 过程&lt;/h1>
+&lt;blockquote>
+&lt;p>先推各个 Layer 层到 registry 仓库，然后上传清单 Manifest&lt;/p></description></item><item><title>01-WSL2中配置docker远程tcp</title><link>https://lppgo.github.io/post/dockerk8s/001-wsl2%E4%B8%AD%E9%85%8D%E7%BD%AEdocker%E8%BF%9C%E7%A8%8Btcp/</link><pubDate>Tue, 27 Jul 2021 14:58:35 +0800</pubDate><guid>https://lppgo.github.io/post/dockerk8s/001-wsl2%E4%B8%AD%E9%85%8D%E7%BD%AEdocker%E8%BF%9C%E7%A8%8Btcp/</guid><description>&lt;div align='center' >&lt;font size='50'>WSL2中配置docker远程tcp&lt;/font>&lt;/div>
+&lt;!-- [toc] -->
+&lt;ul>
+&lt;li>&lt;a href="#1-%E4%BF%AE%E6%94%B9-libsystemdsystemdockerservice">1: 修改 &lt;code>/lib/systemd/system/docker.service&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E8%AE%BE%E7%BD%AE-docker_host-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">2: 设置 &lt;code>DOCKER_HOST&lt;/code> 环境变量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E4%BF%AE%E6%94%B9-docker-%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6etcdefaultdocker">3: 修改 docker 启动配置文件&lt;code>/etc/default/docker&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E9%87%8D%E5%90%AF-docker">4: 重启 docker&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="1-修改-libsystemdsystemdockerservice">1: 修改 &lt;code>/lib/systemd/system/docker.service&lt;/code>&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># sudo vim /lib/systemd/system/docker.service&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock -H fd:// --containerd&lt;span class="o">=&lt;/span>/run/containerd/containerd.sock
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 上面这一行,主要是增加了`-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock`&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-设置-docker_host-环境变量">2: 设置 &lt;code>DOCKER_HOST&lt;/code> 环境变量&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># sudo vim ~/.zshrc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">DOCKER_HOST&lt;/span>&lt;span class="o">=&lt;/span>tcp://0.0.0.0:2375
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.zshrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-修改-docker-启动配置文件etcdefaultdocker">3: 修改 docker 启动配置文件&lt;code>/etc/default/docker&lt;/code>&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 开启远程访问 -H tcp://0.0.0.0:2375&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 开启本地套接字访问 -H unix:///var/run/docker.sock&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DOCKER_OPTS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-重启-docker">4: 重启 docker&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo service docker restart
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>01-Docker命令详解.md</title><link>https://lppgo.github.io/post/dockerk8s/003-docker%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/003-docker%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#1-docker">1: docker&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-docker%E7%9A%84%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4">2: docker 的使用命令&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-docker---help">2.1 docker &amp;ndash;help&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-docker-build">2.2 docker build&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-docker-run">2.3 docker run&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#24-%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%E9%95%9C%E5%83%8F">2.4 保存和加载镜像&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3-docker-container">3: docker Container&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-docker-network">4: docker Network&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-docker-volume">5: docker volume&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F">6: 发布镜像&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-dockerfile">7: Dockerfile&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-other">8: other&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-docker">1: docker&lt;/h1>
+&lt;ul>
+&lt;li>容器技术&lt;/li>
+&lt;li>image&lt;/li>
+&lt;li>container&lt;/li>
+&lt;li>repository&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: pdocker ps 显示过长问题：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker ps --format &lt;span class="s2">&amp;#34;table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker ps &lt;span class="p">|&lt;/span> less -S
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: docker如何将容器内文件复制到本地&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker container cp -a c56d9375ff28:/etc/kraken ./
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CMD: 指定容器被启动时要运行的命令
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ENTRYPOINT: 同 CMD ,但不会被 docker run -t 覆盖
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-docker-的使用命令">2: docker 的使用命令&lt;/h1>
+&lt;h2 id="21-docker-help">2.1 docker &amp;ndash;help&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker --help
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">管理命令:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> container 管理容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> image 管理镜像
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> network 管理网络
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">命令：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> attach 介入到一个正在运行的容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> build 根据 dockerfile 构建一个镜像
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> commit 根据容器的更改创建一个新的镜像
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cp 在本地文件系统与容器中复制 文件/文件夹
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> create 创建一个新容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">exec&lt;/span> 在容器中执行一条命令
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> images 列出镜像
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">kill&lt;/span> 杀死一个或多个正在运行的容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> logs 取得容器的日志
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> pause 暂停一个或多个容器的所有进程
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ps 列出所有容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> pull 拉取一个镜像或仓库到 registry
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> push 推送一个镜像或仓库到 registry
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rename 重命名一个容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> restart 重新启动一个或多个容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rm 删除一个或多个容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rmi 删除一个或多个镜像
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> run 在一个新的容器中执行一条命令
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> search 在 Docker Hub 中搜索镜像
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> start 启动一个或多个已经停止运行的容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> stats 显示一个容器的实时资源占用
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> stop 停止一个或多个正在运行的容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tag 为镜像创建一个新的标签
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> top 显示一个容器内的所有进程
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> unpause 恢复一个或多个容器内所有被暂停的进程
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="22-docker-build">2.2 docker build&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">命令格式：docker build &lt;span class="o">[&lt;/span>OPTIONS&lt;span class="o">]&lt;/span> &amp;lt;PATH &lt;span class="p">|&lt;/span> URL &lt;span class="p">|&lt;/span> -&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Usage: Build an image from a Dockerfile.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">常用选项说明
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--build-arg 设置构建时的变量
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--no-cache 默认false。设置该选项，将不使用Build Cache构建镜像
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--pull 默认false。设置该选项，总是尝试pull镜像的最新版本
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--compress 默认false。设置该选项，将使用gzip压缩构建的上下文
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--disable-content-trust 默认true。设置该选项，将对镜像进行验证
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--file, -f Dockerfile的完整路径，默认值为‘PATH/Dockerfile’
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--isolation 默认--isolation&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;default&amp;#34;&lt;/span>，即Linux命名空间；其他还有process或hyperv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--label 为生成的镜像设置metadata
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--squash 默认false。设置该选项，将新构建出的多个层压缩为一个新层，但是将无法在多个镜像之间共享新层；设置该选项，实际上是创建了新image，同时保留原有image。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--tag, -t 镜像的名字及tag，通常name:tag或者name格式；可以在一次构建中为一个镜像设置多个tag
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--network 默认default。设置该选项，Set the networking mode &lt;span class="k">for&lt;/span> the RUN instructions during build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--quiet, -q 默认false。设置该选项，Suppress the build output and print image ID on success
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--force-rm 默认false。设置该选项，总是删除掉中间环节的容器
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--rm，默认--rm&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> 即整个构建过程成功后删除中间环节的容器
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>示例&lt;/p></description></item><item><title>01-docker清理</title><link>https://lppgo.github.io/post/dockerk8s/007-docker%E6%B8%85%E7%90%86/</link><pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/007-docker%E6%B8%85%E7%90%86/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#docker-%E6%B8%85%E7%90%86%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95">Docker 清理常用方法&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#1docker-%E7%A7%AF%E7%B4%AF%E7%9A%84%E4%B8%9C%E8%A5%BF">1：Docker 积累的东西&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2%E4%BD%BF%E7%94%A8-docker-%E6%B8%85%E7%90%86">2：使用 docker 清理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21docker-system">2.1：docker system&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#21-%E6%B8%85%E7%90%86%E5%B7%B2%E7%BB%8F%E5%81%9C%E6%AD%A2%E7%9A%84%E5%AE%B9%E5%99%A8">2.1: 清理已经停止的容器&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-%E6%B8%85%E7%90%86%E7%A3%81%E7%9B%98%E5%8D%B7">2.2: 清理磁盘卷&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-%E6%B8%85%E7%90%86%E9%95%9C%E5%83%8F">2.3: 清理镜像&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#24-%E6%B8%85%E7%90%86%E7%BD%91%E7%BB%9C">2.4: 清理网络&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#25-%E4%BD%BF%E7%94%A8-docker-compose-%E6%B8%85%E7%90%86">2.5: 使用 docker-compose 清理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#26docker-system-prune">2.6: docker system prune&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="docker-清理常用方法">Docker 清理常用方法&lt;/h1>
+&lt;p>Docker 基于 Linux 内核通过操作系统和虚拟容器调用 CGroup, Namespace 等系统接口完成资源的分配与相互隔离，依赖系统资源运行，在分配回收过程中会产生一些垃圾，比如 docker stop 容器后没有执行 docker rm 删除。&lt;/p></description></item></channel></rss>

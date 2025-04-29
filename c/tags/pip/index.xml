@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pip on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/pip/</link>
+    <description>Recent content in Pip on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://lppgo.github.io/tags/pip/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>015-pip命令说明</title>
+      <link>https://lppgo.github.io/post/python/015-pip%E5%91%BD%E4%BB%A4%E8%AF%B4%E6%98%8E/</link>
+      <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>https://lppgo.github.io/post/python/015-pip%E5%91%BD%E4%BB%A4%E8%AF%B4%E6%98%8E/</guid>
+      <description>&lt;p&gt;[toc]&lt;/p&gt;&#xA;&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h1&gt;&#xA;&lt;h1 id=&#34;1pip-命令说明&#34;&gt;1：pip 命令说明&lt;/h1&gt;&#xA;&lt;h2 id=&#34;11-安装-pip&#34;&gt;1.1: 安装 pip&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;python -m pip --version&lt;/code&gt;:&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;12-安装-python-库&#34;&gt;1.2: 安装 Python 库&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;pip install requests&lt;/code&gt;: 它会自动处理库及其依赖关系&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;13-升级库&#34;&gt;1.3: 升级库&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;pip list --outdated # 查看待升级库&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;pip upgrade &amp;lt;package_name&amp;gt; # 升级指定库&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;14-卸载库&#34;&gt;1.4: 卸载库&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;pip uninstall &amp;lt;package_name&amp;gt;&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;15-搜索库&#34;&gt;1.5: 搜索库&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;pip search &amp;lt;keyword&amp;gt;&lt;/code&gt;: 比如查找与机器学习相关的库，你可以输入 pip search machine learning&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;16-查看已安装库详细信息&#34;&gt;1.6: 查看已安装库详细信息&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;pip show &amp;lt;package_name&amp;gt;&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;17-只下载库而不安装&#34;&gt;1.7: 只下载库而不安装&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;有时你可能需要离线环境安装包或者备份当前环境的依赖，那么可以使用 download 命令只下载不安装：&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;pip download &amp;lt;package_name&amp;gt;&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;18-创建-requirements-文件&#34;&gt;1.8: 创建 requirements 文件&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;在项目开发中，为了方便团队成员统一环境，我们可以创建一个包含所有依赖的 requirements 文件：&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;这会列出当前环境中所有已安装库及其版本，并保存到 requirements.txt 文件中。而要根据这个文件安装所有依赖，只需：&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;19-指定库版本安装&#34;&gt;1.9: 指定库版本安装&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;在某些情况下，你可能需要安装特定版本的库，比如安装 requests 库的 2.25.1 版本&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;pip install requests==2.25.1&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;110-检查是否存在安全漏洞&#34;&gt;1.10: 检查是否存在安全漏洞&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;pip 配合 Safety 工具可以检查已安装库的安全性：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

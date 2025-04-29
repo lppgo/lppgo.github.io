@@ -1,0 +1,467 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Even - A super concise theme for Hugo</title>
+<meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content><meta name=description content="Hugo theme even example site."><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.147.0 with theme even"><link rel=canonical href=https://lppgo.github.io/><link href=https://lppgo.github.io/index.xml rel=alternate type=application/rss+xml title="Even - A super concise theme for Hugo"><link href=https://lppgo.github.io/index.xml rel=feed type=application/rss+xml title="Even - A super concise theme for Hugo"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:url" content="https://lppgo.github.io/"><meta property="og:site_name" content="Even - A super concise theme for Hugo"><meta property="og:title" content="Even - A super concise theme for Hugo"><meta property="og:description" content="Hugo theme even example site."><meta property="og:locale" content="en"><meta property="og:type" content="website"><meta itemprop=name content="Even - A super concise theme for Hugo"><meta itemprop=description content="Hugo theme even example site."><meta itemprop=datePublished content="2025-03-17T00:00:00+00:00"><meta itemprop=dateModified content="2025-04-29T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Even - A super concise theme for Hugo"><meta name=twitter:description content="Hugo theme even example site."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>lppgo</a></div><div class=mobile-navbar-icon><span></span>
+<span></span>
+<span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>lppgo</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/031_goplugin%E5%8A%9F%E8%83%BD/>goplugin功能</a></h1><div class=post-meta><span class=post-time>2022-09-20</span><div class=post-category><a href=/categories/go/>Go</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>Go Plugin插件(so动态库)</font></div><h1 id=1-官方实现>1: 官方实现</h1><ul><li>golang 1.8 及以上版本提供了一个创建共享库（shared object）的新工具，称为 Plugins。</li><li>目前 Plugins 仅在 Linux、FreeBSD 和 macOS 上受支持，且只支持 golang 调用。</li></ul><h1 id=2-使用示例定义一个-plugingo>2: 使用示例，定义一个 plugin.go</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;log&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>init</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>log</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;plugin init&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>SayHello</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=o>*</span><span class=nx>SayHello</span><span class=p>)</span> <span class=nf>CallMe</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>log</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;hello &#34;</span><span class=p>,</span> <span class=nx>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=s>&#34;I am plugin&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// SayHelloPlugin 导出变量</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>SayHelloPlugin</span> <span class=nx>SayHello</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>使用 -buildmode=plugin 模式编译出 plugin.so 共享库
+</span></span></span><span class=line><span class=cl><span class=cm>go build -o plugin.so -buildmode=plugin plugin.go
+</span></span></span><span class=line><span class=cl><span class=cm>
+</span></span></span><span class=line><span class=cl><span class=cm>*/</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>使用 -buildmode=plugin 模式编译出 plugin.so 共享库;</li><li><code>go build -o plugin.so -buildmode=plugin plugin.go</code></li></ul><h1 id=3-maingo-中调用插件共享库>3: main.go 中调用插件(共享库)</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;log&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;plugin&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>CustomPlugin</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nf>CallMe</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// 打开插件（并发安全）</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>plugin</span><span class=p>.</span><span class=nf>Open</span><span class=p>(</span><span class=s>&#34;plugin.so&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// 在插件中搜索可导出的变量或函数</span>
+</span></span><span class=line><span class=cl>	<span class=nx>sayHelloPlugin</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Lookup</span><span class=p>(</span><span class=s>&#34;SayHelloPlugin&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// 断言插件类型</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>sayHello</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>sayHelloPlugin</span><span class=p>.(</span><span class=nx>CustomPlugin</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>sayHello</span><span class=p>.</span><span class=nf>CallMe</span><span class=p>(</span><span class=s>&#34;togettoyou&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// go run main.go</span>
+</span></span><span class=line><span class=cl><span class=c1>// # 输出</span>
+</span></span><span class=line><span class=cl><span class=c1>// 2021/07/28 17:07:21 plugin init</span>
+</span></span><span class=line><span class=cl><span class=c1>// 2021/07/28 17:07:21 hello  togettoyou</span>
+</span></span><span class=line><span class=cl><span class=c1>// 2021/07/28 17:07:21 I am plugin</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4定义一个插件共享库总结>4:定义一个插件共享库总结：</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>包名需要定义为</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>必须有可导出的变量或函数</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>不需要</span> <span class=nx>main</span> <span class=nx>函数</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>插件加载时会先执行</span> <span class=nx>init</span> <span class=nx>函数</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=5traefik-yaegi-实现>5:Traefik Yaegi 实现</h1><ul><li>yaegi 是一个 go 解释器;</li><li><a href=https://github.com/traefik/yaegi>https://github.com/traefik/yaegi</a></li><li>Yaegi 运行在 Go 运行时之上，可以直接作为嵌入式解释器，或使用交互式 shell ，解释运行 Go 代码</li></ul><h2 id=51-代码结构>5.1 代码结构</h2><ul><li>这里有个注意点，Yaegi 的插件需要放在 src 目录下;</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=err>│</span>  <span class=k>go</span><span class=p>.</span><span class=nx>mod</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>  <span class=k>go</span><span class=p>.</span><span class=nx>sum</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>  <span class=nx>main</span><span class=p>.</span><span class=k>go</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>
+</span></span><span class=line><span class=cl><span class=err>└─</span><span class=nx>plugin</span>
+</span></span><span class=line><span class=cl>    <span class=err>└─</span><span class=nx>src</span>
+</span></span><span class=line><span class=cl>        <span class=err>└─</span><span class=nx>hello</span>
+</span></span><span class=line><span class=cl>                <span class=k>go</span><span class=p>.</span><span class=nx>mod</span>
+</span></span><span class=line><span class=cl>                <span class=nx>hello</span><span class=p>.</span><span class=k>go</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=52-hellogo>5.2 hello.go</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>hello</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl> <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>init</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;hello plugin init&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>CallMe</span><span class=p>(</span><span class=nx>msg</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>msg</span><span class=p>)</span>
+</span></span><span class=line><span class=cl> <span class=k>return</span> <span class=s>&#34;I am plugin&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=53-maingo>5.3 main.go</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl> <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl> <span class=s>&#34;github.com/traefik/yaegi/interp&#34;</span>
+</span></span><span class=line><span class=cl> <span class=s>&#34;github.com/traefik/yaegi/stdlib&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl> <span class=c1>// 初始化解释器</span>
+</span></span><span class=line><span class=cl> <span class=nx>i</span> <span class=o>:=</span> <span class=nx>interp</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=nx>interp</span><span class=p>.</span><span class=nx>Options</span><span class=p>{</span><span class=nx>GoPath</span><span class=p>:</span> <span class=s>&#34;./plugin/&#34;</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> <span class=c1>// 插件需要使用标准库</span>
+</span></span><span class=line><span class=cl> <span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>i</span><span class=p>.</span><span class=nf>Use</span><span class=p>(</span><span class=nx>stdlib</span><span class=p>.</span><span class=nx>Symbols</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> <span class=c1>// 导入 hello 包</span>
+</span></span><span class=line><span class=cl> <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>i</span><span class=p>.</span><span class=nf>Eval</span><span class=p>(</span><span class=s>`import &#34;hello&#34;`</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> <span class=c1>// 调用 hello.CallMe</span>
+</span></span><span class=line><span class=cl> <span class=nx>v</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>i</span><span class=p>.</span><span class=nf>Eval</span><span class=p>(</span><span class=s>&#34;hello.CallMe&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl> <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl> <span class=p>}</span>
+</span></span><span class=line><span class=cl> <span class=nx>callMe</span> <span class=o>:=</span> <span class=nx>v</span><span class=p>.</span><span class=nf>Interface</span><span class=p>().(</span><span class=kd>func</span><span class=p>(</span><span class=kt>string</span><span class=p>)</span> <span class=kt>string</span><span class=p>)</span>
+</span></span><span class=line><span class=cl> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nf>callMe</span><span class=p>(</span><span class=s>&#34;togettoyou&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nx>run</span> <span class=nx>main</span><span class=p>.</span><span class=k>go</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=err>#</span> <span class=nx>输出</span>
+</span></span><span class=line><span class=cl><span class=nx>hello</span> <span class=nx>plugin</span> <span class=nx>init</span>
+</span></span><span class=line><span class=cl><span class=nx>togettoyou</span>
+</span></span><span class=line><span class=cl><span class=nx>I</span> <span class=nx>am</span> <span class=nx>plugin</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=read-more><a href=/post/golang/031_goplugin%E5%8A%9F%E8%83%BD/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/python/009-python%E5%A5%BD%E7%94%A8%E7%9A%84%E8%84%9A%E6%9C%AC/>0091-python好用的脚本</a></h1><div class=post-meta><span class=post-time>2022-09-01</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-content><div class=post-summary><h1 id=1图片处理>1：图片处理</h1><h2 id=11-截图>1.1 截图</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#! /usr/bin/env python3</span>
+</span></span><span class=line><span class=cl><span class=c1># encoding=utf-8</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>mss</span> <span class=kn>import</span> <span class=n>mss</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>PIL.ImageGrab</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>screenshot_1</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;python 截屏方法1
+</span></span></span><span class=line><span class=cl><span class=s2>    mss
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>with</span> <span class=n>mss</span><span class=p>()</span> <span class=k>as</span> <span class=n>screenshot</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>screenshot</span><span class=o>.</span><span class=n>shot</span><span class=p>(</span><span class=n>output</span><span class=o>=</span><span class=s2>&#34;scr.png&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>screenshot_2</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;python 截屏方法2
+</span></span></span><span class=line><span class=cl><span class=s2>    pillow
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>scr</span> <span class=o>=</span> <span class=n>PIL</span><span class=o>.</span><span class=n>ImageGrab</span><span class=o>.</span><span class=n>grab</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>scr</span><span class=o>.</span><span class=n>save</span><span class=p>(</span><span class=s2>&#34;scr.png&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;this is main function&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># screenshot_1()</span>
+</span></span><span class=line><span class=cl>    <span class=n>screenshot_2</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>main</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;__name__ value:&#39;</span><span class=p>,</span> <span class=vm>__name__</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=12-将图像转换为素描图>1.2 将图像转换为素描图</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 图像转换</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>cv2</span>
+</span></span><span class=line><span class=cl><span class=c1># 读取图片</span>
+</span></span><span class=line><span class=cl><span class=n>img</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>imread</span><span class=p>(</span><span class=s2>&#34;img.jpg&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 灰度</span>
+</span></span><span class=line><span class=cl><span class=n>grey</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>cvtColor</span><span class=p>(</span><span class=n>img</span><span class=p>,</span> <span class=n>cv2</span><span class=o>.</span><span class=n>COLOR_BGR2GRAY</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>invert</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>bitwise_not</span><span class=p>(</span><span class=n>grey</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 高斯滤波</span>
+</span></span><span class=line><span class=cl><span class=n>blur_img</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>GaussianBlur</span><span class=p>(</span><span class=n>invert</span><span class=p>,</span> <span class=p>(</span><span class=mi>7</span><span class=p>,</span> <span class=mi>7</span><span class=p>),</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>inverse_blur</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>bitwise_not</span><span class=p>(</span><span class=n>blur_img</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>sketch_img</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>divide</span><span class=p>(</span><span class=n>grey</span><span class=p>,</span> <span class=n>inverse_blur</span><span class=p>,</span> <span class=n>scale</span><span class=o>=</span><span class=mf>256.0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 保存</span>
+</span></span><span class=line><span class=cl><span class=n>cv2</span><span class=o>.</span><span class=n>imwrite</span><span class=p>(</span><span class=s1>&#39;sketch.jpg&#39;</span><span class=p>,</span> <span class=n>sketch_img</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>cv2</span><span class=o>.</span><span class=n>waitKey</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>cv2</span><span class=o>.</span><span class=n>destroyAllWindows</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2>2:</h1><h1 id=3>3:</h1><h1 id=4>4:</h1><h1 id=5>5:</h1><h1 id=6>6:</h1><h1 id=7>7:</h1><h1 id=8>8:</h1><h1 id=9>9:</h1></div><div class=read-more><a href=/post/python/009-python%E5%A5%BD%E7%94%A8%E7%9A%84%E8%84%9A%E6%9C%AC/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/dockerk8s/017-k8s%E9%83%A8%E7%BD%B2/>01-k8s部署</a></h1><div class=post-meta><span class=post-time>2022-08-21</span><div class=post-category><a href=/categories/docker/>Docker</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>k8s安装部署</font></div><p><a href=https://github.com/labring/sealos>https://github.com/labring/sealos</a></p></div><div class=read-more><a href=/post/dockerk8s/017-k8s%E9%83%A8%E7%BD%B2/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/dockerk8s/019-%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/>01-可观测性</a></h1><div class=post-meta><span class=post-time>2022-08-21</span><div class=post-category><a href=/categories/devops/>devops</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>云原生可观测性</font></div><h1 id=1-oplg-是什么>1: OPLG 是什么</h1><p>随着云原生架构的兴起，可观测的边界与分工被重新定义，传统的容器/应用/业务分层监控边界被打破，Dev、Ops、Sec 的分工逐渐模糊。大家意识到 IT 系统作为一个有机的整体，对 IT 系统状态的监测与诊断也需要一体化的方案。经过近几年的摸索与实践，基于 OPLG 的新一代云原生可观测体系，逐步成为了社区与企业的热门选择。</p></div><div class=read-more><a href=/post/dockerk8s/019-%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/python/001-linux%E5%AE%89%E8%A3%85%E5%A4%9A%E7%89%88%E6%9C%ACpython%E7%8E%AF%E5%A2%83/>001-linux安装多版本python环境</a></h1><div class=post-meta><span class=post-time>2022-08-08</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1%E7%AE%80%E4%BB%8B>1：简介</a></li><li><a href=#2linux-%E5%AE%89%E8%A3%85%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC-python>2：Linux 安装多个版本 python</a><ul><li><a href=#21-%E4%B8%8B%E8%BD%BD-python-%E5%AE%89%E8%A3%85%E5%8C%85>2.1 下载 python 安装包</a></li><li><a href=#22-update-alternative-%E7%AE%A1%E7%90%86%E5%A4%9A%E7%89%88%E6%9C%AC-python>2.2 update-alternative 管理多版本 python</a></li><li><a href=#23-%E5%88%9B%E5%BB%BA%E8%BD%AF%E8%BF%9E%E6%8E%A5>2.3 创建软连接</a></li></ul></li><li><a href=#3-pip-%E6%BA%90%E8%AE%BE%E7%BD%AE>3: pip 源设置</a></li></ul><h1 id=1简介>1：简介</h1><p>使用源码安装多个版本 python 环境，对系统原有 py 不影响</p><h1 id=2linux-安装多个版本-python>2：Linux 安装多个版本 python</h1><h2 id=21-下载-python-安装包>2.1 下载 python 安装包</h2><ul><li><a href=https://www.python.org/>python.org</a>: 速度慢</li><li><a href="https://registry.npmmirror.com/binary.html?path=python/">https://registry.npmmirror.com/binary.html</a>:国内镜像</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// ---------- python3.8 源码安装 --------------</span>
+</span></span><span class=line><span class=cl><span class=c1>// (1) 创建安装目录</span>
+</span></span><span class=line><span class=cl><span class=nx>mkdir</span> <span class=o>-</span><span class=nx>p</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.8</span>
+</span></span><span class=line><span class=cl><span class=nx>cd</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.8</span>
+</span></span><span class=line><span class=cl><span class=c1>// (2) 下载源码包</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>wget</span>  <span class=nx>https</span><span class=p>:</span><span class=c1>//registry.npmmirror.com/-/binary/python/3.8.13/Python-3.8.13.tgz</span>
+</span></span><span class=line><span class=cl><span class=nx>tar</span> <span class=o>-</span><span class=nx>zxvf</span> <span class=nx>Python</span><span class=o>-</span><span class=mf>3.8.13</span><span class=p>.</span><span class=nx>tgz</span>
+</span></span><span class=line><span class=cl><span class=nx>cd</span> <span class=nx>Python</span><span class=o>-</span><span class=mf>3.8.13</span>
+</span></span><span class=line><span class=cl><span class=c1>// (3) 配置要安装的目录</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=o>/</span><span class=nx>configure</span> <span class=nx>prefix</span><span class=p>=</span><span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.8</span> <span class=o>--</span><span class=nx>enable</span><span class=o>-</span><span class=nx>optimizations</span>
+</span></span><span class=line><span class=cl><span class=c1>// (4) 编译源码</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>make</span> <span class=o>-</span><span class=nx>j8</span>
+</span></span><span class=line><span class=cl><span class=c1>// (5) make altinstall与make install的区别，altinstall skips creating the python link and the manual pages links</span>
+</span></span><span class=line><span class=cl><span class=c1>// https://blog.csdn.net/andylauren/article/details/108363030</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>make</span> <span class=nx>altinstall</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// python3.10</span>
+</span></span><span class=line><span class=cl><span class=nx>mkdir</span> <span class=o>-</span><span class=nx>p</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.10</span>
+</span></span><span class=line><span class=cl><span class=nx>cd</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.10</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>wget</span> <span class=nx>https</span><span class=p>:</span><span class=c1>//registry.npmmirror.com/-/binary/python/3.10.6/Python-3.10.6.tgz</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=22-update-alternative-管理多版本-python>2.2 update-alternative 管理多版本 python</h2><blockquote><p>update-alternatives 命令用于处理 linux 系统中软件版本的切换</p></div><div class=read-more><a href=/post/python/001-linux%E5%AE%89%E8%A3%85%E5%A4%9A%E7%89%88%E6%9C%ACpython%E7%8E%AF%E5%A2%83/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/quant/001-linux%E5%AE%89%E8%A3%85%E5%A4%9A%E7%89%88%E6%9C%ACpython%E7%8E%AF%E5%A2%83-copy/>01-001-linux安装多版本python环境</a></h1><div class=post-meta><span class=post-time>2022-08-08</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1%E7%AE%80%E4%BB%8B>1：简介</a></li><li><a href=#2linux-%E5%AE%89%E8%A3%85%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC-python>2：Linux 安装多个版本 python</a><ul><li><a href=#21-%E4%B8%8B%E8%BD%BD-python-%E5%AE%89%E8%A3%85%E5%8C%85>2.1 下载 python 安装包</a></li><li><a href=#22-update-alternative-%E7%AE%A1%E7%90%86%E5%A4%9A%E7%89%88%E6%9C%AC-python>2.2 update-alternative 管理多版本 python</a></li></ul></li><li><a href=#3-pip-%E6%BA%90%E8%AE%BE%E7%BD%AE>3: pip 源设置</a></li></ul><h1 id=1简介>1：简介</h1><p>使用源码安装多个版本 python 环境，对系统原有 py 不影响</p><h1 id=2linux-安装多个版本-python>2：Linux 安装多个版本 python</h1><h2 id=21-下载-python-安装包>2.1 下载 python 安装包</h2><ul><li><a href=https://www.python.org/>python.org</a>: 速度慢</li><li><a href="https://registry.npmmirror.com/binary.html?path=python/">https://registry.npmmirror.com/binary.html</a>:国内镜像</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// ---------- python3.8 源码安装 --------------</span>
+</span></span><span class=line><span class=cl><span class=c1>// (1) 创建安装目录</span>
+</span></span><span class=line><span class=cl><span class=nx>mkdir</span> <span class=o>-</span><span class=nx>p</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.8</span>
+</span></span><span class=line><span class=cl><span class=nx>cd</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.8</span>
+</span></span><span class=line><span class=cl><span class=c1>// (2) 下载源码包</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>wget</span>  <span class=nx>https</span><span class=p>:</span><span class=c1>//registry.npmmirror.com/-/binary/python/3.8.13/Python-3.8.13.tgz</span>
+</span></span><span class=line><span class=cl><span class=nx>tar</span> <span class=o>-</span><span class=nx>zxvf</span> <span class=nx>Python</span><span class=o>-</span><span class=mf>3.8.13</span><span class=p>.</span><span class=nx>tgz</span>
+</span></span><span class=line><span class=cl><span class=nx>cd</span> <span class=nx>Python</span><span class=o>-</span><span class=mf>3.8.13</span>
+</span></span><span class=line><span class=cl><span class=c1>// (3) 配置要安装的目录</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=o>/</span><span class=nx>configure</span> <span class=nx>prefix</span><span class=p>=</span><span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.8</span> <span class=o>--</span><span class=nx>enable</span><span class=o>-</span><span class=nx>optimizations</span>
+</span></span><span class=line><span class=cl><span class=c1>// (4) 编译源码</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>make</span> <span class=o>-</span><span class=nx>j8</span>
+</span></span><span class=line><span class=cl><span class=c1>// (5) make altinstall与make install的区别，altinstall skips creating the python link and the manual pages links</span>
+</span></span><span class=line><span class=cl><span class=c1>// https://blog.csdn.net/andylauren/article/details/108363030</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>make</span> <span class=nx>altinstall</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// python3.10</span>
+</span></span><span class=line><span class=cl><span class=nx>mkdir</span> <span class=o>-</span><span class=nx>p</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.10</span>
+</span></span><span class=line><span class=cl><span class=nx>cd</span> <span class=o>/</span><span class=nx>usr</span><span class=o>/</span><span class=nx>local</span><span class=o>/</span><span class=nx>python</span><span class=o>/</span><span class=nx>python3</span><span class=mf>.10</span>
+</span></span><span class=line><span class=cl><span class=nx>sudo</span> <span class=nx>wget</span> <span class=nx>https</span><span class=p>:</span><span class=c1>//registry.npmmirror.com/-/binary/python/3.10.6/Python-3.10.6.tgz</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=22-update-alternative-管理多版本-python>2.2 update-alternative 管理多版本 python</h2><blockquote><p>update-alternatives 命令用于处理 linux 系统中软件版本的切换</p></div><div class=read-more><a href=/post/quant/001-linux%E5%AE%89%E8%A3%85%E5%A4%9A%E7%89%88%E6%9C%ACpython%E7%8E%AF%E5%A2%83-copy/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/%E4%B8%AD%E9%97%B4%E4%BB%B6/003-kafka/>01-kafka</a></h1><div class=post-meta><span class=post-time>2022-08-05</span><div class=post-category><a href=/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/>中间件</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>消息队列Kafka</font></div><h1 id=1-introduction>1: Introduction</h1><h1 id=2-arch-架构>2: Arch 架构</h1><h1 id=3-可视化-tools>3: 可视化 tools</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>//  kafka-map</span>
+</span></span><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/dushixiang/kafka-map</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=read-more><a href=/post/%E4%B8%AD%E9%97%B4%E4%BB%B6/003-kafka/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/others/009-%E6%9C%89%E8%B6%A3%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/>01-有趣项目记录</a></h1><div class=post-meta><span class=post-time>2022-08-04</span><div class=post-category><a href=/categories/other/>other</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>有趣项目记录</font></div><h1 id=1-工具类>1: 工具类</h1><h1 id=2-好玩类>2: 好玩类</h1><h2 id=21-自动发送暖心邮件>2.1 自动发送暖心邮件</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/Vincedream/NodeMail</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=22-土味情话生成器>2.2 土味情话生成器</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/zerosoul/honeyed-words-generator</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-文件传输>3: 文件传输</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// tl-rtc-file</span>
+</span></span><span class=line><span class=cl><span class=c1>// 用webrt在web端传输文件，支持传输超大文件, 分片传输，跨终端，不限平台，方便使用，内网不限速，支持私有部署</span>
+</span></span><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/iamtsm/tl-rtc-file</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-分布式文件系统>4: 分布式文件系统</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>seaweedfs</span>
+</span></span><span class=line><span class=cl><span class=nx>https</span><span class=p>:</span><span class=c1>//github.com/seaweedfs/seaweedfs</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=5-工具类>5: 工具类</h1><ul><li><p><strong>ctop</strong></p></div><div class=read-more><a href=/post/others/009-%E6%9C%89%E8%B6%A3%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/python/003-ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91/>003-ffmpeg-音视频</a></h1><div class=post-meta><span class=post-time>2022-07-27</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1%E7%AE%80%E4%BB%8B>1：简介</a></li><li><a href=#2%E8%8E%B7%E5%8F%96%E8%A7%86%E9%A2%91%E4%BF%A1%E6%81%AF>2：获取视频信息</a></li><li><a href=#3%E9%95%9C%E5%83%8F%E5%A4%84%E7%90%86>3：镜像处理</a></li><li><a href=#4%E6%B7%BB%E5%8A%A0%E6%B0%B4%E5%8D%B0>4：添加水印</a></li><li><a href=#5%E8%A7%86%E9%A2%91%E6%88%AA%E5%8F%96>5：视频截取</a></li><li><a href=#6%E8%A7%86%E9%A2%91%E6%8B%BC%E6%8E%A5>6：视频拼接</a></li></ul><h1 id=1简介>1：简介</h1><p>FFmpeg 是一套强大的音视频处理程序，也是很多音视频软件的基础，事实上，FFmpeg 已经成为业界音视频处理的标准了。但命令行使用 FFmpeg 是有一定学习成本的，而 ffmpeg-python 库则很好的解决了这个问题。</p></div><div class=read-more><a href=/post/python/003-ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/python/007-python%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%A4%A7%E5%85%A8/>007-Python第三方库大全</a></h1><div class=post-meta><span class=post-time>2022-07-10</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1%E5%8C%85%E7%AE%A1%E7%90%86%E5%92%8C%E4%BE%9D%E8%B5%96%E5%B7%A5%E5%85%B7>1：包管理和依赖工具</a></li><li><a href=#2%E5%88%86%E5%8F%91>2：分发</a></li><li><a href=#3%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>3：配置相关的库</a></li><li><a href=#4%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>4：文件操作相关的库</a></li><li><a href=#5%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4>5：日期和时间</a></li><li><a href=#6%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3>6：文本处理相关</a><ul><li><a href=#61-%E9%80%9A%E7%94%A8>6.1 通用</a></li><li><a href=#62-slug-%E5%8C%96>6.2 slug 化</a></li><li><a href=#63-%E8%A7%A3%E6%9E%90%E5%99%A8>6.3 解析器</a></li><li><a href=#64-pdf>6.4 PDF</a></li><li><a href=#65-markdown>6.5 Markdown</a></li></ul></li><li><a href=#7cli-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7>7：CLI 命令行工具</a></li><li><a href=#8%E7%94%9F%E4%BA%A7%E5%8A%9B%E5%B7%A5%E5%85%B7>8：生产力工具</a></li><li><a href=#9%E6%95%B0%E6%8D%AE%E5%BA%93>9：数据库</a><ul><li><a href=#91-python-%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93>9.1 python 实现的数据库</a></li><li><a href=#92-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A9%B1%E5%8A%A8>9.2 数据库驱动</a><ul><li><a href=#921-mysqlawesome-mysql>9.2.1 MySQL：awesome-mysql</a></li><li><a href=#922-postgresql>9.2.2 PostgreSQL</a></li><li><a href=#923-%E5%85%B6%E4%BB%96%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93>9.2.3 其他关系型数据库</a></li><li><a href=#924-nosql-%E6%95%B0%E6%8D%AE%E5%BA%93>9.2.4 NoSQL 数据库</a></li></ul></li></ul></li><li><a href=#10%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%9A%84%E5%BA%93>10：网络编程的库</a></li><li><a href=#11http-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>11：HTTP 相关的库</a></li><li><a href=#12websocket-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93>12：WebSocket 相关的库</a></li><li><a href=#13-wsgi-%E6%9C%8D%E5%8A%A1%E5%99%A8>13： WSGI 服务器</a></li><li><a href=#14web-%E6%A1%86%E6%9E%B6>14：Web 框架</a></li><li><a href=#15restful-api>15：RESTful API</a><ul><li><a href=#151-django>15.1 Django</a></li><li><a href=#152-flask>15.2 Flask</a></li><li><a href=#153-pyramid>15.3 Pyramid</a></li><li><a href=#154-%E4%B8%8E%E6%A1%86%E6%9E%B6%E6%97%A0%E5%85%B3%E7%9A%84%E5%BA%93>15.4 与框架无关的库</a></li></ul></li><li><a href=#16%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E>16：模板引擎</a></li><li><a href=#17%E9%98%9F%E5%88%97>17：队列</a></li><li><a href=#18%E6%90%9C%E7%B4%A2>18：搜索</a></li><li><a href=#19%E8%A7%A3%E6%9E%90-urls-%E7%9A%84%E5%BA%93>19：解析 URLs 的库</a></li><li><a href=#20%E8%BF%9B%E7%A8%8B>20：进程</a></li><li><a href=#21%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C>21：并发和并行</a></li><li><a href=#22%E5%85%B6%E4%BB%96%E5%BA%93>22：其他库</a></li><li><a href=#23%E9%87%91%E8%9E%8D%E4%B8%8E%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93>23：金融与量化交易</a></li><li><a href=#24%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E9%A2%86%E5%9F%9F>24：数据科学领域</a></li><li><a href=#25%E9%85%8D%E7%BD%AE%E5%BA%93>25：配置库</a></li></ul><p>部分转自:https://www.ctq6.cn/python%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%A4%A7%E5%85%A8/#wsgi-%E6%9C%8D%E5%8A%A1%E5%99%A8</p></div><div class=read-more><a href=/post/python/007-python%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%A4%A7%E5%85%A8/ class=read-more-link>阅读更多</a></div></div></article></section><nav class=pagination><a class=prev href=/page/3/><i class="iconfont icon-left"></i>
+<span class=prev-text>上一页</span>
+</a><a class=next href=/page/5/><span class=next-text>下一页</span>
+<i class="iconfont icon-right"></i></a></nav></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=https://github.com/lppgo class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span><span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span><span class=copyright-year>&copy;
+2015 -
+2025<span class=heart><i class="iconfont icon-heart"></i></span><span></span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js></script><script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var t,n,e=document.createElement("script");e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script></body></html>

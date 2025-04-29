@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Other on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/categories/other/</link><description>Recent content in Other on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 04 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/categories/other/index.xml" rel="self" type="application/rss+xml"/><item><title>01-有趣项目记录</title><link>https://lppgo.github.io/post/others/009-%E6%9C%89%E8%B6%A3%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/</link><pubDate>Thu, 04 Aug 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/009-%E6%9C%89%E8%B6%A3%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/</guid><description>&lt;div align="center">&lt;font size="35">有趣项目记录&lt;/font>&lt;/div>
+&lt;h1 id="1-工具类">1: 工具类&lt;/h1>
+&lt;h1 id="2-好玩类">2: 好玩类&lt;/h1>
+&lt;h2 id="21-自动发送暖心邮件">2.1 自动发送暖心邮件&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/Vincedream/NodeMail&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="22-土味情话生成器">2.2 土味情话生成器&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/zerosoul/honeyed-words-generator&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-文件传输">3: 文件传输&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// tl-rtc-file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 用webrt在web端传输文件，支持传输超大文件, 分片传输，跨终端，不限平台，方便使用，内网不限速，支持私有部署&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/iamtsm/tl-rtc-file&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-分布式文件系统">4: 分布式文件系统&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">seaweedfs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/seaweedfs/seaweedfs&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-工具类">5: 工具类&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>ctop&lt;/strong>&lt;/p></description></item><item><title>01-常见编程语言-如何在命令行编译并运行</title><link>https://lppgo.github.io/post/others/007-%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80-%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BC%96%E8%AF%91%E5%B9%B6%E8%BF%90%E8%A1%8C/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/007-%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80-%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BC%96%E8%AF%91%E5%B9%B6%E8%BF%90%E8%A1%8C/</guid><description>&lt;div align="center">&lt;font size="35">常见编程语言-如何在命令行编译并运行&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1--summary">1 : Summary&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2--java-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">2 : java 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">2.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">2.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">2.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3--go-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">3 : go 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">3.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#32-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">3.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">3.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4--c-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">4 : c 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">4.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#42-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">4.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#43-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">4.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#5--c%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">5 : c++编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#51-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">5.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#52-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">5.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#53-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">5.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#6--rust-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">6 : rust 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#61-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">6.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#62-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">6.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#63-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">6.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#7--typescript-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">7 : typescript 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#71-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">7.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#72-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">7.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#73-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">7.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#8-%E5%85%B6%E4%BB%96">8: 其他&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1--summary">1 : Summary&lt;/h1>
+&lt;ul>
+&lt;li>有时通过 jetbrains、vscode 这些 ide 的界面操作来运行项目，反而不懂简单的命令。绝大部分编程语言都有在命令行编译并运行方式的功能，有悟收集当前一些主流开发语言（java、go、c/c++、javascript/typescript、rust）的命令行编译并运行的命令。&lt;/li>
+&lt;li>转自(&lt;a href="https://youwu.today/skill/backend/how-to-compile-and-run-your-first-program-in-popular-languages/">https://youwu.today/skill/backend/how-to-compile-and-run-your-first-program-in-popular-languages/&lt;/a>)&lt;/li>
+&lt;/ul>
+&lt;h1 id="2--java-编译与运行">2 : java 编译与运行&lt;/h1>
+&lt;h2 id="21-环境准备">2.1 环境准备&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>环境准备&lt;/strong> 安装 &lt;a href="https://www.oracle.com/java/technologies/downloads/">oracle java sdk&lt;/a> ，或者 &lt;a href="https://jdk.java.net/">oracle open jdk&lt;/a> ，然后将 java 可执行程序所在程序配置到 &lt;code>$PATH&lt;/code> (windows 用户配置到 &lt;code>%path%&lt;/code>)。&lt;/li>
+&lt;li>java open jdk 有非常多的版本，可通过 &lt;a href="https://github.com/shyiko/jabba">jabba&lt;/a> 安装，版本非常全。 windows 用户安装了 scoop 的，可以使用 scoop 来安装，使用 scoop search jdk 会提示相应的步骤 macos/linux 用户还可以使用 jenv 来管理多版本。&lt;/li>
+&lt;/ul>
+&lt;h2 id="22-编写代码">2.2 编写代码&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// hello.java&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Hello&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">[]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">){&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;I&amp;#39;m a Simple Program&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="23-编译运行">2.3 编译运行&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>命令&lt;code>javac hello.java &amp;amp;&amp;amp; java Hello&lt;/code>&lt;/p></description></item><item><title>01-note笔记</title><link>https://lppgo.github.io/post/others/005-note/</link><pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/005-note/</guid><description>&lt;div align="center">&lt;font size="35">note笔记&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1note-%E6%96%87%E4%BB%B6">1：note 文件&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-alias-%E5%88%AB%E5%90%8D%E8%AE%BE%E7%BD%AE">1.1 alias 别名设置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-git-%E5%B1%80%E9%83%A8%E4%BB%A3%E7%90%86">1.2 git 局部代理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-golang-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91">1.3 golang 交叉编译&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-date-%E5%92%8C%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%AC%E6%8D%A2">1.4 date 和时间戳转换&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#15-minikube-start">1.5 minikube start&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#16-ip-%E7%9B%B8%E5%85%B3">1.6 ip 相关&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#17-%E6%9F%A5%E7%9C%8B-linux-%E8%AF%A6%E7%BB%86-info">1.7 查看 Linux 详细 info&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#18-wsl2-%E5%8E%8B%E7%BC%A9%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4">1.8 WSL2 压缩磁盘空间&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1note-文件">1：note 文件&lt;/h1>
+&lt;h2 id="11-alias-别名设置">1.1 alias 别名设置&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">gs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git status&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">ga&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git add -A&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">gd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git diff&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">gc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git commit -m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="12-git-局部代理">1.2 git 局部代理&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone -c http.proxy&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;127.0.0.1:7078&amp;#34;&lt;/span> xxx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="13-golang-交叉编译">1.3 golang 交叉编译&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CGO_ENABLED&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">GOOS&lt;/span>&lt;span class="o">=&lt;/span>linux &lt;span class="nv">GOARCH&lt;/span>&lt;span class="o">=&lt;/span>amd64 go build -v -a main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CGO_ENABLED&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">GOOS&lt;/span>&lt;span class="o">=&lt;/span>darwin &lt;span class="nv">GOARCH&lt;/span>&lt;span class="o">=&lt;/span>amd64 go build -v -a main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CGO_ENABLED&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">GOOS&lt;/span>&lt;span class="o">=&lt;/span>windows &lt;span class="nv">GOARCH&lt;/span>&lt;span class="o">=&lt;/span>amd64 go build -v -a main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 编译时添加参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -ldflags &lt;span class="s2">&amp;#34;-X &amp;#39;main.Version=v1.0.0&amp;#39; -X &amp;#39;main.BuildTime=`date +&amp;#34;&lt;/span>%Y-%m-%d %H:%M:%S&lt;span class="s2">&amp;#34;`&amp;#39; -X &amp;#39;main.GoVersion=`go version`&amp;#39; &amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="14-date-和时间戳转换">1.4 date 和时间戳转换&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># linux date和时间戳转换&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1：查看当前时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输出：&lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2：查看指定时间，转为时间戳
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date +%s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d &lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span> +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d &lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span> +%s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3：时间戳转换为date
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d @1416387827
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d @1416387827 +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="15-minikube-start">1.5 minikube start&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">minikube start &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --driver docker &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --image-mirror-country&lt;span class="o">=&lt;/span>cn &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --registry-mirror https://3laho3y3.mirror.aliyuncs.com &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --image-repository&lt;span class="o">=&lt;/span>registry.cn-hangzhou.aliyuncs.com/google_containers &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --kubernetes-version&lt;span class="o">=&lt;/span>v1.20.7
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="16-ip-相关">1.6 ip 相关&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl ipinfo.io
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -vv www.google.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ------------------查看ip--------------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ip addr show &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;inet&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="17-查看-linux-详细-info">1.7 查看 Linux 详细 info&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /etc/*elease
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="18-wsl2-压缩磁盘空间">1.8 WSL2 压缩磁盘空间&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ----------------------WSL2压缩磁盘空间------------------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PowerShell，直接运行 diskpart 命令就好
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">select&lt;/span> vdisk &lt;span class="nv">file&lt;/span>&lt;span class="o">=&lt;/span>D:&lt;span class="se">\w&lt;/span>sl&lt;span class="se">\U&lt;/span>buntu-20.04&lt;span class="se">\e&lt;/span>xt4.vhdx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">compact vdisk
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>01-zshrc 笔记</title><link>https://lppgo.github.io/post/others/001-zshrc/</link><pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/001-zshrc/</guid><description>&lt;div align="center">&lt;font size="35">zshrc笔记&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1zshrc-%E6%96%87%E4%BB%B6">1：zshrc 文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E">2：其他说明&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1zshrc-文件">1：zshrc 文件&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;span class="lnt">147
+&lt;/span>&lt;span class="lnt">148
+&lt;/span>&lt;span class="lnt">149
+&lt;/span>&lt;span class="lnt">150
+&lt;/span>&lt;span class="lnt">151
+&lt;/span>&lt;span class="lnt">152
+&lt;/span>&lt;span class="lnt">153
+&lt;/span>&lt;span class="lnt">154
+&lt;/span>&lt;span class="lnt">155
+&lt;/span>&lt;span class="lnt">156
+&lt;/span>&lt;span class="lnt">157
+&lt;/span>&lt;span class="lnt">158
+&lt;/span>&lt;span class="lnt">159
+&lt;/span>&lt;span class="lnt">160
+&lt;/span>&lt;span class="lnt">161
+&lt;/span>&lt;span class="lnt">162
+&lt;/span>&lt;span class="lnt">163
+&lt;/span>&lt;span class="lnt">164
+&lt;/span>&lt;span class="lnt">165
+&lt;/span>&lt;span class="lnt">166
+&lt;/span>&lt;span class="lnt">167
+&lt;/span>&lt;span class="lnt">168
+&lt;/span>&lt;span class="lnt">169
+&lt;/span>&lt;span class="lnt">170
+&lt;/span>&lt;span class="lnt">171
+&lt;/span>&lt;span class="lnt">172
+&lt;/span>&lt;span class="lnt">173
+&lt;/span>&lt;span class="lnt">174
+&lt;/span>&lt;span class="lnt">175
+&lt;/span>&lt;span class="lnt">176
+&lt;/span>&lt;span class="lnt">177
+&lt;/span>&lt;span class="lnt">178
+&lt;/span>&lt;span class="lnt">179
+&lt;/span>&lt;span class="lnt">180
+&lt;/span>&lt;span class="lnt">181
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># If you come from bash you might have to change your $PATH.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export PATH=$HOME/bin:/usr/local/bin:$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Path to your oh-my-zsh installation.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">ZSH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/home/lucas/.oh-my-zsh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set name of the theme to load --- if set to &amp;#34;random&amp;#34;, it will&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># load a random theme each time oh-my-zsh is loaded, in which case,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># to know which specific one was loaded, run: echo $RANDOM_THEME&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改默认主题&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ZSH_THEME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;ys&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set list of themes to pick from when loading at random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Setting this variable when ZSH_THEME=random will cause zsh to load&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># a theme from this variable instead of looking in $ZSH/themes/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># If set to an empty array, this variable will have no effect.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ZSH_THEME_RANDOM_CANDIDATES=( &amp;#34;robbyrussell&amp;#34; &amp;#34;agnoster&amp;#34; )&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to use case-sensitive completion.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># CASE_SENSITIVE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to use hyphen-insensitive completion.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Case-sensitive completion must be off. _ and - will be interchangeable.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># HYPHEN_INSENSITIVE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to disable bi-weekly auto-update checks.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_AUTO_UPDATE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to automatically update without prompting.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_UPDATE_PROMPT=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to change how often to auto-update (in days).&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export UPDATE_ZSH_DAYS=13&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line if pasting URLs and other text is messed up.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_MAGIC_FUNCTIONS=true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to disable colors in ls.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_LS_COLORS=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to disable auto-setting terminal title.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_AUTO_TITLE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to enable command auto-correction.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ENABLE_CORRECTION=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to display red dots whilst waiting for completion.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># COMPLETION_WAITING_DOTS=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line if you want to disable marking untracked files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># under VCS as dirty. This makes repository status check for large repositories&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># much, much faster.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_UNTRACKED_FILES_DIRTY=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line if you want to change the command execution time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># stamp shown in the history command output.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># You can set one of the optional three formats:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#34;mm/dd/yyyy&amp;#34;|&amp;#34;dd.mm.yyyy&amp;#34;|&amp;#34;yyyy-mm-dd&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or set a custom format using the strftime function format specifications,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># see &amp;#39;man strftime&amp;#39; for details.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># HIST_STAMPS=&amp;#34;mm/dd/yyyy&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Would you like to use another custom folder than $ZSH/custom?&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ZSH_CUSTOM=/path/to/new-custom-folder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Which plugins would you like to load?&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Standard plugins can be found in $ZSH/plugins/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Custom plugins may be added to $ZSH_CUSTOM/plugins/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Example format: plugins=(rails git textmate ruby lighthouse)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add wisely, as too many plugins slow down shell startup.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">plugins&lt;/span>&lt;span class="o">=(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> zsh-syntax-highlighting
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> zsh-autosuggestions
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> &lt;span class="nv">$ZSH&lt;/span>/oh-my-zsh.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># User configuration&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export MANPATH=&amp;#34;/usr/local/man:$MANPATH&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># You may need to manually set your language environment&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export LANG=en_US.UTF-8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Preferred editor for local and remote sessions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># if [[ -n $SSH_CONNECTION ]]; then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export EDITOR=&amp;#39;vim&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export EDITOR=&amp;#39;mvim&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Compilation flags&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export ARCHFLAGS=&amp;#34;-arch x86_64&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set personal aliases, overriding those provided by oh-my-zsh libs,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plugins, and themes. Aliases can be placed here, though oh-my-zsh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># users are encouraged to define aliases within the ZSH_CUSTOM folder.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For a full list of active aliases, run `alias`.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Example aliases&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias zshconfig=&amp;#34;mate ~/.zshrc&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias ohmyzsh=&amp;#34;mate ~/.oh-my-zsh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> &lt;span class="nv">$ZSH_CUSTOM&lt;/span>/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> &lt;span class="nv">$ZSH_CUSTOM&lt;/span>/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改默认编辑器为vim&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">EDITOR&lt;/span>&lt;span class="o">=&lt;/span>/usr/bin/vim
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">GOROOT&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">GOPATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$HOME&lt;/span>/go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">GOBIN&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$GOPATH&lt;/span>/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$GOPATH&lt;/span>:&lt;span class="nv">$GOBIN&lt;/span>:&lt;span class="nv">$GOROOT&lt;/span>/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">RUSTUP_DIST_SERVER&lt;/span>&lt;span class="o">=&lt;/span>https://mirrors.ustc.edu.cn/rust-static
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">RUSTUP_UPDATE_ROOT&lt;/span>&lt;span class="o">=&lt;/span>https://mirrors.ustc.edu.cn/rust-static/rustup
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$HOME&lt;/span>&lt;span class="s2">/bin:&lt;/span>&lt;span class="nv">$HOME&lt;/span>&lt;span class="s2">/.local/bin:&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">:/mnt/c/Program\ Files/Docker/Docker/resources/bin&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">:/usr/local/lib/node-v16.4.2-linux-x64/bin&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export DOCKER_HOST=&amp;#34;tcp://0.0.0.0:2375&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias docker=docker.exe&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias docker-compose=docker-compose.exe&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias go colorgo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># history 命令显示时间&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HIST_STAMPS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;yyyy-mm-dd&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ----------------proxy----------------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">WindowsIP&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>cat /etc/resolv.conf &lt;span class="p">|&lt;/span> grep -oP &lt;span class="s1">&amp;#39;(?&amp;lt;=nameserver\ ).*&amp;#39;&lt;/span>&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PROXY_PORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">7078&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">WindowsIP&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_PORT&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Git &amp;amp; SSH for Git proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">proxy_git&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git config --global http.https://github.com.proxy &lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> ! grep -qF &lt;span class="s2">&amp;#34;Host github.com&amp;#34;&lt;/span> ~/.ssh/config&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Host github.com&amp;#34;&lt;/span> &amp;gt;&amp;gt;~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34; User git&amp;#34;&lt;/span> &amp;gt;&amp;gt;~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34; ProxyCommand nc -X 5 -x &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_SOCKS5&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> %h %p&amp;#34;&lt;/span> &amp;gt;&amp;gt;~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">lino&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(($(&lt;/span>awk &lt;span class="s1">&amp;#39;/Host github.com/{print NR}&amp;#39;&lt;/span> ~/.ssh/config&lt;span class="k">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sed -i &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">lino&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">c\ ProxyCommand nc -X 5 -x &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_SOCKS5&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> %h %p&amp;#34;&lt;/span> ~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">set_proxy&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Unset proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unset_proxy&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">unset&lt;/span> http_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">unset&lt;/span> https_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git config --global --unset http.https://github.com.proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set alias&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">proxy&lt;/span>&lt;span class="o">=&lt;/span>set_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">deproxy&lt;/span>&lt;span class="o">=&lt;/span>unset_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">px&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;proxychains4&amp;#39;&lt;/span> &lt;span class="c1"># 此后 px curl google.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># wsl sync time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias synctime=&amp;#39;sudo ntpdate asia.pool.ntp.org;sudo ntpdate time.nist.gov;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">synctime1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;sudo ntpdate asia.pool.ntp.org;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">synctime2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;sudo ntpdate time.nist.gov;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 手动释放内存&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">freemem&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;~/myshell/free-mem.sh&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias godoc=&amp;#39;GO111MODULE=off godoc&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">fy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;unproxy dict&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2其他说明">2：其他说明&lt;/h1></description></item><item><title>01-使用Github Actions自动构建博客</title><link>https://lppgo.github.io/post/others/003-%E4%BD%BF%E7%94%A8github-actions%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/</link><pubDate>Wed, 14 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/003-%E4%BD%BF%E7%94%A8github-actions%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-github-page-%E6%90%AD%E5%BB%BA-blogs">1: 使用 Hugo 和 Github Page 搭建 Blogs&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E6%9B%B4%E6%96%B0%E8%AE%BE%E7%BD%AE-themes-%E7%AD%89%E6%93%8D%E4%BD%9C%E4%BF%9D%E8%AF%81%E6%AD%A3%E5%B8%B8%E5%8F%AF%E7%94%A8">2: 更新设置 themes 等操作，保证正常可用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-create-ssh-deploy-key">3: Create SSH Deploy Key&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-%E7%94%9F%E6%88%90-key">3.1 生成 key&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#32-%E5%9C%A8-github-%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE-deploy-keys-%E5%92%8C-secrets">3.2 在 GitHub 仓库设置 Deploy Keys 和 Secrets&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4-%E7%BC%96%E5%86%99-actions-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">4: 编写 Actions 配置文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-%E7%BC%96%E5%86%99-deploysh-%E8%84%9A%E6%9C%AC">5: 编写 deploy.sh 脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E5%9C%A8-github-actions-%E6%9F%A5%E7%9C%8B%E6%89%A7%E8%A1%8C%E6%83%85%E5%86%B5">6: 在 Github Actions 查看执行情况&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-%E5%85%B6%E4%BB%96">7: 其他&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-使用-hugo-和-github-page-搭建-blogs">1: 使用 Hugo 和 Github Page 搭建 Blogs&lt;/h1>
+&lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/57361697">如何利用 GitHub Pages 和 Hugo 轻松搭建个人博客？&lt;/a>&lt;/p></description></item><item><title>02-文章 2</title><link>https://lppgo.github.io/post/others/002-%E6%96%87%E7%AB%A02/</link><pubDate>Tue, 06 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/002-%E6%96%87%E7%AB%A02/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#hello-world">Hello World&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="hello-world">Hello World&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="nx">hello&lt;/span> &lt;span class="nx">Hugo&lt;/span> &lt;span class="nx">blog&lt;/span> &lt;span class="nx">world&lt;/span>&lt;span class="p">!)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这是博客正文 222&lt;/p></description></item></channel></rss>

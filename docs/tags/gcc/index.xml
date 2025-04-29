@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gcc on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/gcc/</link><description>Recent content in Gcc on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 29 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/gcc/index.xml" rel="self" type="application/rss+xml"/><item><title>010-update-alternatives安装gcc多版本</title><link>https://lppgo.github.io/post/c++/010-update-alternatives%E5%AE%89%E8%A3%85g++%E5%A4%9A%E7%89%88%E6%9C%AC/</link><pubDate>Mon, 17 Mar 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/010-update-alternatives%E5%AE%89%E8%A3%85g++%E5%A4%9A%E7%89%88%E6%9C%AC/</guid><description>&lt;div align='center' >&lt;font size='50'>update-alternatives安装gcc多版本&lt;/font>&lt;/div>
+&lt;h1 id="1-安装update-alternatives">1: 安装update-alternatives&lt;/h1>
+&lt;ul>
+&lt;li>该工具属于dpkg软件包管理系统的核心组件，一般系统已预装。若提示命令不存在，可通过以下命令安装&lt;/li>
+&lt;li>安装: &lt;code>sudo apt install dpkg&lt;/code>&lt;/li>
+&lt;li>验证: &lt;code>update-alternatives --help&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-添加旧版本软件源针对gcc-485">2: ​添加旧版本软件源（针对gcc-4.8.5）&lt;/h1>
+&lt;ul>
+&lt;li>由于Ubuntu 2024.04的默认源可能不包含gcc-4.8.5，需要手动添加旧版仓库:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo sed -i &lt;span class="s1">&amp;#39;$a deb http://archive.ubuntu.com/ubuntu/ xenial main universe&amp;#39;&lt;/span> /etc/apt/sources.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-安装各版本gccg">3: 安装各版本GCC/G++&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装gcc/g++ 4.8.5（需依赖旧版源）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install gcc-4.8 g++-4.8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装gcc/g++ 7和9&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install gcc-7 g++-7 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#（默认源支持）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install gcc-9 g++-9
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果apt 安装不了，手动下载安装&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">https://ftp.gnu.org/gnu/gcc/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-配置update-alternatives">4: 配置update-alternatives&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 添加gcc版本（优先级数值越大优先级越高）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 &lt;span class="m">40&lt;/span> &lt;span class="se">\ &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--slave /usr/bin/g++ g++ /usr/bin/g++-4.8 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--slave /usr/bin/gcov gcov /usr/bin/gcov-4.8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 &lt;span class="m">70&lt;/span> &lt;span class="se">\ &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--slave /usr/bin/g++ g++ /usr/bin/g++-7 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--slave /usr/bin/gcov gcov /usr/bin/gcov-7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 &lt;span class="m">90&lt;/span> &lt;span class="se">\ &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--slave /usr/bin/g++ g++ /usr/bin/g++-9 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--slave /usr/bin/gcov gcov /usr/bin/gcov-9
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 &lt;span class="m">130&lt;/span> &lt;span class="se">\ &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--slave /usr/bin/g++ g++ /usr/bin/g++-13 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--slave /usr/bin/gcov gcov /usr/bin/gcov-13
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-切换默认版本">5: 切换默认版本&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 交互式选择版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo update-alternatives --config gcc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出示例：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">There are &lt;span class="m">3&lt;/span> choices &lt;span class="k">for&lt;/span> the alternative gcc &lt;span class="o">(&lt;/span>providing /usr/bin/gcc&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Selection Path Priority Status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">------------------------------------------------------------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &lt;span class="m">0&lt;/span> /usr/bin/gcc-9 &lt;span class="m">90&lt;/span> auto mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">1&lt;/span> /usr/bin/gcc-4.8 &lt;span class="m">40&lt;/span> manual mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">2&lt;/span> /usr/bin/gcc-7 &lt;span class="m">70&lt;/span> manual mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">3&lt;/span> /usr/bin/gcc-9 &lt;span class="m">90&lt;/span> manual mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Press &amp;lt;Enter&amp;gt; to keep the current choice&lt;span class="o">[&lt;/span>*&lt;span class="o">]&lt;/span>, or &lt;span class="nb">type&lt;/span> selection number: 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="6-版本验证">6: 版本验证&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">gcc --version &lt;span class="c1"># 应显示当前选择的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">g++ --version &lt;span class="c1"># 应与gcc版本一致&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wsl2 on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/wsl2/</link><description>Recent content in Wsl2 on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 27 Jul 2021 14:58:35 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/tags/wsl2/index.xml" rel="self" type="application/rss+xml"/><item><title>01-WSL2中配置docker远程tcp</title><link>https://lppgo.github.io/post/dockerk8s/001-wsl2%E4%B8%AD%E9%85%8D%E7%BD%AEdocker%E8%BF%9C%E7%A8%8Btcp/</link><pubDate>Tue, 27 Jul 2021 14:58:35 +0800</pubDate><guid>https://lppgo.github.io/post/dockerk8s/001-wsl2%E4%B8%AD%E9%85%8D%E7%BD%AEdocker%E8%BF%9C%E7%A8%8Btcp/</guid><description>&lt;div align='center' >&lt;font size='50'>WSL2中配置docker远程tcp&lt;/font>&lt;/div>
+&lt;!-- [toc] -->
+&lt;ul>
+&lt;li>&lt;a href="#1-%E4%BF%AE%E6%94%B9-libsystemdsystemdockerservice">1: 修改 &lt;code>/lib/systemd/system/docker.service&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E8%AE%BE%E7%BD%AE-docker_host-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">2: 设置 &lt;code>DOCKER_HOST&lt;/code> 环境变量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E4%BF%AE%E6%94%B9-docker-%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6etcdefaultdocker">3: 修改 docker 启动配置文件&lt;code>/etc/default/docker&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E9%87%8D%E5%90%AF-docker">4: 重启 docker&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="1-修改-libsystemdsystemdockerservice">1: 修改 &lt;code>/lib/systemd/system/docker.service&lt;/code>&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># sudo vim /lib/systemd/system/docker.service&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock -H fd:// --containerd&lt;span class="o">=&lt;/span>/run/containerd/containerd.sock
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 上面这一行,主要是增加了`-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock`&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-设置-docker_host-环境变量">2: 设置 &lt;code>DOCKER_HOST&lt;/code> 环境变量&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># sudo vim ~/.zshrc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">DOCKER_HOST&lt;/span>&lt;span class="o">=&lt;/span>tcp://0.0.0.0:2375
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.zshrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-修改-docker-启动配置文件etcdefaultdocker">3: 修改 docker 启动配置文件&lt;code>/etc/default/docker&lt;/code>&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 开启远程访问 -H tcp://0.0.0.0:2375&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 开启本地套接字访问 -H unix:///var/run/docker.sock&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DOCKER_OPTS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-重启-docker">4: 重启 docker&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo service docker restart
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

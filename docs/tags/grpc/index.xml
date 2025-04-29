@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Grpc on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/grpc/</link><description>Recent content in Grpc on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 04 Apr 2023 19:19:30 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/tags/grpc/index.xml" rel="self" type="application/rss+xml"/><item><title>02-GRPC_Makefile</title><link>https://lppgo.github.io/post/golang/029_grpc_makefile/</link><pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/029_grpc_makefile/</guid><description>&lt;div align="center">&lt;font size="35">GRPC Makefile脚本&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;code>Makefile&lt;/code>文件内容如下：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GOPATH&lt;/span>&lt;span class="o">:=&lt;/span>&lt;span class="k">$(&lt;/span>shell go env GOPATH&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>shell git describe --tags --always&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">INTERNAL_PROTO_FILES&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>shell find internal -name *.proto&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">API_PROTO_FILES&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>shell find proto -name *.proto&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">init&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># init env
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nf">init&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	go install go.unistack.org/protoc-gen-go-micro/v3@latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway@latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># generate internal proto
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">api&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># generate api proto
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nf">api&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	protoc --proto_path&lt;span class="o">=&lt;/span>. &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>	 --proto_path&lt;span class="o">=&lt;/span>./third_party &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> 	 --go_out&lt;span class="o">=&lt;/span>&lt;span class="nv">paths&lt;/span>&lt;span class="o">=&lt;/span>import:. &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> 	 --go-http_out&lt;span class="o">=&lt;/span>&lt;span class="nv">paths&lt;/span>&lt;span class="o">=&lt;/span>import:. &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> 	 --go-grpc_out&lt;span class="o">=&lt;/span>&lt;span class="nv">paths&lt;/span>&lt;span class="o">=&lt;/span>import:. &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> 	 --go-micro_out&lt;span class="o">=&lt;/span>&lt;span class="nv">debug&lt;/span>&lt;span class="o">=&lt;/span>true,,components&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;micro&amp;#34;&lt;/span>,paths&lt;span class="o">=&lt;/span>import:. &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>	 &lt;span class="k">$(&lt;/span>API_PROTO_FILES&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 	 &lt;span class="c1"># --go-micro_out=debug=true,,components=&amp;#34;micro|http&amp;#34;,paths=source_relative:./go_proto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="c1"># --openapi_out==paths=source_relative:./go_proto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="c1"># --swagger_out=logtostderr=true:./go_proto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">clean&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># rm -rf &amp;#34;./go_proto/pb&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nf">clean&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	find ./go_proto -name &lt;span class="s2">&amp;#34;*.pb.go&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> xargs rm -f
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">build&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># build
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nf">build&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	mkdir -p bin/ &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> go build -ldflags &lt;span class="s2">&amp;#34;-X main.Version=&lt;/span>&lt;span class="k">$(&lt;/span>VERSION&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -o ./bin/ ./...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">generate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># generate
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nf">generate&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	go generate ./...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">all&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># generate all
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nf">all&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	make api&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1"># make generate;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">.PHONY&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="n">help&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># show help
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nf">help&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	@echo &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	@echo &lt;span class="s1">&amp;#39;Usage:&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	@echo &lt;span class="s1">&amp;#39; make [target]&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	@echo &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	@echo &lt;span class="s1">&amp;#39;Targets:&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	@awk &lt;span class="s1">&amp;#39;/^[a-zA-Z\-\_0-9]+:/ { \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">	helpMessage = match(lastLine, /^# (.*)/); \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">		if (helpMessage) { \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">			helpCommand = substr($$1, 0, index($$1, &amp;#34;:&amp;#34;)-1); \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">			helpMessage = substr(lastLine, RSTART + 2, RLENGTH); \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">			printf &amp;#34;\033[36m%-22s\033[0m %s\n&amp;#34;, helpCommand,helpMessage; \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">		} \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">	} \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">	{ lastLine = $$0 }&amp;#39;&lt;/span> &lt;span class="k">$(&lt;/span>MAKEFILE_LIST&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">.DEFAULT_GOAL&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">help&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>01-Grpc with TLS/SSL</title><link>https://lppgo.github.io/post/golang/021-grpc-witch-tls/</link><pubDate>Fri, 17 Dec 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/021-grpc-witch-tls/</guid><description>&lt;div align="center">&lt;font size="35">Grpc with TLS/SSL&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1-grpc-%E9%85%8D%E7%BD%AE-tlsssl">1 Grpc 配置 TLS/SSL&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-%E4%BD%BF%E7%94%A8-openssl-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6-cert">1.1 使用 openssl 生成证书 cert&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-server-%E6%9C%8D%E5%8A%A1%E7%AB%AF">2 Server 服务端&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-client-%E5%AE%A2%E6%88%B7%E7%AB%AF">3 Client 客户端&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-grpc-配置-tlsssl">1 Grpc 配置 TLS/SSL&lt;/h1>
+&lt;p>gRPC 支持身份验证（auth）。将它添加到您的项目中很简单。您所要做的就是使用几行代码对其进行配置。gRPC 支持的身份验证类型之一是 SSL/TLS。&lt;/p></description></item><item><title>01-grpc安装(cpp和go)</title><link>https://lppgo.github.io/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/</link><pubDate>Fri, 08 Oct 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-c-%E9%85%8D%E7%BD%AE-grpc">1 c++ 配置 GRPC&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-setup-dir">1.1 setup dir&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-install-cmake">1.2 install cmake&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-install-other-required-tools">1.3 Install other required tools&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-git-clone-grpc-repo">1.4 git clone grpc repo&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#15-build-and-install-grpc-and-protocol-buffers">1.5 Build and install gRPC and Protocol Buffers&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#16-%E7%BC%96%E5%86%99-proto-%E6%96%87%E4%BB%B6">1.6 编写 proto 文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#17-%E7%BC%96%E5%86%99-serverclient-%E6%96%87%E4%BB%B6">1.7 编写 server/client 文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#18-%E6%89%A7%E8%A1%8C">1.8 执行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-golang-grpc-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">2 golang grpc 环境搭建&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-prerequisites">2.1 Prerequisites&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#golang">golang&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#protobuffer">protobuffer&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#22-get-the-example-code">2.2 Get the example code&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-c-配置-grpc">1 c++ 配置 GRPC&lt;/h1>
+&lt;p>&lt;a href="https://grpc.io/docs/languages/cpp/quickstart/">https://grpc.io/docs/languages/cpp/quickstart/&lt;/a>&lt;/p>
+&lt;h2 id="11-setup-dir">1.1 setup dir&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">MY_INSTALL_DIR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$HOME&lt;/span>/.local
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p &lt;span class="nv">$MY_INSTALL_DIR&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$MY_INSTALL_DIR&lt;/span>&lt;span class="s2">/bin:&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="12-install-cmake">1.2 install cmake&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install -y cmake
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="13-install-other-required-tools">1.3 Install other required tools&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install -y build-essential autoconf libtool pkg-config
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="14-git-clone-grpc-repo">1.4 git clone grpc repo&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone --recurse-submodules -b v1.41.0 https://github.com/grpc/grpc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="15-build-and-install-grpc-and-protocol-buffers">1.5 Build and install gRPC and Protocol Buffers&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> grpc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p cmake/build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">pushd&lt;/span> cmake/build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cmake -DgRPC_INSTALL&lt;span class="o">=&lt;/span>ON &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -DgRPC_BUILD_TESTS&lt;span class="o">=&lt;/span>OFF &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -DCMAKE_INSTALL_PREFIX&lt;span class="o">=&lt;/span>&lt;span class="nv">$MY_INSTALL_DIR&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> ../..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">popd&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># cmake&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p cmake/build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> cmake/build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cmake ../..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="16-编写-proto-文件">1.6 编写 proto 文件&lt;/h2>
+&lt;h2 id="17-编写-serverclient-文件">1.7 编写 server/client 文件&lt;/h2>
+&lt;h2 id="18-执行">1.8 执行&lt;/h2>
+&lt;h1 id="2-golang-grpc-环境搭建">2 golang grpc 环境搭建&lt;/h1>
+&lt;p>&lt;a href="https://grpc.io/docs/languages/go/quickstart/">https://grpc.io/docs/languages/go/quickstart/&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,2502 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/categories/linux/</link><description>Recent content in Linux on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 05 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>040-Linux安装配置gitlab私有仓库</title><link>https://lppgo.github.io/post/linux/040-linux%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEgitlab/</link><pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/040-linux%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEgitlab/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E5%AE%89%E8%A3%85-gitlab">1: 安装 gitlab&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-%E5%AE%89%E8%A3%85">1.1 安装&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-%E9%85%8D%E7%BD%AE">1.2 配置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-%E5%90%AF%E5%8A%A8-gitlab">1.3 启动 gitlab&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-account-%E7%AE%A1%E7%90%86">1.4 account 管理&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F-natapp">2: 内网穿透 natapp&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-安装-gitlab">1: 安装 gitlab&lt;/h1>
+&lt;h2 id="11-安装">1.1 安装&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">https://packages.gitlab.com/gitlab/gitlab-ce/install&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>安装工具包: &lt;code>apt install policycoreutils-python-utils&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>安装 gitlab: &lt;code>curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>sudo apt install gitlab-ce&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>安装成功成功出现如下图所示:
+&lt;img src="https://lppgo.github.io/images/gitlab_001.png" alt="">&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="12-配置">1.2 配置&lt;/h2>
+&lt;ul>
+&lt;li>更新配置 :&lt;code>gitlab-ctl reconfigure&lt;/code>。装完成后,更新配置,稍微需要点时间,耐心等待一下,完成后,我们可以看到用户名和密码&lt;/li>
+&lt;li>以下信息我们可以看到用户名和密码,用户名为:root,密码需要单独查看
+&lt;img src="https://lppgo.github.io/images/gitlab_002.png" alt="">&lt;/li>
+&lt;li>上面那个路径就是密码路径,查看密码:&lt;code>cat /etc/gitlab/initial_root_password&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="13-启动-gitlab">1.3 启动 gitlab&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>gitlab-ctl start&lt;/code>;&lt;/p></description></item><item><title>039-Shell设置颜色及一些参数</title><link>https://lppgo.github.io/post/linux/039-%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0/</link><pubDate>Wed, 31 May 2023 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/039-%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-shell-%E8%84%9A%E6%9C%AC%E6%9F%A5%E9%94%99">1: Shell 脚本查错&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-set--u">1.1 set -u&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-set--x">1.2 set -x&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13">1.3&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-bash-%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">1.4 Bash 的错误处理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#15-set--e">1.5 set -e&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#16-%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0">1.6 其他参数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E9%A2%9C%E8%89%B2">2: 设置文本颜色&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E8%AE%BE%E7%BD%AE-background-color">3: 设置 background color&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-shell-脚本查错">1: Shell 脚本查错&lt;/h1>
+&lt;h2 id="11-set--u">1.1 set -u&lt;/h2>
+&lt;ul>
+&lt;li>执行脚本时，如果遇到不存在的变量，Bash 默认忽略它;&lt;/li>
+&lt;li>&lt;strong>&lt;code>set -u&lt;/code>&lt;/strong> 就用来改变这种行为。脚本在头部加上它，遇到不存在的变量就会报错，并停止执行;&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/usr/bin/env bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">set&lt;/span> -u
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> bar
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>运行结果如下:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ bash script.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bash: script.sh:行4: a: 未绑定的变量
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 可以看到，脚本报错了，并且不再执行后面的语句&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>-u 还有另一种写法 &lt;strong>&lt;code>-o nounset&lt;/code>&lt;/strong> ，两者是等价的;&lt;/li>
+&lt;li>&lt;code>set -o nounset&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="12-set--x">1.2 set -x&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>set -x&lt;/code> 用来在运行结果之前，先输出执行的那一行命令;&lt;/li>
+&lt;li>&lt;code>-x&lt;/code>还有另一种写法&lt;code>-o xtrace&lt;/code>;&lt;/li>
+&lt;/ul>
+&lt;h2 id="13">1.3&lt;/h2>
+&lt;h2 id="14-bash-的错误处理">1.4 Bash 的错误处理&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>[[ -d $dir_name ]] &amp;amp;&amp;amp; cd $dir_name &amp;amp;&amp;amp; rm *&lt;/code>: 先判断目录存在，再删除;&lt;/li>
+&lt;li>bash 的&lt;code>-x&lt;/code>参数可以在执行每一行命令之前，打印该命令;&lt;/li>
+&lt;/ul>
+&lt;h2 id="15-set--e">1.5 set -e&lt;/h2>
+&lt;h2 id="16-其他参数">1.6 其他参数&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>set 命令还有一些其他参数。&lt;/p></description></item><item><title>Linux系统常用命令速查</title><link>https://lppgo.github.io/post/linux/038-linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5/</link><pubDate>Mon, 29 May 2023 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/038-linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF">1: 查看系统信息&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-date-%E6%98%BE%E7%A4%BA%E7%B3%BB%E7%BB%9F%E6%97%A5%E6%9C%9F">2: date 显示系统日期&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%B3%E6%9C%BA%E9%87%8D%E5%90%AF%E4%BB%A5%E5%8F%8A%E7%99%BB%E5%87%BA">3: 系统的关机、重启以及登出&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2">4: 文件搜索&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-%E6%8C%82%E8%BD%BD%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">5: 挂载一个文件系统&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4">6: 磁盘空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BE%A4%E7%BB%84">7: 用户和群组&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-%E6%89%93%E5%8C%85%E5%92%8C%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6">8: 打包和压缩文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#9-linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">9: linux 包管理器&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#91-rpm-%E5%8C%85---fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">9.1 RPM 包 - （Fedora, Redhat 及类似系统）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#92-yum-%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%8D%87%E7%BA%A7%E5%99%A8---fedora-redhat-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">9.2 YUM 软件包升级器 - （Fedora, RedHat 及类似系统）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#93-deb-%E5%8C%85-debian-ubuntu-%E4%BB%A5%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">9.3 DEB 包 (Debian, Ubuntu 以及类似系统)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#94-apt-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7-debian-ubuntu-%E4%BB%A5%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">9.4 APT 软件工具 (Debian, Ubuntu 以及类似系统)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#10-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">10: 查看文件内容&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#11-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86">11: 文本处理&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-查看系统信息">1: 查看系统信息&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">arch &lt;span class="c1">#显示机器的处理器架构(1)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uname -m &lt;span class="c1">#显示机器的处理器架构(2)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uname -r &lt;span class="c1">#显示正在使用的内核版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dmidecode -q &lt;span class="c1">#显示硬件系统部件 - (SMBIOS / DMI)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hdparm -i /dev/hda &lt;span class="c1">#罗列一个磁盘的架构特性&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hdparm -tT /dev/sda &lt;span class="c1">#在磁盘上执行测试性读取操作&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/cpuinfo &lt;span class="c1">#显示CPU info的信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/interrupts &lt;span class="c1">#显示中断&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/meminfo &lt;span class="c1">#校验内存使用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/swaps &lt;span class="c1">#显示哪些swap被使用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/version &lt;span class="c1">#显示内核的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/net/dev &lt;span class="c1">#显示网络适配器及统计&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/mounts &lt;span class="c1">#显示已加载的文件系统&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lspci -tv &lt;span class="c1">#罗列PCI设备&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lsusb -tv &lt;span class="c1">#显示USB设备&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-date-显示系统日期">2: date 显示系统日期&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">1: 查看当前时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出：&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2: 查看指定时间，转为时间戳
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date +%s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d &lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span> +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d &lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span> +%s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3：时间戳转换为date
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d @1416387827
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d @1416387827 +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cal &lt;span class="m">2007&lt;/span> &lt;span class="c1">#显示2007年的日历表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date 041217002007.00 &lt;span class="c1">#设置日期和时间 - 月日时分年.秒&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">clock -w &lt;span class="c1">#将时间修改保存到 BIOS&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-系统的关机重启以及登出">3: 系统的关机、重启以及登出&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">shutdown -h now &lt;span class="c1">#关闭系统(1)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">init &lt;span class="m">0&lt;/span> &lt;span class="c1">#关闭系统(2)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">telinit &lt;span class="m">0&lt;/span> &lt;span class="c1">#关闭系统(3)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">shutdown -h hours:minutes &lt;span class="p">&amp;amp;&lt;/span> &lt;span class="c1">#按预定时间关闭系统&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">shutdown -c &lt;span class="c1">#取消按预定时间关闭系统&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">shutdown -r now &lt;span class="c1">#重启(1)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">reboot &lt;span class="c1">#重启(2)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">logout&lt;/span> &lt;span class="c1">#注销&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-文件搜索">4: 文件搜索&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find / -name file1 &lt;span class="c1">#从 &amp;#39;/&amp;#39; 开始进入根文件系统搜索文件和目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find / -user user1 &lt;span class="c1">#搜索属于用户 &amp;#39;user1&amp;#39; 的文件和目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /home/user1 -name &lt;span class="se">\*&lt;/span>.bin &lt;span class="c1">#在目录 &amp;#39;/ home/user1&amp;#39; 中搜索带有&amp;#39;.bin&amp;#39; 结尾的文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /usr/bin -type f -atime +100 &lt;span class="c1">#搜索在过去100天内未被使用过的执行文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /usr/bin -type f -mtime -10 &lt;span class="c1">#搜索在10天内被创建或者修改过的文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find / -name &lt;span class="se">\*&lt;/span>.rpm -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="s1">&amp;#39;{}&amp;#39;&lt;/span> &lt;span class="se">\;&lt;/span> &lt;span class="c1">#搜索以 &amp;#39;.rpm&amp;#39; 结尾的文件并定义其权限&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find / -xdev -name &lt;span class="se">\*&lt;/span>.rpm &lt;span class="c1">#搜索以 &amp;#39;.rpm&amp;#39; 结尾的文件，忽略光驱、捷盘等可移动设备&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">locate &lt;span class="se">\*&lt;/span>.ps &lt;span class="c1">#寻找以 &amp;#39;.ps&amp;#39; 结尾的文件 - 先运行 &amp;#39;updatedb&amp;#39; 命令&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">whereis halt &lt;span class="c1">#显示一个二进制文件、源码或man的位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">which halt &lt;span class="c1">#显示一个二进制文件或可执行文件的完整路径&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-挂载一个文件系统">5: 挂载一个文件系统&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mount /dev/hda2 /mnt/hda2 &lt;span class="c1">#挂载一个叫做hda2的盘 - 确定目录 &amp;#39;/ mnt/hda2&amp;#39; 已经存在&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">umount /dev/hda2 &lt;span class="c1">#卸载一个叫做hda2的盘 - 先从挂载点 &amp;#39;/ mnt/hda2&amp;#39; 退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fuser -km /mnt/hda2 &lt;span class="c1">#当设备繁忙时强制卸载&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">umount -n /mnt/hda2 &lt;span class="c1">#运行卸载操作而不写入 /etc/mtab 文件- 当文件为只读或当磁盘写满时非常有用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount /dev/fd0 /mnt/floppy &lt;span class="c1">#挂载一个软盘&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount /dev/cdrom /mnt/cdrom &lt;span class="c1">#挂载一个cdrom或dvdrom&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount /dev/hdc /mnt/cdrecorder &lt;span class="c1">#挂载一个cdrw或dvdrom&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount /dev/hdb /mnt/cdrecorder &lt;span class="c1">#挂载一个cdrw或dvdrom&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount -o loop file.iso /mnt/cdrom &lt;span class="c1">#挂载一个文件或ISO镜像文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount -t vfat /dev/hda5 /mnt/hda5 &lt;span class="c1">#挂载一个Windows FAT32文件系统&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount /dev/sda1 /mnt/usbdisk &lt;span class="c1">#挂载一个usb 捷盘或闪存设备&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mount -t smbfs -o &lt;span class="nv">username&lt;/span>&lt;span class="o">=&lt;/span>user,password&lt;span class="o">=&lt;/span>pass //WinClient/share /mnt/share &lt;span class="c1">#挂载一个windows网络共享&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="6-磁盘空间">6: 磁盘空间&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">df -h &lt;span class="c1">#显示已经挂载的分区列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls -lSr &lt;span class="p">|&lt;/span>more &lt;span class="c1">#以尺寸大小排列文件和目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">du -sh dir1 &lt;span class="c1">#估算目录 &amp;#39;dir1&amp;#39; 已经使用的磁盘空间&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">du -sk * &lt;span class="p">|&lt;/span> sort -rn &lt;span class="c1">#以容量大小为依据依次显示文件和目录的大小&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -q -a --qf &lt;span class="s1">&amp;#39;%10{SIZE}t%{NAME}n&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sort -k1,1n
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg-query -W -f&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;${Installed-Size;10}t${Package}n&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sort -k1,1n
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#以大小为依据显示已安装的deb包所使用的空间 (ubuntu, debian类系统)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="7-用户和群组">7: 用户和群组&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">groupadd group_name &lt;span class="c1">#创建一个新用户组&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">groupdel group_name &lt;span class="c1">#删除一个用户组&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">groupmod -n new_group_name old_group_name &lt;span class="c1">#重命名一个用户组&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">useradd -c &lt;span class="s2">&amp;#34;Name Surname &amp;#34;&lt;/span> -g admin -d /home/user1 -s /bin/bash user1 &lt;span class="c1">#创建一个属于 &amp;#34;admin&amp;#34; 用户组的用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">useradd user1 &lt;span class="c1">#创建一个新用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">userdel -r user1 &lt;span class="c1">#删除一个用户 ( &amp;#39;-r&amp;#39; 排除主目录)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">usermod -c &lt;span class="s2">&amp;#34;User FTP&amp;#34;&lt;/span> -g system -d /ftp/user1 -s /bin/nologin user1 &lt;span class="c1">#修改用户属性&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">passwd &lt;span class="c1">#修改口令&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">passwd user1 &lt;span class="c1">#修改一个用户的口令 (只允许root执行)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chage -E 2005-12-31 user1 &lt;span class="c1">#设置用户口令的失效期限&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pwck &lt;span class="c1">#检查 &amp;#39;/etc/passwd&amp;#39; 的文件格式和语法修正以及存在的用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">grpck &lt;span class="c1">#检查 &amp;#39;/etc/passwd&amp;#39; 的文件格式和语法修正以及存在的群组&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">newgrp group_name &lt;span class="c1">#登陆进一个新的群组以改变新创建文件的预设群组&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="8-打包和压缩文件">8: 打包和压缩文件&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bunzip2 file1.bz2 &lt;span class="c1">#解压一个叫做 &amp;#39;file1.bz2&amp;#39;的文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bzip2 file1 &lt;span class="c1">#压缩一个叫做 &amp;#39;file1&amp;#39; 的文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gunzip file1.gz &lt;span class="c1">#解压一个叫做 &amp;#39;file1.gz&amp;#39;的文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gzip file1 &lt;span class="c1">#压缩一个叫做 &amp;#39;file1&amp;#39;的文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gzip -9 file1 &lt;span class="c1">#最大程度压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rar a file1.rar test_file &lt;span class="c1">#创建一个叫做 &amp;#39;file1.rar&amp;#39; 的包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rar a file1.rar file1 file2 dir1 &lt;span class="c1">#同时压缩 &amp;#39;file1&amp;#39;, &amp;#39;file2&amp;#39; 以及目录 &amp;#39;dir1&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rar x file1.rar &lt;span class="c1">#解压rar包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unrar x file1.rar &lt;span class="c1">#解压rar包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvf archive.tar file1 &lt;span class="c1">#创建一个非压缩的 tarball&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvf archive.tar file1 file2 dir1 &lt;span class="c1">#创建一个包含了 &amp;#39;file1&amp;#39;, &amp;#39;file2&amp;#39; 以及 &amp;#39;dir1&amp;#39;的档案文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -tf archive.tar &lt;span class="c1">#显示一个包中的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xvf archive.tar &lt;span class="c1">#释放一个包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xvf archive.tar -C /tmp &lt;span class="c1">#将压缩包释放到 /tmp目录下&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvfj archive.tar.bz2 dir1 &lt;span class="c1">#创建一个bzip2格式的压缩包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -jxvf archive.tar.bz2 &lt;span class="c1">#解压一个bzip2格式的压缩包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvfz archive.tar.gz dir1 &lt;span class="c1">#创建一个gzip格式的压缩包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -zxvf archive.tar.gz &lt;span class="c1">#解压一个gzip格式的压缩包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">zip file1.zip file1 &lt;span class="c1">#创建一个zip格式的压缩包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">zip -r file1.zip file1 file2 dir1 &lt;span class="c1">#将几个文件和目录同时压缩成一个zip格式的压缩包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unzip file1.zip &lt;span class="c1">#解压一个zip格式压缩包&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="9-linux-包管理器">9: linux 包管理器&lt;/h1>
+&lt;h2 id="91-rpm-包---fedora-redhat-及类似系统">9.1 RPM 包 - （Fedora, Redhat 及类似系统）&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rpm -ivh package.rpm &lt;span class="c1">#安装一个rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -ivh --nodeeps package.rpm &lt;span class="c1">#安装一个rpm包而忽略依赖关系警告&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -U package.rpm &lt;span class="c1">#更新一个rpm包但不改变其配置文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -F package.rpm &lt;span class="c1">#更新一个确定已经安装的rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -e package_name.rpm &lt;span class="c1">#删除一个rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qa &lt;span class="c1">#显示系统中所有已经安装的rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qa &lt;span class="p">|&lt;/span> grep httpd &lt;span class="c1">#显示所有名称中包含 &amp;#34;httpd&amp;#34; 字样的rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qi package_name &lt;span class="c1">#获取一个已安装包的特殊信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qg &lt;span class="s2">&amp;#34;System Environment/Daemons&amp;#34;&lt;/span> &lt;span class="c1">#显示一个组件的rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -ql package_name &lt;span class="c1">#显示一个已经安装的rpm包提供的文件列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qc package_name &lt;span class="c1">#显示一个已经安装的rpm包提供的配置文件列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -q package_name --whatrequires &lt;span class="c1">#显示与一个rpm包存在依赖关系的列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -q package_name --whatprovides &lt;span class="c1">#显示一个rpm包所占的体积&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -q package_name --scripts &lt;span class="c1">#显示在安装/删除期间所执行的脚本l&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -q package_name --changelog &lt;span class="c1">#显示一个rpm包的修改历史&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qf /etc/httpd/conf/httpd.conf &lt;span class="c1">#确认所给的文件由哪个rpm包所提供&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qp package.rpm -l &lt;span class="c1">#显示由一个尚未安装的rpm包提供的文件列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm --import /media/cdrom/RPM-GPG-KEY &lt;span class="c1">#导入公钥数字证书&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm --checksig package.rpm &lt;span class="c1">#确认一个rpm包的完整性&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -qa gpg-pubkey &lt;span class="c1">#确认已安装的所有rpm包的完整性&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -V package_name &lt;span class="c1">#检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -Va &lt;span class="c1">#检查系统中所有已安装的rpm包- 小心使用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -Vp package.rpm &lt;span class="c1">#确认一个rpm包还未安装&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm2cpio package.rpm &lt;span class="p">|&lt;/span> cpio --extract --make-directories *bin* &lt;span class="c1">#从一个rpm包运行可执行文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpm -ivh /usr/src/redhat/RPMS/&lt;span class="sb">`&lt;/span>arch&lt;span class="sb">`&lt;/span>/package.rpm &lt;span class="c1">#从一个rpm源码安装一个构建好的包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rpmbuild --rebuild package_name.src.rpm &lt;span class="c1">#从一个rpm源码构建一个 rpm 包&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="92-yum-软件包升级器---fedora-redhat-及类似系统">9.2 YUM 软件包升级器 - （Fedora, RedHat 及类似系统）&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">yum install package_name &lt;span class="c1">#下载并安装一个rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum localinstall package_name.rpm &lt;span class="c1">#将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum update package_name.rpm &lt;span class="c1">#更新当前系统中所有安装的rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum update package_name &lt;span class="c1">#更新一个rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum remove package_name &lt;span class="c1">#删除一个rpm包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum list &lt;span class="c1">#列出当前系统中安装的所有包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum search package_name &lt;span class="c1">#在rpm仓库中搜寻软件包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum clean packages &lt;span class="c1">#清理rpm缓存删除下载的包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum clean headers &lt;span class="c1">#删除所有头文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum clean all &lt;span class="c1">#删除所有缓存的包和头文件&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="93-deb-包-debian-ubuntu-以及类似系统">9.3 DEB 包 (Debian, Ubuntu 以及类似系统)&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">dpkg -i package.deb &lt;span class="c1">#安装/更新一个 deb 包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg -r package_name &lt;span class="c1">#从系统删除一个 deb 包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg -l &lt;span class="c1">#显示系统中所有已经安装的 deb 包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg -l &lt;span class="p">|&lt;/span> grep httpd &lt;span class="c1">#显示所有名称中包含 &amp;#34;httpd&amp;#34; 字样的deb包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg -s package_name &lt;span class="c1">#获得已经安装在系统中一个特殊包的信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg -L package_name &lt;span class="c1">#显示系统中已经安装的一个deb包所提供的文件列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg --contents package.deb &lt;span class="c1">#显示尚未安装的一个包所提供的文件列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dpkg -S /bin/ping &lt;span class="c1">#确认所给的文件由哪个deb包提供&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="94-apt-软件工具-debian-ubuntu-以及类似系统">9.4 APT 软件工具 (Debian, Ubuntu 以及类似系统)&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get install package_name &lt;span class="c1">#安装/更新一个 deb 包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-cdrom install package_name &lt;span class="c1">#从光盘安装/更新一个 deb 包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update &lt;span class="c1">#升级列表中的软件包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get upgrade &lt;span class="c1">#升级所有已安装的软件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get remove package_name &lt;span class="c1">#从系统删除一个deb包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get check &lt;span class="c1">#确认依赖的软件仓库正确&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get clean &lt;span class="c1">#从下载的软件包中清理缓存&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-cache search searched-package &lt;span class="c1">#返回包含所要搜索字符串的软件包名称&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="10-查看文件内容">10: 查看文件内容&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat file1 &lt;span class="c1">#从第一个字节开始正向查看文件的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tac file1 &lt;span class="c1">#从最后一行开始反向查看一个文件的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">more file1 &lt;span class="c1">#查看一个长文件的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">less file1 &lt;span class="c1">#类似于 &amp;#39;more&amp;#39; 命令，但是它允许在文件中和正向操作一样的反向操作&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">head -2 file1 &lt;span class="c1">#查看一个文件的前两行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tail -2 file1 &lt;span class="c1">#查看一个文件的最后两行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tail -f /var/log/messages &lt;span class="c1">#实时查看被添加到一个文件中的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="11-文本处理">11: 文本处理&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat file1 file2 ... &lt;span class="p">|&lt;/span> &lt;span class="nb">command&lt;/span> &amp;lt;&amp;gt; file1_in.txt_or_file1_out.txt general syntax &lt;span class="k">for&lt;/span> text manipulation using PIPE, STDIN and STDOUT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat file1 &lt;span class="p">|&lt;/span> command&lt;span class="o">(&lt;/span> sed, grep, awk, grep, etc...&lt;span class="o">)&lt;/span> &amp;gt; result.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#合并一个文件的详细说明文本，并将简介写入一个新文件中&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat file1 &lt;span class="p">|&lt;/span> command&lt;span class="o">(&lt;/span> sed, grep, awk, grep, etc...&lt;span class="o">)&lt;/span> &amp;gt;&amp;gt; result.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#合并一个文件的详细说明文本，并将简介写入一个已有的文件中&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">grep Aug /var/log/messages &lt;span class="c1">#在文件 &amp;#39;/var/log/messages&amp;#39;中查找关键词&amp;#34;Aug&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">grep ^Aug /var/log/messages &lt;span class="c1">#在文件 &amp;#39;/var/log/messages&amp;#39;中查找以&amp;#34;Aug&amp;#34;开始的词汇&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">grep &lt;span class="o">[&lt;/span>0-9&lt;span class="o">]&lt;/span> /var/log/messages &lt;span class="c1">#选择 &amp;#39;/var/log/messages&amp;#39; 文件中所有包含数字的行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">grep Aug -R /var/log/* &lt;span class="c1">#在目录 &amp;#39;/var/log&amp;#39; 及随后的目录中搜索字符串&amp;#34;Aug&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed &lt;span class="s1">&amp;#39;s/stringa1/stringa2/g&amp;#39;&lt;/span> example.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#将example.txt文件中的 &amp;#34;string1&amp;#34; 替换成 &amp;#34;string2&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed &lt;span class="s1">&amp;#39;/^$/d&amp;#39;&lt;/span> example.txt &lt;span class="c1">#从example.txt文件中删除所有空白行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed &lt;span class="s1">&amp;#39;/ *#/d; /^$/d&amp;#39;&lt;/span> example.txt &lt;span class="c1">#从example.txt文件中删除所有注释和空白行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;esempio&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> tr &lt;span class="s1">&amp;#39;[:lower:]&amp;#39;&lt;/span> &lt;span class="s1">&amp;#39;[:upper:]&amp;#39;&lt;/span> &lt;span class="c1">#合并上下单元格内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -e &lt;span class="s1">&amp;#39;1d&amp;#39;&lt;/span> result.txt &lt;span class="c1">#从文件example.txt 中排除第一行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -n &lt;span class="s1">&amp;#39;/stringa1/p&amp;#39;&lt;/span> &lt;span class="c1">#查看只包含词汇 &amp;#34;string1&amp;#34;的行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -e &lt;span class="s1">&amp;#39;s/ *$//&amp;#39;&lt;/span> example.txt &lt;span class="c1">#删除每一行最后的空白字符&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -e &lt;span class="s1">&amp;#39;s/stringa1//g&amp;#39;&lt;/span> example.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#从文档中只删除词汇 &amp;#34;string1&amp;#34; 并保留剩余全部&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -n &lt;span class="s1">&amp;#39;1,5p;5q&amp;#39;&lt;/span> example.txt &lt;span class="c1">#查看从第一行到第5行内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -n &lt;span class="s1">&amp;#39;5p;5q&amp;#39;&lt;/span> example.txt &lt;span class="c1">#查看第5行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -e &lt;span class="s1">&amp;#39;s/00*/0/g&amp;#39;&lt;/span> example.txt &lt;span class="c1">#用单个零替换多个零&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat -n file1 &lt;span class="c1">#标示文件的行数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat example.txt &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;NR%2==1&amp;#39;&lt;/span> &lt;span class="c1">#删除example.txt文件中的所有偶数行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> a b c &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;{print $1}&amp;#39;&lt;/span> &lt;span class="c1">#查看一行第一栏&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> a b c &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;{print $1,$3}&amp;#39;&lt;/span> &lt;span class="c1">#查看一行的第一和第三栏&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">paste file1 file2 &lt;span class="c1">#合并两个文件或两栏的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">paste -d &lt;span class="s1">&amp;#39;+&amp;#39;&lt;/span> file1 file2 &lt;span class="c1">#合并两个文件或两栏的内容，中间用&amp;#34;+&amp;#34;区分&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sort file1 file2 &lt;span class="c1">#排序两个文件的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sort file1 file2 &lt;span class="p">|&lt;/span> uniq &lt;span class="c1">#取出两个文件的并集(重复的行只保留一份)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sort file1 file2 &lt;span class="p">|&lt;/span> uniq -u &lt;span class="c1">#删除交集，留下其他的行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sort file1 file2 &lt;span class="p">|&lt;/span> uniq -d &lt;span class="c1">#取出两个文件的交集(只留下同时存在于两个文件中的文件)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">comm -1 file1 file2 &lt;span class="c1">#比较两个文件的内容只删除 &amp;#39;file1&amp;#39; 所包含的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">comm -2 file1 file2 &lt;span class="c1">#比较两个文件的内容只删除 &amp;#39;file2&amp;#39; 所包含的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">comm -3 file1 file2 &lt;span class="c1">#比较两个文件的内容只删除两个文件共有的部分&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>037-Linux配置环境变量的6种方法</title><link>https://lppgo.github.io/post/linux/037-linux%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%846%E7%A7%8D%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 23 Dec 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/037-linux%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%846%E7%A7%8D%E6%96%B9%E6%B3%95/</guid><description>&lt;!-- [toc] -->
+&lt;div align="center">&lt;font size="35">Linux配置环境变量的6种方法&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1-linux-%E8%AF%BB%E5%8F%96%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">1: Linux 读取环境变量&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-export-path">1.1 export PATH&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-vim-bashrc">1.2 vim ~/.bashrc&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-vim-bash_profile">1.3 vim ~/.bash_profile&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-vim-etcbashrc">1.4 vim /etc/bashrc&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#15-vim-etcprofile">1.5 vim /etc/profile&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#16-vim-etcenvironment">1.6 vim /etc/environment&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-linux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90">2: Linux 环境变量加载原理解析&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%86%E7%B1%BB">2.1 环境变量的分类&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-linux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E8%AF%A6%E8%A7%A3">2.2 Linux 环境变量文件加载详解&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="1-linux-读取环境变量">1: Linux 读取环境变量&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>在自定义安装软件的时候，经常需要配置环境变量，下面列举出各种对环境变量的配置方法。&lt;/p></description></item><item><title>035-Linux高效运维工具</title><link>https://lppgo.github.io/post/linux/035-linux%E9%AB%98%E6%95%88%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/</link><pubDate>Sat, 19 Nov 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/035-linux%E9%AB%98%E6%95%88%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/</guid><description>&lt;p>[toc]&lt;/p>
+&lt;div align="center">&lt;font size="35">Linux高效运维工具&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1-%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E8%B5%84%E6%BA%90">1: 系统性能，资源&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-top">1.1 top&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-htop">1.2 htop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-btopgotop">1.3 btop/gotop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7-nmon">1.4 系统资源监控-NMON&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-%E7%BD%91%E7%BB%9C-network">2: 网络 Network&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7-iftop">2.1 网络流量监控 iftop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%8D%A0%E7%94%A8%E5%B8%A6%E5%AE%BD%E6%83%85%E5%86%B5-nethogs">2.2 查看进程占用带宽情况 nethogs&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7-iptraf">2.3 网络流量监控 IPtraf&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3-%E7%A3%81%E7%9B%98">3: 磁盘&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-%E7%A1%AC%E7%9B%98%E8%AF%BB%E5%8F%96%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95-iozone">3.1 硬盘读取性能测试 iozone&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#32-%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E7%A3%81%E7%9B%98-io-iotop">3.2 实时监控磁盘 IO ioTop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5-agedu">3.3 页面显示磁盘空间使用情况-Agedu&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#34-iostat">3.4 iostat&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4-%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7">4: 进程监控&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-container">5: Container&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E5%AE%89%E5%85%A8%E6%89%AB%E6%8F%8F">6: 安全扫描&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#61-%E5%AE%89%E5%85%A8%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7-nmap">6.1 安全扫描工具-NMap&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#7-web">7: web&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#71-web-%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95-httperf">7.1 Web 压力测试-Httperf&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-%E6%96%87%E4%BB%B6%E7%9B%91%E6%8E%A7">8: 文件监控&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#81-%E7%9B%91%E6%8E%A7%E5%A4%9A%E4%B8%AA%E6%97%A5%E5%BF%97-multitail">8.1 监控多个日志-MultiTail&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#82-%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5-agedu">8.2 页面显示磁盘空间使用情况-Agedu&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#9-%E4%BC%9A%E8%AF%9D-session-%E7%BB%88%E7%AB%AF">9: 会话 Session 终端&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#91-%E8%BF%9E%E6%8E%A5%E4%BC%9A%E8%AF%9D%E7%BB%88%E7%AB%AF%E6%8C%81%E7%BB%AD%E5%8C%96-tmux">9.1 连接会话终端持续化-Tmux&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="1-系统性能资源">1: 系统性能，资源&lt;/h1>
+&lt;h2 id="11-top">1.1 top&lt;/h2>
+&lt;h2 id="12-htop">1.2 htop&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>yum -y install htop&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="13-btopgotop">1.3 btop/gotop&lt;/h2>
+&lt;h2 id="14-系统资源监控-nmon">1.4 系统资源监控-NMON&lt;/h2>
+&lt;blockquote>
+&lt;p>NMON 是一种在 AIX 与各种 Linux 操作系统上广泛使用的监控与分析工具.&lt;/p></description></item><item><title>01-top命令基本使用</title><link>https://lppgo.github.io/post/linux/013-top%E5%91%BD%E4%BB%A4%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link><pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/013-top%E5%91%BD%E4%BB%A4%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-top-%E5%91%BD%E4%BB%A4%E6%8C%89%E9%94%AE">1: Top 命令按键&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-top-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E">2 Top 参数说明&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-cpu-%E7%8A%B6%E6%80%81%E4%BF%A1%E6%81%AF">2.1 CPU 状态信息&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-memestate">2.2 MemeState&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-swap-%E4%BA%A4%E6%8D%A2%E5%86%85%E5%AD%98">2.3 Swap 交换内存&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#24-%E5%90%84%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9B%91%E6%8E%A7">2.4 各进程状态监控&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#25-%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A">2.5 名词解释&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#251-virtvirtual-memory-usage-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98">2.5.1 VIRT：virtual memory usage 虚拟内存&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#252-resresident-memory-usage-%E5%B8%B8%E9%A9%BB%E5%86%85%E5%AD%98">2.5.2 RES：resident memory usage 常驻内存&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#253-shrshared-memory-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98">2.5.3 SHR：shared memory 共享内存&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#254-data">2.5.4 DATA&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-top-命令按键">1: Top 命令按键&lt;/h1>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: center">options&lt;/th>
+ &lt;th style="text-align: center">按键&lt;/th>
+ &lt;th style="text-align: left">说明&lt;/th>
+ &lt;th style="text-align: left">示例&lt;/th>
+ &lt;th style="text-align: left">其他&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;code>-u&lt;/code>&lt;/td>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: left">显示特定 user 的进程&lt;/td>
+ &lt;td style="text-align: left">&lt;code>top -u lucas&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;code>-p&lt;/code>&lt;/td>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: left">显示特定 PID 的进程&lt;/td>
+ &lt;td style="text-align: left">&lt;code>top -p 10001 10002&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;code>-n&lt;/code>&lt;/td>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: left">10 次输出后退出程&lt;/td>
+ &lt;td style="text-align: left">&lt;code>top -n 10&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">按数字 1 可以显示每个 CPU 核心使用情况&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>M&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">根据驻留内存&lt;code>RES&lt;/code>大小进行排序,由大到小（注意大小写)&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>R&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">按&lt;code>RES&lt;/code>反序排序&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>P&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">根据 CPU 使用百分比大小进行&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>T&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">根据时间/累计时间进行排序&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>c&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">切换显示命令名称和完整命令行&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>i&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">忽略闲置和僵死进程。这是一个开关式命令。&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>f&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">更改显示内容通过 f 键可以选择显示的内容。按 f 键之后会显示列的列表，空格确定显示或者取消显示 a 是切换&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>d&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">更改刷新时间&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>o&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">进入 top 后，按下 o 后，会让你输入过滤条件,输入 &lt;code>COMMAND=nginx&lt;/code>,现在就只剩下模糊匹配 nginx 关键字的进程了&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>Shift+P&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">对进程 CPU 利用率进行排序&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">&lt;/td>
+ &lt;td style="text-align: center">&lt;code>Shift+O&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">对进程 Memory 利用率进行排序&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h1 id="2-top-参数说明">2 Top 参数说明&lt;/h1>
+&lt;h2 id="21-cpu-状态信息">2.1 CPU 状态信息&lt;/h2>
+&lt;p>0.0%us 【user space】— 用户空间占用 CPU 的百分比。&lt;/p></description></item><item><title>01-zshrc 笔记</title><link>https://lppgo.github.io/post/others/001-zshrc/</link><pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/001-zshrc/</guid><description>&lt;div align="center">&lt;font size="35">zshrc笔记&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1zshrc-%E6%96%87%E4%BB%B6">1：zshrc 文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E">2：其他说明&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1zshrc-文件">1：zshrc 文件&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;span class="lnt">147
+&lt;/span>&lt;span class="lnt">148
+&lt;/span>&lt;span class="lnt">149
+&lt;/span>&lt;span class="lnt">150
+&lt;/span>&lt;span class="lnt">151
+&lt;/span>&lt;span class="lnt">152
+&lt;/span>&lt;span class="lnt">153
+&lt;/span>&lt;span class="lnt">154
+&lt;/span>&lt;span class="lnt">155
+&lt;/span>&lt;span class="lnt">156
+&lt;/span>&lt;span class="lnt">157
+&lt;/span>&lt;span class="lnt">158
+&lt;/span>&lt;span class="lnt">159
+&lt;/span>&lt;span class="lnt">160
+&lt;/span>&lt;span class="lnt">161
+&lt;/span>&lt;span class="lnt">162
+&lt;/span>&lt;span class="lnt">163
+&lt;/span>&lt;span class="lnt">164
+&lt;/span>&lt;span class="lnt">165
+&lt;/span>&lt;span class="lnt">166
+&lt;/span>&lt;span class="lnt">167
+&lt;/span>&lt;span class="lnt">168
+&lt;/span>&lt;span class="lnt">169
+&lt;/span>&lt;span class="lnt">170
+&lt;/span>&lt;span class="lnt">171
+&lt;/span>&lt;span class="lnt">172
+&lt;/span>&lt;span class="lnt">173
+&lt;/span>&lt;span class="lnt">174
+&lt;/span>&lt;span class="lnt">175
+&lt;/span>&lt;span class="lnt">176
+&lt;/span>&lt;span class="lnt">177
+&lt;/span>&lt;span class="lnt">178
+&lt;/span>&lt;span class="lnt">179
+&lt;/span>&lt;span class="lnt">180
+&lt;/span>&lt;span class="lnt">181
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># If you come from bash you might have to change your $PATH.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export PATH=$HOME/bin:/usr/local/bin:$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Path to your oh-my-zsh installation.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">ZSH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/home/lucas/.oh-my-zsh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set name of the theme to load --- if set to &amp;#34;random&amp;#34;, it will&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># load a random theme each time oh-my-zsh is loaded, in which case,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># to know which specific one was loaded, run: echo $RANDOM_THEME&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改默认主题&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ZSH_THEME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;ys&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set list of themes to pick from when loading at random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Setting this variable when ZSH_THEME=random will cause zsh to load&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># a theme from this variable instead of looking in $ZSH/themes/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># If set to an empty array, this variable will have no effect.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ZSH_THEME_RANDOM_CANDIDATES=( &amp;#34;robbyrussell&amp;#34; &amp;#34;agnoster&amp;#34; )&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to use case-sensitive completion.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># CASE_SENSITIVE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to use hyphen-insensitive completion.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Case-sensitive completion must be off. _ and - will be interchangeable.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># HYPHEN_INSENSITIVE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to disable bi-weekly auto-update checks.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_AUTO_UPDATE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to automatically update without prompting.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_UPDATE_PROMPT=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to change how often to auto-update (in days).&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export UPDATE_ZSH_DAYS=13&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line if pasting URLs and other text is messed up.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_MAGIC_FUNCTIONS=true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to disable colors in ls.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_LS_COLORS=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to disable auto-setting terminal title.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_AUTO_TITLE=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to enable command auto-correction.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ENABLE_CORRECTION=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line to display red dots whilst waiting for completion.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># COMPLETION_WAITING_DOTS=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line if you want to disable marking untracked files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># under VCS as dirty. This makes repository status check for large repositories&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># much, much faster.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DISABLE_UNTRACKED_FILES_DIRTY=&amp;#34;true&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Uncomment the following line if you want to change the command execution time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># stamp shown in the history command output.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># You can set one of the optional three formats:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &amp;#34;mm/dd/yyyy&amp;#34;|&amp;#34;dd.mm.yyyy&amp;#34;|&amp;#34;yyyy-mm-dd&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or set a custom format using the strftime function format specifications,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># see &amp;#39;man strftime&amp;#39; for details.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># HIST_STAMPS=&amp;#34;mm/dd/yyyy&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Would you like to use another custom folder than $ZSH/custom?&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ZSH_CUSTOM=/path/to/new-custom-folder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Which plugins would you like to load?&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Standard plugins can be found in $ZSH/plugins/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Custom plugins may be added to $ZSH_CUSTOM/plugins/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Example format: plugins=(rails git textmate ruby lighthouse)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add wisely, as too many plugins slow down shell startup.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">plugins&lt;/span>&lt;span class="o">=(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> zsh-syntax-highlighting
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> zsh-autosuggestions
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> &lt;span class="nv">$ZSH&lt;/span>/oh-my-zsh.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># User configuration&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export MANPATH=&amp;#34;/usr/local/man:$MANPATH&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># You may need to manually set your language environment&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export LANG=en_US.UTF-8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Preferred editor for local and remote sessions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># if [[ -n $SSH_CONNECTION ]]; then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export EDITOR=&amp;#39;vim&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export EDITOR=&amp;#39;mvim&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Compilation flags&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export ARCHFLAGS=&amp;#34;-arch x86_64&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set personal aliases, overriding those provided by oh-my-zsh libs,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plugins, and themes. Aliases can be placed here, though oh-my-zsh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># users are encouraged to define aliases within the ZSH_CUSTOM folder.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For a full list of active aliases, run `alias`.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Example aliases&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias zshconfig=&amp;#34;mate ~/.zshrc&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias ohmyzsh=&amp;#34;mate ~/.oh-my-zsh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> &lt;span class="nv">$ZSH_CUSTOM&lt;/span>/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> &lt;span class="nv">$ZSH_CUSTOM&lt;/span>/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改默认编辑器为vim&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">EDITOR&lt;/span>&lt;span class="o">=&lt;/span>/usr/bin/vim
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">GOROOT&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">GOPATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$HOME&lt;/span>/go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">GOBIN&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$GOPATH&lt;/span>/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$GOPATH&lt;/span>:&lt;span class="nv">$GOBIN&lt;/span>:&lt;span class="nv">$GOROOT&lt;/span>/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">RUSTUP_DIST_SERVER&lt;/span>&lt;span class="o">=&lt;/span>https://mirrors.ustc.edu.cn/rust-static
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">RUSTUP_UPDATE_ROOT&lt;/span>&lt;span class="o">=&lt;/span>https://mirrors.ustc.edu.cn/rust-static/rustup
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$HOME&lt;/span>&lt;span class="s2">/bin:&lt;/span>&lt;span class="nv">$HOME&lt;/span>&lt;span class="s2">/.local/bin:&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">:/mnt/c/Program\ Files/Docker/Docker/resources/bin&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$PATH&lt;/span>&lt;span class="s2">:/usr/local/lib/node-v16.4.2-linux-x64/bin&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># export DOCKER_HOST=&amp;#34;tcp://0.0.0.0:2375&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias docker=docker.exe&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias docker-compose=docker-compose.exe&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias go colorgo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># history 命令显示时间&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HIST_STAMPS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;yyyy-mm-dd&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ----------------proxy----------------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">WindowsIP&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>cat /etc/resolv.conf &lt;span class="p">|&lt;/span> grep -oP &lt;span class="s1">&amp;#39;(?&amp;lt;=nameserver\ ).*&amp;#39;&lt;/span>&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PROXY_PORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">7078&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">WindowsIP&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_PORT&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Git &amp;amp; SSH for Git proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">proxy_git&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git config --global http.https://github.com.proxy &lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> ! grep -qF &lt;span class="s2">&amp;#34;Host github.com&amp;#34;&lt;/span> ~/.ssh/config&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Host github.com&amp;#34;&lt;/span> &amp;gt;&amp;gt;~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34; User git&amp;#34;&lt;/span> &amp;gt;&amp;gt;~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34; ProxyCommand nc -X 5 -x &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_SOCKS5&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> %h %p&amp;#34;&lt;/span> &amp;gt;&amp;gt;~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">lino&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(($(&lt;/span>awk &lt;span class="s1">&amp;#39;/Host github.com/{print NR}&amp;#39;&lt;/span> ~/.ssh/config&lt;span class="k">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sed -i &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">lino&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">c\ ProxyCommand nc -X 5 -x &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_SOCKS5&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> %h %p&amp;#34;&lt;/span> ~/.ssh/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">set_proxy&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PROXY_HTTP&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Unset proxy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unset_proxy&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">unset&lt;/span> http_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">unset&lt;/span> https_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git config --global --unset http.https://github.com.proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set alias&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">proxy&lt;/span>&lt;span class="o">=&lt;/span>set_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">deproxy&lt;/span>&lt;span class="o">=&lt;/span>unset_proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">px&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;proxychains4&amp;#39;&lt;/span> &lt;span class="c1"># 此后 px curl google.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># wsl sync time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias synctime=&amp;#39;sudo ntpdate asia.pool.ntp.org;sudo ntpdate time.nist.gov;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">synctime1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;sudo ntpdate asia.pool.ntp.org;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">synctime2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;sudo ntpdate time.nist.gov;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 手动释放内存&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">freemem&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;~/myshell/free-mem.sh&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># alias godoc=&amp;#39;GO111MODULE=off godoc&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">fy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;unproxy dict&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2其他说明">2：其他说明&lt;/h1></description></item><item><title>01-Nginx 常用配置清单.md</title><link>https://lppgo.github.io/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/</link><pubDate>Sun, 06 Jun 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/</guid><description>&lt;p>Table of Contents&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#1-nginx-%E9%85%8D%E7%BD%AE">1: Nginx 配置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-listen-port">2: Listen Port&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-access-log">3: Access Log&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-domain-name">4: Domain Name&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-static-asset">5: Static Asset&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-redirect">6: Redirect&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-reverse-proxy">7: Reverse Proxy&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-nginx-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F">8: Nginx 解决跨域&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-load-balance">8: Load Balance&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#81-roundrobin-%E8%BD%AE%E8%AF%A2default">8.1 RoundRobin 轮询(default)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#82-weight-%E6%9D%83%E9%87%8D">8.2 weight (权重)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#83-ip_haship-%E7%BB%91%E5%AE%9A-ip_hash-">8.3 ip_hash（IP 绑定 ip_hash ）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#84-url_hash">8.4 url_hash&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#85-fair%E7%AC%AC%E4%B8%89%E6%96%B9">8.5 fair（第三方）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#9-ssl-%E5%8D%8F%E8%AE%AE">9: SSL 协议&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#10-nginx-%E5%8A%A0%E9%80%9F">10: Nginx 加速&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#101-%E5%90%AF%E7%94%A8-gzip-%E5%8E%8B%E7%BC%A9">10.1 启用 Gzip 压缩&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#102-%E8%AE%BE%E7%BD%AE%E7%BC%93%E5%AD%98%E5%A4%B4">10.2 设置缓存头&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#103-%E5%90%AF%E7%94%A8-http2-%E5%8D%8F%E8%AE%AE">10.3 启用 HTTP2 协议&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#104-%E4%BC%98%E5%8C%96%E6%97%A5%E5%BF%97-optimizing-logging">10.4 优化日志 Optimizing Logging&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#1041-%E7%A6%81%E7%94%A8%E9%A1%B5%E9%9D%A2%E8%B5%84%E6%BA%90%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95">10.4.1 禁用页面资源请求的日志记录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1042-%E7%A6%81%E7%94%A8%E6%88%90%E5%8A%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95">10.4.2 禁用成功请求的日志记录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1043-%E6%9C%80%E5%B0%8F%E5%8C%96-io-%E6%93%8D%E4%BD%9C">10.4.3 最小化 I/O 操作&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#105-%E9%99%90%E5%88%B6%E5%B8%A6%E5%AE%BD">10.5 限制带宽&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#11-location-%E8%AF%AD%E6%B3%95">11: location 语法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-nginx-%E9%AB%98%E5%8F%AF%E7%94%A8-keepalived">12: nginx 高可用 keepalived&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-nginx-配置">1: Nginx 配置&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw">https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw&lt;/a>&lt;/p></description></item><item><title>01-nginx ssl双向认证.md</title><link>https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</link><pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</guid><description>&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-nginx-ssl-setting">1: Nginx SSL Setting&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-openssl-%E9%85%8D%E7%BD%AE%E5%87%86%E5%A4%87">2: openssl 配置准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%88%9B%E5%BB%BA-ca-%E6%A0%B9%E7%BA%A7%E8%AF%81%E4%B9%A6">3: 创建 CA 根级证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E5%88%9B%E5%BB%BA-server-%E8%AF%81%E4%B9%A6">4: 创建 server 证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-%E5%88%9B%E5%BB%BA-client-%E8%AF%81%E4%B9%A6">5: 创建 client 证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E9%85%8D%E7%BD%AE-nginx-ssl">6: 配置 Nginx ssl&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-nginx-ssl-setting">1: Nginx SSL Setting&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;strong>Nginx 对 SSL 双向认证支持的比较好，配置很简单：&lt;/strong>&lt;/p></description></item><item><title>01-shell快速入门.md</title><link>https://lppgo.github.io/post/linux/025-shell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</link><pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/025-shell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</guid><description>&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-%E7%AC%AC%E4%B8%80%E4%B8%AA-shell-%E8%84%9A%E6%9C%AC">1: 第一个 shell 脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E5%8F%98%E9%87%8F-variable">2: 变量 variable&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%AD%97%E7%AC%A6%E4%B8%B2-string">3: 字符串 String&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E6%95%B0%E7%BB%84-array">4: 数组 Array&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-shell-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92">5: Shell 参数传递&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E8%BF%90%E7%AE%97">6: 运算&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#61-%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97">6.1 算数运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#62-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97">6.2 关系运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#63-%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97">6.3 布尔运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#64-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6">6.4 逻辑运算符&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#65-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97%E7%AC%A6">6.5 字符串运算符&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#66-%E6%96%87%E4%BB%B6%E6%A3%80%E6%B5%8B%E8%BF%90%E7%AE%97%E7%AC%A6">6.6 文件检测运算符&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#67-%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97">6.7 布尔运算&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#7-echo">7: echo&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-printf">8: printf&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#9-test">9: test&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#10-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6">10: 流程控制&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#101-if">10.1 if&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#102-for">10.2 for&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#103-while">10.3 while&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#104-%E6%97%A0%E9%99%90%E5%BE%AA%E7%8E%AF">10.4 无限循环&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#105-until">10.5 until&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#106-case">10.6 case&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#107-%E8%A1%A8%E7%A4%BA-break">10.7 ;;表示 break&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#11-%E5%87%BD%E6%95%B0">11: 函数&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#111-%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89">11.1 函数定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#112-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0">11.2 函数参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#113-shell-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F-%E5%92%8C-local-%E4%BF%AE%E9%A5%B0%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">11.3 shell 全局变量 和 local 修饰的局部变量&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#12-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91">12: 输入输出重定向&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-shell-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB">13: Shell 文件包含&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-%E5%B8%B8%E7%94%A8%E4%B8%80%E4%BA%9B-shell-%E8%84%9A%E6%9C%AC">14: 常用一些 shell 脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#15-other">15: other&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-第一个-shell-脚本">1: 第一个 shell 脚本&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello, world&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>运行程序可以作为解释器参数或者作为可执行程序&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash test.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x test.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">test.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-变量-variable">2: 变量 variable&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: 变量定义&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 需要注意的是变量名与等号之间不能有空格.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: 变量使用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用在变量名前添加$即可,{}表示这个变量名的边界.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$name&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3: 只读变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用readonly可以将变量定义为只读变量,只读变量不能再次赋值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">readonly&lt;/span> name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 4: 删除变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用unset删除变量,之后不能再使用.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">unset&lt;/span> name
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-字符串-string">3: 字符串 String&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: 字符串定义&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 字符串可以使用单引号和双引号,单引号中不能包含单引号,即使转义单引号也不次那个,双引号则可以,双引号也可以使用字符串.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;my name is &lt;/span>&lt;span class="nv">$name&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: 字符串拼接&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">hello&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my name is &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3: 获取字符串长度&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">str&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">str&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 4: 提取子字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">str&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">str&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">3&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 5: 字符串查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">str&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="sb">`&lt;/span>expr index &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$str&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> u&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 此时输出2,因为此时第一个字符位置从1开始&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-数组-array">4: 数组 Array&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: 数组定义&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">names&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;greywind&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;xie&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[0]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[2]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: 数组读取&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[2]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 使用@可以获取数组中的所有元素&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3: 数组长度获取&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">length1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="si">${#&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">length2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="si">${#&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[*]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$length1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$length2&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-shell-参数传递">5: Shell 参数传递&lt;/h1>
+&lt;ul>
+&lt;li>执行 Shell 脚本的时候,可以向脚本传递参数,在 Shell 中获取这些参数的格式为$n,即$1,$2…….,&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数是：&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数是：&lt;/span>&lt;span class="nv">$2&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数是：&lt;/span>&lt;span class="nv">$3&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 运行shell&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x test.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">test.sh &lt;span class="m">12&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">14&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 此时输出:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第一个参数是：12
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第一个参数是：13
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第一个参数是：14
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>此外,还有其他几个特殊字符来处理参数
+&lt;ul>
+&lt;li>$#：传递脚本的参数个数&lt;/li>
+&lt;li>$*：显示所有的参数&lt;/li>
+&lt;li>$@：返回所有参数&lt;/li>
+&lt;li>$-：显示 Shell 的使用的当前选项&lt;/li>
+&lt;li>$?：退出的状态,0 表示没有错误,其他则表示有错误&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="6-运算">6: 运算&lt;/h1>
+&lt;h2 id="61-算数运算">6.1 算数运算&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>算数运算&lt;/strong> 原生 bash 不支持简单的数学运算,可以借助于其他命令来完成,例如 awk 和 expr,其中 expr 最常用.expr 是一款表达式计算工具,使用它能完成表达式的求值操作.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">val&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>expr &lt;span class="m">2&lt;/span> + 2&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$val&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>需要注意的是&lt;strong>运算符两边需要 &lt;em>空格&lt;/em> ,且使用的是反引号&lt;/strong>. 算术运算符包括：&lt;code>+ - × / % = == !=&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="62-关系运算">6.2 关系运算&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>关系运算&lt;/strong> 关系运算只支持数字,不支持字符串,除非字符串的值是数字.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">12&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">13&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$a&lt;/span> -eq &lt;span class="nv">$b&lt;/span> &lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;相等&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;不等&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>算数运算符：&lt;/p></description></item><item><title>01-Linux创建用户</title><link>https://lppgo.github.io/post/linux/005-linux%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7/</link><pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/005-linux%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-userdel%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7">1: userdel删除用户&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-useradd%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7">2: useradd创建用户&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E6%96%B0%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8ssh%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81">3: 新用户使用ssh登录验证&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-userdel删除用户">1: userdel删除用户&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 若使用userdel haha 命令删除该用户时，并不能删除该用户的所有信息，&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 只是删除了/etc/passwd、/etc/shadow、/etc/group/、/etc/gshadow四个文件里的该账户和组的信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>root@localhost /&lt;span class="o">]&lt;/span>&lt;span class="c1"># userdel haha&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>root@localhost /&lt;span class="o">]&lt;/span>&lt;span class="c1"># cat /etc/passwd | grep haha&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>root@localhost /&lt;span class="o">]&lt;/span>&lt;span class="c1"># cat /etc/shadow | grep haha&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>root@localhost /&lt;span class="o">]&lt;/span>&lt;span class="c1"># cat /etc/group | grep haha&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>root@localhost /&lt;span class="o">]&lt;/span>&lt;span class="c1"># cat /etc/gshadow | grep haha&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>root@localhost /&lt;span class="o">]&lt;/span>&lt;span class="c1"># find / -name &amp;#34;*haha*&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 完全删除用户，慎用！！！&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">userdel -r haha
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-useradd创建用户">2: useradd创建用户&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1 在home手动创建新用户home目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">useradd -d /home/haha haha
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2 设置密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">passwd haha
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3 设置sudo权限&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">（1）su root //进入root用户
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">（2）vim /etc/sudoers //打开sudo的配置文件
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 修改sudoers文件:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;lt;1&amp;gt; 先找到所示的一行：（root &lt;span class="nv">ALL&lt;/span>&lt;span class="o">=(&lt;/span>ALL&lt;span class="o">)&lt;/span>ALL）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;lt;2&amp;gt; 然后给普通用户haha添加sudo权限，在“root &lt;span class="nv">ALL&lt;/span>&lt;span class="o">=(&lt;/span>ALL&lt;span class="o">)&lt;/span>ALL”这一行下面，加入如下图所示的一行&lt;span class="o">(&lt;/span>用户名 &lt;span class="nv">ALL&lt;/span>&lt;span class="o">=(&lt;/span>ALL&lt;span class="o">)&lt;/span> ALL&lt;span class="o">)&lt;/span>，并保存
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-新用户使用ssh登录验证">3: 新用户使用ssh登录验证&lt;/h1></description></item><item><title>01-ToolBox</title><link>https://lppgo.github.io/post/linux/002-toolbox/</link><pubDate>Thu, 06 May 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/002-toolbox/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#toolbox-%E5%B7%A5%E5%85%B7%E7%AE%B1">ToolBox 工具箱&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#1-%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7">1: 压测工具&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3">2: 网络相关&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-3">3: 3&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-4">4: 4&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-5">5: 5&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-6">6: 6&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-7">7: 7&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-8">8: 8&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#9-9">9: 9&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#10-10">10: 10&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#11-11">11: 11&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-12">12: 12&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="toolbox-工具箱">ToolBox 工具箱&lt;/h1>
+&lt;h2 id="1-压测工具">1: 压测工具&lt;/h2>
+&lt;h2 id="2-网络相关">2: 网络相关&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">工具类型&lt;/th>
+ &lt;th style="text-align: left">工具名称&lt;/th>
+ &lt;th style="text-align: left">site&lt;/th>
+ &lt;th style="text-align: left">教程&lt;/th>
+ &lt;th style="text-align: left">其他&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">内网穿透&lt;/td>
+ &lt;td style="text-align: left">花生壳&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">内网穿透&lt;/td>
+ &lt;td style="text-align: left">NatApp&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="https://natapp.cn/">https://natapp.cn/&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">内网穿透&lt;/td>
+ &lt;td style="text-align: left">Ngrok&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="https://www.ngrok.cc/">https://www.ngrok.cc/&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&amp;hellip;&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="3-3">3: 3&lt;/h2>
+&lt;h2 id="4-4">4: 4&lt;/h2>
+&lt;h2 id="5-5">5: 5&lt;/h2>
+&lt;h2 id="6-6">6: 6&lt;/h2>
+&lt;h2 id="7-7">7: 7&lt;/h2>
+&lt;h2 id="8-8">8: 8&lt;/h2>
+&lt;h2 id="9-9">9: 9&lt;/h2>
+&lt;h2 id="10-10">10: 10&lt;/h2>
+&lt;h2 id="11-11">11: 11&lt;/h2>
+&lt;h2 id="12-12">12: 12&lt;/h2></description></item><item><title>01-localhost与127.0.0.1与0.0.0.0与本机IP的区别</title><link>https://lppgo.github.io/post/linux/019-localhost%E4%B8%8E127.0.0.1%E4%B8%8E0.0.0.0%E4%B8%8E%E6%9C%AC%E6%9C%BAip%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/019-localhost%E4%B8%8E127.0.0.1%E4%B8%8E0.0.0.0%E4%B8%8E%E6%9C%AC%E6%9C%BAip%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-localhost">1: localhost&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-127001">2: 127.0.0.1&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-0000">3: 0.0.0.0&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E6%9C%AC%E6%9C%BA-ip">4: 本机 IP&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-localhost">1: localhost&lt;/h1>
+&lt;p>首先 localhost 是一个域名，在过去它指向 127.0.0.1 这个 IP 地址。在操作系统支持 ipv6 后，它同时还指向 ipv6 的地址 [::1]
+在 Windows 中，这个域名是预定义的，从 hosts 文件中可以看出：&lt;/p></description></item><item><title>01-Linux Manual</title><link>https://lppgo.github.io/post/linux/015-linux-manual/</link><pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/015-linux-manual/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E6%96%87%E4%BB%B6">1: 文件&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">1.1 查看文件内容&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#111-head">1.1.1 head&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#112-tail">1.1.2 tail&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#113-cat">1.1.3 cat&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#114-nl">1.1.4 nl&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#115-more">1.1.5 more&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#12-%E5%88%9B%E5%BB%BA">1.2 创建&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#121-touch">1.2.1 touch&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#122-mkdir">1.2.2 mkdir&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#123-mktemp">1.2.3 mktemp&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#13-%E5%88%A0%E9%99%A4">1.3 删除&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#131-rm">1.3.1 rm&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#132-rmdir">1.3.2 rmdir&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#14-%E6%9F%A5%E6%89%BE%E6%96%87%E4%BB%B6">1.4 查找文件&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#141-find">1.4.1 find&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#142-locate">1.4.2 locate&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#15-ls">1.5 ls&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#16-pwd">1.6 pwd&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#17-wc">1.7 wc&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#18-chattr">1.8 chattr&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#19-paste">1.9 paste&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#110-stat">1.10 stat&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#111-grep">1.11 grep&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#112-sed">1.12 sed&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#1121-%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E5%91%BD%E4%BB%A4">1.12.1 执行多个命令&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1122-%E4%BB%8E%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E7%BC%96%E8%BE%91%E5%99%A8%E5%91%BD%E4%BB%A4">1.12.2 从文件中读取编辑器命令&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1123-%E7%9B%B4%E6%8E%A5%E7%BC%96%E8%BE%91">1.12.3 直接编辑&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1124-%E6%9B%BF%E6%8D%A2%E6%A0%87%E8%AE%B0">1.12.4 替换标记&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1125-%E6%9B%BF%E6%8D%A2%E5%8F%8D%E6%96%9C%E6%9D%A0">1.12.5 替换反斜杠&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1126-%E4%BD%BF%E7%94%A8%E5%9C%B0%E5%9D%80">1.12.6 使用地址&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1127-%E5%88%A0%E9%99%A4%E8%A1%8C">1.12.7 删除行&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1128-%E6%89%93%E5%8D%B0%E5%86%85%E5%AE%B9">1.12.8 打印内容&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#113-cd">1.13 cd&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#114-cp">1.14 cp&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#114-mv">1.14 mv&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#115-open">1.15 open&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#116-source">1.16 source&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#117-tree">1.17 tree&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#118-ln">1.18 ln&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#119-file">1.19 file&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#120-sort">1.20 sort&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#121-uniq">1.21 uniq&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#122-split">1.22 split&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#123-vim">1.23 vim&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86">2: 系统管理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-nohup">2.1 nohup&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-watch">2.2 watch&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-ping">2.3 ping&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#24-which">2.4 which&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#25-shutdown">2.5 shutdown&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#26-reboot">2.6 reboot&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#27-uptime">2.7 uptime&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#28-crontab">2.8 crontab&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#29-at">2.9 at&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#210-uname">2.10 uname&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#211-ifconfig">2.11 ifconfig&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#212-whereis">2.12 whereis&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#213-chmod">2.13 chmod&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#2131-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%E7%A0%81">2.13.1 文件权限码&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#214-chown">2.14 chown&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#215-lsof">2.15 lsof&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#216-systemctl">2.16 systemctl&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#217-service">2.17 service&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#218-free">2.18 free&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#219-type">2.19 type&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#220-alias">2.20 alias&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#221-time">2.21 time&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#222-jobs">2.22 jobs&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#223-">2.23 &amp;amp;&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3-%E7%B3%BB%E7%BB%9F%E8%BF%9B%E7%A8%8B">3: 系统进程&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#ps">ps&lt;/a> * &lt;a href="#unix-%E9%A3%8E%E6%A0%BC%E5%8F%82%E6%95%B0">Unix 风格参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#pstree">pstree&lt;/a>
+_ &lt;a href="#%E6%98%BE%E7%A4%BA%E6%89%80%E6%9C%89%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%89%80%E6%9C%89%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF">显示所有进程的所有详细信息&lt;/a>
+_ &lt;a href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E6%89%80%E6%9C%89%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%8F%B7%E5%92%8C%E8%BF%9B%E7%A8%8B-id">显示当前所有进程的进程号和进程 id&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#top">top&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#netstat">netstat&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#kill">kill&lt;/a> * &lt;a href="#%E8%BF%9B%E7%A8%8B%E4%BF%A1%E5%8F%B7">进程信号&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#killall">killall&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86">4: 用户管理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#useradd">useradd&lt;/a>
+_ &lt;a href="#useradd-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0">useradd 命令行参数&lt;/a>&lt;br>
+_ &lt;a href="#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4%E5%80%BC%E5%8F%82%E6%95%B0">更改默认值参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#userdel">userdel&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#passwd">passwd&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#chpasswd">chpasswd&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#chsh">chsh&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#chfn">chfn&lt;/a> * &lt;a href="#%E4%BF%AE%E6%94%B9%E7%9C%9F%E5%AE%9E%E5%A7%93%E5%90%8D">修改真实姓名&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#usermod">usermod&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#users">users&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#who">who&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#w">w&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#last">last&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#su">su&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#whoami">whoami&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#5-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">5: 环境变量&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#printenv">printenv&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#set">set&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#export">export&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#unset">unset&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#6-%E5%8E%8B%E7%BC%A9%E8%A7%A3%E5%8E%8B">6: 压缩、解压&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#zip">zip&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#unzip">unzip&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gzip">gzip&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#bzip2">bzip2&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#tar">tar&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#7-%E5%8A%A0%E8%A7%A3%E5%AF%86">7: 加解密&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#md5sum">md5sum&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#base64">base64&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#8-%E7%BD%91%E7%BB%9C">8: 网络&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#ssh">ssh&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#wget">wget&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#curl">curl&lt;/a>&lt;br>
+_ &lt;a href="#%E4%B8%8D%E4%BC%A0%E9%80%92%E4%BB%BB%E4%BD%95%E5%8F%82%E6%95%B0%E5%8F%AA%E6%89%93%E5%8D%B0-http-%E5%93%8D%E5%BA%94%E5%86%85%E5%AE%B9">不传递任何参数只打印 HTTP 响应内容&lt;/a>&lt;br>
+_ &lt;a href="#-s-%E4%B8%8D%E8%BE%93%E5%87%BA%E9%94%99%E8%AF%AF%E5%92%8C%E8%BF%9B%E5%BA%A6%E4%BF%A1%E6%81%AF-%E5%8F%AA%E6%98%BE%E7%A4%BA%E6%AD%A3%E5%B8%B8%E7%BB%93%E6%9E%9C">-s 不输出错误和进度信息, 只显示正常结果&lt;/a>&lt;br>
+_ &lt;a href="#-o-%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E5%90%8D%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%AD%89%E4%BB%B7%E4%BA%8E-wget">-o 指定文件名下载到本地，等价于 wget&lt;/a>&lt;br>
+_ &lt;a href="#-o-%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%88%B0%E6%9C%AC%E5%9C%B0-%E5%B9%B6%E5%B0%86-url-%E6%9C%80%E5%90%8E%E9%83%A8%E5%88%86%E5%BD%93%E5%81%9A%E6%96%87%E4%BB%B6%E5%90%8D">-O 下载文件到本地, 并将 URL 最后部分当做文件名&lt;/a>&lt;br>
+_ &lt;a href="#--progress-%E6%98%BE%E7%A4%BA%E8%BF%9B%E5%BA%A6%E6%9D%A1">&amp;ndash;progress 显示进度条&lt;/a>&lt;br>
+_ &lt;a href="#-l-http-%E8%AF%B7%E6%B1%82%E8%B7%9F%E9%9A%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%87%8D%E5%AE%9A%E5%90%91">-L HTTP 请求跟随服务器重定向&lt;/a>&lt;br>
+_ &lt;a href="#-i-%E6%88%96---head-%E6%98%BE%E7%A4%BA-http-%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87-%E4%B8%8D%E6%89%93%E5%8D%B0%E5%93%8D%E5%BA%94%E5%86%85%E5%AE%B9">-I 或 &amp;ndash;head 显示 HTTP 响应报文, 不打印响应内容&lt;/a>&lt;br>
+_ &lt;a href="#-h-%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E5%A4%B4">-H 设置请求头&lt;/a>&lt;br>
+_ &lt;a href="#-x-%E6%8C%87%E6%98%8E-http-%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95">-X 指明 HTTP 请求方法&lt;/a>&lt;br>
+_ &lt;a href="#-d-%E8%A6%81%E5%8F%91%E9%80%81%E7%9A%84%E5%AE%9E%E4%BD%93%E5%86%85%E5%AE%B9">-d 要发送的实体内容&lt;/a>
+_ &lt;a href="#--cookie-http-%E8%AF%B7%E6%B1%82%E6%97%B6%E6%90%BA%E5%B8%A6%E7%9A%84-cookie-%E4%BF%A1%E6%81%AF">&amp;ndash;cookie HTTP 请求时携带的 cookie 信息&lt;/a>&lt;br>
+_ &lt;a href="#-v-%E6%89%93%E5%8D%B0%E6%95%B4%E4%B8%AA%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B">-v 打印整个传输过程&lt;/a>&lt;br>
+_ &lt;a href="#-f-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E9%BB%98%E8%AE%A4%E4%BB%A5-post-%E6%96%B9%E6%B3%95%E8%AF%B7%E6%B1%82">-F 上传文件，默认以 POST 方法请求&lt;/a>&lt;br>
+_ &lt;a href="#-u-%E8%AF%B7%E6%B1%82%E6%8E%88%E6%9D%83">-u 请求授权&lt;/a> * &lt;a href="#--retry-%E8%AF%B7%E6%B1%82%E9%87%8D%E8%AF%95">&amp;ndash;retry 请求重试&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#scp">scp&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#rsync">rsync&lt;/a>
+_ &lt;a href="#%E6%9C%AC%E5%9C%B0%E5%90%8C%E6%AD%A5%E6%96%87%E4%BB%B6">本地同步文件&lt;/a>
+_ &lt;a href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%96%87%E4%BB%B6">远程同步文件&lt;/a>
+_ &lt;a href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD">增量备份&lt;/a>
+_ &lt;a href="#%E5%85%B6%E4%BB%96%E7%94%A8%E6%B3%95">其他用法&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#9-%E7%A3%81%E7%9B%98">9: 磁盘&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#df">df&lt;/a> * &lt;a href="#%E6%8F%8F%E8%BF%B0">描述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#du">du&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#10-%E5%8C%85%E7%AE%A1%E7%90%86">10: 包管理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#yum">yum&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#apt-get">apt-get&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#11-%E5%85%B6%E4%BB%96">11: 其他&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E7%9B%AE%E5%BD%95%E5%90%8D%E7%A7%B0%E5%90%AB%E4%B9%89">目录名称含义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%87%8D%E5%AE%9A%E5%90%91%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA">重定向输入和输出&lt;/a>
+_ &lt;a href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91">输出重定向&lt;/a>
+_ &lt;a href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91">输入重定向&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%AE%A1%E9%81%93">管道&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#echo">echo&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#date">date&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#man">man&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#sleep">sleep&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#history">history&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#xargs">xargs&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#cal">cal&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#expr">expr&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#bc">bc&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#timeout">timeout&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#exit">exit&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#basename">basename&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#read">read&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#tee">tee&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#clear">clear&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-文件">1: 文件&lt;/h1>
+&lt;h2 id="11-查看文件内容">1.1 查看文件内容&lt;/h2>
+&lt;h3 id="111-head">1.1.1 head&lt;/h3>
+&lt;p>显示文件的头部内容，默认前 10 行&lt;/p></description></item><item><title>01-加密技术,数字签名,数字证书</title><link>https://lppgo.github.io/post/linux/017-%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/017-%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/</guid><description>&lt;h1 id="table-of-contents">.
+Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1%E5%89%8D%E8%A8%80-perface">1：前言 Perface&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D-digitial-signature">2：数字签名 digitial signature&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D">2.1 什么是数字签名&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#211-%E7%94%9F%E6%88%90%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D">2.1.1 生成数字签名&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#212-%E9%AA%8C%E8%AF%81%E7%AD%BE%E5%90%8D">2.1.2 验证签名&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95-digest">2.2 数字签名算法（摘要算法 digest）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6-digital-certificate-ca">3：数字证书 (Digital Certificate, CA)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86">4：对称加密和非对称加密&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86">4.1 对称加密&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#411-des">4.1.1 DES&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#412-aes">4.1.2 AES&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#413-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%89%B9%E7%82%B9">4.1.3 对称加密特点&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#42-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86">4.2 非对称加密&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#421-rsa">4.2.1 RSA&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#422-dsa">4.2.2 DSA&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#423-ecc">4.2.3 ECC&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#424-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%89%B9%E7%82%B9">4.2.4 非对称加密特点&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#5%E6%80%BB%E7%BB%93">5：总结&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#51-%E6%95%A3%E5%88%97%E7%AE%97%E6%B3%95%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83">5.1 散列算法(摘要算法)比较&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#52-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83">5.2 对称加密算法比较&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#53-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83">5.3 非对称加密算法比较&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1前言-perface">1：前言 Perface&lt;/h1>
+&lt;ol>
+&lt;li>什么是数字签名，数字签名的作用是什么？&lt;/li>
+&lt;li>什么是数字证书，数字证书解决了什么问题？&lt;/li>
+&lt;li>什么是对称加密和对称加密，区别是什么？&lt;/li>
+&lt;li>非对称加密公私钥都可加密，那什么时候用用公钥加密，什么时候用私钥加密？&lt;/li>
+&lt;li>为什么要对数据的摘要进行签名，而不是计算原始数据的数字签名？&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>加密 encrypt
+解密 decrypt&lt;/p></description></item><item><title>01-Linux添加cron定时任务</title><link>https://lppgo.github.io/post/linux/011-linux%E6%B7%BB%E5%8A%A0cron%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</link><pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/011-linux%E6%B7%BB%E5%8A%A0cron%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E5%AE%89%E8%A3%85-cron">1: 安装 Cron&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-ubuntu-%E4%B8%8B-crontab-%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8">1.1 Ubuntu 下 crontab 的安装和使用&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2-cron-%E4%BD%BF%E7%94%A8">2: cron 使用&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-cron-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4">2.1: cron 基本命令&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-cron-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%84%9A%E6%9C%AC%E6%A0%BC%E5%BC%8F">2.2: cron 定时任务脚本格式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-%E5%AF%B9-cron-%E4%BB%BB%E5%8A%A1%E8%BF%9B%E8%A1%8C%E5%88%97%E8%A1%A8%E6%98%BE%E7%A4%BA">2.3: 对 Cron 任务进行列表显示&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-%E7%BC%96%E8%BE%91-cron-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%84%9A%E6%9C%AC">2.2: 编辑 cron 定时任务脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#24-sudo%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91etccrontab">2.4 sudo用户编辑/etc/crontab&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#25-restart-cron">2.5 restart cron&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3-%E4%B8%80%E4%BA%9B%E5%AE%9E%E4%BE%8B">3: 一些实例&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7">4: 一些工具&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-%E5%9C%A8%E7%BA%BFcrontab%E6%9C%8D%E5%8A%A1">4.1 在线crontab服务&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-安装-cron">1: 安装 Cron&lt;/h1>
+&lt;h2 id="11-ubuntu-下-crontab-的安装和使用">1.1 Ubuntu 下 crontab 的安装和使用&lt;/h2>
+&lt;p>crontab 命令常见于 Unix 和 Linux 的操作系统之中，用于设置周期性被执行的指令。该命令从标准输入设备读取指令，并将其存放于“crontab”文件中，以供之后读取和执行。通常，crontab 储存的指令被守护进程激活。crond 常常在后台运行，每一分钟检查是否有预定的作业需要执行。这类作业一般称为 cron jobs。&lt;/p></description></item><item><title>02-修改默认编辑器为vim以及vim操作</title><link>https://lppgo.github.io/post/linux/003-%E4%BF%AE%E6%94%B9ubuntucentos%E9%BB%98%E8%AE%A4%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BAvim/</link><pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/003-%E4%BF%AE%E6%94%B9ubuntucentos%E9%BB%98%E8%AE%A4%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BAvim/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E7%9B%B4%E6%8E%A5%E5%9C%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E4%BF%AE%E6%94%B9">1: 直接在配置文件中修改&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7-update-alternatives">2: 使用系统管理工具 update-alternatives&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%AE%8C%E5%85%A8%E5%88%A0%E9%99%A4-nano">3: 完全删除 nano&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4vim-%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4">4：vim 操作命令&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-%E6%97%A5%E5%BF%97%E5%AE%9A%E4%BD%8D">4.1 日志定位&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#42-%E6%8C%89%E8%A1%8C%E6%88%AA%E5%8F%96">4.2 按行截取&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#43-%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1">4.3 数据统计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#44-%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-summary">4.4 其他常用命令 summary&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-直接在配置文件中修改">1: 直接在配置文件中修改&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nb">export&lt;/span> &lt;span class="nv">EDITOR&lt;/span>&lt;span class="o">=&lt;/span>/usr/bin/vim &amp;gt;&amp;gt; ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-使用系统管理工具-update-alternatives">2: 使用系统管理工具 update-alternatives&lt;/h1>
+&lt;p>&lt;code>sudo update-alternatives --config editor&lt;/code>
+&lt;code>update-alternatives --config editor&lt;/code>&lt;/p></description></item><item><title>04-grep命令基本使用</title><link>https://lppgo.github.io/post/linux/013-grep%E5%91%BD%E4%BB%A4%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link><pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/013-grep%E5%91%BD%E4%BB%A4%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1grep-%E5%8C%B9%E9%85%8D%E5%8C%85%E5%90%AB-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A1%8C">1: grep 匹配包含 &amp;lsquo;字符串&amp;rsquo;的行&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-grep-%E5%8C%B9%E9%85%8D%E4%B8%8D%E5%8C%85%E5%90%AB-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A1%8C%E5%8F%8D%E5%90%91%E5%8C%B9%E9%85%8D">2: grep 匹配不包含 &amp;lsquo;字符串&amp;rsquo;的行，反向匹配&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3grep--e-%E5%90%8C%E6%97%B6%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA%E5%85%B3%E9%94%AE%E5%AD%97%E6%88%96%E5%85%B3%E7%B3%BB">3: grep -E 同时匹配多个关键字–&amp;ldquo;或&amp;quot;关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E5%90%8C%E6%97%B6%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8E%E5%85%B3%E7%B3%BB">4: 同时匹配多个关键字–&amp;ldquo;与&amp;quot;关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-grep-%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C">5: grep 其他操作&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Linux: grep 命令，用来匹配文本&lt;/p></description></item><item><title>05-Linux基本命令</title><link>https://lppgo.github.io/post/linux/007-linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</link><pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/007-linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%B3%E6%9C%BA%E9%87%8D%E5%90%AF%E4%BB%A5%E5%8F%8A%E7%99%BB%E5%87%BA">1: 系统的关机、重启以及登出&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95">2: 文件和目录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-linux-%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98-io-%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95">3: Linux 查看磁盘 io 的几种方法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1%E6%B5%81%E9%87%8F%E6%96%B9%E6%B3%95">4: 查看网卡流量方法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-%E4%BD%BF%E7%94%A8-watch-%E5%91%BD%E4%BB%A4%E9%85%8D%E5%90%88-ifconfigmore-procnetdevcat-procnetdev-%E6%9D%A5%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF">5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2">6: 文件搜索&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4">7: 磁盘空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BE%A4%E7%BB%84">8: 用户和群组&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#9-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88">9: 文件的权限 - 使用 &amp;ldquo;+&amp;rdquo; 设置权限，使用 &amp;ldquo;-&amp;rdquo; 用于取消&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#10-%E6%96%87%E4%BB%B6%E7%9A%84%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7---%E4%BD%BF%E7%94%A8--%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90%E4%BD%BF%E7%94%A8---%E7%94%A8%E4%BA%8E%E5%8F%96%E6%B6%88">10: 文件的特殊属性 - 使用 &amp;ldquo;+&amp;rdquo; 设置权限，使用 &amp;ldquo;-&amp;rdquo; 用于取消&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#11-%E6%89%93%E5%8C%85%E5%92%8C%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6">11: 打包和压缩文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">12: 查看文件内容&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">13: Linux 包管理器&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#131-dpkg---ubuntudebian">13.1 dpkg - (Ubuntu,Debian)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#132-apt---ubuntudebian">13.2 apt - (Ubuntu,Debian)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#133-rpm--rhel-centos-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">13.3 rpm -（RHEL, CentOS 及类似系统）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#134-yum--fedora-redhatcentos-%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F">13.4 yum -（Fedora, RedHat,CentOS 及类似系统）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#135-dnf--rhel8centos8">13.5 dnf -（RHEL8、CentOS8）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#14-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">14: 常用命令&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#141-%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%8D%A0%E7%94%A8">14.1 查看端口的占用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#142-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B">14.2 查看进程&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#143-%E6%89%B9%E9%87%8F%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B">14.3 批量杀死进程&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#144-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4">14.4 查看当前时间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#145-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5">14.5 查看进程内存使用情况&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#145-%E6%9F%A5%E7%9C%8B-linux-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%E6%88%96%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC">14.5 查看 Linux 内核版本或发布版本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#146-%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81">14.6 查看本地网络服务活动状态&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#147-%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%96%E7%BD%91-ip">14.7 查看自己的外网 ip&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#148-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E6%96%87%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%A7%E5%B0%8F">14.8 查看当前文件夹下文件（文件夹）大小&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#149-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F">14.9 查看所有磁盘大小&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1410-%E8%AF%8A%E6%96%AD%E7%BD%91%E7%BB%9C">14.10 诊断网络&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1411-%E5%88%97%E5%87%BA%E6%9C%AC%E6%9C%BA%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7">14.11 列出本机监听的端口号&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1412-%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%BA%E5%99%A8%E4%B8%8A%E8%BF%90%E8%A1%8C%E4%B8%80%E6%AE%B5%E8%84%9A%E6%9C%AC">14.12 在远程机器上运行一段脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1413-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F">14.13 端口扫描&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-系统的关机重启以及登出">1: 系统的关机、重启以及登出&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">shutdown -h now &lt;span class="c1"># 关闭系统(1) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">init &lt;span class="m">0&lt;/span> 关闭系统&lt;span class="o">(&lt;/span>2&lt;span class="o">)&lt;/span> 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">telinit &lt;span class="m">0&lt;/span> 关闭系统&lt;span class="o">(&lt;/span>3&lt;span class="o">)&lt;/span> 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">shutdown -h hours:minutes &lt;span class="p">&amp;amp;&lt;/span> &lt;span class="c1"># 按预定时间关闭系统 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">shutdown -c &lt;span class="c1"># 取消按预定时间关闭系统 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">shutdown -r now &lt;span class="c1"># 重启(1) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">reboot &lt;span class="c1"># 重启(2) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">logout&lt;/span> &lt;span class="c1"># 注销 &lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-文件和目录">2: 文件和目录&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /home &lt;span class="c1"># 进入 &amp;#39;/ home&amp;#39; 目录&amp;#39; &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> .. &lt;span class="c1"># 返回上一级目录 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ../.. &lt;span class="c1"># 返回上两级目录 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> - &lt;span class="c1"># 返回上次所在的目录 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">pwd&lt;/span> &lt;span class="c1"># 显示工作路径 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls &lt;span class="c1"># 查看目录中的文件 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls -F &lt;span class="c1"># 查看目录中的文件 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls -l &lt;span class="c1"># 显示文件和目录的详细资料 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls -a &lt;span class="c1"># 显示隐藏文件 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls *&lt;span class="o">[&lt;/span>0-9&lt;span class="o">]&lt;/span>* &lt;span class="c1"># 显示包含数字的文件名和目录名 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tree &lt;span class="c1"># 显示文件和目录由根目录开始的树形结构(1) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lstree &lt;span class="c1"># 显示文件和目录由根目录开始的树形结构(2) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir dir1 dir2 &lt;span class="c1"># 同时创建两个目录 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /tmp/dir1/dir2 &lt;span class="c1"># 创建一个目录树 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -f file1 &lt;span class="c1"># 删除一个叫做 &amp;#39;file1&amp;#39; 的文件&amp;#39; &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rmdir dir1 &lt;span class="c1"># 删除一个叫做 &amp;#39;dir1&amp;#39; 的目录&amp;#39; &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -rf dir1 &lt;span class="c1"># 删除一个叫做 &amp;#39;dir1&amp;#39; 的目录并同时删除其内容 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -rf dir1 dir2 同时删除两个目录及它们的内容 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv dir1 new_dir 重命名/移动 一个目录 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp file1 file2 复制一个文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp dir/* . 复制一个目录下的所有文件到当前工作目录 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp -a /tmp/dir1 . 复制一个目录到当前工作目录 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp -a dir1 dir2 复制一个目录 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s file1 lnk1 创建一个指向文件或目录的软链接 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln file1 lnk1 创建一个指向文件或目录的物理链接 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch -t &lt;span class="m">0712250000&lt;/span> file1 修改一个文件或目录的时间戳 - &lt;span class="o">(&lt;/span>YYMMDDhhmm&lt;span class="o">)&lt;/span> 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">file file1 outputs the mime &lt;span class="nb">type&lt;/span> of the file as text 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">iconv -l 列出已知的编码 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">iconv -f fromEncoding -t toEncoding inputFile &amp;gt; outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding. 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find . -maxdepth &lt;span class="m">1&lt;/span> -name *.jpg -print -exec convert &lt;span class="s2">&amp;#34;{}&amp;#34;&lt;/span> -resize 80x60 &lt;span class="s2">&amp;#34;thumbs/{}&amp;#34;&lt;/span> &lt;span class="se">\;&lt;/span> batch resize files in the current directory and send them to a thumbnails directory &lt;span class="o">(&lt;/span>requires convert from Imagemagick&lt;span class="o">)&lt;/span> 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-linux-查看磁盘-io-的几种方法">3: Linux 查看磁盘 io 的几种方法&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">1. 用 top 命令 中的cpu 信息观察. &lt;span class="o">(&lt;/span>还有htop,gotop&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. vmstat：vmstat 命令报告关于线程、虚拟内存、磁盘、陷阱和 CPU 活动的统计信息
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. iostat
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. iotop
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. sar -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-查看网卡流量方法">4: 查看网卡流量方法&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">1. sar -n DEV &lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> （命令后面1 &lt;span class="m">2&lt;/span> 意思是：每一秒钟取1次值，取2次。）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. cat /proc/net/dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. iftop
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. ifstat
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. nload
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">6. gotop
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-使用-watch-命令配合-ifconfigmore-procnetdevcat-procnetdev-来实时监控系统信息">5: 使用 watch 命令，配合 ifconfig、more /proc/net/dev、cat /proc/net/dev 来实时监控系统信息&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">arch &lt;span class="c1"># 显示机器的处理器架构(1) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uname -m &lt;span class="c1"># 显示机器的处理器架构(2) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uname -r &lt;span class="c1"># 显示正在使用的内核版本 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dmidecode -q &lt;span class="c1"># 显示硬件系统部件 - (SMBIOS / DMI) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hdparm -i /dev/hda &lt;span class="c1"># 罗列一个磁盘的架构特性 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hdparm -tT /dev/sda &lt;span class="c1"># 在磁盘上执行测试性读取操作 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/cpuinfo &lt;span class="c1"># 显示CPU info的信息 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/interrupts &lt;span class="c1"># 显示中断 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/meminfo &lt;span class="c1"># 校验内存使用 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/swaps &lt;span class="c1"># 显示哪些swap被使用 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/version &lt;span class="c1"># 显示内核的版本 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/net/dev &lt;span class="c1"># 显示网络适配器及统计 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /proc/mounts &lt;span class="c1"># 显示已加载的文件系统 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lspci -tv &lt;span class="c1"># 罗列 PCI 设备 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lsusb -tv &lt;span class="c1"># 显示 USB 设备 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date &lt;span class="c1"># 显示系统日期 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cal &lt;span class="m">2021&lt;/span> &lt;span class="c1"># 显示2021年的日历表 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date 041217002007.00 设置日期和时间 - 月日时分年.秒 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">clock -w 将时间修改保存到 BIOS 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="6-文件搜索">6: 文件搜索&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">find / -name file1 从 &lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span> 开始进入根文件系统搜索文件和目录 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find / -user user1 搜索属于用户 &lt;span class="s1">&amp;#39;user1&amp;#39;&lt;/span> 的文件和目录 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /home/user1 -name &lt;span class="se">\*&lt;/span>.bin 在目录 &lt;span class="s1">&amp;#39;/ home/user1&amp;#39;&lt;/span> 中搜索带有&lt;span class="s1">&amp;#39;.bin&amp;#39;&lt;/span> 结尾的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find / -name &lt;span class="se">\*&lt;/span>.rpm -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="s1">&amp;#39;{}&amp;#39;&lt;/span> &lt;span class="se">\;&lt;/span> 搜索以 &lt;span class="s1">&amp;#39;.rpm&amp;#39;&lt;/span> 结尾的文件并定义其权限 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find / -xdev -name &lt;span class="se">\*&lt;/span>.rpm 搜索以 &lt;span class="s1">&amp;#39;.rpm&amp;#39;&lt;/span> 结尾的文件，忽略光驱、捷盘等可移动设备 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">locate &lt;span class="se">\*&lt;/span>.ps 寻找以 &lt;span class="s1">&amp;#39;.ps&amp;#39;&lt;/span> 结尾的文件 - 先运行 &lt;span class="s1">&amp;#39;updatedb&amp;#39;&lt;/span> 命令 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">whereis halt 显示一个二进制文件、源码或man的位置 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">which halt 显示一个二进制文件或可执行文件的完整路径 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="7-磁盘空间">7: 磁盘空间&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">df -h 显示已经挂载的分区列表 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls -lSr &lt;span class="p">|&lt;/span>more 以尺寸大小排列文件和目录 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">du -sh dir1 估算目录 &lt;span class="s1">&amp;#39;dir1&amp;#39;&lt;/span> 已经使用的磁盘空间&lt;span class="s1">&amp;#39; 
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小 
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">rpm -q -a --qf &amp;#39;&lt;/span>%10&lt;span class="o">{&lt;/span>SIZE&lt;span class="o">}&lt;/span>t%&lt;span class="o">{&lt;/span>NAME&lt;span class="o">}&lt;/span>n&lt;span class="s1">&amp;#39; | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统) 
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">dpkg-query -W -f=&amp;#39;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">Installed&lt;/span>&lt;span class="p">-Size;10&lt;/span>&lt;span class="si">}&lt;/span>t&lt;span class="si">${&lt;/span>&lt;span class="nv">Package&lt;/span>&lt;span class="si">}&lt;/span>n&lt;span class="err">&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 &lt;span class="o">(&lt;/span>ubuntu, debian类系统&lt;span class="o">)&lt;/span> 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="8-用户和群组">8: 用户和群组&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">groupadd group_name 创建一个新用户组 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">groupdel group_name 删除一个用户组 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">groupmod -n new_group_name old_group_name 重命名一个用户组 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">useradd -c &lt;span class="s2">&amp;#34;Name Surname &amp;#34;&lt;/span> -g admin -d /home/user1 -s /bin/bash user1 创建一个属于 &lt;span class="s2">&amp;#34;admin&amp;#34;&lt;/span> 用户组的用户 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">useradd user1 创建一个新用户 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">userdel -r user1 删除一个用户 &lt;span class="o">(&lt;/span> &lt;span class="s1">&amp;#39;-r&amp;#39;&lt;/span> 排除主目录&lt;span class="o">)&lt;/span> 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">usermod -c &lt;span class="s2">&amp;#34;User FTP&amp;#34;&lt;/span> -g system -d /ftp/user1 -s /bin/nologin user1 修改用户属性 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">passwd 修改口令 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">passwd user1 修改一个用户的口令 &lt;span class="o">(&lt;/span>只允许root执行&lt;span class="o">)&lt;/span> 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chage -E 2005-12-31 user1 设置用户口令的失效期限 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pwck 检查 &lt;span class="s1">&amp;#39;/etc/passwd&amp;#39;&lt;/span> 的文件格式和语法修正以及存在的用户 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">grpck 检查 &lt;span class="s1">&amp;#39;/etc/passwd&amp;#39;&lt;/span> 的文件格式和语法修正以及存在的群组 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">newgrp group_name 登陆进一个新的群组以改变新创建文件的预设群组 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="9-文件的权限---使用--设置权限使用---用于取消">9: 文件的权限 - 使用 &amp;ldquo;+&amp;rdquo; 设置权限，使用 &amp;ldquo;-&amp;rdquo; 用于取消&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ls -lh 显示权限 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ls /tmp &lt;span class="p">|&lt;/span> pr -T5 -W&lt;span class="nv">$COLUMNS&lt;/span> 将终端划分成5栏显示 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod ugo +rwx directory1 设置目录的所有人&lt;span class="o">(&lt;/span>u&lt;span class="o">)&lt;/span>、群组&lt;span class="o">(&lt;/span>g&lt;span class="o">)&lt;/span>以及其他人&lt;span class="o">(&lt;/span>o&lt;span class="o">)&lt;/span>以读（r ）、写&lt;span class="o">(&lt;/span>w&lt;span class="o">)&lt;/span>和执行&lt;span class="o">(&lt;/span>x&lt;span class="o">)&lt;/span>的权限 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod go -rwx directory1 删除群组&lt;span class="o">(&lt;/span>g&lt;span class="o">)&lt;/span>与其他人&lt;span class="o">(&lt;/span>o&lt;span class="o">)&lt;/span>对目录的读写执行权限 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown user1 file1 改变一个文件的所有人属性 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chgrp group1 file1 改变文件的群组 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown user1:group1 file1 改变一个文件的所有人和群组属性 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find / -perm -u+s 罗列一个系统中所有使用了SUID控制的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod u+s /bin/file1 设置一个二进制文件的 SUID 位 - 运行该文件的用户也被赋予和所有者同样的权限 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod u-s /bin/file1 禁用一个二进制文件的 SUID位 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod g+s /home/public 设置一个目录的SGID 位 - 类似SUID ，不过这是针对目录的 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod g-s /home/public 禁用一个目录的 SGID 位 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod o+t /home/public 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod o-t /home/public 禁用一个目录的 STIKY 位 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="10-文件的特殊属性---使用--设置权限使用---用于取消">10: 文件的特殊属性 - 使用 &amp;ldquo;+&amp;rdquo; 设置权限，使用 &amp;ldquo;-&amp;rdquo; 用于取消&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">chattr +a file1 只允许以追加方式读写文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chattr +c file1 允许这个文件能被内核自动压缩/解压 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chattr +d file1 在进行文件系统备份时，dump程序将忽略这个文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chattr +i file1 设置成不可变的文件，不能被删除、修改、重命名或者链接 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chattr +s file1 允许一个文件被安全地删除 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chattr +S file1 一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chattr +u file1 若文件被删除，系统会允许你在以后恢复这个被删除的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lsattr 显示特殊的属性 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="11-打包和压缩文件">11: 打包和压缩文件&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">bunzip2 file1.bz2 解压一个叫做 &lt;span class="s1">&amp;#39;file1.bz2&amp;#39;&lt;/span>的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bzip2 file1 压缩一个叫做 &lt;span class="s1">&amp;#39;file1&amp;#39;&lt;/span> 的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gunzip file1.gz 解压一个叫做 &lt;span class="s1">&amp;#39;file1.gz&amp;#39;&lt;/span>的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gzip file1 压缩一个叫做 &lt;span class="s1">&amp;#39;file1&amp;#39;&lt;/span>的文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gzip -9 file1 最大程度压缩 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rar a file1.rar test_file 创建一个叫做 &lt;span class="s1">&amp;#39;file1.rar&amp;#39;&lt;/span> 的包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rar a file1.rar file1 file2 dir1 同时压缩 &lt;span class="s1">&amp;#39;file1&amp;#39;&lt;/span>, &lt;span class="s1">&amp;#39;file2&amp;#39;&lt;/span> 以及目录 &lt;span class="s1">&amp;#39;dir1&amp;#39;&lt;/span> 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rar x file1.rar 解压rar包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unrar x file1.rar 解压rar包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvf archive.tar file1 创建一个非压缩的 tarball 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvf archive.tar file1 file2 dir1 创建一个包含了 &lt;span class="s1">&amp;#39;file1&amp;#39;&lt;/span>, &lt;span class="s1">&amp;#39;file2&amp;#39;&lt;/span> 以及 &lt;span class="s1">&amp;#39;dir1&amp;#39;&lt;/span>的档案文件 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -tf archive.tar 显示一个包中的内容 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xvf archive.tar 释放一个包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xvf archive.tar -C /tmp 将压缩包释放到 /tmp目录下 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvfj archive.tar.bz2 dir1 创建一个bzip2格式的压缩包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xvfj archive.tar.bz2 解压一个bzip2格式的压缩包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -xvfz archive.tar.gz 解压一个gzip格式的压缩包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">zip file1.zip file1 创建一个zip格式的压缩包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unzip file1.zip 解压一个zip格式压缩包 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="12-查看文件内容">12: 查看文件内容&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">cat file1 从第一个字节开始正向查看文件的内容 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tac file1 从最后一行开始反向查看一个文件的内容 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">more file1 查看一个长文件的内容 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">less file1 类似于 &lt;span class="s1">&amp;#39;more&amp;#39;&lt;/span> 命令，但是它允许在文件中和正向操作一样的反向操作 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">head -2 file1 查看一个文件的前两行 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tail -2 file1 查看一个文件的最后两行 
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tail -f /var/log/messages 实时查看被添加到一个文件中的内容 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="13-linux-包管理器">13: Linux 包管理器&lt;/h1>
+&lt;blockquote>
+&lt;p>介绍常见 Linux 操作系统的安装包管理工具，主要介绍其使用命令.&lt;/p></description></item><item><title>02-Windows &amp; WSL2 代理学习记录</title><link>https://lppgo.github.io/post/linux/001-windows--wsl2-%E4%BB%A3%E7%90%86%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link><pubDate>Tue, 13 Apr 2021 17:16:49 +0800</pubDate><guid>https://lppgo.github.io/post/linux/001-windows--wsl2-%E4%BB%A3%E7%90%86%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#windows-wsl2-%E4%BB%A3%E7%90%86%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95">Windows WSL2 代理学习记录&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#1-proxy-%E6%9C%8D%E5%8A%A1">1: Proxy 服务&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E5%AE%A2%E6%88%B7%E7%AB%AF">2: 客户端&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%9C%A8-windows-%E8%AE%BE%E7%BD%AE-proxy">3: 在 Windows 设置 proxy&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E5%9C%A8-wsl2-%E8%AE%BE%E7%BD%AE-proxy%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86">4: 在 WSL2 设置 proxy，使用宿主机代理&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="windows-wsl2-代理学习记录">Windows WSL2 代理学习记录&lt;/h1>
+&lt;h2 id="1-proxy-服务">1: Proxy 服务&lt;/h2>
+&lt;p>楼主用的 monocloud,用了 3 年，感觉很稳定，很好用。
+特点就是稳定，便宜，速度很快(看 p 站某油管 1080 就和本地差不多)，有加速服务。
+需要邀请码请联系我 &lt;a href="mailto:1605577372@qq.com">1605577372@qq.com&lt;/a>&lt;/p></description></item></channel></rss>

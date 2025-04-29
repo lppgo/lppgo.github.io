@@ -1,0 +1,558 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Even - A super concise theme for Hugo</title>
+<meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content><meta name=description content="Hugo theme even example site."><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.147.0 with theme even"><link rel=canonical href=https://lppgo.github.io/><link href=https://lppgo.github.io/index.xml rel=alternate type=application/rss+xml title="Even - A super concise theme for Hugo"><link href=https://lppgo.github.io/index.xml rel=feed type=application/rss+xml title="Even - A super concise theme for Hugo"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:url" content="https://lppgo.github.io/"><meta property="og:site_name" content="Even - A super concise theme for Hugo"><meta property="og:title" content="Even - A super concise theme for Hugo"><meta property="og:description" content="Hugo theme even example site."><meta property="og:locale" content="en"><meta property="og:type" content="website"><meta itemprop=name content="Even - A super concise theme for Hugo"><meta itemprop=description content="Hugo theme even example site."><meta itemprop=datePublished content="2025-03-17T00:00:00+00:00"><meta itemprop=dateModified content="2025-04-29T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Even - A super concise theme for Hugo"><meta name=twitter:description content="Hugo theme even example site."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>lppgo</a></div><div class=mobile-navbar-icon><span></span>
+<span></span>
+<span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>lppgo</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/>01-Nginx 常用配置清单.md</a></h1><div class=post-meta><span class=post-time>2021-06-06</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-content><div class=post-summary><p>Table of Contents</p><ul><li><a href=#1-nginx-%E9%85%8D%E7%BD%AE>1: Nginx 配置</a></li><li><a href=#2-listen-port>2: Listen Port</a></li><li><a href=#3-access-log>3: Access Log</a></li><li><a href=#4-domain-name>4: Domain Name</a></li><li><a href=#5-static-asset>5: Static Asset</a></li><li><a href=#6-redirect>6: Redirect</a></li><li><a href=#7-reverse-proxy>7: Reverse Proxy</a></li><li><a href=#8-nginx-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F>8: Nginx 解决跨域</a></li><li><a href=#8-load-balance>8: Load Balance</a><ul><li><a href=#81-roundrobin-%E8%BD%AE%E8%AF%A2default>8.1 RoundRobin 轮询(default)</a></li><li><a href=#82-weight-%E6%9D%83%E9%87%8D>8.2 weight (权重)</a></li><li><a href=#83-ip_haship-%E7%BB%91%E5%AE%9A-ip_hash->8.3 ip_hash（IP 绑定 ip_hash ）</a></li><li><a href=#84-url_hash>8.4 url_hash</a></li><li><a href=#85-fair%E7%AC%AC%E4%B8%89%E6%96%B9>8.5 fair（第三方）</a></li></ul></li><li><a href=#9-ssl-%E5%8D%8F%E8%AE%AE>9: SSL 协议</a></li><li><a href=#10-nginx-%E5%8A%A0%E9%80%9F>10: Nginx 加速</a><ul><li><a href=#101-%E5%90%AF%E7%94%A8-gzip-%E5%8E%8B%E7%BC%A9>10.1 启用 Gzip 压缩</a></li><li><a href=#102-%E8%AE%BE%E7%BD%AE%E7%BC%93%E5%AD%98%E5%A4%B4>10.2 设置缓存头</a></li><li><a href=#103-%E5%90%AF%E7%94%A8-http2-%E5%8D%8F%E8%AE%AE>10.3 启用 HTTP2 协议</a></li><li><a href=#104-%E4%BC%98%E5%8C%96%E6%97%A5%E5%BF%97-optimizing-logging>10.4 优化日志 Optimizing Logging</a><ul><li><a href=#1041-%E7%A6%81%E7%94%A8%E9%A1%B5%E9%9D%A2%E8%B5%84%E6%BA%90%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95>10.4.1 禁用页面资源请求的日志记录</a></li><li><a href=#1042-%E7%A6%81%E7%94%A8%E6%88%90%E5%8A%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95>10.4.2 禁用成功请求的日志记录</a></li><li><a href=#1043-%E6%9C%80%E5%B0%8F%E5%8C%96-io-%E6%93%8D%E4%BD%9C>10.4.3 最小化 I/O 操作</a></li></ul></li><li><a href=#105-%E9%99%90%E5%88%B6%E5%B8%A6%E5%AE%BD>10.5 限制带宽</a></li></ul></li><li><a href=#11-location-%E8%AF%AD%E6%B3%95>11: location 语法</a></li><li><a href=#12-nginx-%E9%AB%98%E5%8F%AF%E7%94%A8-keepalived>12: nginx 高可用 keepalived</a></li></ul><h1 id=1-nginx-配置>1: Nginx 配置</h1><ul><li><p><a href=https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw>https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw</a></p></div><div class=read-more><a href=/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/>01-nginx ssl双向认证.md</a></h1><div class=post-meta><span class=post-time>2021-06-03</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-content><div class=post-summary><h1 id=table-of-contents>Table of Contents</h1><ul><li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1-nginx-ssl-setting>1: Nginx SSL Setting</a></li><li><a href=#2-openssl-%E9%85%8D%E7%BD%AE%E5%87%86%E5%A4%87>2: openssl 配置准备</a></li><li><a href=#3-%E5%88%9B%E5%BB%BA-ca-%E6%A0%B9%E7%BA%A7%E8%AF%81%E4%B9%A6>3: 创建 CA 根级证书</a></li><li><a href=#4-%E5%88%9B%E5%BB%BA-server-%E8%AF%81%E4%B9%A6>4: 创建 server 证书</a></li><li><a href=#5-%E5%88%9B%E5%BB%BA-client-%E8%AF%81%E4%B9%A6>5: 创建 client 证书</a></li><li><a href=#6-%E9%85%8D%E7%BD%AE-nginx-ssl>6: 配置 Nginx ssl</a></li></ul><h1 id=1-nginx-ssl-setting>1: Nginx SSL Setting</h1><blockquote><p><strong>Nginx 对 SSL 双向认证支持的比较好，配置很简单：</strong></p></div><div class=read-more><a href=/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/dockerk8s/003-docker%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/>01-Docker命令详解.md</a></h1><div class=post-meta><span class=post-time>2021-05-31</span><div class=post-category><a href=/categories/docker/>Docker</a></div></div></header><div class=post-content><div class=post-summary><h1 id=table-of-contents>Table of Contents</h1><ul><li><a href=#1-docker>1: docker</a></li><li><a href=#2-docker%E7%9A%84%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4>2: docker 的使用命令</a><ul><li><a href=#21-docker---help>2.1 docker &ndash;help</a></li><li><a href=#22-docker-build>2.2 docker build</a></li><li><a href=#23-docker-run>2.3 docker run</a></li><li><a href=#24-%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%E9%95%9C%E5%83%8F>2.4 保存和加载镜像</a></li></ul></li><li><a href=#3-docker-container>3: docker Container</a></li><li><a href=#4-docker-network>4: docker Network</a></li><li><a href=#5-docker-volume>5: docker volume</a></li><li><a href=#6-%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F>6: 发布镜像</a></li><li><a href=#7-dockerfile>7: Dockerfile</a></li><li><a href=#8-other>8: other</a></li></ul><h1 id=1-docker>1: docker</h1><ul><li>容器技术</li><li>image</li><li>container</li><li>repository</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1: pdocker ps 显示过长问题：</span>
+</span></span><span class=line><span class=cl>docker ps --format <span class=s2>&#34;table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>docker ps <span class=p>|</span> less -S
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2: docker如何将容器内文件复制到本地</span>
+</span></span><span class=line><span class=cl>docker container cp -a c56d9375ff28:/etc/kraken ./
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3:</span>
+</span></span><span class=line><span class=cl>CMD: 指定容器被启动时要运行的命令
+</span></span><span class=line><span class=cl>ENTRYPOINT: 同 CMD ,但不会被 docker run -t 覆盖
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-docker-的使用命令>2: docker 的使用命令</h1><h2 id=21-docker-help>2.1 docker &ndash;help</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker --help
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>管理命令:
+</span></span><span class=line><span class=cl>  container   管理容器
+</span></span><span class=line><span class=cl>  image       管理镜像
+</span></span><span class=line><span class=cl>  network     管理网络
+</span></span><span class=line><span class=cl>命令：
+</span></span><span class=line><span class=cl>  attach      介入到一个正在运行的容器
+</span></span><span class=line><span class=cl>  build       根据 dockerfile 构建一个镜像
+</span></span><span class=line><span class=cl>  commit      根据容器的更改创建一个新的镜像
+</span></span><span class=line><span class=cl>  cp          在本地文件系统与容器中复制 文件/文件夹
+</span></span><span class=line><span class=cl>  create      创建一个新容器
+</span></span><span class=line><span class=cl>  <span class=nb>exec</span>        在容器中执行一条命令
+</span></span><span class=line><span class=cl>  images      列出镜像
+</span></span><span class=line><span class=cl>  <span class=nb>kill</span>        杀死一个或多个正在运行的容器
+</span></span><span class=line><span class=cl>  logs        取得容器的日志
+</span></span><span class=line><span class=cl>  pause       暂停一个或多个容器的所有进程
+</span></span><span class=line><span class=cl>  ps          列出所有容器
+</span></span><span class=line><span class=cl>  pull        拉取一个镜像或仓库到 registry
+</span></span><span class=line><span class=cl>  push        推送一个镜像或仓库到 registry
+</span></span><span class=line><span class=cl>  rename      重命名一个容器
+</span></span><span class=line><span class=cl>  restart     重新启动一个或多个容器
+</span></span><span class=line><span class=cl>  rm          删除一个或多个容器
+</span></span><span class=line><span class=cl>  rmi         删除一个或多个镜像
+</span></span><span class=line><span class=cl>  run         在一个新的容器中执行一条命令
+</span></span><span class=line><span class=cl>  search      在 Docker Hub 中搜索镜像
+</span></span><span class=line><span class=cl>  start       启动一个或多个已经停止运行的容器
+</span></span><span class=line><span class=cl>  stats       显示一个容器的实时资源占用
+</span></span><span class=line><span class=cl>  stop        停止一个或多个正在运行的容器
+</span></span><span class=line><span class=cl>  tag         为镜像创建一个新的标签
+</span></span><span class=line><span class=cl>  top         显示一个容器内的所有进程
+</span></span><span class=line><span class=cl>  unpause     恢复一个或多个容器内所有被暂停的进程
+</span></span></code></pre></td></tr></table></div></div><h2 id=22-docker-build>2.2 docker build</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>命令格式：docker build <span class=o>[</span>OPTIONS<span class=o>]</span> &lt;PATH <span class=p>|</span> URL <span class=p>|</span> -&gt;
+</span></span><span class=line><span class=cl>Usage: Build an image from a Dockerfile.
+</span></span><span class=line><span class=cl>常用选项说明
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>--build-arg       设置构建时的变量
+</span></span><span class=line><span class=cl>--no-cache        默认false。设置该选项，将不使用Build Cache构建镜像
+</span></span><span class=line><span class=cl>--pull            默认false。设置该选项，总是尝试pull镜像的最新版本
+</span></span><span class=line><span class=cl>--compress        默认false。设置该选项，将使用gzip压缩构建的上下文
+</span></span><span class=line><span class=cl>--disable-content-trust 默认true。设置该选项，将对镜像进行验证
+</span></span><span class=line><span class=cl>--file, -f        Dockerfile的完整路径，默认值为‘PATH/Dockerfile’
+</span></span><span class=line><span class=cl>--isolation       默认--isolation<span class=o>=</span><span class=s2>&#34;default&#34;</span>，即Linux命名空间；其他还有process或hyperv
+</span></span><span class=line><span class=cl>--label           为生成的镜像设置metadata
+</span></span><span class=line><span class=cl>--squash          默认false。设置该选项，将新构建出的多个层压缩为一个新层，但是将无法在多个镜像之间共享新层；设置该选项，实际上是创建了新image，同时保留原有image。
+</span></span><span class=line><span class=cl>--tag, -t         镜像的名字及tag，通常name:tag或者name格式；可以在一次构建中为一个镜像设置多个tag
+</span></span><span class=line><span class=cl>--network         默认default。设置该选项，Set the networking mode <span class=k>for</span> the RUN instructions during build
+</span></span><span class=line><span class=cl>--quiet, -q       默认false。设置该选项，Suppress the build output and print image ID on success
+</span></span><span class=line><span class=cl>--force-rm        默认false。设置该选项，总是删除掉中间环节的容器
+</span></span><span class=line><span class=cl>--rm，默认--rm<span class=o>=</span><span class=nb>true</span> 即整个构建过程成功后删除中间环节的容器
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>示例</p></div><div class=read-more><a href=/post/dockerk8s/003-docker%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/linux/025-shell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/>01-shell快速入门.md</a></h1><div class=post-meta><span class=post-time>2021-05-30</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-content><div class=post-summary><h1 id=table-of-contents>Table of Contents</h1><ul><li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1-%E7%AC%AC%E4%B8%80%E4%B8%AA-shell-%E8%84%9A%E6%9C%AC>1: 第一个 shell 脚本</a></li><li><a href=#2-%E5%8F%98%E9%87%8F-variable>2: 变量 variable</a></li><li><a href=#3-%E5%AD%97%E7%AC%A6%E4%B8%B2-string>3: 字符串 String</a></li><li><a href=#4-%E6%95%B0%E7%BB%84-array>4: 数组 Array</a></li><li><a href=#5-shell-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92>5: Shell 参数传递</a></li><li><a href=#6-%E8%BF%90%E7%AE%97>6: 运算</a><ul><li><a href=#61-%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97>6.1 算数运算</a></li><li><a href=#62-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97>6.2 关系运算</a></li><li><a href=#63-%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97>6.3 布尔运算</a></li><li><a href=#64-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6>6.4 逻辑运算符</a></li><li><a href=#65-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97%E7%AC%A6>6.5 字符串运算符</a></li><li><a href=#66-%E6%96%87%E4%BB%B6%E6%A3%80%E6%B5%8B%E8%BF%90%E7%AE%97%E7%AC%A6>6.6 文件检测运算符</a></li><li><a href=#67-%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97>6.7 布尔运算</a></li></ul></li><li><a href=#7-echo>7: echo</a></li><li><a href=#8-printf>8: printf</a></li><li><a href=#9-test>9: test</a></li><li><a href=#10-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6>10: 流程控制</a><ul><li><a href=#101-if>10.1 if</a></li><li><a href=#102-for>10.2 for</a></li><li><a href=#103-while>10.3 while</a></li><li><a href=#104-%E6%97%A0%E9%99%90%E5%BE%AA%E7%8E%AF>10.4 无限循环</a></li><li><a href=#105-until>10.5 until</a></li><li><a href=#106-case>10.6 case</a></li><li><a href=#107-%E8%A1%A8%E7%A4%BA-break>10.7 ;;表示 break</a></li></ul></li><li><a href=#11-%E5%87%BD%E6%95%B0>11: 函数</a><ul><li><a href=#111-%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89>11.1 函数定义</a></li><li><a href=#112-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0>11.2 函数参数</a></li><li><a href=#113-shell-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F-%E5%92%8C-local-%E4%BF%AE%E9%A5%B0%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F>11.3 shell 全局变量 和 local 修饰的局部变量</a></li></ul></li><li><a href=#12-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91>12: 输入输出重定向</a></li><li><a href=#13-shell-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB>13: Shell 文件包含</a></li><li><a href=#14-%E5%B8%B8%E7%94%A8%E4%B8%80%E4%BA%9B-shell-%E8%84%9A%E6%9C%AC>14: 常用一些 shell 脚本</a></li><li><a href=#15-other>15: other</a></li></ul><h1 id=1-第一个-shell-脚本>1: 第一个 shell 脚本</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nb>echo</span> <span class=s2>&#34;hello, world&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>运行程序可以作为解释器参数或者作为可执行程序</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>bash test.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>chmod +x test.sh
+</span></span><span class=line><span class=cl>test.sh
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-变量-variable>2: 变量 variable</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1: 变量定义</span>
+</span></span><span class=line><span class=cl><span class=c1># 需要注意的是变量名与等号之间不能有空格.</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2: 变量使用</span>
+</span></span><span class=line><span class=cl><span class=c1># 使用在变量名前添加$即可,{}表示这个变量名的边界.</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=nv>$name</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${</span><span class=nv>name</span><span class=si>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3: 只读变量</span>
+</span></span><span class=line><span class=cl><span class=c1># 使用readonly可以将变量定义为只读变量,只读变量不能再次赋值</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>readonly</span> name
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4: 删除变量</span>
+</span></span><span class=line><span class=cl><span class=c1># 使用unset删除变量,之后不能再使用.</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>unset</span> name
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-字符串-string>3: 字符串 String</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1: 字符串定义</span>
+</span></span><span class=line><span class=cl><span class=c1># 字符串可以使用单引号和双引号,单引号中不能包含单引号,即使转义单引号也不次那个,双引号则可以,双引号也可以使用字符串.</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;my name is </span><span class=nv>$name</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2: 字符串拼接</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>hello</span><span class=o>=</span><span class=s2>&#34;my name is </span><span class=si>${</span><span class=nv>name</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># 3: 获取字符串长度</span>
+</span></span><span class=line><span class=cl><span class=nv>str</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${#</span><span class=nv>str</span><span class=si>}</span> <span class=c1>#6</span>
+</span></span><span class=line><span class=cl><span class=c1># 4: 提取子字符串</span>
+</span></span><span class=line><span class=cl><span class=nv>str</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${</span><span class=nv>str</span><span class=p>:</span><span class=nv>2</span><span class=p>:</span><span class=nv>3</span><span class=si>}</span>
+</span></span><span class=line><span class=cl><span class=c1># 5: 字符串查找</span>
+</span></span><span class=line><span class=cl><span class=nv>str</span><span class=o>=</span><span class=s2>&#34;huruji&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=sb>`</span>expr index <span class=s2>&#34;</span><span class=nv>$str</span><span class=s2>&#34;</span> u<span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=c1># 此时输出2,因为此时第一个字符位置从1开始</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-数组-array>4: 数组 Array</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1: 数组定义</span>
+</span></span><span class=line><span class=cl><span class=nv>names</span><span class=o>=(</span><span class=s2>&#34;huruji&#34;</span> <span class=s2>&#34;greywind&#34;</span> <span class=s2>&#34;xie&#34;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${</span><span class=nv>names</span><span class=p>[0]</span><span class=si>}</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${</span><span class=nv>names</span><span class=p>[2]</span><span class=si>}</span>
+</span></span><span class=line><span class=cl><span class=c1># 2: 数组读取</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${</span><span class=nv>names</span><span class=p>[2]</span><span class=si>}</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${</span><span class=nv>names</span><span class=p>[@]</span><span class=si>}</span> <span class=c1># 使用@可以获取数组中的所有元素</span>
+</span></span><span class=line><span class=cl><span class=c1># 3: 数组长度获取</span>
+</span></span><span class=line><span class=cl><span class=nv>length1</span><span class=o>=</span><span class=si>${#</span><span class=nv>names</span><span class=p>[@]</span><span class=si>}</span>
+</span></span><span class=line><span class=cl><span class=nv>length2</span><span class=o>=</span><span class=si>${#</span><span class=nv>names</span><span class=p>[*]</span><span class=si>}</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=nv>$length1</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=nv>$length2</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=5-shell-参数传递>5: Shell 参数传递</h1><ul><li>执行 Shell 脚本的时候,可以向脚本传递参数,在 Shell 中获取这些参数的格式为$n,即$1,$2…….,</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;第一个参数是：</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;第一个参数是：</span><span class=nv>$2</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;第一个参数是：</span><span class=nv>$3</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 运行shell</span>
+</span></span><span class=line><span class=cl>chmod +x test.sh
+</span></span><span class=line><span class=cl>test.sh <span class=m>12</span> <span class=m>13</span> <span class=m>14</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 此时输出:</span>
+</span></span><span class=line><span class=cl>第一个参数是：12
+</span></span><span class=line><span class=cl>第一个参数是：13
+</span></span><span class=line><span class=cl>第一个参数是：14
+</span></span></code></pre></td></tr></table></div></div><ul><li>此外,还有其他几个特殊字符来处理参数<ul><li>$#：传递脚本的参数个数</li><li>$*：显示所有的参数</li><li>$@：返回所有参数</li><li>$-：显示 Shell 的使用的当前选项</li><li>$?：退出的状态,0 表示没有错误,其他则表示有错误</li></ul></li></ul><h1 id=6-运算>6: 运算</h1><h2 id=61-算数运算>6.1 算数运算</h2><ul><li><strong>算数运算</strong> 原生 bash 不支持简单的数学运算,可以借助于其他命令来完成,例如 awk 和 expr,其中 expr 最常用.expr 是一款表达式计算工具,使用它能完成表达式的求值操作.</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nv>val</span><span class=o>=</span><span class=sb>`</span>expr <span class=m>2</span> + 2<span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=nv>$val</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>需要注意的是<strong>运算符两边需要 <em>空格</em> ,且使用的是反引号</strong>. 算术运算符包括：<code>+ - × / % = == !=</code></li></ul><h2 id=62-关系运算>6.2 关系运算</h2><ul><li><strong>关系运算</strong> 关系运算只支持数字,不支持字符串,除非字符串的值是数字.</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nv>a</span><span class=o>=</span><span class=m>12</span>
+</span></span><span class=line><span class=cl><span class=nv>b</span><span class=o>=</span><span class=m>13</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> -eq <span class=nv>$b</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl>	<span class=k>then</span>
+</span></span><span class=line><span class=cl>	<span class=nb>echo</span> <span class=s2>&#34;相等&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>	<span class=nb>echo</span> <span class=s2>&#34;不等&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>算数运算符：</p></div><div class=read-more><a href=/post/linux/025-shell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/linux/023-%E8%B6%85%E4%BE%BF%E6%8D%B7%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/>01-超便捷的搭建一个http/文件服务器</a></h1><div class=post-meta><span class=post-time>2021-05-27</span><div class=post-category><a href=/categories/toolbox/>ToolBox</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1-%E4%BD%BF%E7%94%A8python%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA>1: 使用python快速搭建</a></li><li><a href=#2-%E4%BD%BF%E7%94%A8darkhttpd>2: 使用darkhttpd</a><ul><li><a href=#21-%E5%AE%89%E8%A3%85darkhttpd>2.1 安装darkhttpd</a></li></ul></li></ul><h1 id=1-使用python快速搭建>1: 使用python快速搭建</h1><blockquote><p>1: 进入目录
+2: python启动httpp 文件服务器</p></div><div class=read-more><a href=/post/linux/023-%E8%B6%85%E4%BE%BF%E6%8D%B7%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/linux/005-linux%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7/>01-Linux创建用户</a></h1><div class=post-meta><span class=post-time>2021-05-21</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1-userdel%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7>1: userdel删除用户</a></li><li><a href=#2-useradd%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7>2: useradd创建用户</a></li><li><a href=#3-%E6%96%B0%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8ssh%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81>3: 新用户使用ssh登录验证</a></li></ul><h1 id=1-userdel删除用户>1: userdel删除用户</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 若使用userdel haha 命令删除该用户时，并不能删除该用户的所有信息，</span>
+</span></span><span class=line><span class=cl><span class=c1># 只是删除了/etc/passwd、/etc/shadow、/etc/group/、/etc/gshadow四个文件里的该账户和组的信息</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>root@localhost /<span class=o>]</span><span class=c1># userdel haha</span>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>root@localhost /<span class=o>]</span><span class=c1># cat /etc/passwd | grep haha</span>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>root@localhost /<span class=o>]</span><span class=c1># cat /etc/shadow | grep haha</span>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>root@localhost /<span class=o>]</span><span class=c1># cat /etc/group | grep haha</span>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>root@localhost /<span class=o>]</span><span class=c1># cat /etc/gshadow | grep haha</span>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>root@localhost /<span class=o>]</span><span class=c1># find / -name &#34;*haha*&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 完全删除用户，慎用！！！</span>
+</span></span><span class=line><span class=cl>userdel -r haha
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-useradd创建用户>2: useradd创建用户</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1 在home手动创建新用户home目录</span>
+</span></span><span class=line><span class=cl>useradd -d /home/haha haha
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2 设置密码</span>
+</span></span><span class=line><span class=cl>passwd haha
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3 设置sudo权限</span>
+</span></span><span class=line><span class=cl>（1）su root //进入root用户
+</span></span><span class=line><span class=cl>（2）vim /etc/sudoers //打开sudo的配置文件
+</span></span><span class=line><span class=cl>    修改sudoers文件:
+</span></span><span class=line><span class=cl>    &lt;1&gt; 先找到所示的一行：（root <span class=nv>ALL</span><span class=o>=(</span>ALL<span class=o>)</span>ALL）
+</span></span><span class=line><span class=cl>    &lt;2&gt; 然后给普通用户haha添加sudo权限，在“root <span class=nv>ALL</span><span class=o>=(</span>ALL<span class=o>)</span>ALL”这一行下面，加入如下图所示的一行<span class=o>(</span>用户名 <span class=nv>ALL</span><span class=o>=(</span>ALL<span class=o>)</span> ALL<span class=o>)</span>，并保存
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-新用户使用ssh登录验证>3: 新用户使用ssh登录验证</h1></div><div class=read-more><a href=/post/linux/005-linux%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/linux/002-toolbox/>01-ToolBox</a></h1><div class=post-meta><span class=post-time>2021-05-06</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#toolbox-%E5%B7%A5%E5%85%B7%E7%AE%B1>ToolBox 工具箱</a><ul><li><a href=#1-%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7>1: 压测工具</a></li><li><a href=#2-%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3>2: 网络相关</a></li><li><a href=#3-3>3: 3</a></li><li><a href=#4-4>4: 4</a></li><li><a href=#5-5>5: 5</a></li><li><a href=#6-6>6: 6</a></li><li><a href=#7-7>7: 7</a></li><li><a href=#8-8>8: 8</a></li><li><a href=#9-9>9: 9</a></li><li><a href=#10-10>10: 10</a></li><li><a href=#11-11>11: 11</a></li><li><a href=#12-12>12: 12</a></li></ul></li></ul><h1 id=toolbox-工具箱>ToolBox 工具箱</h1><h2 id=1-压测工具>1: 压测工具</h2><h2 id=2-网络相关>2: 网络相关</h2><table><thead><tr><th style=text-align:left>工具类型</th><th style=text-align:left>工具名称</th><th style=text-align:left>site</th><th style=text-align:left>教程</th><th style=text-align:left>其他</th></tr></thead><tbody><tr><td style=text-align:left>内网穿透</td><td style=text-align:left>花生壳</td><td style=text-align:left></td><td style=text-align:left></td><td style=text-align:left></td></tr><tr><td style=text-align:left>内网穿透</td><td style=text-align:left>NatApp</td><td style=text-align:left><a href=https://natapp.cn/>https://natapp.cn/</a></td><td style=text-align:left></td><td style=text-align:left></td></tr><tr><td style=text-align:left>内网穿透</td><td style=text-align:left>Ngrok</td><td style=text-align:left><a href=https://www.ngrok.cc/>https://www.ngrok.cc/</a></td><td style=text-align:left></td><td style=text-align:left></td></tr><tr><td style=text-align:left>&mldr;</td><td style=text-align:left></td><td style=text-align:left></td><td style=text-align:left></td><td style=text-align:left></td></tr></tbody></table><h2 id=3-3>3: 3</h2><h2 id=4-4>4: 4</h2><h2 id=5-5>5: 5</h2><h2 id=6-6>6: 6</h2><h2 id=7-7>7: 7</h2><h2 id=8-8>8: 8</h2><h2 id=9-9>9: 9</h2><h2 id=10-10>10: 10</h2><h2 id=11-11>11: 11</h2><h2 id=12-12>12: 12</h2></div><div class=read-more><a href=/post/linux/002-toolbox/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/009-go%E7%BC%96%E8%AF%91%E7%9B%B8%E5%85%B3/>02-Go编译相关</a></h1><div class=post-meta><span class=post-time>2021-05-06</span><div class=post-category><a href=/categories/go/>Go</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1-go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91>1: go 交叉编译</a><ul><li><a href=#11-%E6%9F%A5%E7%9C%8B%E5%8F%AF%E6%94%AF-platform>1.1 查看可支 platform</a></li><li><a href=#12-go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%91%BD%E4%BB%A4>1.2 Go 交叉编译命令</a></li><li><a href=#13-%E7%BC%96%E8%AF%91%E5%91%BD%E4%BB%A4>1.3 编译命令</a></li><li><a href=#14-%E7%BC%96%E8%AF%91%E6%97%B6%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0>1.4 编译时传入参数</a></li></ul></li><li><a href=#2-shell-%E8%84%9A%E6%9C%AC>2: shell 脚本</a></li><li><a href=#3-makefile>3: Makefile</a></li></ul><h1 id=1-go-交叉编译>1: go 交叉编译</h1><h2 id=11-查看可支-platform>1.1 查看可支 platform</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>go</span> <span class=nx>tool</span> <span class=nx>dist</span> <span class=nx>list</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 支持的OS跟ARCH</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=12-go-交叉编译命令>1.2 Go 交叉编译命令</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>CGO_ENABLED</span><span class=p>=</span><span class=mi>0</span> <span class=nx>GOOS</span><span class=p>=</span><span class=nx>linux</span> <span class=nx>GOARCH</span><span class=p>=</span><span class=nx>amd64</span> <span class=k>go</span> <span class=nx>build</span> <span class=o>-</span><span class=nx>v</span> <span class=o>-</span><span class=nx>a</span> <span class=o>-</span><span class=nx>o</span> <span class=nx>vp</span><span class=o>-</span><span class=nx>server_linux_amd64</span>
+</span></span><span class=line><span class=cl><span class=nx>CGO_ENABLED</span><span class=p>=</span><span class=mi>0</span> <span class=nx>GOOS</span><span class=p>=</span><span class=nx>windows</span> <span class=nx>GOARCH</span><span class=p>=</span><span class=nx>amd64</span> <span class=k>go</span> <span class=nx>build</span>
+</span></span><span class=line><span class=cl><span class=nx>CGO_ENABLED</span><span class=p>=</span><span class=mi>0</span> <span class=nx>GOOS</span><span class=p>=</span><span class=nx>darwin</span> <span class=nx>GOARCH</span><span class=p>=</span><span class=nx>amd64</span> <span class=k>go</span> <span class=nx>build</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=13-编译命令>1.3 编译命令</h2><h2 id=14-编译时传入参数>1.4 编译时传入参数</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=nx>VERSION</span>    <span class=kt>string</span>
+</span></span><span class=line><span class=cl>	<span class=nx>BUILD_TIME</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>	<span class=nx>GO_VERSION</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s\n%s\n%s\n&#34;</span><span class=p>,</span> <span class=nx>VERSION</span><span class=p>,</span> <span class=nx>BUILD_TIME</span><span class=p>,</span> <span class=nx>GO_VERSION</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// go build -ldflags &#34;-X main.VERSION=1.0.0 -X &#39;main.BUILD_TIME=`date +&#34;%Y-%m-%d %H:%M:%S&#34;`&#39; -X &#39;main.GO_VERSION=`go version`&#39;&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># go</span>
+</span></span><span class=line><span class=cl>var <span class=o>(</span>
+</span></span><span class=line><span class=cl>	VERSION     string
+</span></span><span class=line><span class=cl>	BUILD_TIME  string
+</span></span><span class=line><span class=cl>	GO_VERSION  string
+</span></span><span class=line><span class=cl>	COMMIT_ID   string
+</span></span><span class=line><span class=cl>	AUTHOR      string
+</span></span><span class=line><span class=cl>	BRANCH_NAME string
+</span></span><span class=line><span class=cl><span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>func init<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>	log.Infof<span class=o>(</span><span class=s2>&#34;\nVERSION:%s \nBUILD_TIME:%s \nGO_VERSION:%s \nCOMMIT_ID:%s \nAUTHOR:%s \nBRANCH_NAME:%s\n&#34;</span>,
+</span></span><span class=line><span class=cl>		VERSION, BUILD_TIME, GO_VERSION, COMMIT_ID, AUTHOR, BRANCH_NAME<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=c1># go build shell</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#!/bin/sh</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>VERSION</span><span class=o>=</span><span class=s2>&#34;v1.0.0&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>BUILD_TIME</span><span class=o>=</span><span class=sb>`</span>date +<span class=s2>&#34;%Y-%m-%d %H:%M:%S&#34;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nv>GO_VERSION</span><span class=o>=</span><span class=sb>`</span>go version<span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nv>COMMIT_ID</span><span class=o>=</span><span class=sb>`</span>git log <span class=p>|</span>head -n 1<span class=p>|</span> awk <span class=s1>&#39;{print $2;}&#39;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nv>AUTHOR</span><span class=o>=</span><span class=sb>`</span>git log <span class=p>|</span>head -n 3<span class=p>|</span> grep Author<span class=p>|</span> awk <span class=s1>&#39;{print $2;}&#39;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nv>BRANCH_NAME</span><span class=o>=</span><span class=sb>`</span>git branch <span class=p>|</span> awk <span class=s1>&#39;/\*/ { print $2; }&#39;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>go build -ldflags <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span><span class=s2>&#34;-X &#39;main.VERSION=</span><span class=si>${</span><span class=nv>VERSION</span><span class=si>}</span><span class=s2>&#39; \
+</span></span></span><span class=line><span class=cl><span class=s2>-X &#39;main.BUILD_TIME=</span><span class=si>${</span><span class=nv>BUILD_TIME</span><span class=si>}</span><span class=s2>&#39; \
+</span></span></span><span class=line><span class=cl><span class=s2>-X &#39;main.GO_VERSION=</span><span class=si>${</span><span class=nv>GO_VERSION</span><span class=si>}</span><span class=s2>&#39; \
+</span></span></span><span class=line><span class=cl><span class=s2>-X &#39;main.COMMIT_ID=</span><span class=si>${</span><span class=nv>COMMIT_ID</span><span class=si>}</span><span class=s2>&#39; \
+</span></span></span><span class=line><span class=cl><span class=s2>-X &#39;main.AUTHOR=</span><span class=si>${</span><span class=nv>AUTHOR</span><span class=si>}</span><span class=s2>&#39; \
+</span></span></span><span class=line><span class=cl><span class=s2>-X &#39;main.BRANCH_NAME=</span><span class=si>${</span><span class=nv>BRANCH_NAME</span><span class=si>}</span><span class=s2>&#39; &#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-shell-脚本>2: shell 脚本</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nb>export</span> <span class=nv>LANG</span><span class=o>=</span><span class=s2>&#34;en_US.UTF-8&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;开始编译vp-server项目... &#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;----&gt; 1: linux (64) ; &#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;----&gt; 2: windows (64) ; &#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;----&gt; 3: darwin (64) ; &#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nb>read</span> -p <span class=s2>&#34;======&gt;请选择您要编译的环境 :&#34;</span> args
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;------&gt; 你输入的环境是 </span><span class=nv>$args</span><span class=s2> &lt;------&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;\n抱歉，你输入超时了。&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span>
+</span></span><span class=line><span class=cl><span class=nv>projectName</span><span class=o>=</span><span class=s2>&#34;video_server&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=nv>$args</span> -eq <span class=m>1</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=m>0</span> <span class=nv>GOOS</span><span class=o>=</span>linux <span class=nv>GOARCH</span><span class=o>=</span>amd64    go build -v -a -o <span class=si>${</span><span class=nv>projectName</span><span class=si>}</span>_linux_amd64
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> <span class=nv>$args</span> -eq <span class=m>2</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=m>0</span> <span class=nv>GOOS</span><span class=o>=</span>windows <span class=nv>GOARCH</span><span class=o>=</span>amd64    go build -v -a -o <span class=si>${</span><span class=nv>projectName</span><span class=si>}</span>_windows_amd64.exe
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> <span class=nv>$args</span> -eq <span class=m>3</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  <span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=m>0</span> <span class=nv>GOOS</span><span class=o>=</span>darwin <span class=nv>GOARCH</span><span class=o>=</span>amd64    go build -v -a -o <span class=si>${</span><span class=nv>projectName</span><span class=si>}</span>_darwin_amd64
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;输入的参数</span><span class=nv>$args不正确</span><span class=s2>，执行退出...&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;...build success!!! 编译成功...&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-makefile>3: Makefile</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-makefile data-lang=makefile><span class=line><span class=cl><span class=nf>.PHONY</span><span class=o>:</span> <span class=n>all</span> <span class=n>build</span> <span class=n>clean</span> <span class=n>run</span> <span class=n>check</span> <span class=n>cover</span> <span class=n>lint</span> <span class=n>docker</span> <span class=n>help</span>
+</span></span><span class=line><span class=cl><span class=nv>BIN_FILE</span><span class=o>=</span>hello
+</span></span><span class=line><span class=cl><span class=nf>all</span><span class=o>:</span> <span class=n>check</span> <span class=n>build</span>
+</span></span><span class=line><span class=cl><span class=nf>build</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	@go build -o <span class=s2>&#34;</span><span class=si>${</span><span class=nv>BIN_FILE</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nf>clean</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	go clean
+</span></span><span class=line><span class=cl>	rm --force <span class=s2>&#34;xx.out&#34;</span>
+</span></span><span class=line><span class=cl><span class=nf>test</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	go <span class=nb>test</span>
+</span></span><span class=line><span class=cl><span class=nf>check</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	go fmt ./
+</span></span><span class=line><span class=cl>	go vet ./
+</span></span><span class=line><span class=cl><span class=nf>cover</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	go <span class=nb>test</span> -coverprofile xx.out
+</span></span><span class=line><span class=cl>	go tool cover -html<span class=o>=</span>xx.out
+</span></span><span class=line><span class=cl><span class=nf>run</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	./<span class=s2>&#34;</span><span class=si>${</span><span class=nv>BIN_FILE</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nf>lint</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	golangci-lint run --enable-all
+</span></span><span class=line><span class=cl><span class=nf>docker</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	@docker build -t leo/hello:latest .
+</span></span><span class=line><span class=cl><span class=nf>help</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make 格式化go代码 并编译生成二进制文件&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make build 编译go代码生成二进制文件&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make clean 清理中间目标文件&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make test 执行测试case&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make check 格式化go代码&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make cover 检查测试覆盖率&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make run 直接运行程序&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make lint 执行代码检查&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;make docker 构建docker镜像&#34;</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=read-more><a href=/post/golang/009-go%E7%BC%96%E8%AF%91%E7%9B%B8%E5%85%B3/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/>03-Git常见的命令集合</a></h1><div class=post-meta><span class=post-time>2021-05-06</span><div class=post-category><a href=/categories/git/>Git</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1-git-config>1: Git Config</a><ul><li><a href=#11-git-global-setup-%E5%85%A8%E5%B1%80%E8%AE%BE%E7%BD%AE>1.1 Git global setup 全局设置</a></li><li><a href=#12-%E4%BF%AE%E6%94%B9-git-config>1.2 修改 git config</a></li></ul></li><li><a href=#2-%E4%BB%93%E5%BA%93repository%E7%AE%A1%E7%90%86>2: 仓库 Repository 管理</a><ul><li><a href=#21-clone%E4%BB%93%E5%BA%93>2.1 clone 仓库</a></li><li><a href=#22-create-a-new-repository-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E4%BB%93%E5%BA%93>2.2 Create a new repository 创建一个新仓库</a></li><li><a href=#23-push-an-existing-folder-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9>2.3 Push an existing folder 推送一个已存在的文件夹</a></li><li><a href=#25-push-an-existing-git-repository-%E6%8E%A8%E9%80%81%E4%B8%80%E4%B8%AA%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E4%BB%93%E5%BA%93>2.5 Push an existing Git repository 推送一个已存在的仓库</a></li></ul></li><li><a href=#3-history%E7%AE%A1%E7%90%86>3: History 管理</a><ul><li><a href=#31-%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2>3.1 查看历史</a></li><li><a href=#32-tag%E6%A0%87%E7%AD%BE>3.2 Tag 标签</a></li><li><a href=#33-rollback%E5%9B%9E%E6%BB%9A>3.3 Rollback 回滚</a></li><li><a href=#34-%E5%8F%96%E6%B6%88%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9>3.4 取消文件的修改</a></li><li><a href=#35-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6>3.5 删除文件</a></li><li><a href=#36-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6>3.6 移动文件</a></li><li><a href=#37-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9>3.7 查看文件的修改</a></li><li><a href=#38-%E6%9A%82%E5%AD%98%E5%92%8C%E6%81%A2%E5%A4%8D%E5%BD%93%E5%89%8Dstaging>3.8 暂存和恢复当前 staging</a></li><li><a href=#39-%E4%BF%AE%E6%94%B9commit%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95>3.9 修改 commit 历史记录</a></li></ul></li><li><a href=#4-branch%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86>4: Branch 分支管理</a><ul><li><a href=#41-%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF>4.1 创建分支</a></li><li><a href=#42-%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF>4.2 查看分支</a></li><li><a href=#43-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF>4.3 合并分支</a></li><li><a href=#44-stash-%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E4%B8%AD%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E4%BF%AE%E6%94%B9%E7%A7%BB%E5%8A%A8%E5%88%B0%E5%85%B6%E4%BB%96%E5%88%86%E6%94%AF>4.4 Stash 当前分支中未提交的修改移动到其他分支</a></li><li><a href=#45-%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E5%88%B0%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC>4.5 强制更新到远程分支最新版本</a></li></ul></li><li><a href=#5-submodule%E4%BD%BF%E7%94%A8>5: Submodule 使用</a><ul><li><a href=#51-%E5%85%8B%E9%9A%86%E5%B8%A6submodule%E7%9A%84%E5%BA%93>5.1 克隆带 submodule 的库</a></li><li><a href=#52-clone%E4%B8%BB%E5%BA%93%E5%90%8E%E5%86%8D%E5%8E%BBclone-submodule>5.2 clone 主库后再去 clone submodule</a></li></ul></li><li><a href=#6-%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%8F%91%E5%B8%83>6: 更新与发布</a><ul><li><a href=#61-%E5%88%97%E5%87%BA%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.1 列出当前配置的远程端</a></li><li><a href=#62-%E6%98%BE%E7%A4%BA%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%9A%84%E4%BF%A1%E6%81%AF>6.2 显示远程端的信息</a></li><li><a href=#63-%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.3 添加新的远程端</a></li><li><a href=#64-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E4%BD%86%E4%B8%8D%E5%90%88%E5%B9%B6%E5%88%B0head%E4%B8%AD>6.4 下载远程端版本,但不合并到 HEAD 中</a></li><li><a href=#65-%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%B9%B6%E8%87%AA%E5%8A%A8%E4%B8%8Ehead%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6>6.5 下载远程端版本,并自动与 HEAD 版本合并</a></li><li><a href=#66-%E5%B0%86%E8%BF%9C%E7%A8%8B%E7%AB%AF%E7%89%88%E6%9C%AC%E5%90%88%E5%B9%B6%E5%88%B0%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E4%B8%AD>6.6 将远程端版本合并到本地版本中</a></li><li><a href=#67-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6>6.7 以 rebase 方式将远端分支与本地合并</a></li><li><a href=#68-%E5%B0%86%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%AB%AF>6.8 将本地版本发布到远程端</a></li><li><a href=#69-%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E7%AB%AF%E5%88%86%E6%94%AF>6.9 删除远程端分支</a></li><li><a href=#610-%E5%8F%91%E5%B8%83%E6%A0%87%E7%AD%BE>6.10 发布标签</a></li><li><a href=#611-%E4%BB%A5rebase%E6%96%B9%E5%BC%8F%E5%B0%86%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6>6.11 以 rebase 方式将远端分支与本地合并</a></li></ul></li><li><a href=#7-%E5%90%88%E5%B9%B6merge%E4%B8%8E%E9%87%8D%E7%BD%AErebase>7: 合并(Merge)与重置(Rebase)</a><ul><li><a href=#71-%E5%B0%86%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6>7.1 将分支合并</a></li><li><a href=#72-%E9%80%80%E5%87%BArebase>7.2 退出 rebase</a></li><li><a href=#73-%E5%90%88%E5%B9%B6%E6%8F%90%E4%BA%A4>7.3 合并提交</a></li></ul></li><li><a href=#8-%E6%92%A4%E9%94%80revoke>8: 撤销 revoke</a><ul><li><a href=#81-%E6%94%BE%E5%BC%83%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9>8.1 放弃工作目录下的所有修改</a></li><li><a href=#82-%E7%A7%BB%E9%99%A4%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6ie-%E6%92%A4%E9%94%80%E4%B8%8A%E6%AC%A1git-add>8.2 移除缓存区的所有文件（i.e. 撤销上次 git add）</a></li><li><a href=#83-%E6%94%BE%E5%BC%83%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9>8.3 放弃某个文件的所有本地修改</a></li><li><a href=#84-%E9%87%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E6%8F%90%E4%BA%A4%E9%80%9A%E8%BF%87%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%88%AA%E7%84%B6%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%B0%E6%8F%90%E4%BA%A4>8.4 重置一个提交（通过创建一个截然不同的新提交）</a></li><li><a href=#85-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E6%8A%9B%E5%BC%83%E8%AF%A5%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9>8.5 将 HEAD 重置到指定的版本,并抛弃该版本之后的所有修改</a></li><li><a href=#86-%E7%94%A8%E8%BF%9C%E7%AB%AF%E5%88%86%E6%94%AF%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF>8.6 用远端分支强制覆盖本地分支</a></li><li><a href=#87-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E5%B0%86%E4%B9%8B%E5%90%8E%E7%9A%84%E4%BF%AE%E6%94%B9%E6%A0%87%E8%AE%B0%E4%B8%BA%E6%9C%AA%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%BC%93%E5%AD%98%E5%8C%BA%E7%9A%84%E4%BF%AE%E6%94%B9>8.7 将 HEAD 重置到上一次提交的版本,并将之后的修改标记为未添加到缓存区的修改</a></li><li><a href=#88-%E5%B0%86head%E9%87%8D%E7%BD%AE%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E4%BF%9D%E7%95%99%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9>8.8 将 HEAD 重置到上一次提交的版本,并保留未提交的本地修改</a></li><li><a href=#89-%E5%88%A0%E9%99%A4%E6%B7%BB%E5%8A%A0gitignore%E6%96%87%E4%BB%B6%E5%89%8D%E9%94%99%E8%AF%AF%E6%8F%90%E4%BA%A4%E7%9A%84%E6%96%87%E4%BB%B6>8.9 删除添加.gitignore 文件前错误提交的文件</a></li></ul></li></ul><p><img src=https://i0.hdslb.com/bfs/album/c61199aeb14daf36e493529c32d0fe8a56b03e28.jpg alt></p></div><div class=read-more><a href=/post/linux/021-git%E5%B8%B8%E8%A7%81%E7%9A%84%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/dockerk8s/007-docker%E6%B8%85%E7%90%86/>01-docker清理</a></h1><div class=post-meta><span class=post-time>2021-05-05</span><div class=post-category><a href=/categories/docker/>Docker</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#docker-%E6%B8%85%E7%90%86%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95>Docker 清理常用方法</a><ul><li><a href=#1docker-%E7%A7%AF%E7%B4%AF%E7%9A%84%E4%B8%9C%E8%A5%BF>1：Docker 积累的东西</a></li><li><a href=#2%E4%BD%BF%E7%94%A8-docker-%E6%B8%85%E7%90%86>2：使用 docker 清理</a><ul><li><a href=#21docker-system>2.1：docker system</a></li><li><a href=#21-%E6%B8%85%E7%90%86%E5%B7%B2%E7%BB%8F%E5%81%9C%E6%AD%A2%E7%9A%84%E5%AE%B9%E5%99%A8>2.1: 清理已经停止的容器</a></li><li><a href=#22-%E6%B8%85%E7%90%86%E7%A3%81%E7%9B%98%E5%8D%B7>2.2: 清理磁盘卷</a></li><li><a href=#23-%E6%B8%85%E7%90%86%E9%95%9C%E5%83%8F>2.3: 清理镜像</a></li><li><a href=#24-%E6%B8%85%E7%90%86%E7%BD%91%E7%BB%9C>2.4: 清理网络</a></li><li><a href=#25-%E4%BD%BF%E7%94%A8-docker-compose-%E6%B8%85%E7%90%86>2.5: 使用 docker-compose 清理</a></li><li><a href=#26docker-system-prune>2.6: docker system prune</a></li></ul></li></ul></li></ul><h1 id=docker-清理常用方法>Docker 清理常用方法</h1><p>Docker 基于 Linux 内核通过操作系统和虚拟容器调用 CGroup, Namespace 等系统接口完成资源的分配与相互隔离，依赖系统资源运行，在分配回收过程中会产生一些垃圾，比如 docker stop 容器后没有执行 docker rm 删除。</p></div><div class=read-more><a href=/post/dockerk8s/007-docker%E6%B8%85%E7%90%86/ class=read-more-link>阅读更多</a></div></div></article></section><nav class=pagination><a class=prev href=/page/7/><i class="iconfont icon-left"></i>
+<span class=prev-text>上一页</span>
+</a><a class=next href=/page/9/><span class=next-text>下一页</span>
+<i class="iconfont icon-right"></i></a></nav></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=https://github.com/lppgo class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span><span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span><span class=copyright-year>&copy;
+2015 -
+2025<span class=heart><i class="iconfont icon-heart"></i></span><span></span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js></script><script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var t,n,e=document.createElement("script");e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script></body></html>

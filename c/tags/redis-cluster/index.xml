@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis-Cluster on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/redis-cluster/</link>
+    <description>Recent content in Redis-Cluster on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 27 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://lppgo.github.io/tags/redis-cluster/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>01-docker-compose搭建redis cluster</title>
+      <link>https://lppgo.github.io/post/database/009-docker-compose%E6%90%AD%E5%BB%BAredis-cluster/</link>
+      <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://lppgo.github.io/post/database/009-docker-compose%E6%90%AD%E5%BB%BAredis-cluster/</guid>
+      <description>&lt;div align=&#34;center&#34;&gt;&lt;font size=&#34;35&#34;&gt;docker-compose搭建redis cluster&lt;/font&gt;&lt;/div&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#%E4%B8%80-redis-cluster-%E9%9B%86%E7%BE%A4&#34;&gt;一: Redis Cluster 集群&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#%E4%BA%8C-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%A8%A1%E5%BC%8F&#34;&gt;二: 主从复制模式&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#%E4%B8%89-%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F&#34;&gt;三: 哨兵模式&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#%E4%B8%89-cluster-%E6%A8%A1%E5%BC%8F&#34;&gt;三: Cluster 模式&lt;/a&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#31-redisconf&#34;&gt;3.1 &lt;code&gt;redis.conf&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#32-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84&#34;&gt;3.2 目录结构&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#33-docker-compose-%E7%BC%96%E6%8E%92%E6%96%87%E4%BB%B6&#34;&gt;3.3 docker-compose 编排文件&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#34-%E6%B5%8B%E8%AF%95-redis-%E9%9B%86%E7%BE%A4&#34;&gt;3.4 测试 Redis 集群&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#35-redis-%E9%9B%86%E7%BE%A4-%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF&#34;&gt;3.5 Redis 集群 查看信息&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#36-redis-%E9%9B%86%E7%BE%A4-%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E6%B5%8B%E8%AF%95&#34;&gt;3.6 Redis 集群 写入数据测试&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#37-redis-%E9%9B%86%E7%BE%A4%E7%81%BE%E9%9A%BE%E6%B5%8B%E8%AF%95&#34;&gt;3.7 redis 集群灾难测试&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;一-redis-cluster-集群&#34;&gt;一: Redis Cluster 集群&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;在 Redis 中，集群的解决方案有三种&#xA;&lt;ul&gt;&#xA;&lt;li&gt;1.主从复制&lt;/li&gt;&#xA;&lt;li&gt;2.哨兵机制&lt;/li&gt;&#xA;&lt;li&gt;3.Cluster&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;二-主从复制模式&#34;&gt;二: 主从复制模式&lt;/h1&gt;&#xA;&lt;p&gt;Redis 虽然读取写入的速度都特别快，但是也会产生读压力特别大的情况。为了分担读压力，Redis 支持主从复制，读写分离。一个 Master 可以有多个 Slaves。&#xA;&lt;img src=&#34;https://lppgo.github.io/images/redis-master-slave%E5%A4%8D%E5%88%B6%E6%A8%A1%E5%BC%8F.png&#34; alt=&#34;redis-master-slave复制模式&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

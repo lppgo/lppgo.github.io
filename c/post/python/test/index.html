@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="仓库: http://47.101.50.176/ms-tech/ms-offshore
+pwd: /root/trade/ems/baml
+etc:
+dataCfg.json
+dataCfg.json
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 { // 算法字段-fix tag // remark? - MaxVolume &#34;TagDict&#34;: {&#34;MaxVolume&#34;:6403,&#34;MinVolume&#34;:6469,&#34;Urgency&#34;:6408,&#34;Scaling&#34;:6962,&#34;TAGAlgo&#34;:6401,&#34;INSTINCT&#34;:6401,&#34;Benchmark&#34;:8228}, // account 字段 FixTag1-Account 《香港账户表》 &#34;fixAcctMap&#34;: {&#34;mshw_baml18&#34;:&#34;OPTIMA&#34;,&#34;mshw_baml26&#34;:&#34;OPTX&#34;,&#34;mshw_baml21&#34;:&#34;BOOTHBAY&#34;,&#34;mshw_baml27&#34;:&#34;BBFL&#34;,&#34;mshw_baml27_02&#34;:&#34;BBFL2&#34;}, &#34;fixLogPath&#34;: &#34;./log/fix&#34;, // 函数 &#34;condParams&#34;: [{&#34;func&#34;: &#34;!=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;ALGO&#34;}, {&#34;func&#34;: &#34;=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;DMA&#34;}], // 强制设置tag 775=1 &#34;requiredParams&#34;: {&#34;775&#34;: &#34;1&#34;}, // tag映射 &#34;tagMap&#34;: {&#34;6401&#34;: {&#34;TAGAlgo&#34;:&#34;55&#34;,&#34;INSTINCT&#34;:&#34;46&#34;}}, &#34;targetCompID&#34;: &#34;BAML&#34;, &#34;SenderCompID&#34;: &#34;MINGSHICNSWP2&#34;, &#34;dbPath&#34;: &#34;./db&#34;, // 过滤告警信息 &#34;excludedErrs&#34;:[&#34;GLM&#34;, &#34;Electronic Short sell Order Reject Alert. Inventory no longer available.&#34;, &#34;Market is closed&#34;, &#34;Reason: Restricted Name&#34;, &#34;Order rejected by short sell&#34;, &#34;Order posting at ul/ll is not allowed&#34;] } tradeCfg.json
+" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/python/test/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/python/test/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="Even - A super concise theme for Hugo">
+  <meta property="og:description" content="仓库: http://47.101.50.176/ms-tech/ms-offshore
+pwd: /root/trade/ems/baml
+etc:
+dataCfg.json
+dataCfg.json
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 { // 算法字段-fix tag // remark? - MaxVolume &#34;TagDict&#34;: {&#34;MaxVolume&#34;:6403,&#34;MinVolume&#34;:6469,&#34;Urgency&#34;:6408,&#34;Scaling&#34;:6962,&#34;TAGAlgo&#34;:6401,&#34;INSTINCT&#34;:6401,&#34;Benchmark&#34;:8228}, // account 字段 FixTag1-Account 《香港账户表》 &#34;fixAcctMap&#34;: {&#34;mshw_baml18&#34;:&#34;OPTIMA&#34;,&#34;mshw_baml26&#34;:&#34;OPTX&#34;,&#34;mshw_baml21&#34;:&#34;BOOTHBAY&#34;,&#34;mshw_baml27&#34;:&#34;BBFL&#34;,&#34;mshw_baml27_02&#34;:&#34;BBFL2&#34;}, &#34;fixLogPath&#34;: &#34;./log/fix&#34;, // 函数 &#34;condParams&#34;: [{&#34;func&#34;: &#34;!=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;ALGO&#34;}, {&#34;func&#34;: &#34;=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;DMA&#34;}], // 强制设置tag 775=1 &#34;requiredParams&#34;: {&#34;775&#34;: &#34;1&#34;}, // tag映射 &#34;tagMap&#34;: {&#34;6401&#34;: {&#34;TAGAlgo&#34;:&#34;55&#34;,&#34;INSTINCT&#34;:&#34;46&#34;}}, &#34;targetCompID&#34;: &#34;BAML&#34;, &#34;SenderCompID&#34;: &#34;MINGSHICNSWP2&#34;, &#34;dbPath&#34;: &#34;./db&#34;, // 过滤告警信息 &#34;excludedErrs&#34;:[&#34;GLM&#34;, &#34;Electronic Short sell Order Reject Alert. Inventory no longer available.&#34;, &#34;Market is closed&#34;, &#34;Reason: Restricted Name&#34;, &#34;Order rejected by short sell&#34;, &#34;Order posting at ul/ll is not allowed&#34;] } tradeCfg.json">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:modified_time" content="2025-04-28T18:09:19+08:00">
+
+  <meta itemprop="name" content="Even - A super concise theme for Hugo">
+  <meta itemprop="description" content="仓库: http://47.101.50.176/ms-tech/ms-offshore
+pwd: /root/trade/ems/baml
+etc:
+dataCfg.json
+dataCfg.json
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 { // 算法字段-fix tag // remark? - MaxVolume &#34;TagDict&#34;: {&#34;MaxVolume&#34;:6403,&#34;MinVolume&#34;:6469,&#34;Urgency&#34;:6408,&#34;Scaling&#34;:6962,&#34;TAGAlgo&#34;:6401,&#34;INSTINCT&#34;:6401,&#34;Benchmark&#34;:8228}, // account 字段 FixTag1-Account 《香港账户表》 &#34;fixAcctMap&#34;: {&#34;mshw_baml18&#34;:&#34;OPTIMA&#34;,&#34;mshw_baml26&#34;:&#34;OPTX&#34;,&#34;mshw_baml21&#34;:&#34;BOOTHBAY&#34;,&#34;mshw_baml27&#34;:&#34;BBFL&#34;,&#34;mshw_baml27_02&#34;:&#34;BBFL2&#34;}, &#34;fixLogPath&#34;: &#34;./log/fix&#34;, // 函数 &#34;condParams&#34;: [{&#34;func&#34;: &#34;!=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;ALGO&#34;}, {&#34;func&#34;: &#34;=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;DMA&#34;}], // 强制设置tag 775=1 &#34;requiredParams&#34;: {&#34;775&#34;: &#34;1&#34;}, // tag映射 &#34;tagMap&#34;: {&#34;6401&#34;: {&#34;TAGAlgo&#34;:&#34;55&#34;,&#34;INSTINCT&#34;:&#34;46&#34;}}, &#34;targetCompID&#34;: &#34;BAML&#34;, &#34;SenderCompID&#34;: &#34;MINGSHICNSWP2&#34;, &#34;dbPath&#34;: &#34;./db&#34;, // 过滤告警信息 &#34;excludedErrs&#34;:[&#34;GLM&#34;, &#34;Electronic Short sell Order Reject Alert. Inventory no longer available.&#34;, &#34;Market is closed&#34;, &#34;Reason: Restricted Name&#34;, &#34;Order rejected by short sell&#34;, &#34;Order posting at ul/ll is not allowed&#34;] } tradeCfg.json">
+  <meta itemprop="dateModified" content="2025-04-28T18:09:19+08:00">
+  <meta itemprop="wordCount" content="216">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Even - A super concise theme for Hugo">
+  <meta name="twitter:description" content="仓库: http://47.101.50.176/ms-tech/ms-offshore
+pwd: /root/trade/ems/baml
+etc:
+dataCfg.json
+dataCfg.json
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 { // 算法字段-fix tag // remark? - MaxVolume &#34;TagDict&#34;: {&#34;MaxVolume&#34;:6403,&#34;MinVolume&#34;:6469,&#34;Urgency&#34;:6408,&#34;Scaling&#34;:6962,&#34;TAGAlgo&#34;:6401,&#34;INSTINCT&#34;:6401,&#34;Benchmark&#34;:8228}, // account 字段 FixTag1-Account 《香港账户表》 &#34;fixAcctMap&#34;: {&#34;mshw_baml18&#34;:&#34;OPTIMA&#34;,&#34;mshw_baml26&#34;:&#34;OPTX&#34;,&#34;mshw_baml21&#34;:&#34;BOOTHBAY&#34;,&#34;mshw_baml27&#34;:&#34;BBFL&#34;,&#34;mshw_baml27_02&#34;:&#34;BBFL2&#34;}, &#34;fixLogPath&#34;: &#34;./log/fix&#34;, // 函数 &#34;condParams&#34;: [{&#34;func&#34;: &#34;!=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;ALGO&#34;}, {&#34;func&#34;: &#34;=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;DMA&#34;}], // 强制设置tag 775=1 &#34;requiredParams&#34;: {&#34;775&#34;: &#34;1&#34;}, // tag映射 &#34;tagMap&#34;: {&#34;6401&#34;: {&#34;TAGAlgo&#34;:&#34;55&#34;,&#34;INSTINCT&#34;:&#34;46&#34;}}, &#34;targetCompID&#34;: &#34;BAML&#34;, &#34;SenderCompID&#34;: &#34;MINGSHICNSWP2&#34;, &#34;dbPath&#34;: &#34;./db&#34;, // 过滤告警信息 &#34;excludedErrs&#34;:[&#34;GLM&#34;, &#34;Electronic Short sell Order Reject Alert. Inventory no longer available.&#34;, &#34;Market is closed&#34;, &#34;Reason: Restricted Name&#34;, &#34;Order rejected by short sell&#34;, &#34;Order posting at ul/ll is not allowed&#34;] } tradeCfg.json">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>仓库: http://47.101.50.176/ms-tech/ms-offshore</p>
+<p>pwd: /root/trade/ems/baml</p>
+<p>etc:</p>
+<ul>
+<li>
+<p>dataCfg.json</p>
+</li>
+<li></li>
+</ul>
+<p>dataCfg.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  // 算法字段-fix tag
+</span></span><span class="line"><span class="cl">  // remark? - MaxVolume
+</span></span><span class="line"><span class="cl">  &#34;TagDict&#34;: {&#34;MaxVolume&#34;:6403,&#34;MinVolume&#34;:6469,&#34;Urgency&#34;:6408,&#34;Scaling&#34;:6962,&#34;TAGAlgo&#34;:6401,&#34;INSTINCT&#34;:6401,&#34;Benchmark&#34;:8228},
+</span></span><span class="line"><span class="cl">  // account 字段 FixTag1-Account 《香港账户表》
+</span></span><span class="line"><span class="cl">  &#34;fixAcctMap&#34;: {&#34;mshw_baml18&#34;:&#34;OPTIMA&#34;,&#34;mshw_baml26&#34;:&#34;OPTX&#34;,&#34;mshw_baml21&#34;:&#34;BOOTHBAY&#34;,&#34;mshw_baml27&#34;:&#34;BBFL&#34;,&#34;mshw_baml27_02&#34;:&#34;BBFL2&#34;},
+</span></span><span class="line"><span class="cl">  &#34;fixLogPath&#34;: &#34;./log/fix&#34;,
+</span></span><span class="line"><span class="cl">  // 函数
+</span></span><span class="line"><span class="cl">  &#34;condParams&#34;: [{&#34;func&#34;: &#34;!=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;ALGO&#34;},
+</span></span><span class="line"><span class="cl">                {&#34;func&#34;: &#34;=&#34;, &#34;field&#34;: &#34;Algorithm&#34;, &#34;comparedField&#34;:&#34;DMA&#34;,&#34;tag&#34;: 57, &#34;value&#34;: &#34;DMA&#34;}],
+</span></span><span class="line"><span class="cl">  // 强制设置tag 775=1
+</span></span><span class="line"><span class="cl">  &#34;requiredParams&#34;: {&#34;775&#34;: &#34;1&#34;},
+</span></span><span class="line"><span class="cl">  // tag映射
+</span></span><span class="line"><span class="cl">  &#34;tagMap&#34;: {&#34;6401&#34;: {&#34;TAGAlgo&#34;:&#34;55&#34;,&#34;INSTINCT&#34;:&#34;46&#34;}},
+</span></span><span class="line"><span class="cl">  &#34;targetCompID&#34;: &#34;BAML&#34;,
+</span></span><span class="line"><span class="cl">  &#34;SenderCompID&#34;: &#34;MINGSHICNSWP2&#34;,
+</span></span><span class="line"><span class="cl">  &#34;dbPath&#34;: &#34;./db&#34;,
+</span></span><span class="line"><span class="cl">  // 过滤告警信息
+</span></span><span class="line"><span class="cl">  &#34;excludedErrs&#34;:[&#34;GLM&#34;,
+</span></span><span class="line"><span class="cl">                  &#34;Electronic Short sell Order Reject Alert. Inventory no longer available.&#34;,
+</span></span><span class="line"><span class="cl">                 &#34;Market is closed&#34;,
+</span></span><span class="line"><span class="cl">                 &#34;Reason: Restricted Name&#34;,
+</span></span><span class="line"><span class="cl">                 &#34;Order rejected by short sell&#34;,
+</span></span><span class="line"><span class="cl">                 &#34;Order posting at ul/ll is not allowed&#34;]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>tradeCfg.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">        &#34;broker&#34;:&#34;BAML&#34;,
+</span></span><span class="line"><span class="cl">        &#34;kdb_host&#34;: &#34;47.242.173.86&#34;,
+</span></span><span class="line"><span class="cl">        &#34;kdb_host-&#34;: &#34;47.56.205.31&#34;,
+</span></span><span class="line"><span class="cl">        &#34;kdb_port&#34;: 5000,
+</span></span><span class="line"><span class="cl">        &#34;auth&#34;: &#34;test:pass&#34;,
+</span></span><span class="line"><span class="cl">        &#34;accounts&#34;: [&#34;mshw_baml18&#34;,&#34;mshw_baml26&#34;,&#34;mshw_baml21&#34;,&#34;mshw_baml27&#34;,&#34;mshw_baml27_02&#34;],
+</span></span><span class="line"><span class="cl">        &#34;fixFilePath&#34;: &#34;./etc/fix.ini&#34;,
+</span></span><span class="line"><span class="cl">        &#34;maxNo&#34;: 300000,
+</span></span><span class="line"><span class="cl">        &#34;dataCfgPath&#34;: &#34;./etc/dataCfg.json&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>// 新配置账户流程</p>
+<ul>
+<li>《香港账户表》添加记录</li>
+<li>tradeCfg.json 配置账户</li>
+<li>dataCfg.json 配置fix tag1 等信息</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2025-04-28
+        <a href="/commit/83ad622b1c4919dfd107b687168fa6fcb8ffb2ea" title="[update] cpp update-alternatives安装gcc多版本2">(83ad622)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux/009-%E5%A6%82%E4%BD%95%E8%A7%84%E8%8C%83git-commit%E6%8F%90%E4%BA%A4/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 title: "01-mysql数据库优化最完整指南"
 author: "lucas"
 date: 2021-06-11
-lastmod: 2021-06-1
+lastmod: 2021-06-11
 
 tags: ["Mysql"]
 categories: ["DataBase"]

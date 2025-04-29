@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nginx on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/nginx/</link><description>Recent content in Nginx on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 29 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml"/><item><title>01-Nginx 常用配置清单.md</title><link>https://lppgo.github.io/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/</link><pubDate>Sun, 06 Jun 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/</guid><description>&lt;p>Table of Contents&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#1-nginx-%E9%85%8D%E7%BD%AE">1: Nginx 配置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-listen-port">2: Listen Port&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-access-log">3: Access Log&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-domain-name">4: Domain Name&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-static-asset">5: Static Asset&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-redirect">6: Redirect&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-reverse-proxy">7: Reverse Proxy&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-nginx-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F">8: Nginx 解决跨域&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-load-balance">8: Load Balance&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#81-roundrobin-%E8%BD%AE%E8%AF%A2default">8.1 RoundRobin 轮询(default)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#82-weight-%E6%9D%83%E9%87%8D">8.2 weight (权重)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#83-ip_haship-%E7%BB%91%E5%AE%9A-ip_hash-">8.3 ip_hash（IP 绑定 ip_hash ）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#84-url_hash">8.4 url_hash&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#85-fair%E7%AC%AC%E4%B8%89%E6%96%B9">8.5 fair（第三方）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#9-ssl-%E5%8D%8F%E8%AE%AE">9: SSL 协议&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#10-nginx-%E5%8A%A0%E9%80%9F">10: Nginx 加速&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#101-%E5%90%AF%E7%94%A8-gzip-%E5%8E%8B%E7%BC%A9">10.1 启用 Gzip 压缩&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#102-%E8%AE%BE%E7%BD%AE%E7%BC%93%E5%AD%98%E5%A4%B4">10.2 设置缓存头&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#103-%E5%90%AF%E7%94%A8-http2-%E5%8D%8F%E8%AE%AE">10.3 启用 HTTP2 协议&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#104-%E4%BC%98%E5%8C%96%E6%97%A5%E5%BF%97-optimizing-logging">10.4 优化日志 Optimizing Logging&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#1041-%E7%A6%81%E7%94%A8%E9%A1%B5%E9%9D%A2%E8%B5%84%E6%BA%90%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95">10.4.1 禁用页面资源请求的日志记录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1042-%E7%A6%81%E7%94%A8%E6%88%90%E5%8A%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95">10.4.2 禁用成功请求的日志记录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1043-%E6%9C%80%E5%B0%8F%E5%8C%96-io-%E6%93%8D%E4%BD%9C">10.4.3 最小化 I/O 操作&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#105-%E9%99%90%E5%88%B6%E5%B8%A6%E5%AE%BD">10.5 限制带宽&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#11-location-%E8%AF%AD%E6%B3%95">11: location 语法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-nginx-%E9%AB%98%E5%8F%AF%E7%94%A8-keepalived">12: nginx 高可用 keepalived&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-nginx-配置">1: Nginx 配置&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw">https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw&lt;/a>&lt;/p></description></item><item><title>01-nginx ssl双向认证.md</title><link>https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</link><pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</guid><description>&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-nginx-ssl-setting">1: Nginx SSL Setting&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-openssl-%E9%85%8D%E7%BD%AE%E5%87%86%E5%A4%87">2: openssl 配置准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%88%9B%E5%BB%BA-ca-%E6%A0%B9%E7%BA%A7%E8%AF%81%E4%B9%A6">3: 创建 CA 根级证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E5%88%9B%E5%BB%BA-server-%E8%AF%81%E4%B9%A6">4: 创建 server 证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-%E5%88%9B%E5%BB%BA-client-%E8%AF%81%E4%B9%A6">5: 创建 client 证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E9%85%8D%E7%BD%AE-nginx-ssl">6: 配置 Nginx ssl&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-nginx-ssl-setting">1: Nginx SSL Setting&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;strong>Nginx 对 SSL 双向认证支持的比较好，配置很简单：&lt;/strong>&lt;/p></description></item></channel></rss>

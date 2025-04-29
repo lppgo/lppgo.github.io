@@ -1,7 +1,7 @@
 ---
 title: "01-docker cheat sheet"
 author: "lucas"
-date: 2022-06-66
+date: 2022-06-06
 lastmod: 2022-06-06
 
 tags: ["Docker"]

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSL on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/ssl/</link><description>Recent content in SSL on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 03 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/ssl/index.xml" rel="self" type="application/rss+xml"/><item><title>01-nginx ssl双向认证.md</title><link>https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</link><pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</guid><description>&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-nginx-ssl-setting">1: Nginx SSL Setting&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-openssl-%E9%85%8D%E7%BD%AE%E5%87%86%E5%A4%87">2: openssl 配置准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%88%9B%E5%BB%BA-ca-%E6%A0%B9%E7%BA%A7%E8%AF%81%E4%B9%A6">3: 创建 CA 根级证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E5%88%9B%E5%BB%BA-server-%E8%AF%81%E4%B9%A6">4: 创建 server 证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-%E5%88%9B%E5%BB%BA-client-%E8%AF%81%E4%B9%A6">5: 创建 client 证书&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E9%85%8D%E7%BD%AE-nginx-ssl">6: 配置 Nginx ssl&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-nginx-ssl-setting">1: Nginx SSL Setting&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;strong>Nginx 对 SSL 双向认证支持的比较好，配置很简单：&lt;/strong>&lt;/p></description></item></channel></rss>

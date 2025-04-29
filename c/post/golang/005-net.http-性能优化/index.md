@@ -1,0 +1,114 @@
+
+- [Golang net/http 性能优化](#golang-nethttp-性能优化)
+  - [1: 使用 DefaultClient](#1-使用-defaultclient)
+  - [2: 使用默认的 DefaultTransport](#2-使用默认的-defaulttransport)
+  - [3: 解决办法是自己设置 DefaultMaxIdleConnsPerHost](#3解决办法是自己设置-defaultmaxidleconnsperhost)
+
+# Golang net/http 性能优化
+
+Go 语言内置 net\http 包十分优秀，我们通过这个包可以很方便的去实现 HTTP 的客户端和服务端。
+
+但是在高并发的情况下，如果我们使用默认的配置，会引发一些问题，严重的话可能会使服务器崩溃。这里讲述以下两种默认配置情况下带来的一些问题。
+
+## 1: 使用 DefaultClient
+
+```go
+_, err := http.Get("http://www.baidu.com")
+if err != nil {
+   log.Fatal(err)
+}
+var DefaultClient = &Client{}
+```
+
+如果我们直接使用默认的 http,那么它是没有超时时间的。这样就会带来如下问题：
+
+假设我们向服务端发起请求，但是服务端因为某些情况没有及时返回或者说连接中断了，那么客户端就会很长时间得不到服务端的 response。所以这个时候客户端为这一个 tcp 连接申请的资源就得不到释放，造成资源的浪费。如果在高并发的情况下，客户端可能会因为资源的限制使得服务器崩溃，比如达到最大文件描述符或者达到端口号限制等等。
+
+**解决办法是自己设置超时时间：**
+
+```go
+client := http.Client{
+   Timeout: 10 * time.Second,
+}
+```
+
+## 2: 使用默认的 DefaultTransport
+
+如果我们在 http client 中没有设置 transport 属性，那么它就会使用默认的 transport：
+
+```go
+var DefaultTransport RoundTripper = &Transport{
+   Proxy: ProxyFromEnvironment,
+   DialContext: (&net.Dialer{
+      Timeout:   30 * time.Second,
+      KeepAlive: 30 * time.Second,
+      DualStack: true,
+   }).DialContext,
+   ForceAttemptHTTP2:     true,
+   MaxIdleConns:          100,
+   IdleConnTimeout:       90 * time.Second,
+   TLSHandshakeTimeout:   10 * time.Second,
+   ExpectContinueTimeout: 1 * time.Second,
+}
+```
+
+> 从这个的配置中我们可以看到，http 使用了默认的连接池，关键的两个属性：
+> **MaxIdleConns：** 最大空闲连接数量，默认为 100;
+> **IdleConnTimeout：** 空闲连接超时时间，默认为 90s.
+
+当一个 request 请求完成后，这个连接会保留，直到达到 IdleConnTimeout 设置的超时时间。如果没有达到，那么下一个请求就会复用这个连接。
+
+这样的空闲连接最大数量是 100 个，超过 100 的还是会创建新的连接。
+
+建立连接池的好处是能够尽可能减少服务器的资源。这个配置看上去很好啊，那为什么还是说会有问题呢？
+
+```go
+// DefaultMaxIdleConnsPerHost is the default value of Transport's
+// MaxIdleConnsPerHost.
+const DefaultMaxIdleConnsPerHost = 2
+
+```
+
+> DefaultMaxIdleConnsPerHost 为每个 host 的设定的空闲连接数量为 2。  
+> DefaultMaxIdleConnsPerHost 设置的太小就会导致一个问题，在大量请求的情况下去访问特定的 host 的时候，长连接会退化成短链接。看如下源码：
+
+```go
+idles := t.idleConn[key]
+if len(idles) >= t.maxIdleConnsPerHost() {
+   return errTooManyIdleHost
+}
+for _, exist := range idles {
+   if exist == pconn {
+      log.Fatalf("dup idle pconn %p in freelist", pconn)
+   }
+}
+t.idleConn[key] = append(idles, pconn)
+t.idleLRU.add(pconn)
+```
+
+从源码中我们可以看出，如果当并发量大的情况下，连接池会创建较多的 TCP 连接，并且在请求完成以后连接池尝试通过 tryPutIdleConn 归还空闲连接，对于超出 maxIdleConnsPerHost 数量的空闲长连接都不能再放回连接池了，这些连接会进入 TIME_WAIT 状态，这些 TIME_WAIT 的连接在达到 2MSL 时间后就会自动关闭。
+
+在这种情况下，我们在服务器上就会看到大量的 TIME_WAIT 状态的 tcp 连接。在极限的情况下，服务器也可能会崩溃。
+
+## 3: 解决办法是自己设置 DefaultMaxIdleConnsPerHost
+
+```go
+t := http.DefaultTransport.(*http.Transport).Clone()
+t.MaxIdleConns = 100
+t.MaxConnsPerHost = 100
+t.MaxIdleConnsPerHost = 100
+client := http.Client{
+   Timeout:   10 * time.Second,
+   Transport: t,
+}
+```
+
+可用一下命令查看连接:
+
+```bash
+netstat -ano | grep 8080 | grep ESTABLISHED
+```
+
+证明手动测试即可略...
+
+转自(https://gocn.vip/topics/11970)

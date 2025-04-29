@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>02-Go常用库积累 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="..." /><meta name="keywords" content="Go, tool, 库, pkg" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/golang/003-go%E5%B8%B8%E7%94%A8%E5%BA%93%E7%A7%AF%E7%B4%AF/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="02-Go常用库积累">
+  <meta property="og:description" content="...">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-04-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-05-22T00:00:00+00:00">
+    <meta property="article:tag" content="Go">
+
+  <meta itemprop="name" content="02-Go常用库积累">
+  <meta itemprop="description" content="...">
+  <meta itemprop="datePublished" content="2021-04-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-05-22T00:00:00+00:00">
+  <meta itemprop="wordCount" content="4202">
+  <meta itemprop="keywords" content="Go,tool,库,pkg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="02-Go常用库积累">
+  <meta name="twitter:description" content="...">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">02-Go常用库积累</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-17 </span>
+        <div class="post-category">
+            <a href="/categories/go/"> Go </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1日志库">1：日志库</a></li>
+    <li><a href="#2配置库">2：配置库</a></li>
+    <li><a href="#3存储相关">3：存储相关</a></li>
+    <li><a href="#4数据结构">4：数据结构</a></li>
+    <li><a href="#5cli-命令行">5：CLI 命令行</a></li>
+    <li><a href="#6web-框架">6：web 框架</a></li>
+    <li><a href="#7rpc-和微服务">7：RPC 和微服务</a>
+      <ul>
+        <li><a href="#71-remote-procedure-call">7.1 Remote Procedure Call</a>
+          <ul>
+            <li><a href="#711-原生-rpc">7.1.1 原生 RPC</a></li>
+            <li><a href="#712-grpc">7.1.2 GRPC</a></li>
+          </ul>
+        </li>
+        <li><a href="#72-micro-services">7.2 Micro Services</a></li>
+      </ul>
+    </li>
+    <li><a href="#8好用可替换库">8：好用可替换库</a></li>
+    <li><a href="#9数据库相关">9：数据库相关</a></li>
+    <li><a href="#10mq-库">10：MQ 库</a></li>
+    <li><a href="#11微服务组件库">11：微服务组件库</a>
+      <ul>
+        <li><a href="#111-限流">11.1 限流</a></li>
+        <li><a href="#112-熔断-circuitbreaker">11.2 熔断 CircuitBreaker</a></li>
+        <li><a href="#113-链路追踪">11.3 链路追踪</a>
+          <ul>
+            <li><a href="#1131-opentracing">11.3.1 openTracing</a></li>
+            <li><a href="#1132-oepntelemetry">11.3.2 oepnTelemetry</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#12-测试相关-related">12: 测试相关 related</a>
+      <ul>
+        <li><a href="#121-单元测试">12.1 单元测试</a></li>
+        <li><a href="#122-性能测试">12.2 性能测试</a></li>
+        <li><a href="#123-fuzztesting">12.3 FuzzTesting</a></li>
+        <li><a href="#124-loadtesting">12.4 LoadTesting</a></li>
+      </ul>
+    </li>
+    <li><a href="#14-性能分析">14: 性能分析</a>
+      <ul>
+        <li><a href="#141-prof">14.1 prof</a></li>
+        <li><a href="#142-trace">14.2 trace</a></li>
+        <li><a href="#143-性能可视化分析">14.3 性能可视化分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#13-代码检测-related">13: 代码检测 related</a>
+      <ul>
+        <li><a href="#131-竞态检测">13.1 竞态检测</a></li>
+        <li><a href="#132-go-vet-静态检查">13.2 go vet 静态检查</a></li>
+        <li><a href="#133-shadowing-variable">13.3 Shadowing variable</a></li>
+      </ul>
+    </li>
+    <li><a href="#15-healthstatus-checking">15: health/status checking</a></li>
+    <li><a href="#16-others">16: Others</a>
+      <ul>
+        <li><a href="#161-email-电子邮件">16.1 email 电子邮件</a></li>
+        <li><a href="#162-热编译">16.2 热编译</a></li>
+        <li><a href="#163-参数校验">16.3 参数校验</a></li>
+        <li><a href="#164-任务调度工具">16.4 任务调度工具</a></li>
+        <li><a href="#165-自动化运维平台">16.5 自动化运维平台</a></li>
+        <li><a href="#166-deep-preety-print">16.6 deep preety print</a></li>
+        <li><a href="#167-juniper-是一个使用泛型扩展-go-标准库的库包括容器迭代器和-stream">16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</a></li>
+        <li><a href="#168-samberlo">16.8 samber/lo</a></li>
+        <li><a href="#169-gopsutil">16.9 gopsutil</a></li>
+        <li><a href="#1610-数学相关的库">16.10 数学相关的库</a></li>
+        <li><a href="#1611-提供优化的算法以利用现代-cpu-的特性">16.11 提供优化的算法以利用现代 CPU 的特性</a></li>
+        <li><a href="#1612-ftp">16.12 FTP</a></li>
+        <li><a href="#1613-使用-cmux-实现服务端连接多路复用">16.13 使用 cmux 实现服务端连接多路复用</a></li>
+        <li><a href="#1614-golang-时间与日期">16.14 Golang 时间与日期</a></li>
+        <li><a href="#1615-console-progress-bar-进度条">16.15 Console progress bar 进度条</a></li>
+        <li><a href="#1616-图表-chart">16.16 图表 chart</a></li>
+        <li><a href="#1617-读写文件相关">16.17 读写文件相关</a></li>
+        <li><a href="#1618-数学-math">16.18 数学 math</a></li>
+        <li><a href="#1619-流量录制">16.19 流量录制</a></li>
+        <li><a href="#1620-常用软件-sdk">16.20 常用软件 SDK</a>
+          <ul>
+            <li><a href="#16201-钉钉-dingtalk">16.20.1 钉钉 dingtalk</a></li>
+            <li><a href="#16201-微信-wechat">16.20.1 微信 wechat</a></li>
+          </ul>
+        </li>
+        <li><a href="#1621-go-加解密">16.21 go 加解密</a></li>
+      </ul>
+    </li>
+    <li><a href="#17-一些特殊的库-lib">17 一些特殊的库 Lib</a></li>
+    <li><a href="#18-tools-工具库">18 tools 工具库</a></li>
+    <li><a href="#19-金融交易相关">19 金融交易相关</a></li>
+    <li><a href="#20-gosdk">20 gosdk</a>
+      <ul>
+        <li><a href="#201-微信">20.1 微信</a></li>
+        <li><a href="#202-钉钉">20.2 钉钉</a></li>
+      </ul>
+    </li>
+    <li><a href="#21-go-devops">21 go devops</a></li>
+    <li><a href="#22-数据分析">22 数据分析</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li><a href="#1%E6%97%A5%E5%BF%97%E5%BA%93">1：日志库</a></li>
+<li><a href="#2%E9%85%8D%E7%BD%AE%E5%BA%93">2：配置库</a></li>
+<li><a href="#3%E5%AD%98%E5%82%A8%E7%9B%B8%E5%85%B3">3：存储相关</a></li>
+<li><a href="#4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">4：数据结构</a></li>
+<li><a href="#5cli-%E5%91%BD%E4%BB%A4%E8%A1%8C">5：CLI 命令行</a></li>
+<li><a href="#6web-%E6%A1%86%E6%9E%B6">6：web 框架</a></li>
+<li><a href="#7rpc-%E5%92%8C%E5%BE%AE%E6%9C%8D%E5%8A%A1">7：RPC 和微服务</a>
+<ul>
+<li><a href="#71-remote-procedure-call">7.1 Remote Procedure Call</a>
+<ul>
+<li><a href="#711-%E5%8E%9F%E7%94%9F-rpc">7.1.1 原生 RPC</a></li>
+<li><a href="#712-grpc">7.1.2 GRPC</a>
+<ul>
+<li><a href="#7121-grpc-%E5%AE%89%E8%A3%85">7.1.2.1 GRPC 安装</a></li>
+<li><a href="#7122-grpc-%E4%BD%BF%E7%94%A8">7.1.2.2 GRPC 使用</a></li>
+<li><a href="#7123-grpc-middleware">7.1.2.3 grpc-middleware</a></li>
+<li><a href="#7124-grpc-%E6%B5%8B%E8%AF%95">7.1.2.4 GRPC 测试</a></li>
+<li><a href="#7125-grpc-%E5%8E%8B%E6%B5%8B-ghz">7.1.2.5 GRPC 压测 ghz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#72-micro-services">7.2 Micro Services</a></li>
+</ul>
+</li>
+<li><a href="#8%E6%A0%87%E5%87%86%E5%BA%93%E5%A5%BD%E7%94%A8%E5%8F%AF%E6%9B%BF%E6%8D%A2%E5%BA%93">8：标准库好用可替换库</a></li>
+<li><a href="#9%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3">9：数据库相关</a></li>
+<li><a href="#10mq-%E5%BA%93">10：MQ 库</a></li>
+<li><a href="#11%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6%E5%BA%93">11：微服务组件库</a>
+<ul>
+<li><a href="#111-%E9%99%90%E6%B5%81">11.1 限流</a></li>
+<li><a href="#112-%E7%86%94%E6%96%AD-circuitbreaker">11.2 熔断 CircuitBreaker</a></li>
+<li><a href="#113-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA">11.3 链路追踪</a>
+<ul>
+<li><a href="#1131-opentracing">11.3.1 openTracing</a></li>
+<li><a href="#1132-oepntelemetry">11.3.2 oepnTelemetry</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#12-%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-related">12: 测试相关 related</a>
+<ul>
+<li><a href="#121-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95">12.1 单元测试</a></li>
+<li><a href="#122-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95">12.2 性能测试</a></li>
+<li><a href="#123-fuzztesting">12.3 FuzzTesting</a></li>
+<li><a href="#124-loadtesting">12.4 LoadTesting</a></li>
+</ul>
+</li>
+<li><a href="#14-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90">14: 性能分析</a>
+<ul>
+<li><a href="#141-prof">14.1 prof</a></li>
+<li><a href="#142-trace">14.2 trace</a></li>
+<li><a href="#143-%E6%80%A7%E8%83%BD%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90">14.3 性能可视化分析</a></li>
+</ul>
+</li>
+<li><a href="#13-%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B-related">13: 代码检测 related</a>
+<ul>
+<li><a href="#131-%E7%AB%9E%E6%80%81%E6%A3%80%E6%B5%8B">13.1 竞态检测</a></li>
+<li><a href="#132-go-vet-%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5">13.2 go vet 静态检查</a></li>
+<li><a href="#133-shadowing-variable">13.3 Shadowing variable</a></li>
+</ul>
+</li>
+<li><a href="#15-healthstatus-checking">15: health/status checking</a></li>
+<li><a href="#16-others">16: Others</a>
+<ul>
+<li><a href="#161-email-%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6">16.1 email 电子邮件</a></li>
+<li><a href="#162-%E7%83%AD%E7%BC%96%E8%AF%91">16.2 热编译</a></li>
+<li><a href="#163-%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C">16.3 参数校验</a></li>
+<li><a href="#164-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%B7%A5%E5%85%B7">16.4 任务调度工具</a></li>
+<li><a href="#165-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0">16.5 自动化运维平台</a></li>
+<li><a href="#166-deep-preety-print">16.6 deep preety print</a></li>
+<li><a href="#167-juniper-%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E6%89%A9%E5%B1%95-go-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%BA%93%E5%8C%85%E6%8B%AC%E5%AE%B9%E5%99%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C-stream">16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</a></li>
+<li><a href="#168-samberlo">16.8 samber/lo</a></li>
+<li><a href="#169-gopsutil">16.9 gopsutil</a></li>
+<li><a href="#1610-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%93">16.10 数学相关的库</a></li>
+<li><a href="#1611-%E6%8F%90%E4%BE%9B%E4%BC%98%E5%8C%96%E7%9A%84%E7%AE%97%E6%B3%95%E4%BB%A5%E5%88%A9%E7%94%A8%E7%8E%B0%E4%BB%A3-cpu-%E7%9A%84%E7%89%B9%E6%80%A7">16.11 提供优化的算法以利用现代 CPU 的特性</a></li>
+<li><a href="#1612-ftp">16.12 FTP</a></li>
+<li><a href="#1613-%E4%BD%BF%E7%94%A8-cmux-%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%BF%9E%E6%8E%A5%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8">16.13 使用 cmux 实现服务端连接多路复用</a></li>
+<li><a href="#1614-golang-%E6%97%B6%E9%97%B4%E4%B8%8E%E6%97%A5%E6%9C%9F">16.14 Golang 时间与日期</a></li>
+<li><a href="#1615-console-progress-bar-%E8%BF%9B%E5%BA%A6%E6%9D%A1">16.15 Console progress bar 进度条</a></li>
+<li><a href="#1616-%E5%9B%BE%E8%A1%A8-chart">16.16 图表 chart</a></li>
+<li><a href="#1617-%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E7%9B%B8%E5%85%B3">16.17 读写文件相关</a></li>
+<li><a href="#1618-%E6%95%B0%E5%AD%A6-math">16.18 数学 math</a></li>
+<li><a href="#1619-%E6%B5%81%E9%87%8F%E5%BD%95%E5%88%B6">16.19 流量录制</a></li>
+<li><a href="#1620-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6-sdk">16.20 常用软件 SDK</a>
+<ul>
+<li><a href="#16201-%E9%92%89%E9%92%89-dingtalk">16.20.1 钉钉 dingtalk</a></li>
+<li><a href="#16201-%E5%BE%AE%E4%BF%A1-wechat">16.20.1 微信 wechat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#17-%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%9A%84%E5%BA%93-lib">17 一些特殊的库 Lib</a></li>
+<li><a href="#18-tools-%E5%B7%A5%E5%85%B7%E5%BA%93">18 tools 工具库</a></li>
+<li><a href="#19-%E9%87%91%E8%9E%8D%E4%BA%A4%E6%98%93%E7%9B%B8%E5%85%B3">19 金融交易相关</a></li>
+<li><a href="#20-gosdk">20 gosdk</a></li>
+<li><a href="#21-go-devops">21 go devops</a></li>
+<li><a href="#22-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90">22 go 数据分析</a></li>
+</ul>
+<h1 id="1日志库">1：日志库</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/hunterhug/golog</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/uber-go/zap</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/rs/zerolog</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/Sirupsen/logrus</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 日志滚动包</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/natefinch/lumberjack</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 日志分析和查询平台</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/clickvisual/clickvisual</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2配置库">2：配置库</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// viper 兼容 json，toml，yaml，hcl 等格式的配置库.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/spf13/viper</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// configor Golang Configuration tool that support YAML, JSON, TOML, Shell Environment</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/jinzhu/configor</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// env</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/caarlos0/env</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Support for JSON, TOML, YAML, env, command line, file, S3 etc. Alternative to viper.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/knadh/koanf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// A dead simple configuration manager for Go applications.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/tucnak/store</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3存储相关">3：存储相关</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">mysql</span><span class="p">:</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/go-xorm/xorm</span>
+</span></span><span class="line"><span class="cl"><span class="nx">es</span><span class="p">:</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/elastic/elasticsearch</span>
+</span></span><span class="line"><span class="cl"><span class="nx">redis</span><span class="p">:</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/gomodule/redigo</span>
+</span></span><span class="line"><span class="cl"><span class="nx">mongo</span><span class="p">:</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/mongodb/mongo-go-driver</span>
+</span></span><span class="line"><span class="cl"><span class="nx">kafka</span><span class="p">:</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/Shopify/sarama</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4数据结构">4：数据结构</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/emirpasic/gods (go数据结构，sets,lists,stacks,maps.trees,queues ...)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// mapstructure</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/mitchellh/mapstructure (map和struct转换)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// json</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/liu-cn/json-filter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 延迟队列(delay queue)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">morikuni</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">dqueue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 无锁队列</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/lppgo/go-lockfree-queue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// map</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/cornelk/hashmap (线程安全,lockfree hashmap)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/alphadose/haxmap (Fastest and most memory efficient golang concurrent hashmap)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/orcaman/concurrent-map</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// xmap</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5cli-命令行">5：CLI 命令行</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/spf13/cobra</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/urfave/cli/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="6web-框架">6：web 框架</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// gin</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/JGLTechnologies/gin-rate-limit</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/appleboy/gin-jwt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// echo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// beego</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// goframe</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// firber</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">gocondor</span> <span class="p">[</span><span class="nx">A</span> <span class="nx">golang</span> <span class="nx">framework</span> <span class="k">for</span> <span class="nx">building</span> <span class="nx">modern</span> <span class="nx">APIs</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/gocondor/gocondor</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="7rpc-和微服务">7：RPC 和微服务</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// grpc</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/grpc/grpc-go</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// micro</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/asim/go-micro</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// kratos</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//go-kratos.dev/docs/getting-started/usage</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/air-go/rpc</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="71-remote-procedure-call">7.1 Remote Procedure Call</h2>
+<h3 id="711-原生-rpc">7.1.1 原生 RPC</h3>
+<h3 id="712-grpc">7.1.2 GRPC</h3>
+<h4 id="7121-grpc-安装">7.1.2.1 GRPC 安装</h4>
+<h4 id="7122-grpc-使用">7.1.2.2 GRPC 使用</h4>
+<h4 id="7123-grpc-middleware">7.1.2.3 grpc-middleware</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/grpc-ecosystem/go-grpc-middleware</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware">Go gRPC Middleware</a>:提供了拦截器的 interceptor 链式的功能，可以将多个拦截器组合成一个拦截器链，当然它还提供了其它的功能，所以以 gRPC 中间件命名;</li>
+<li><a href="https://github.com/kazegusuri/grpc-multi-interceptor">grpc-multi-interceptor</a>: 是另一个 interceptor 链式功能的库，也可以将单向的或者流式的拦截器组合;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/auth">grpc_auth</a>: 身份验证拦截器;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/tags">grpc_ctxtags</a>: 为上下文增加 Tag map 对象;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/logging/zap">grpc_zap</a>: 支持 zap 日志框架;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/logging/logrus">grpc_logrus</a>: 支持 logrus 日志框架;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-prometheus">grpc_prometheus</a>: 支持 prometheus;</li>
+<li><a href="https://github.com/grpc-ecosystem/grpc-opentracing/tree/master/go/otgrpc">otgrpc</a>: 支持 opentracing/zipkin;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/tracing/opentracing">grpc_opentracing</a>:支持 opentracing/zipkin;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/retry">grpc_retry</a>: 为客户端增加重试的功能;</li>
+<li><a href="https://github.com/grpc-ecosystem/go-grpc-middleware/blob/master/validator">grpc_validator</a>: 为服务器端增加校验的功能</li>
+</ul>
+<h4 id="7124-grpc-测试">7.1.2.4 GRPC 测试</h4>
+<ul>
+<li>
+<p><strong>(1): <a href="https://github.com/uw-labs/bloomrpc">BloomRPC</a></strong></p>
+<ul>
+<li>&lt;1&gt; <strong>二进制安装</strong>[https://github.com/uw-labs/bloomrpc/releases]</li>
+<li>&lt;2&gt; <strong>Source Code 安装</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/uw-labs/bloomrpc.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> bloomrpc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">yarn install <span class="o">&amp;&amp;</span> ./node_modules/.bin/electron-rebuild
+</span></span><span class="line"><span class="cl">npm run package
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>(2): <a href="https://github.com/fullstorydev/grpcui/">grpcUI</a></strong></p>
+<ul>
+<li><a href="https://github.com/fullstorydev/grpcui/">https://github.com/fullstorydev/grpcui/</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 安装</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">get</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">fullstorydev</span><span class="o">/</span><span class="nx">grpcui</span><span class="o">/...</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">install</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">fullstorydev</span><span class="o">/</span><span class="nx">grpcui</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">grpcui</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">grpcui</span> <span class="o">-</span><span class="nx">help</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用</span>
+</span></span><span class="line"><span class="cl"><span class="nx">grpcui</span> <span class="o">-</span><span class="nx">plaintext</span> <span class="nx">localhost</span><span class="p">:</span><span class="mi">12345</span>
+</span></span><span class="line"><span class="cl"><span class="nx">gRPC</span> <span class="nx">Web</span> <span class="nx">UI</span> <span class="nx">available</span> <span class="nx">at</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//127.0.0.1:60551/...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 错误</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Failed</span> <span class="nx">to</span> <span class="nx">compute</span> <span class="nx">set</span> <span class="nx">of</span> <span class="nx">methods</span> <span class="nx">to</span> <span class="nx">expose</span><span class="p">:</span> <span class="nx">server</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">support</span> <span class="nx">the</span> <span class="nx">reflection</span> <span class="nx">API</span>
+</span></span><span class="line"><span class="cl"><span class="nx">这种情况下</span><span class="err">，</span><span class="nx">加个反射就可以了</span><span class="err">，</span><span class="nx">在</span> <span class="nx">listen</span> <span class="nx">的</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span> <span class="nx">新增如下代码即可</span><span class="err">：</span><span class="s">`reflection.Register(s)`</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><a href="https://github.com/crossoverJie/ptg"><strong><code>ptg</code></strong></a>: 用 Go 写的 GUI gRPC 客户端</li>
+</ul>
+</li>
+</ul>
+<h4 id="7125-grpc-压测-ghz">7.1.2.5 GRPC 压测 ghz</h4>
+<ul>
+<li><a href="https://ghz.sh/">https://ghz.sh/</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">  <span class="nx">ghz</span> <span class="o">-</span><span class="nx">insecure</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="nx">proto</span> <span class="p">.</span><span class="o">/</span><span class="nx">protos</span><span class="o">/</span><span class="nx">routeguide</span><span class="p">.</span><span class="nx">proto</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="nx">call</span> <span class="nx">routeguide</span><span class="p">.</span><span class="nx">RouteGuide</span><span class="p">.</span><span class="nx">GetFeature</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="nx">skipTLS</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">--</span><span class="nx">insecure</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="nx">d</span> <span class="err">&#39;</span><span class="p">{</span><span class="s">&#34;latitude&#34;</span><span class="p">:</span><span class="mi">409146138</span><span class="p">,</span><span class="s">&#34;longitude&#34;</span><span class="p">:</span><span class="o">-</span><span class="mi">746188906</span><span class="p">}</span><span class="err">&#39;</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="nx">c</span> <span class="mi">100</span> \
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="nx">n</span> <span class="mi">100000</span> \
+</span></span><span class="line"><span class="cl">  <span class="nx">localhost</span><span class="p">:</span><span class="mi">50051</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><a href="https://github.com/crossoverjie/ptg">https://github.com/crossoverjie/ptg</a></li>
+</ul>
+<h2 id="72-micro-services">7.2 Micro Services</h2>
+<h1 id="8好用可替换库">8：好用可替换库</h1>
+<ul>
+<li><a href="https://github.com/nikgalushko/fx">https://github.com/nikgalushko/fx</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// json</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/bytedance/sonic</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// map</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// go pool</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//gitee.com/xuesongtao/taskpool/tree/master</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ants</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/sourcegraph/conc // Better structured concurrency for go</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// map</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/heiyeluren/xmm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/sasha-s/go-deadlock</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// websocket</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//pkg.go.dev/github.com/gorilla/websocket</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/lxzan/gws</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// channel</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/bruceshao/lockfree  比原生channel更快的lockfree队列</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="9数据库相关">9：数据库相关</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// gorm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// db2gorm 根据数据库表生成对应的struct</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/qmhball/db2gorm</span>
+</span></span><span class="line"><span class="cl"><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gohouse</span><span class="o">/</span><span class="nx">converter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// gormt</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//gitee.com/mirrors/gormt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// table2struct</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/jiazhoulvke/table2struct</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// mongo</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/qiniu/qmgo</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="10mq-库">10：MQ 库</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"></code></pre></td></tr></table>
+</div>
+</div><h1 id="11微服务组件库">11：微服务组件库</h1>
+<ul>
+<li><a href="https://github.com/go-micro-dev/plugins">https://github.com/go-micro-dev/plugins</a></li>
+</ul>
+<h2 id="111-限流">11.1 限流</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/uber-go/ratelimit</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//blog.csdn.net/chenchongg/article/details/85342086</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/juju/ratelimit</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/JGLTechnologies/gin-rate-limit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 分布式速率限制的滑动窗口算法的 Golang 实现</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/RussellLuo/slidingwindow</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 分布式应用程序的 Golang 速率限制器</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/mennanov/limiters</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// throttled 基于通用信元速率算法实现了对资源的访问速率限制，资源可以是特定的 URL、用户或者任何自定义的形式，可以很方便地与各种 http 和 rpc 框架进行集成。throttled 定义了限流元信息的存储抽象，并内置了 memstore，redis store 等元信息存储实现，我们可以根据具体的使用场景实现单机限流和集群限流</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/throttled/throttled</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="112-熔断-circuitbreaker">11.2 熔断 CircuitBreaker</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// gobreaker</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/sony/gobreaker</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// hystrix-go</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/afex/hystrix-go</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="113-链路追踪">11.3 链路追踪</h2>
+<h3 id="1131-opentracing">11.3.1 openTracing</h3>
+<h3 id="1132-oepntelemetry">11.3.2 oepnTelemetry</h3>
+<ul>
+<li><a href="https://studygolang.com/articles/23528?fr=sidebar">https://studygolang.com/articles/23528?fr=sidebar</a></li>
+<li><a href="https://github.com/go-micro-dev/plugins/blob/master/wrapper/trace/opentracing/opentracing.go">https://github.com/go-micro-dev/plugins/blob/master/wrapper/trace/opentracing/opentracing.go</a></li>
+<li><a href="https://github.com/lppgo/my_test/tree/master/040_opentracing">https://github.com/lppgo/my_test/tree/master/040_opentracing</a></li>
+<li><a href="https://github.com/uptrace/uptrace">https://github.com/uptrace/uptrace</a></li>
+<li><a href="https://github.com/uptrace/uptrace-go">https://github.com/uptrace/uptrace-go</a></li>
+<li><a href="https://github.com/Kashoo/go-micro-opentelemetry">https://github.com/Kashoo/go-micro-opentelemetry</a></li>
+</ul>
+<h1 id="12-测试相关-related">12: 测试相关 related</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/kyoh86/richgo</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="121-单元测试">12.1 单元测试</h2>
+<h2 id="122-性能测试">12.2 性能测试</h2>
+<h2 id="123-fuzztesting">12.3 FuzzTesting</h2>
+<h2 id="124-loadtesting">12.4 LoadTesting</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">fortio</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/fortio/fortio</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="14-性能分析">14: 性能分析</h1>
+<ul>
+<li><strong>ThreadLocal for Golang</strong> :https://github.com/timandy/routine</li>
+</ul>
+<h2 id="141-prof">14.1 prof</h2>
+<h2 id="142-trace">14.2 trace</h2>
+<h2 id="143-性能可视化分析">14.3 性能可视化分析</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// statsviz 即时实时可视化 Heap、Objects、Goroutines、GC 等</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/arl/statsviz</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//polarisxu.studygolang.com/posts/go/pkg/statsviz/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// statsview  一个实时的 Golang runtime stats visualization profiler</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/go-echarts/statsview</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// parca 持续分析以分析 CPU、内存使用量随时间的变化，直至行号</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/parca-dev/parca</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//studygolang.com/topics/14979</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/xyctruth/profiler</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// autopprof</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/lppgo/autopprof</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 依赖分析</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/loov/goda</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Visualize Go Dependency Trees</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/KyleBanks/depth</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 以Graphviz 点格式展示依赖图</span>
+</span></span><span class="line"><span class="cl"><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">kisielk</span><span class="o">/</span><span class="nx">godepgraph</span>
+</span></span><span class="line"><span class="cl"><span class="nx">godepgraph</span> <span class="o">-</span><span class="nx">s</span> <span class="kn">import</span><span class="o">-</span><span class="nx">cycle</span><span class="o">-</span><span class="nx">example</span> <span class="p">|</span> <span class="nx">dot</span> <span class="o">-</span><span class="nx">Tpng</span> <span class="o">-</span><span class="nx">o</span> <span class="nx">godepgraph</span><span class="p">.</span><span class="nx">png</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="13-代码检测-related">13: 代码检测 related</h1>
+<h2 id="131-竞态检测">13.1 竞态检测</h2>
+<p><code>go run -race xxx.go </code></p>
+<h2 id="132-go-vet-静态检查">13.2 go vet 静态检查</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">vet</span> <span class="c1">//只在一个单独的包内可用，不能使用flag 选项</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">tool</span> <span class="nx">vet</span> <span class="p">&lt;</span><span class="nx">directory</span><span class="p">|</span><span class="nx">files</span><span class="p">&gt;</span> <span class="c1">//更加完整，它可用用于文件和目录。目录被递归遍历来找到</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="133-shadowing-variable">13.3 Shadowing variable</h2>
+<ul>
+<li>
+<p><code>也叫幽灵变量，影子变量</code></p>
+</li>
+<li>
+<p>不小心覆盖的变量
+对从动态语言转过来的开发者来说，简短声明很好用，这可能会让人误会 := 是一个赋值操作符。</p>
+</li>
+</ul>
+<p>如果你在新的代码块中像下边这样误用了 :=，编译不会报错，但是变量不会按你的预期工作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">x</span> <span class="o">:=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>      <span class="c1">// 1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>  <span class="c1">// 1</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">x</span> <span class="o">:=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>  <span class="c1">// 2    // 新的 x 变量的作用域只在代码块内部</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>      <span class="c1">// 1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这是 Go 开发者常犯的错，而且不易被发现。</p>
+<p>可使用官方提供的 vet 工具来诊断这种变量覆盖，它默认是不会自动执行的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="p">&gt;</span> <span class="k">go</span> <span class="nx">tool</span> <span class="nx">vet</span> <span class="o">-</span><span class="nx">shadow</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span>
+</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span> <span class="nx">declaration</span> <span class="nx">of</span> <span class="s">&#34;x&#34;</span> <span class="nx">shadows</span> <span class="nx">declaration</span> <span class="nx">at</span> <span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是官方的 vet 不会报告全部被覆盖的变量，这时候我们就要借助第三方包 —— <strong><code>go-nyet</code></strong> 来做进一步的检测了。</p>
+<ul>
+<li><strong>go-nyet</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// go get</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="nx">get</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">barakmich</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="nx">nyet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// run</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">nyet</span> <span class="p">.</span><span class="o">/...</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">or</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">nyet</span> <span class="nx">subpackage</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">or</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">nyet</span> <span class="nx">file</span><span class="p">.</span><span class="k">go</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="15-healthstatus-checking">15: health/status checking</h1>
+<ul>
+<li>服务健康状态检查</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// AlterManager</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// easyprobe</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/megaease/easeprobe</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="16-others">16: Others</h1>
+<h2 id="161-email-电子邮件">16.1 email 电子邮件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/AfterShip/email-verifier</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/jordan-wright/email</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="162-热编译">16.2 热编译</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">gowatch</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/silenceper/gowatch</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 配置文件示例:https://github.com/silenceper/gowatch/blob/master/example/gowatch.yml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">air</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/cosmtrek/air</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 配置文件示例:https://github.com/cosmtrek/air/blob/master/air_example.toml</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="163-参数校验">16.3 参数校验</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">validator</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/go-playground/validator</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="164-任务调度工具">16.4 任务调度工具</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">cronsun</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/shunfei/cronsun</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">gocron</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/ouqiang/gocron</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// cron 定时任务</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/robfig/cron</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/deatil/doak-cron</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// coming 是一个原生的任务调度系统，目前给出了定时任务和计划任务的解决方案</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/alexanyang/coming</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="165-自动化运维平台">16.5 自动化运维平台</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">gaia</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/gaia-pipeline/gaia</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="166-deep-preety-print">16.6 deep preety print</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">spew</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/davecgh/go-spew</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="167-juniper-是一个使用泛型扩展-go-标准库的库包括容器迭代器和-stream">16.7 Juniper 是一个使用泛型扩展 Go 标准库的库，包括容器、迭代器和 stream</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">juniper</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/bradenaw/juniper</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="168-samberlo">16.8 samber/lo</h2>
+<ul>
+<li>Lodash 是一个内部封装了诸多对字符串、数组、对象等常见的数据类型的处理函数的一套工具库</li>
+<li>A Lodash-style Go library based on Go 1.18+ Generics (map, filter, contains, find&hellip;)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">lo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/samber/lo</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="169-gopsutil">16.9 gopsutil</h2>
+<ul>
+<li>gopsutil psutil for golang</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/shirou/gopsutil</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//mp.weixin.qq.com/s/yTblk9Js1Zcq5aWVcYGjOA</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1610-数学相关的库">16.10 数学相关的库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 任意精度小数decimals</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/cockroachdb/apd</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 数学统计，中位数，平均值等</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/montanaflynn/stats</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// decimal</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/shopspring/decimal</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// gonum</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/gonum/gonum</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1611-提供优化的算法以利用现代-cpu-的特性">16.11 提供优化的算法以利用现代 CPU 的特性</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/segmentio/asm</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1612-ftp">16.12 FTP</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 基于 Golang 的自治 FTP 服务器，带有 SFTP、S3、Dropbox 和 Google Drive 连接器。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/fclairamb/ftpserver</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1613-使用-cmux-实现服务端连接多路复用">16.13 使用 cmux 实现服务端连接多路复用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// cmux</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//mp.weixin.qq.com/s/2cERDCRKlmfHKv8gY324Hg</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/soheilhy/cmux</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1614-golang-时间与日期">16.14 Golang 时间与日期</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// carbon 是一个轻量级、语义化、对开发者友好的golang时间处理库，支持链式调用</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/golang-module/carbon</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/jinzhu/now</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1615-console-progress-bar-进度条">16.15 Console progress bar 进度条</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Console progress bar for Golang</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/cheggaaa/pb</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/schollz/progressbar</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1616-图表-chart">16.16 图表 chart</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/go-echarts/go-echarts</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1617-读写文件相关">16.17 读写文件相关</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// excelize</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// cvs</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1618-数学-math">16.18 数学 math</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// decimal</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/shopspring/decimal</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1619-流量录制">16.19 流量录制</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/didi/sharingan</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1620-常用软件-sdk">16.20 常用软件 SDK</h2>
+<h3 id="16201-钉钉-dingtalk">16.20.1 钉钉 dingtalk</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/zhaoyunxing92/dingtalk</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="16201-微信-wechat">16.20.1 微信 wechat</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"></code></pre></td></tr></table>
+</div>
+</div><h2 id="1621-go-加解密">16.21 go 加解密</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/golang-module/dongle</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/lppgo/my_test/tree/master/033_%E5%8A%A0%E8%A7%A3%E5%AF%86</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/deatil/go-cryptobin</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="17-一些特殊的库-lib">17 一些特殊的库 Lib</h1>
+<ul>
+<li>
+<ol>
+<li><strong>端口复用</strong>
+<a href="https://github.com/libp2p/go-reuseport">https://github.com/libp2p/go-reuseport</a></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><strong>自动调整 maxprocs</strong>
+<a href="https://github.com/uber-go/automaxprocs">https://github.com/uber-go/automaxprocs</a></li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><strong>auto adjust your GOGC value</strong>
+<a href="https://github.com/cch123/gogctuner">https://github.com/cch123/gogctuner</a></li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li><strong>GeoIP2</strong>
+<a href="https://github.com/Hackl0us/GeoIP2-CN">https://github.com/Hackl0us/GeoIP2-CN</a></li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li><strong>汉字拼音</strong>
+<a href="https://github.com/mozillazg/go-pinyin">https://github.com/mozillazg/go-pinyin</a></li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li><strong>Go 语言给编译出来的程序添加图标和版本信息</strong>
+<a href="https://github.com/josephspurrier/goversioninfo">https://github.com/josephspurrier/goversioninfo</a>
+<a href="https://studygolang.com/topics/15789">https://studygolang.com/topics/15789</a></li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li><strong>yaegi 是一个 go 语言解释器</strong>
+<a href="https://github.com/traefik/yaegi">https://github.com/traefik/yaegi</a></li>
+</ol>
+</li>
+<li>
+<ol start="8">
+<li><strong>golang 进度条展示</strong>
+<a href="https://github.com/qianlnk/pgbar">https://github.com/qianlnk/pgbar</a></li>
+</ol>
+</li>
+<li>
+<ol start="9">
+<li><strong>go+web 开发桌面应用</strong>
+现代化 Web 技术开发桌面应用的 Go 框架
+<a href="https://wails.io/docs/introduction">https://wails.io/docs/introduction</a></li>
+</ol>
+</li>
+<li>
+<ol start="10">
+<li><strong>将 c 代码转成 go 代码</strong>
+<a href="https://gitlab.com/cznic/ccgo">https://gitlab.com/cznic/ccgo</a></li>
+</ol>
+</li>
+<li>
+<ol start="11">
+<li><strong>将 proto 和 json 转换的库 protojson</strong>
+Go 实现 Protocol Buffers 与 JSON 转换：protojson
+<a href="https://juejin.cn/post/7281905382484672523">https://juejin.cn/post/7281905382484672523</a>
+google.golang.org/protobuf/encoding/protojson</li>
+</ol>
+</li>
+</ul>
+<h1 id="18-tools-工具库">18 tools 工具库</h1>
+<ul>
+<li>
+<ol>
+<li><strong>ztool</strong>
+<a href="https://github.com/druidcaesa/ztool">https://github.com/druidcaesa/ztool</a>
+<a href="https://studygolang.com/articles/35697#reply0">https://studygolang.com/articles/35697#reply0</a></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><strong>lancet</strong> lancet（柳叶刀）是一个全面、高效、可复用的 go 语言工具函数库
+<a href="https://github.com/duke-git/lancet">https://github.com/duke-git/lancet</a></li>
+</ol>
+</li>
+</ul>
+<h1 id="19-金融交易相关">19 金融交易相关</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 期货期权 ctp 接口 Golang版 (for linux64)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//gitee.com/mayiweb/goctp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 股票期权 ctp 接口 Golang版 (for linux64)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//gitee.com/mayiweb/goctp_sopt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 恒生 股票期权 极速api 接口 Golang版 (for linux64)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//gitee.com/mayiweb/gohs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/krenx1983/openctp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 处理货币与金融领域的库</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/jobbole/awesome-go-cn#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86</span>
+</span></span><span class="line"><span class="cl"><span class="nx">accounting</span> <span class="p">:</span> <span class="nx">Go语言金钱及货币格式</span>  <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/leekchan/accounting</span>
+</span></span><span class="line"><span class="cl"><span class="nx">currency</span> <span class="p">:</span> <span class="nx">处理货币金额</span><span class="p">,</span><span class="nx">提供货币信息和格式</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">currency</span> <span class="p">:</span> <span class="nx">高性能</span><span class="err">、</span><span class="nx">精确的货币计算包</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">decimal</span> <span class="p">:</span> <span class="nx">支持任意精度的十进制数的go包</span>  <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/shopspring/decimal</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fastme</span> <span class="p">:</span> <span class="nx">Go实现的</span> <span class="nx">快速可扩展的匹配引擎</span> <span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">finance</span> <span class="p">:</span> <span class="nx">Go中的综合金融市场数据</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">finance</span> <span class="p">:</span> <span class="nx">用于货币时间价值</span><span class="err">（</span><span class="nx">年金</span><span class="err">）、</span><span class="nx">现金流</span><span class="err">、</span><span class="nx">利率转换</span><span class="err">、</span><span class="nx">债券和折旧计算的金融函数库</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">finance</span> <span class="p">:</span> <span class="nx">用于获取汇率</span><span class="err">、</span><span class="nx">通过VIES查询增值税号和查询IBAN银行账号的模块</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">finnhub</span> <span class="p">:</span> <span class="nx">来自finnhub</span><span class="p">.</span><span class="nx">io的股市</span><span class="err">、</span><span class="nx">外汇和加密数据客户端</span><span class="err">。</span><span class="nx">访问来自60多家证券交易所</span><span class="err">、</span><span class="mi">10</span><span class="nx">家外汇经纪商和15家以上加密交易所的实时金融市场数据</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span><span class="o">-</span><span class="nx">money</span> <span class="p">:</span> <span class="nx">Fowler</span><span class="err">&#39;</span><span class="nx">s</span> <span class="nx">Money模式的实现</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ofxgo</span> <span class="p">:</span> <span class="nx">查询</span> <span class="nx">OFX</span> <span class="nx">服务器并解析其响应</span> <span class="p">(</span><span class="nx">有一个示例的命令行客户端</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">orderbook</span> <span class="p">:</span> <span class="nx">Golang中的限价订单簿的匹配引擎</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">techan</span> <span class="p">:</span> <span class="nx">具有高级市场分析和交易策略的技术分析库</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">transaction</span> <span class="p">:</span> <span class="nx">以多线程模式运行的嵌入式的账户交易数据库</span><span class="p">,</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nx">vat</span> <span class="p">:</span> <span class="nx">VAT</span> <span class="nx">验证及欧洲增值税率工具</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="20-gosdk">20 gosdk</h1>
+<ul>
+<li>sdk 三方库:https://github.com/eryajf/third-tools</li>
+<li>Go 开发常用工具库, Google2 步验证客户端,AES 加密解密,RSA 加密解密,钉钉机器人,邮件发送,JWT 生成解析,Log,BoltDB 操作,图片操作,json 操作,struct 序列化
+<ul>
+<li><a href="https://github.com/chanyipiaomiao/hltool">https://github.com/chanyipiaomiao/hltool</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="201-微信">20.1 微信</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// PowerWeChat是一款简单易用的WeChat SDK for Golang目前已经覆盖微信公众号、微信小程序、微信支付、企业微信。功能非常的强大，几乎是把微信生态的产品都包含在内</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//powerwechat.artisan-cloud.com/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// go-wechat-miniapp-sdk</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/dgb8901/go-wechat-miniapp-sdk</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/wenerme/go-wecom</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 利用企业微信像微信发信息</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/saucer-man/wepush</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 企业微信群机器人接口 Golang 封装</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/vimsucks/wxwork-bot-go</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="202-钉钉">20.2 钉钉</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/CatchZeng/dingtalk</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/zhaoyunxing92/dingtalk</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="21-go-devops">21 go devops</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ---------------- gitlab -------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Gogs 是一款极易搭建的自助 Git 服务,类似gitlab</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/gogs/gogs/blob/main/README_ZH.md</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 女娲 - 开源 DevOps CI/CD 自动构建和自动部署系统</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/nvwa-io/nvwa-io</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ---------------- iptables -------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// iptables-web是一个轻量级的iptables web管理界面程序</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/pretty66/iptables-web</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Docker for YApi 一键部署YApi</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/jinfeijie/yapi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Syncd - 自动化部署工具</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/dreamans/syncd</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Infinite 用于开发交互式 CLI(tui,terminal) 程序的组件库</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//fzdwx.github.io/infinite/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// mysql  审计平台</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/cookieY/Yearning</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// supervisord</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/ochinchina/supervisord</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 可交互的网络探测分析器</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/chenjiandongx/sniffer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 短链接</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/weiwei2012holy/short_url</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// go流量回放</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/buger/goreplay</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 截图并发给robot</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/eryajf/care-screenshot</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 打印表格table</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/liushuochen/gotable</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// prometheus 仪表盘instrumentation库</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/prometheus/client_golang</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Semaphore is a 运行 Ansible playbook 的响应式web UI</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//docs.ansible-semaphore.com/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// gossh</span>
+</span></span><span class="line"><span class="cl"><span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/krilor/gossh</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="22-数据分析">22 数据分析</h1>
+<ul>
+<li>
+<p>类似于 numpay,pandas</p>
+</li>
+<li>
+<p>Go 中的数据分析——如何使用 <code>Gota</code> 包:https://www.freecodecamp.org/news/exploratory-data-analysis-in-go-with-gota/</p>
+</li>
+<li>
+<p><strong>feature</strong>格式: <code>https://github.com/lppgo/feather</code></p>
+</li>
+<li>
+<p><strong>dbf</strong>格式:</p>
+<ul>
+<li><code>https://github.com/kcasctiv/dbf3</code></li>
+<li><code>github.com/LindsayBradford/go-dbf v0.0.0-20181206104747-5f7a16f88561</code> // 注意版本</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-05-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">Go</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang/001-go%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%A5%9E%E5%99%A8%E6%B1%87%E6%80%BB/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">01-Go开发效率神器汇总</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux/017-%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6/">
+            <span class="next-text nav-default">01-加密技术,数字签名,数字证书</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>中间件 on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link><description>Recent content in 中间件 on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 05 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>01-kafka</title><link>https://lppgo.github.io/post/%E4%B8%AD%E9%97%B4%E4%BB%B6/003-kafka/</link><pubDate>Fri, 05 Aug 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/%E4%B8%AD%E9%97%B4%E4%BB%B6/003-kafka/</guid><description>&lt;div align="center">&lt;font size=35>消息队列Kafka&lt;/font>&lt;/div>
+&lt;h1 id="1-introduction">1: Introduction&lt;/h1>
+&lt;h1 id="2-arch-架构">2: Arch 架构&lt;/h1>
+&lt;h1 id="3-可视化-tools">3: 可视化 tools&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// kafka-map&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/dushixiang/kafka-map&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>01-消息队列Kafka和Pulsar选型</title><link>https://lppgo.github.io/post/%E4%B8%AD%E9%97%B4%E4%BB%B6/001-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97kafka%E5%92%8Cpulsar%E9%80%89%E5%9E%8B/</link><pubDate>Thu, 17 Mar 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/%E4%B8%AD%E9%97%B4%E4%BB%B6/001-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97kafka%E5%92%8Cpulsar%E9%80%89%E5%9E%8B/</guid><description>&lt;div align="center">&lt;font size=35>消息队列Kafka和Pulsar选型&lt;/font>&lt;/div>
+&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF">1: 业务场景&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0">1.1 业务场景描述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF-feature">1.2 业务场景 feature&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6">2：消息中间件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-kafka-%E7%89%B9%E6%80%A7">3: Kafka 特性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-pulsar-%E7%89%B9%E6%80%A7">4: Pulsar 特性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-kafka-%E5%92%8C-pulsar-%E5%AF%B9%E6%AF%94">5: Kafka 和 Pulsar 对比&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-业务场景">1: 业务场景&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s/K6xj4LfplB16Q_DfQL75PA">https://mp.weixin.qq.com/s/K6xj4LfplB16Q_DfQL75PA&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="11-业务场景描述">1.1 业务场景描述&lt;/h2>
+&lt;ul>
+&lt;li>我们需要一个把实时的交易数据进行持久化保存，并且能快速的给其他服务提供最新的交易数据;&lt;/li>
+&lt;li>当服务启动或者重启后，能快速提供完整的并且最新的交易数据;&lt;/li>
+&lt;li>现有的机制是每个订单使用 go 协程直接写入 Mysql 数据库,对数据库的压力比较大，且系统的延迟比较高;&lt;/li>
+&lt;/ul>
+&lt;h2 id="12-业务场景-feature">1.2 业务场景 feature&lt;/h2>
+&lt;ul>
+&lt;li>解耦，降低数据数据库性能导致的整个服务延迟;&lt;/li>
+&lt;li>数据完整的，及时地进行持久化;&lt;/li>
+&lt;li>交易数据能，迅速的提供给其他需要数据的服务;&lt;/li>
+&lt;li>流量消峰，减少峰值流量直接对数据库服务造成的冲击, 提高系统的稳定性;&lt;/li>
+&lt;/ul>
+&lt;h1 id="2消息中间件">2：消息中间件&lt;/h1>
+&lt;ul>
+&lt;li>适合用消息中间件解决上述问题;
+&lt;ul>
+&lt;li>(1) &lt;strong>解耦:&lt;/strong> 将一个流程的上游和下游拆开，上游专注生产消息，下游专注处理消息;&lt;/li>
+&lt;li>(2) &lt;strong>广播:&lt;/strong> 一个上游生产的消息轻松被多个下游服务消费处理;&lt;/li>
+&lt;li>(3) &lt;strong>缓冲(流量削峰):&lt;/strong> 如果上游服务流量突然暴涨,mq 可以做一个缓冲器的作用，下游根据消费能力对消息进行消费，避免暴涨的流量直接对下游服务造成冲击;&lt;/li>
+&lt;li>(4) &lt;strong>异步&lt;/strong>: 生产者生产消息之后可以马上直接返回，消费者可以异步处理消息;&lt;/li>
+&lt;li>(5) &lt;strong>冗余&lt;/strong>: 保留历史消息，处理失败或者当出现异常的时候可以进行重试或者回溯，防止消息丢失。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>近几年出现了一些关注度较高的消息队列中间件选型，如 Kafka、Pulsar、RocketMQ 等，首先从宏观上做一些对比：
+&lt;table border="3">
+ &lt;caption>&lt;font size="5" color="blue">常见MQ对比&lt;/font>&lt;/caption>
+	&lt;tr>
+	 &lt;th>MQ&lt;/th>
+	 &lt;th>特性&lt;/th>
+	 &lt;th width="20px">描述&lt;/th>
+	 &lt;th>Kafka&lt;/th>
+	 &lt;th>Pulsar&lt;/th>
+	 &lt;th>RocketMQ&lt;/th>
+	 &lt;th>RabbitMQ&lt;/th>
+	 &lt;th width="20px">NSQ&lt;/th> 
+	 &lt;th>我们的业务场景是否需要&lt;/th> 
+	&lt;/tr>
+ &lt;tr >
+ &lt;td>推出时间&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>2012 年(Scala 和 Java) &lt;/td>
+ &lt;td>2016 年(Java)&lt;/td>
+ &lt;td>2012 年(Java)&lt;/td>
+ &lt;td>2007 年(Erlang)&lt;/td>
+ &lt;td>2013 年(Go)&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;tr >
+ &lt;td>组织&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>Linkin 开源，Apache &lt;/td>
+ &lt;td>Yahoo 开源，Apache &lt;/td>
+ &lt;td>阿里开源，Apache &lt;/td>
+ &lt;td>Pivotal 开源,Mozilla&lt;/td>
+ &lt;td>MIT&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+	&lt;tr >
+	 &lt;td rowspan="13">&lt;b>功能&lt;/b>&lt;/td>
+ &lt;td>&lt;b>消费模式&lt;/b>&lt;/td>
+ &lt;td>consumer消费消息的方式&lt;/td>
+ &lt;td>pull&lt;/td>
+ &lt;td>push&lt;/td>
+ &lt;td>pull&lt;/td>
+ &lt;td>push&lt;/td>
+ &lt;td>push&lt;/td>
+ &lt;td>?&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>延迟队列&lt;/b>&lt;/td>
+ &lt;td>消息投递延迟&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>死信队列&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>?&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>优先级队列&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消息回溯&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>需要&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消息持久化&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>需要&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消息确认机制&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>offset&lt;/td>
+ &lt;td>offset+单条&lt;/td>
+ &lt;td>offset&lt;/td>
+ &lt;td>单条&lt;/td>
+ &lt;td>单条&lt;/td>
+ &lt;td>需要&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消息TTL&lt;/b>&lt;/td>
+ &lt;td>消息TTL表示一条消息的生存时间，如果消息发出来后，在TTL的时间内没有消费者进行消费，消息队列会将消息删除或者放入死信队列中&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>需要&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>多租户隔离&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>?&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消息顺序性&lt;/b>&lt;/td>
+ &lt;td>消息顺序性是指保证消息有序。消息消费顺序跟生产的顺序保持一致&lt;/td>
+ &lt;td>分区有序&lt;/td>
+ &lt;td>stream模式有序&lt;/td>
+ &lt;td>consumer加锁&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>?&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消息查询&lt;/b>&lt;/td>
+ &lt;td>查看MQ中消息的内容，比如通过某个MessageKey/ID，查询到MQ的具体消息&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="green">Yes&lt;/font>&lt;/td>
+ &lt;td>&lt;font color="red">No&lt;/font>&lt;/td>
+ &lt;td>需要&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消费模式&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>stream模式&lt;/td>
+ &lt;td>流模式+队列模式&lt;/td>
+ &lt;td>广播模式+集群模式&lt;/td>
+ &lt;td>队列模式&lt;/td>
+ &lt;td>队列模式&lt;/td>
+ &lt;td>需要，根据场景选择消费模式&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+ &lt;td>&lt;b>消息可靠性&lt;/b>&lt;/td>
+ &lt;td>以生产的消息，发送到mq,防止丢失&lt;/td>
+ &lt;td>request.required.acks&lt;/td>
+ &lt;td>Ack Quorum Size(Qa)&lt;/td>
+ &lt;td>RocketMQ与Kafka类似&lt;/td>
+ &lt;td>RabbitMQ是主从架构，通过镜像环形队列实现多副本及强一致性语义的&lt;/td>
+ &lt;td>NSQ会通过go-diskqueue组件将消息落盘到本地文件中，通过mem-queue-size参数控制内存中队列大小，如果mem-queue-size=0每条消息都会存储到磁盘里，不用担心节点重启引起的消息丢失。但由于是存储在本地磁盘中，如果节点离线，堆积在节点磁盘里的消息会丢失&lt;/td>
+ &lt;td>&lt;font color="red">非常重要&lt;font>&lt;/td>
+	&lt;/tr>
+ &lt;tr >
+	 &lt;td rowspan="3">&lt;b>性能&lt;/b>&lt;/td>
+ &lt;td>&lt;b>单机吞吐量&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>605MB/S&lt;/td>
+ &lt;td>605MB/S&lt;/td>
+ &lt;td>大概500MB/S&lt;/td>
+ &lt;td>38MB/S&lt;/td>
+ &lt;td>?&lt;/td>
+ &lt;td>&lt;font color="red">重要&lt;font>&lt;/td>
+	&lt;/tr>
+ &lt;tr >
+ &lt;td>&lt;b>消息延迟&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>5ms&lt;/td>
+ &lt;td>5ms&lt;/td>
+ &lt;td>ms级&lt;/td>
+ &lt;td>us级&lt;/td>
+ &lt;td>？&lt;/td>
+ &lt;td>&lt;font color="red">非常重要&lt;font>&lt;/td>
+	&lt;/tr>
+ &lt;tr >
+ &lt;td>&lt;b>支持Topics数&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>百~千，过多会影响性能&lt;/td>
+ &lt;td>百万个&lt;/td>
+ &lt;td>百~千&lt;/td>
+ &lt;td>几千&lt;/td>
+ &lt;td>?&lt;/td>
+ &lt;td>&lt;/td>
+	&lt;/tr>
+ &lt;tr >
+	 &lt;td rowspan="3">&lt;b>运维与可靠性&lt;/b>&lt;/td>
+ &lt;td>&lt;b>高可用&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>分布式架构&lt;/td>
+ &lt;td>分布式架构&lt;/td>
+ &lt;td>Master/Slave&lt;/td>
+ &lt;td>Master/Slave&lt;/td>
+ &lt;td>分布式架构&lt;/td>
+ &lt;td>&lt;font color="red">非常重要&lt;font>&lt;/td>
+	&lt;/tr>
+ &lt;tr >
+ &lt;td>&lt;b>集群扩容&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>增加node,node之间会复制数据均衡&lt;/td>
+ &lt;td>增加node,通过新增加分片进行负载均衡&lt;/td>
+ &lt;td>增加节点&lt;/td>
+ &lt;td>增加节点&lt;/td>
+ &lt;td>增加节点&lt;/td>
+ &lt;td>&lt;/td>
+	&lt;/tr>
+ &lt;tr >
+ &lt;td>&lt;b>异地容灾&lt;/b>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>可&lt;/td>
+ &lt;td>可&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+	&lt;/tr>
+&lt;/table>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-kafka-特性">3: Kafka 特性&lt;/h1>
+&lt;h1 id="4-pulsar-特性">4: Pulsar 特性&lt;/h1>
+&lt;h1 id="5-kafka-和-pulsar-对比">5: Kafka 和 Pulsar 对比&lt;/h1></description></item></channel></rss>

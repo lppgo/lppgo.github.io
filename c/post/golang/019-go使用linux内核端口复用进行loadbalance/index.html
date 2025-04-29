@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>01-go使用Linux内核端口复用进行LoadBalance - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content=" 1 查看 Linux Kernal 2 Golang 如何使用端口复用 2.1 说明 2.2 Go ReusePort 2.2.1 go server 2.2.2 调用测试 2.2.3 端口复用 REUSEPORT 好处 1 查看 Linux Kernal socket 五元组 {&lt;protocol&gt;, &lt;src addr&gt;, &lt;src port&gt;, &lt;dest addr&gt;, &lt;dest port&gt;} uname -a Linux 3.9 内核引入了 SO_REUSEPORT选项，可支持多个进程或者线程绑定到同一个端口，用于提高服务器的性能。他的特性包含一下几点: 允许多个 socket 套接字 bind 同一个 TCP/UDP 端口； 每一个线程拥有自己的服务器套接字; 在服务器套接字上没有了锁的竞争； 内核层面实现负载均衡； 安全层面，listen 同一个端口的 socket 套接字只能位于同一个 user 下。 有了SO_RESUEPORT后，每个进程可以 bind 相同的地址和端口，各自是独立平等的； 让多进程监听同一个端口，各个进程中 accept socket fd 不一样，有新连接建立时，内核只会调度一个进程来 accept，并且保证调度的均衡性。 " /><meta name="keywords" content="负载均衡, 端口复用" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/golang/019-go%E4%BD%BF%E7%94%A8linux%E5%86%85%E6%A0%B8%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8%E8%BF%9B%E8%A1%8Cloadbalance/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/golang/019-go%E4%BD%BF%E7%94%A8linux%E5%86%85%E6%A0%B8%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8%E8%BF%9B%E8%A1%8Cloadbalance/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="01-go使用Linux内核端口复用进行LoadBalance">
+  <meta property="og:description" content="1 查看 Linux Kernal 2 Golang 如何使用端口复用 2.1 说明 2.2 Go ReusePort 2.2.1 go server 2.2.2 调用测试 2.2.3 端口复用 REUSEPORT 好处 1 查看 Linux Kernal socket 五元组 {&lt;protocol&gt;, &lt;src addr&gt;, &lt;src port&gt;, &lt;dest addr&gt;, &lt;dest port&gt;} uname -a Linux 3.9 内核引入了 SO_REUSEPORT选项，可支持多个进程或者线程绑定到同一个端口，用于提高服务器的性能。他的特性包含一下几点: 允许多个 socket 套接字 bind 同一个 TCP/UDP 端口； 每一个线程拥有自己的服务器套接字; 在服务器套接字上没有了锁的竞争； 内核层面实现负载均衡； 安全层面，listen 同一个端口的 socket 套接字只能位于同一个 user 下。 有了SO_RESUEPORT后，每个进程可以 bind 相同的地址和端口，各自是独立平等的； 让多进程监听同一个端口，各个进程中 accept socket fd 不一样，有新连接建立时，内核只会调度一个进程来 accept，并且保证调度的均衡性。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-10-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-10-12T00:00:00+00:00">
+    <meta property="article:tag" content="Go">
+
+  <meta itemprop="name" content="01-go使用Linux内核端口复用进行LoadBalance">
+  <meta itemprop="description" content="1 查看 Linux Kernal 2 Golang 如何使用端口复用 2.1 说明 2.2 Go ReusePort 2.2.1 go server 2.2.2 调用测试 2.2.3 端口复用 REUSEPORT 好处 1 查看 Linux Kernal socket 五元组 {&lt;protocol&gt;, &lt;src addr&gt;, &lt;src port&gt;, &lt;dest addr&gt;, &lt;dest port&gt;} uname -a Linux 3.9 内核引入了 SO_REUSEPORT选项，可支持多个进程或者线程绑定到同一个端口，用于提高服务器的性能。他的特性包含一下几点: 允许多个 socket 套接字 bind 同一个 TCP/UDP 端口； 每一个线程拥有自己的服务器套接字; 在服务器套接字上没有了锁的竞争； 内核层面实现负载均衡； 安全层面，listen 同一个端口的 socket 套接字只能位于同一个 user 下。 有了SO_RESUEPORT后，每个进程可以 bind 相同的地址和端口，各自是独立平等的； 让多进程监听同一个端口，各个进程中 accept socket fd 不一样，有新连接建立时，内核只会调度一个进程来 accept，并且保证调度的均衡性。">
+  <meta itemprop="datePublished" content="2021-10-12T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-10-12T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1029">
+  <meta itemprop="keywords" content="负载均衡,端口复用">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="01-go使用Linux内核端口复用进行LoadBalance">
+  <meta name="twitter:description" content="1 查看 Linux Kernal 2 Golang 如何使用端口复用 2.1 说明 2.2 Go ReusePort 2.2.1 go server 2.2.2 调用测试 2.2.3 端口复用 REUSEPORT 好处 1 查看 Linux Kernal socket 五元组 {&lt;protocol&gt;, &lt;src addr&gt;, &lt;src port&gt;, &lt;dest addr&gt;, &lt;dest port&gt;} uname -a Linux 3.9 内核引入了 SO_REUSEPORT选项，可支持多个进程或者线程绑定到同一个端口，用于提高服务器的性能。他的特性包含一下几点: 允许多个 socket 套接字 bind 同一个 TCP/UDP 端口； 每一个线程拥有自己的服务器套接字; 在服务器套接字上没有了锁的竞争； 内核层面实现负载均衡； 安全层面，listen 同一个端口的 socket 套接字只能位于同一个 user 下。 有了SO_RESUEPORT后，每个进程可以 bind 相同的地址和端口，各自是独立平等的； 让多进程监听同一个端口，各个进程中 accept socket fd 不一样，有新连接建立时，内核只会调度一个进程来 accept，并且保证调度的均衡性。">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">01-go使用Linux内核端口复用进行LoadBalance</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-12 </span>
+        <div class="post-category">
+            <a href="/categories/go/"> Go </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-查看-linux-kernal">1 查看 Linux Kernal</a></li>
+    <li><a href="#2-golang-如何使用端口复用">2 Golang 如何使用端口复用</a>
+      <ul>
+        <li><a href="#21-说明">2.1 说明</a></li>
+        <li><a href="#22-go-reuseport">2.2 Go ReusePort</a>
+          <ul>
+            <li><a href="#221-go-server">2.2.1 go server</a></li>
+            <li><a href="#222-调用测试">2.2.2 调用测试</a></li>
+            <li><a href="#223-端口复用-reuseport-好处">2.2.3 端口复用 REUSEPORT 好处</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li><a href="#1-%E6%9F%A5%E7%9C%8B-linux-kernal">1 查看 Linux Kernal</a></li>
+<li><a href="#2-golang-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8">2 Golang 如何使用端口复用</a>
+<ul>
+<li><a href="#21-%E8%AF%B4%E6%98%8E">2.1 说明</a></li>
+<li><a href="#22-go-reuseport">2.2 Go ReusePort</a>
+<ul>
+<li><a href="#221-go-server">2.2.1 go server</a></li>
+<li><a href="#222-%E8%B0%83%E7%94%A8%E6%B5%8B%E8%AF%95">2.2.2 调用测试</a></li>
+<li><a href="#223-%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8-reuseport-%E5%A5%BD%E5%A4%84">2.2.3 端口复用 REUSEPORT 好处</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="1-查看-linux-kernal">1 查看 Linux Kernal</h1>
+<ul>
+<li>socket 五元组 <code>{&lt;protocol&gt;, &lt;src addr&gt;, &lt;src port&gt;, &lt;dest addr&gt;, &lt;dest port&gt;}</code></li>
+<li><code>uname -a</code></li>
+<li>Linux 3.9 内核引入了 <code>SO_REUSEPORT</code>选项，可支持多个进程或者线程绑定到同一个端口，用于提高服务器的性能。他的特性包含一下几点:
+<ul>
+<li>允许多个 socket 套接字 bind 同一个 TCP/UDP 端口；
+<ul>
+<li>每一个线程拥有自己的服务器套接字;</li>
+<li>在服务器套接字上没有了锁的竞争；</li>
+</ul>
+</li>
+<li>内核层面实现负载均衡；</li>
+<li>安全层面，listen 同一个端口的 socket 套接字只能位于同一个 user 下。</li>
+</ul>
+</li>
+<li>有了<code>SO_RESUEPORT</code>后，每个进程可以 bind 相同的地址和端口，各自是独立平等的；</li>
+<li>让多进程监听同一个端口，各个进程中 accept socket fd 不一样，有新连接建立时，内核只会调度一个进程来 accept，并且保证调度的均衡性。</li>
+</ul>
+<p><img src="/images/%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A820211012.webp" alt="端口复用图示"></p>
+<h1 id="2-golang-如何使用端口复用">2 Golang 如何使用端口复用</h1>
+<h2 id="21-说明">2.1 说明</h2>
+<ul>
+<li>Linux 经典的设计哲学：一切皆文件。当然，socket 也不例外，它也是一种文件。</li>
+<li>如果我们想在 Go 程序中，利用上 linux 的 SO_REUSEPORT 选项，那就需要有修改内核 socket 连接选项的接口，而这可以依赖于 golang.org/x/sys/unix 库来实现，具体就在以下这个方法。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="err">“</span><span class="s">&#34;golang.org/x/sys/unix&#34;</span><span class="err">”</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unix</span><span class="p">.</span><span class="nf">SetsockoptInt</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">fd</span><span class="p">),</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">SOL_SOCKET</span><span class="p">,</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">SO_REUSEPORT</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="22-go-reuseport">2.2 Go ReusePort</h2>
+<h3 id="221-go-server">2.2.1 go server</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;net/http&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;syscall&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;golang.org/x/sys/unix&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">lc</span> <span class="p">=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">ListenConfig</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Control</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">network</span><span class="p">,</span> <span class="nx">address</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">RawConn</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">opErr</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Control</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">opErr</span> <span class="p">=</span> <span class="nx">unix</span><span class="p">.</span><span class="nf">SetsockoptInt</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">fd</span><span class="p">),</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">SOL_SOCKET</span><span class="p">,</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">SO_REUSEPORT</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">});</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">opErr</span>
+</span></span><span class="line"><span class="cl">	<span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">pid</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getpid</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">l</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">lc</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="s">&#34;127.0.0.1:8000&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">server</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Server</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">http</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">w</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;Client [%s] Received msg from Server PID: [%d] \n&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">RemoteAddr</span><span class="p">,</span> <span class="nx">pid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Server with PID: [%d] is running \n&#34;</span><span class="p">,</span> <span class="nx">pid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_</span> <span class="p">=</span> <span class="nx">server</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="222-调用测试">2.2.2 调用测试</h3>
+<ul>
+<li>编译 <code>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go</code></li>
+<li>启动服务</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="p">~</span> <span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Server</span> <span class="nx">with</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32687</span><span class="p">]</span> <span class="nx">is</span> <span class="nx">running</span>
+</span></span><span class="line"><span class="cl"><span class="p">~</span> <span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Server</span> <span class="nx">with</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32691</span><span class="p">]</span> <span class="nx">is</span> <span class="nx">running</span>
+</span></span><span class="line"><span class="cl"><span class="p">~</span> <span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Server</span> <span class="nx">with</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span> <span class="nx">is</span> <span class="nx">running</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 curl 命令，模拟多次请求</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"> <span class="k">for</span> <span class="nx">i</span> <span class="nx">in</span> <span class="p">{</span><span class="mf">1..20</span><span class="p">};</span> <span class="nx">do</span> <span class="nx">curl</span> <span class="nx">localhost</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span> <span class="nx">done</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56876</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56880</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32687</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56884</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32687</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56888</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32687</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56892</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32691</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56896</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56900</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32691</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56904</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32691</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56908</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56912</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56916</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32687</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56920</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32691</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56924</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56928</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56932</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32691</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56936</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56940</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32687</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56944</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32691</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56948</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32687</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Client</span> <span class="p">[</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">56952</span><span class="p">]</span> <span class="nx">Received</span> <span class="nx">msg</span> <span class="nx">from</span> <span class="nx">Server</span> <span class="nx">PID</span><span class="p">:</span> <span class="p">[</span><span class="mi">32697</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="223-端口复用-reuseport-好处">2.2.3 端口复用 REUSEPORT 好处</h3>
+<ul>
+<li>提高服务器程序的吞吐性能：我们可以运行多个应用程序实例，充分利用多核 CPU 资源，避免出现单核在处理数据包，其他核却闲着的问题；</li>
+<li>内核级负载均衡：我们不需要在多个实例前面添加一层服务代理，因为内核已经提供了简单的负载均衡；</li>
+<li>不停服更新：当我们需要更新服务时，可以启动新的服务实例来接受请求，再优雅地关闭掉旧服务实例</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-10-12
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">Go</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/dockerk8s/013-docker-log%E7%AE%A1%E7%90%86%E5%92%8C%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">01-docker log管理和时区设置</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/">
+            <span class="next-text nav-default">01-grpc安装(cpp和go)</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

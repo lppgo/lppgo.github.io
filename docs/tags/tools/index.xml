@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tools on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/tools/</link><description>Recent content in Tools on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 22 Jan 2025 16:29:22 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml"/><item><title>018-pdf2zh</title><link>https://lppgo.github.io/post/python/018-pdf2zh/</link><pubDate>Wed, 25 Dec 2024 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/018-pdf2zh/</guid><description>&lt;h1 id="pdf-翻译">PDF 翻译&lt;/h1>
+&lt;h2 id="1url">1：URL&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/README_zh-CN.md#gui&lt;/code>&lt;/li>
+&lt;/ul></description></item><item><title>019-文档转为markdown</title><link>https://lppgo.github.io/post/python/019-%E6%96%87%E6%A1%A3%E8%BD%AC%E4%B8%BAmarkdown/</link><pubDate>Wed, 25 Dec 2024 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/019-%E6%96%87%E6%A1%A3%E8%BD%AC%E4%B8%BAmarkdown/</guid><description>&lt;h1 id="将非-markdown-格式的文档转换为-markdown">将非 Markdown 格式的文档转换为 Markdown&lt;/h1>
+&lt;h2 id="1介绍">1：介绍&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>这是一个由微软开源的 Python 工具，可以将非 Markdown 格式的文档转换为 Markdown 格式，支持 PDF、PPT、Word 和 Excel 等多种文件类型，为文档的索引和文本分析提供了极大的便利。&lt;/p></description></item></channel></rss>

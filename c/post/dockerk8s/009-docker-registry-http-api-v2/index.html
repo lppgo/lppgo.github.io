@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>01-docker registry http api v2 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="docker registry http api v2" /><meta name="keywords" content="registryAPI, docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/dockerk8s/009-docker-registry-http-api-v2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/dockerk8s/009-docker-registry-http-api-v2/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="01-docker registry http api v2">
+  <meta property="og:description" content="docker registry http api v2">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-07-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-03-04T10:56:42+08:00">
+    <meta property="article:tag" content="Registry">
+    <meta property="article:tag" content="Docker">
+
+  <meta itemprop="name" content="01-docker registry http api v2">
+  <meta itemprop="description" content="docker registry http api v2">
+  <meta itemprop="datePublished" content="2021-07-28T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-03-04T10:56:42+08:00">
+  <meta itemprop="wordCount" content="2566">
+  <meta itemprop="keywords" content="registryAPI,docker">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="01-docker registry http api v2">
+  <meta name="twitter:description" content="docker registry http api v2">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">01-docker registry http api v2</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-07-28 </span>
+        <div class="post-category">
+            <a href="/categories/docker/"> Docker </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#table-of-contents">Table of Contents</a></li>
+    <li><a href="#1-overview">1: Overview</a></li>
+    <li><a href="#2-专有名词解释">2: 专有名词解释</a></li>
+    <li><a href="#3-push-image-过程">3: Push image 过程</a>
+      <ul>
+        <li><a href="#31-pushing-a-layer上传层">3.1 Pushing a Layer（上传层）</a>
+          <ul>
+            <li><a href="#311-existing-layers检查层是否存在">3.1.1 Existing Layers(检查层是否存在)</a></li>
+            <li><a href="#312-starting-an-upload启动上传服务">3.1.2 Starting An Upload(启动上传服务)</a></li>
+            <li><a href="#313-uploading-the-layer上传层">3.1.3 Uploading the Layer(上传层)</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-deleting-a-layer删除层">3.2 Deleting a Layer(删除层)</a></li>
+        <li><a href="#33-pushing-an-image-manifest上传镜像清单">3.3 Pushing an Image Manifest（上传镜像清单）</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-pull-image-过程">4: Pull image 过程</a>
+      <ul>
+        <li><a href="#41-pulling-an-image-manifest拉取镜像清单">4.1 Pulling an Image Manifest（拉取镜像清单）</a></li>
+        <li><a href="#42-pulling-a-layer拉取层">4.2 Pulling a Layer（拉取层）</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-retrieve-检索功能">5: Retrieve 检索功能</a>
+      <ul>
+        <li><a href="#51-listing-repositories列出存储库">5.1 Listing Repositories（列出存储库）</a></li>
+        <li><a href="#52-pagination部分列出存储库">5.2 Pagination(部分列出存储库)</a></li>
+        <li><a href="#53-listing-image-tags列出镜像-tag">5.3 Listing Image Tags(列出镜像 tag)</a></li>
+        <li><a href="#54-pagination部分列出镜像-tag">5.4 Pagination(部分列出镜像 tag)</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-deleteing-an-image删除镜像">6: Deleteing an Image（删除镜像）</a></li>
+    <li><a href="#7-errors-错误信息">7: Errors 错误信息</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <div align='center' ><font size='50'>docker registry http api v2</font></div>
+<!-- [toc] -->
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#1-overview">1: Overview</a></li>
+<li><a href="#2-%E4%B8%93%E6%9C%89%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A">2: 专有名词解释</a></li>
+<li><a href="#3-push-image-%E8%BF%87%E7%A8%8B">3: Push image 过程</a>
+<ul>
+<li><a href="#31-pushing-a-layer%E4%B8%8A%E4%BC%A0%E5%B1%82">3.1 Pushing a Layer（上传层）</a>
+<ul>
+<li><a href="#311-existing-layers%E6%A3%80%E6%9F%A5%E5%B1%82%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8">3.1.1 Existing Layers(检查层是否存在)</a></li>
+<li><a href="#312-starting-an-upload%E5%90%AF%E5%8A%A8%E4%B8%8A%E4%BC%A0%E6%9C%8D%E5%8A%A1">3.1.2 Starting An Upload(启动上传服务)</a></li>
+<li><a href="#313-uploading-the-layer%E4%B8%8A%E4%BC%A0%E5%B1%82">3.1.3 Uploading the Layer(上传层)</a>
+<ul>
+<li><a href="#3131-upload-progress%E4%B8%8A%E4%BC%A0%E8%BF%9B%E5%BA%A6">3.1.3.1 Upload Progress(上传进度)</a></li>
+<li><a href="#3132-monolithic-upload%E6%95%B4%E5%9D%97%E4%B8%8A%E4%BC%A0">3.1.3.2 Monolithic Upload(整块上传）</a></li>
+<li><a href="#3133-chunked-upload%E5%88%86%E5%9D%97%E4%B8%8A%E4%BC%A0">3.1.3.3 Chunked Upload（分块上传）</a></li>
+<li><a href="#3134-completed-upload%E4%B8%8A%E4%BC%A0%E5%AE%8C%E6%88%90">3.1.3.4 Completed Upload(上传完成)</a></li>
+<li><a href="#3135-canceling-an-upload%E5%8F%96%E6%B6%88%E4%B8%8A%E4%BC%A0">3.1.3.5 Canceling an Upload(取消上传)</a></li>
+<li><a href="#3136-cross-repository-blob-mount%E4%BA%A4%E5%8F%89%E6%8C%82%E8%BD%BD%E5%B1%82">3.1.3.6 Cross Repository Blob Mount（交叉挂载层）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#32-deleting-a-layer%E5%88%A0%E9%99%A4%E5%B1%82">3.2 Deleting a Layer(删除层)</a></li>
+<li><a href="#33-pushing-an-image-manifest%E4%B8%8A%E4%BC%A0%E9%95%9C%E5%83%8F%E6%B8%85%E5%8D%95">3.3 Pushing an Image Manifest（上传镜像清单）</a></li>
+</ul>
+</li>
+<li><a href="#4-pull-image-%E8%BF%87%E7%A8%8B">4: Pull image 过程</a>
+<ul>
+<li><a href="#41-pulling-an-image-manifest%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F%E6%B8%85%E5%8D%95">4.1 Pulling an Image Manifest（拉取镜像清单）</a></li>
+<li><a href="#42-pulling-a-layer%E6%8B%89%E5%8F%96%E5%B1%82">4.2 Pulling a Layer（拉取层）</a></li>
+</ul>
+</li>
+<li><a href="#5-retrieve-%E6%A3%80%E7%B4%A2%E5%8A%9F%E8%83%BD">5: Retrieve 检索功能</a>
+<ul>
+<li><a href="#51-listing-repositories%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E5%BA%93">5.1 Listing Repositories（列出存储库）</a></li>
+<li><a href="#52-pagination%E9%83%A8%E5%88%86%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E5%BA%93">5.2 Pagination(部分列出存储库)</a></li>
+<li><a href="#53-listing-image-tags%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F-tag">5.3 Listing Image Tags(列出镜像 tag)</a></li>
+<li><a href="#54-pagination%E9%83%A8%E5%88%86%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F-tag">5.4 Pagination(部分列出镜像 tag)</a></li>
+</ul>
+</li>
+<li><a href="#6-deleteing-an-image%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F">6: Deleteing an Image（删除镜像）</a></li>
+<li><a href="#7-errors-%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF">7: Errors 错误信息</a></li>
+</ul>
+<h1 id="1-overview">1: Overview</h1>
+<table>
+  <thead>
+      <tr>
+          <th>methods</th>
+          <th>path</th>
+          <th>Entity</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>GET</td>
+          <td>/v2/</td>
+          <td>Base</td>
+          <td>检查 the endpoint 是否实现了 Docker Registry API V2.</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td>/v2/{name}/tags/list</td>
+          <td>Tags</td>
+          <td>通过 name 获取 repository 下的 tags</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td>/v2/{name}/manifests/{reference}</td>
+          <td>Manifest</td>
+          <td>获取由 name 和 references 标识的 manifest，其中 referencec 可以是 tag 或 digest。还可以向该 endpoint 发出 HEAD 请求以获取资源信息，而不接收所有数据。</td>
+      </tr>
+      <tr>
+          <td>PUT</td>
+          <td>/v2/{name}/manifests/{reference}</td>
+          <td>Manifest</td>
+          <td>Put 由 name 和 reference 标识的 manifest</td>
+      </tr>
+      <tr>
+          <td>DELETE</td>
+          <td>/v2/{name}/manifests/{reference}</td>
+          <td>Manifest</td>
+          <td>删除由 digest 标识的 manifest</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td>/v2/{name}/blobs/{digest}</td>
+          <td>Blob</td>
+          <td>从 registry retrieve 由 digest 标识的 blobs</td>
+      </tr>
+      <tr>
+          <td>DELETE</td>
+          <td>/v2/{name}/blobs/{digest}</td>
+          <td>Blob</td>
+          <td>Delete the blob identified by name and digest</td>
+      </tr>
+      <tr>
+          <td>POST</td>
+          <td>/v2/{name}/blobs/uploads/</td>
+          <td>Initiate(启动) Blob upload 服务</td>
+          <td>启动可恢复的 blob upload 服务。如果成功，将提供上载位置以完成上载。或者，如果存在 digest 参数，则请求正文将用于在单个请求中完成上载。</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td>/v2/{name}/blobs/uploads/{uuid}</td>
+          <td>Blob Upload</td>
+          <td>检索由 uuid 标识的上传状态。此 endpoint 的主要目的是 resolve 可恢复 upload 的当前状态。</td>
+      </tr>
+      <tr>
+          <td>PATCH</td>
+          <td>/v2/{name}/blobs/uploads/{uuid}</td>
+          <td>Blob Upload</td>
+          <td>上传 指定 upload 的 chunk 数据块</td>
+      </tr>
+      <tr>
+          <td>PUT</td>
+          <td>/v2/{name}/blobs/uploads/{uuid}</td>
+          <td>Blob Upload</td>
+          <td>完成 uuid 指定的上传，可以选择附加 body 作为最后一个块</td>
+      </tr>
+      <tr>
+          <td>DELETE</td>
+          <td>/v2/{name}/blobs/uploads/{uuid}</td>
+          <td>Blob Upload</td>
+          <td>Cancel <strong>outstanding</strong> upload processes, releasing associated resources. If this is not called, the unfinished uploads will <strong>eventually</strong> timeout.</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td>/v2/_catalog</td>
+          <td>Catalog</td>
+          <td>在 registry 中检索一个有序的，可用的 repositry 的 json 列表</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="2-专有名词解释">2: 专有名词解释</h1>
+<ul>
+<li><strong>repositry name</strong>(存储库名称):存储库指在库中存储的镜像</li>
+<li><strong>digest</strong>(摘要):是 image 各个层的唯一标识。虽然算法允许使用任意算法，但是为了兼容性应该使用 sha256。
+例：<code>sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b</code></li>
+</ul>
+<h1 id="3-push-image-过程">3: Push image 过程</h1>
+<blockquote>
+<p>先推各个 Layer 层到 registry 仓库，然后上传清单 Manifest</p></blockquote>
+<h2 id="31-pushing-a-layer上传层">3.1 Pushing a Layer（上传层）</h2>
+<p>上传层分为两步，第一步使用 post 请求在 registry 仓库启动上传服务
+，返回一个 url，这个 url 可以用来上传数据和检查状态。</p>
+<h3 id="311-existing-layers检查层是否存在">3.1.1 Existing Layers(检查层是否存在)</h3>
+<ul>
+<li><strong>API</strong>
+<code>&gt;&gt;&gt; HEAD /v2/&lt;name&gt;/blobs/&lt;digest&gt;</code></li>
+<li><strong>Return</strong>
+<code>若返回200 OK则表示存在，不用上传</code></li>
+</ul>
+<h3 id="312-starting-an-upload启动上传服务">3.1.2 Starting An Upload(启动上传服务)</h3>
+<ul>
+<li><strong>API</strong>
+<code>&gt;&gt;&gt; POST /v2/&lt;name&gt;/blobs/uploads/</code></li>
+<li><strong>Return</strong>
+如果 post 请求返回 202 accepted，一个 url 会在 location 字段返回.
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">202</span> Accepted
+</span></span><span class="line"><span class="cl">Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span><span class="line"><span class="cl">Range: <span class="nv">bytes</span><span class="o">=</span>0-&lt;offset&gt;
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Docker-Upload-UUID: &lt;uuid&gt; <span class="c1"># 可以用来查看上传状态和实现断点续传</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="313-uploading-the-layer上传层">3.1.3 Uploading the Layer(上传层)</h3>
+<h4 id="3131-upload-progress上传进度">3.1.3.1 Upload Progress(上传进度)</h4>
+<ul>
+<li><strong>API</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; GET /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Host: &lt;registry host&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Return</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">204</span> No Content
+</span></span><span class="line"><span class="cl">Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span><span class="line"><span class="cl">Range: <span class="nv">bytes</span><span class="o">=</span>0-&lt;offset&gt;
+</span></span><span class="line"><span class="cl">Docker-Upload-UUID: &lt;uuid&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="3132-monolithic-upload整块上传">3.1.3.2 Monolithic Upload(整块上传）</h4>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; PUT /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;?digest<span class="o">=</span>&lt;digest&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Length: &lt;size of layer&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Type: application/octet-stream
+</span></span><span class="line"><span class="cl">&lt;Layer Binary Data&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="3133-chunked-upload分块上传">3.1.3.3 Chunked Upload（分块上传）</h4>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; PATCH /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Length: &lt;size of chunk&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Range: &lt;start of range&gt;-&lt;end of range&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Type: application/octet-stream
+</span></span><span class="line"><span class="cl">&lt;Layer Chunk Binary Data&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<ul>
+<li>如果服务器不接受这个块，则返回：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">416</span> Requested Range Not Satisfiable
+</span></span><span class="line"><span class="cl">Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span><span class="line"><span class="cl">Range: 0-&lt;last valid range&gt;
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Docker-Upload-UUID: &lt;uuid&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>成功返回：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">202</span> Accepted
+</span></span><span class="line"><span class="cl">Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span><span class="line"><span class="cl">Range: <span class="nv">bytes</span><span class="o">=</span>0-&lt;offset&gt;
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Docker-Upload-UUID: &lt;uuid&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="3134-completed-upload上传完成">3.1.3.4 Completed Upload(上传完成)</h4>
+<blockquote>
+<p>分块上传在最后一块上传完毕后，需要提交一个上传完成的请求.</p></blockquote>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; PUT /v2/&lt;name&gt;/blob/uploads/&lt;uuid&gt;?digest<span class="o">=</span>&lt;digest&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Length: &lt;size of chunk&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Range: &lt;start of range&gt;-&lt;end of range&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; Content-Type: application/octet-stream
+</span></span><span class="line"><span class="cl">&lt;Last Layer Chunk Binary Data&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">201</span> Created
+</span></span><span class="line"><span class="cl">Location: /v2/&lt;name&gt;/blobs/&lt;digest&gt;
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Docker-Content-Digest: &lt;digest&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="3135-canceling-an-upload取消上传">3.1.3.5 Canceling an Upload(取消上传)</h4>
+<blockquote>
+<p>这个请求执行后 uuid 将失效，当上传超时或者没有完成，客户端都应该发送这个请求。</p></blockquote>
+<ul>
+<li><strong>API</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; DELETE /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Return</strong></li>
+</ul>
+<h4 id="3136-cross-repository-blob-mount交叉挂载层">3.1.3.6 Cross Repository Blob Mount（交叉挂载层）</h4>
+<blockquote>
+<p>此 api 可把客户端有访问权限的已有存储库中的层挂载到当前储存库中。</p></blockquote>
+<ul>
+<li><strong>API</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; POST /v2/&lt;name&gt;/blobs/uploads/?mount<span class="o">=</span>&lt;digest&gt;<span class="p">&amp;</span><span class="nv">from</span><span class="o">=</span>&lt;repository name&gt;
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Return</strong>
+<ul>
+<li>成功返回:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">201</span> Created
+</span></span><span class="line"><span class="cl">Location: /v2/&lt;name&gt;/blobs/&lt;digest&gt;
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Docker-Content-Digest: &lt;digest&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>失败返回:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">202</span> Accepted
+</span></span><span class="line"><span class="cl">Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+</span></span><span class="line"><span class="cl">Range: <span class="nv">bytes</span><span class="o">=</span>0-&lt;offset&gt;
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Docker-Upload-UUID: &lt;uuid&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="32-deleting-a-layer删除层">3.2 Deleting a Layer(删除层)</h2>
+<ul>
+<li><strong>API</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; DELETE /v2/&lt;name&gt;/blobs/&lt;digest&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Return</strong>
+<ul>
+<li>成功返回:</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">202</span> Accepted
+</span></span><span class="line"><span class="cl">Content-Length: None
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>失败返回 404:</li>
+</ul>
+<h2 id="33-pushing-an-image-manifest上传镜像清单">3.3 Pushing an Image Manifest（上传镜像清单）</h2>
+<blockquote>
+<p>当镜像层上传完毕后，可以上传清单。</p></blockquote>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; PUT /v2/&lt;name&gt;/manifests/&lt;reference&gt;
+</span></span><span class="line"><span class="cl">Content-Type: &lt;manifest media type&gt;
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;name&#34;</span>: &lt;name&gt;,
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;tag&#34;</span>: &lt;tag&gt;,
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;fsLayers&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="s2">&#34;blobSum&#34;</span>: &lt;digest&gt;
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">  <span class="o">]</span>
+</span></span><span class="line"><span class="cl"> <span class="o">]</span>,
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;history&#34;</span>: &lt;v1 images&gt;,
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;signature&#34;</span>: &lt;JWS&gt;,
+</span></span><span class="line"><span class="cl"> ...
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<ul>
+<li>如果清单中有层是未知的，则返回：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;errors:&#34;</span> <span class="o">[{</span>
+</span></span><span class="line"><span class="cl">       <span class="s2">&#34;code&#34;</span>: <span class="s2">&#34;BLOB_UNKNOWN&#34;</span>,
+</span></span><span class="line"><span class="cl">       <span class="s2">&#34;message&#34;</span>: <span class="s2">&#34;blob unknown to registry&#34;</span>,
+</span></span><span class="line"><span class="cl">       <span class="s2">&#34;detail&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="s2">&#34;digest&#34;</span>: &lt;digest&gt;
+</span></span><span class="line"><span class="cl">       <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">   ...
+</span></span><span class="line"><span class="cl"><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h1 id="4-pull-image-过程">4: Pull image 过程</h1>
+<h2 id="41-pulling-an-image-manifest拉取镜像清单">4.1 Pulling an Image Manifest（拉取镜像清单）</h2>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; HEAD /v2/&lt;name&gt;/manifests/&lt;reference&gt; <span class="c1">#检查镜像清单是否存在</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; GET /v2/&lt;name&gt;/manifests/&lt;reference&gt;  <span class="c1">#拉取镜像清单</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Note: reference可以是tag或者是digest</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="42-pulling-a-layer拉取层">4.2 Pulling a Layer（拉取层）</h2>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; GET /v2/&lt;name&gt;/blobs/&lt;digest&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h1 id="5-retrieve-检索功能">5: Retrieve 检索功能</h1>
+<h2 id="51-listing-repositories列出存储库">5.1 Listing Repositories（列出存储库）</h2>
+<ul>
+<li><strong>API</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; GET /v2/_catalog
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>Return</strong>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">200</span> OK
+</span></span><span class="line"><span class="cl">Content-Type: application/json
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;repositories&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">  &lt;name&gt;,
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl"><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="52-pagination部分列出存储库">5.2 Pagination(部分列出存储库)</h2>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; GET /v2/_catalog?n<span class="o">=</span>&lt;integer&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Note : integer表示要列出库的个数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">200</span> OK
+</span></span><span class="line"><span class="cl">Content-Type: application/json
+</span></span><span class="line"><span class="cl">Link: <span class="s">&lt;&lt;url&gt;?n=&lt;n from the requ</span>est&gt;<span class="p">&amp;</span><span class="nv">last</span><span class="o">=</span>&lt;last repository in response&gt;&gt;<span class="p">;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&#34;next&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;repositories&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">  &lt;name&gt;,
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl"><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="53-listing-image-tags列出镜像-tag">5.3 Listing Image Tags(列出镜像 tag)</h2>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; GET /v2/&lt;name&gt;/tags/list
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">200</span> OK
+</span></span><span class="line"><span class="cl">Content-Type: application/json
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;name&#34;</span>: &lt;name&gt;,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;tags&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">      &lt;tag&gt;,
+</span></span><span class="line"><span class="cl">      ...
+</span></span><span class="line"><span class="cl">  <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="54-pagination部分列出镜像-tag">5.4 Pagination(部分列出镜像 tag)</h2>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; GET /v2/&lt;name&gt;/tags/list?n<span class="o">=</span>&lt;integer&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">200</span> OK
+</span></span><span class="line"><span class="cl">Content-Type: application/json
+</span></span><span class="line"><span class="cl">Link: <span class="s">&lt;&lt;url&gt;?n=&lt;n from the requ</span>est&gt;<span class="p">&amp;</span><span class="nv">last</span><span class="o">=</span>&lt;last tag value from previous response&gt;&gt;<span class="p">;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&#34;next&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;name&#34;</span>: &lt;name&gt;,
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;tags&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">  &lt;tag&gt;,
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl"><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h1 id="6-deleteing-an-image删除镜像">6: Deleteing an Image（删除镜像）</h1>
+<ul>
+<li>
+<p><strong>API</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; DELETE /v2/&lt;name&gt;/manifests/&lt;reference&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Return</strong></p>
+<ul>
+<li>成功</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">202</span> Accepted
+</span></span><span class="line"><span class="cl">Content-Length: None
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>失败返回 404</li>
+</ul>
+</li>
+</ul>
+<h1 id="7-errors-错误信息">7: Errors 错误信息</h1>
+<ul>
+<li>通过 API 遇到的错误代码列举在下表中：</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>Code 错误类型</th>
+          <th>Message</th>
+          <th>Description</th>
+          <th>Others</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>BLOB_UNKNOWN</code></td>
+          <td>blob unknown to registry</td>
+          <td>当指定存储库中的注册表未知 blob 时，可能会返回此错误。可以使用标准 get 返回，或者如果清单在上载期间引用了未知层。</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>BLOB_UPLOAD_INVALID</code></td>
+          <td>blob upload invalid</td>
+          <td>blob 上载遇到错误，无法继续</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>BLOB_UPLOAD_UNKNOWN</code></td>
+          <td>blob upload unknown to registry</td>
+          <td>如果 blob 上载 cancelled 或从未启动，则可能会返回此错误代码</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>DIGEST_INVALID</code></td>
+          <td>provided digest did not match uploaded content</td>
+          <td>当上传 blob 时，注册表将检查内容是否与客户端提供的 digest 匹配。错误可能包括一个带有 key <code>digest</code>的 detail structure，包括无效的摘要字符串。当清单包含无效的层摘要时，也可能返回此错误</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>MANIFEST_BLOB_UNKNOWN</code></td>
+          <td>blob unknown to registry</td>
+          <td>This error may be returned when a manifest blob is unknown to the registry.</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>MANIFEST_INVALID</code></td>
+          <td>manifest invalid</td>
+          <td>During upload, manifests <code>undergo several checks ensuring validity</code>. If those checks fail, this error may be returned, unless a more specific error is included. The detail will contain information the failed validation.</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>MANIFEST_UNKNOWN</code></td>
+          <td>manifest unknown</td>
+          <td>This error is returned when the manifest, identified by name and tag is unknown to the repository.</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>MANIFEST_UNVERIFIED</code></td>
+          <td>manifest failed signature verification</td>
+          <td>During manifest upload, if the manifest fails signature verification, this error will be returned.</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>NAME_INVALID</code></td>
+          <td>invalid repository name</td>
+          <td>在 manifest 验证期间或者任何 API 操作期间遇到了无效的 repository name</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>NAME_UNKNOWN</code></td>
+          <td>repository name not known to registry</td>
+          <td>如果 registry 注册表不知道操作过程中使用的名称，则返回此值</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>SIZE_INVALID</code></td>
+          <td>provided length did not match content length</td>
+          <td>When a layer is uploaded, the provided size will be checked against the uploaded content. If they do not match, this error will be returned.</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>TAG_INVALID</code></td>
+          <td>manifest tag did not match URI</td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>UNAUTHORIZED</code></td>
+          <td>authentication required</td>
+          <td>访问控制器(access controller)无法验证客户端。通常，这会伴随一个 <code>Www Authenticate HTTP</code> 响应头，指示如何进行身份验证</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>DENIED</code></td>
+          <td>requested access to the resource is denied</td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>UNSUPPORTED</code></td>
+          <td></td>
+          <td>The operation was unsupported <em>due to</em> a missing implementation or invalid set of parameters.</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>备注:参考https://blog.csdn.net/ztsinghua/article/details/51496658</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-03-04
+        <a href="/commit/b3cbdf7868304aa509d9f828f40747898f749166" title="test">(b3cbdf7)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/registry/">registry</a>
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang/013-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">01-微服务限流简单实现</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/dockerk8s/001-wsl2%E4%B8%AD%E9%85%8D%E7%BD%AEdocker%E8%BF%9C%E7%A8%8Btcp/">
+            <span class="next-text nav-default">01-WSL2中配置docker远程tcp</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

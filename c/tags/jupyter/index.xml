@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jupyter on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/jupyter/</link>
+    <description>Recent content in Jupyter on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 25 Nov 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://lppgo.github.io/tags/jupyter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>013-jupyter-notebook手册</title>
+      <link>https://lppgo.github.io/post/python/013-jupyter-notebook%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>https://lppgo.github.io/post/python/013-jupyter-notebook%E6%89%8B%E5%86%8C/</guid>
+      <description>&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h1&gt;&#xA;&lt;h1 id=&#34;1-python-介绍&#34;&gt;1: python 介绍&lt;/h1&gt;&#xA;&lt;h1 id=&#34;2-anaconda-介绍&#34;&gt;2: anaconda 介绍&lt;/h1&gt;&#xA;&lt;h1 id=&#34;3-jupyter-notebook-介绍&#34;&gt;3: jupyter-notebook 介绍&lt;/h1&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ES on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/categories/es/</link><description>Recent content in ES on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 04 Mar 2022 10:56:42 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/categories/es/index.xml" rel="self" type="application/rss+xml"/><item><title>01-ElasticSearch7-Restful APIs</title><link>https://lppgo.github.io/post/es/001-elasticsearch7-restapis/</link><pubDate>Fri, 24 Dec 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/es/001-elasticsearch7-restapis/</guid><description>&lt;div align='center' >&lt;font size='50'>ElasticSearch7-Restful APIs&lt;/font>&lt;/div>
+&lt;pre>&lt;code> * [1: /ES-API/说明](#1-es-api说明)
+ * [2: Cluster - APIs](#2-cluster---apis)
+ * [2.1 查询集群状态](#21-查询集群状态)
+ * [2.2 查询集群索引信息](#22-查询集群索引信息)
+ * [2.3 使用 help 参数查询](#23-使用-help-参数查询)
+ * [2.4 查询集群中的节点信息](#24-查询集群中的节点信息)
+ * [3: Index - APIs](#3-index---apis)
+ * [3.1 创建索引](#31-创建索引)
+ * [3.2 获取索引](#32-获取索引)
+ * [3.3 获取全部索引](#33-获取全部索引)
+ * [4: Doc - APIs](#4-doc---apis)
+ * [4.1 创建文档](#41-创建文档)
+ * [4.2 删除文档](#42-删除文档)
+ * [4.3 查看文档](#43-查看文档)
+ * [4.4 查看该索引下的全部文档](#44-查看该索引下的全部文档)
+ * [4.5 覆盖数据](#45-覆盖数据)
+ * [4.6 更新数据](#46-更新数据)
+ * [5: Mapping - APIs](#5-mapping---apis)
+ * [5.1 创建 Mapping](#51-创建-mapping)
+ * [5.2 查询 Mapping](#52-查询-mapping)
+ * [5.3 查询 template](#53-查询-template)
+ * [6: Alias - APIs](#6-alias---apis)
+ * [6.1 添加 Alias](#61-添加-alias)
+ * [6.2 查询 Alias](#62-查询-alias)
+ * [7：查询 - APIs](#7查询---apis)
+ * [7.1 条件查询](#71-条件查询)
+ * [7.2 匹配查询](#72-匹配查询)
+ * [7.3 全量查询](#73-全量查询)
+ * [7.4 分页查询](#74-分页查询)
+ * [7.5 分页过滤](#75-分页过滤)
+ * [7.6 排序查询](#76-排序查询)
+ * [7.7 组合查询](#77-组合查询)
+ * [7.3 分词查询](#73-分词查询)
+ * [7.9 完全匹配查询](#79-完全匹配查询)
+&lt;/code>&lt;/pre>
+&lt;h2 id="1-es-api说明">1: /ES-API/说明&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl"># 基本查询模板
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">​```json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;query&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;bool&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;filter&amp;#34;: [
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> //filter 这后面是过滤条件
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> { &amp;#34;term&amp;#34;: { &amp;#34;uri&amp;#34;: &amp;#34;111111&amp;#34; } }, //客户号
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;range&amp;#34;: { &amp;#34;rundata_date&amp;#34;: { &amp;#34;gte&amp;#34;: &amp;#34;20190108&amp;#34;, &amp;#34;lte&amp;#34;: &amp;#34;20190110&amp;#34; } }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> } //时间过滤，注意此字段类型，string不能过滤
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;aggregations&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> //这里我主要关注一个指标，handleTime字段，标示执行时间，主要对它进行监控
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;avg_handleTime&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> //可以自己命名
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;avg&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;field&amp;#34;: &amp;#34;handleTime&amp;#34; //平均执行时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;percent_handleTime&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;percentiles&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;field&amp;#34;: &amp;#34;handleTime&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;percents&amp;#34;: [50, 95, 99] //这个是现实 50、95、99的线，从小到大，例如到95%执行时间为1.5s，可以看满足预期的比例
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;min_handleTime&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;min&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;field&amp;#34;: &amp;#34;handleTime&amp;#34; //最小执行时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;max_handleTime&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;max&amp;#34;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;field&amp;#34;: &amp;#34;handleTime&amp;#34; //最大执行时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;size&amp;#34;: 0 //显示几条数据，我这里不需要显示，可以根据需要修改
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## /ES-API/Cluster - APIs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">​```text
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">集群相关APIS
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;strong>公共 Header 参数&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>参数名&lt;/th>
+ &lt;th>示例值&lt;/th>
+ &lt;th>参数描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>暂无参数&lt;/p></description></item></channel></rss>

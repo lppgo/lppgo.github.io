@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pyenv on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/pyenv/</link><description>Recent content in Pyenv on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 11 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/pyenv/index.xml" rel="self" type="application/rss+xml"/><item><title>020-pyenv管理python多版本</title><link>https://lppgo.github.io/post/python/020-pyenv%E7%AE%A1%E7%90%86python%E5%A4%9A%E7%89%88%E6%9C%AC/</link><pubDate>Wed, 22 Jan 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/020-pyenv%E7%AE%A1%E7%90%86python%E5%A4%9A%E7%89%88%E6%9C%AC/</guid><description>&lt;h1 id="pyenv-管理-python-多版本">pyenv 管理 python 多版本&lt;/h1>
+&lt;h2 id="1virtualenv">1：virtualenv&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>virtualenv 所要解决的是同一个库不同版本共存的兼容问题。例如项目 A 需要用到 requests 的 1.0 版本，项目 B 需要用到 requests 的 2.0 版本。如果不使用工具的话，一台机器只能安装其中一个版本，无法满足两个项目的需求。&lt;/p></description></item></channel></rss>

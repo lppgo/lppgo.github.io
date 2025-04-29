@@ -15,7 +15,7 @@ theme = "meme"
 newContentEditor = ""
 
 # i18n
-defaultContentLanguage = "en"
+defaultContentLanguage = "zh-cn" # en / zh-cn / ... (This field determines which i18n file to use)
 defaultContentLanguageInSubdir = false
 
 # Pluralize titles in lists?

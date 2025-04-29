@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>039-Shell设置颜色及一些参数 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content=" 1: Shell 脚本查错 1.1 set -u 1.2 set -x 1.3 1.4 Bash 的错误处理 1.5 set -e 1.6 其他参数 2: 设置文本颜色 3: 设置 background color 1: Shell 脚本查错 1.1 set -u 执行脚本时，如果遇到不存在的变量，Bash 默认忽略它; set -u 就用来改变这种行为。脚本在头部加上它，遇到不存在的变量就会报错，并停止执行; 1 2 3 4 5 #!/usr/bin/env bash set -u echo $a echo bar 运行结果如下: 1 2 3 4 $ bash script.sh bash: script.sh:行4: a: 未绑定的变量 # 可以看到，脚本报错了，并且不再执行后面的语句 # -u 还有另一种写法 -o nounset ，两者是等价的; set -o nounset 1.2 set -x set -x 用来在运行结果之前，先输出执行的那一行命令; -x还有另一种写法-o xtrace; 1.3 1.4 Bash 的错误处理 [[ -d $dir_name ]] &amp;&amp; cd $dir_name &amp;&amp; rm *: 先判断目录存在，再删除; bash 的-x参数可以在执行每一行命令之前，打印该命令; 1.5 set -e 1.6 其他参数 set 命令还有一些其他参数。
+" /><meta name="keywords" content="Shell, 颜色, 参数" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/linux/039-%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/linux/039-%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="039-Shell设置颜色及一些参数">
+  <meta property="og:description" content="1: Shell 脚本查错 1.1 set -u 1.2 set -x 1.3 1.4 Bash 的错误处理 1.5 set -e 1.6 其他参数 2: 设置文本颜色 3: 设置 background color 1: Shell 脚本查错 1.1 set -u 执行脚本时，如果遇到不存在的变量，Bash 默认忽略它; set -u 就用来改变这种行为。脚本在头部加上它，遇到不存在的变量就会报错，并停止执行; 1 2 3 4 5 #!/usr/bin/env bash set -u echo $a echo bar 运行结果如下: 1 2 3 4 $ bash script.sh bash: script.sh:行4: a: 未绑定的变量 # 可以看到，脚本报错了，并且不再执行后面的语句 # -u 还有另一种写法 -o nounset ，两者是等价的; set -o nounset 1.2 set -x set -x 用来在运行结果之前，先输出执行的那一行命令; -x还有另一种写法-o xtrace; 1.3 1.4 Bash 的错误处理 [[ -d $dir_name ]] &amp;&amp; cd $dir_name &amp;&amp; rm *: 先判断目录存在，再删除; bash 的-x参数可以在执行每一行命令之前，打印该命令; 1.5 set -e 1.6 其他参数 set 命令还有一些其他参数。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2023-05-31T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-05-31T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+
+  <meta itemprop="name" content="039-Shell设置颜色及一些参数">
+  <meta itemprop="description" content="1: Shell 脚本查错 1.1 set -u 1.2 set -x 1.3 1.4 Bash 的错误处理 1.5 set -e 1.6 其他参数 2: 设置文本颜色 3: 设置 background color 1: Shell 脚本查错 1.1 set -u 执行脚本时，如果遇到不存在的变量，Bash 默认忽略它; set -u 就用来改变这种行为。脚本在头部加上它，遇到不存在的变量就会报错，并停止执行; 1 2 3 4 5 #!/usr/bin/env bash set -u echo $a echo bar 运行结果如下: 1 2 3 4 $ bash script.sh bash: script.sh:行4: a: 未绑定的变量 # 可以看到，脚本报错了，并且不再执行后面的语句 # -u 还有另一种写法 -o nounset ，两者是等价的; set -o nounset 1.2 set -x set -x 用来在运行结果之前，先输出执行的那一行命令; -x还有另一种写法-o xtrace; 1.3 1.4 Bash 的错误处理 [[ -d $dir_name ]] &amp;&amp; cd $dir_name &amp;&amp; rm *: 先判断目录存在，再删除; bash 的-x参数可以在执行每一行命令之前，打印该命令; 1.5 set -e 1.6 其他参数 set 命令还有一些其他参数。">
+  <meta itemprop="datePublished" content="2023-05-31T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-05-31T00:00:00+00:00">
+  <meta itemprop="wordCount" content="896">
+  <meta itemprop="keywords" content="Shell,颜色,参数">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="039-Shell设置颜色及一些参数">
+  <meta name="twitter:description" content="1: Shell 脚本查错 1.1 set -u 1.2 set -x 1.3 1.4 Bash 的错误处理 1.5 set -e 1.6 其他参数 2: 设置文本颜色 3: 设置 background color 1: Shell 脚本查错 1.1 set -u 执行脚本时，如果遇到不存在的变量，Bash 默认忽略它; set -u 就用来改变这种行为。脚本在头部加上它，遇到不存在的变量就会报错，并停止执行; 1 2 3 4 5 #!/usr/bin/env bash set -u echo $a echo bar 运行结果如下: 1 2 3 4 $ bash script.sh bash: script.sh:行4: a: 未绑定的变量 # 可以看到，脚本报错了，并且不再执行后面的语句 # -u 还有另一种写法 -o nounset ，两者是等价的; set -o nounset 1.2 set -x set -x 用来在运行结果之前，先输出执行的那一行命令; -x还有另一种写法-o xtrace; 1.3 1.4 Bash 的错误处理 [[ -d $dir_name ]] &amp;&amp; cd $dir_name &amp;&amp; rm *: 先判断目录存在，再删除; bash 的-x参数可以在执行每一行命令之前，打印该命令; 1.5 set -e 1.6 其他参数 set 命令还有一些其他参数。">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">039-Shell设置颜色及一些参数</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-05-31 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-shell-脚本查错">1: Shell 脚本查错</a>
+      <ul>
+        <li><a href="#11-set--u">1.1 set -u</a></li>
+        <li><a href="#12-set--x">1.2 set -x</a></li>
+        <li><a href="#13">1.3</a></li>
+        <li><a href="#14-bash-的错误处理">1.4 Bash 的错误处理</a></li>
+        <li><a href="#15-set--e">1.5 set -e</a></li>
+        <li><a href="#16-其他参数">1.6 其他参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-设置文本颜色">2: 设置文本颜色</a></li>
+    <li><a href="#3-设置-background-color">3: 设置 background color</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li><a href="#1-shell-%E8%84%9A%E6%9C%AC%E6%9F%A5%E9%94%99">1: Shell 脚本查错</a>
+<ul>
+<li><a href="#11-set--u">1.1 set -u</a></li>
+<li><a href="#12-set--x">1.2 set -x</a></li>
+<li><a href="#13">1.3</a></li>
+<li><a href="#14-bash-%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">1.4 Bash 的错误处理</a></li>
+<li><a href="#15-set--e">1.5 set -e</a></li>
+<li><a href="#16-%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0">1.6 其他参数</a></li>
+</ul>
+</li>
+<li><a href="#2-%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E9%A2%9C%E8%89%B2">2: 设置文本颜色</a></li>
+<li><a href="#3-%E8%AE%BE%E7%BD%AE-background-color">3: 设置 background color</a></li>
+</ul>
+<h1 id="1-shell-脚本查错">1: Shell 脚本查错</h1>
+<h2 id="11-set--u">1.1 set -u</h2>
+<ul>
+<li>执行脚本时，如果遇到不存在的变量，Bash 默认忽略它;</li>
+<li><strong><code>set -u</code></strong> 就用来改变这种行为。脚本在头部加上它，遇到不存在的变量就会报错，并停止执行;</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/env bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">set</span> -u
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$a</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> bar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>运行结果如下:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ bash script.sh
+</span></span><span class="line"><span class="cl">bash: script.sh:行4: a: 未绑定的变量
+</span></span><span class="line"><span class="cl"><span class="c1"># 可以看到，脚本报错了，并且不再执行后面的语句</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>-u 还有另一种写法 <strong><code>-o nounset</code></strong> ，两者是等价的;</li>
+<li><code>set -o nounset</code></li>
+</ul>
+<h2 id="12-set--x">1.2 set -x</h2>
+<ul>
+<li><code>set -x</code> 用来在运行结果之前，先输出执行的那一行命令;</li>
+<li><code>-x</code>还有另一种写法<code>-o xtrace</code>;</li>
+</ul>
+<h2 id="13">1.3</h2>
+<h2 id="14-bash-的错误处理">1.4 Bash 的错误处理</h2>
+<ul>
+<li><code>[[ -d $dir_name ]] &amp;&amp; cd $dir_name &amp;&amp; rm *</code>: 先判断目录存在，再删除;</li>
+<li>bash 的<code>-x</code>参数可以在执行每一行命令之前，打印该命令;</li>
+</ul>
+<h2 id="15-set--e">1.5 set -e</h2>
+<h2 id="16-其他参数">1.6 其他参数</h2>
+<ul>
+<li>
+<p>set 命令还有一些其他参数。</p>
+<ul>
+<li><code>set -n</code>：等同于 set -o noexec，不运行命令，只检查语法是否正确。</li>
+<li><code>set -f</code>：等同于 set -o noglob，表示不对通配符进行文件名扩展。</li>
+<li><code>set -v</code>：等同于 set -o verbose，表示打印 Shell 接收到的每一行输入。</li>
+<li><code>set -o noclobber</code>：防止使用重定向运算符&gt;覆盖已经存在的文件。
+上面的-f 和-v 参数，可以分别使用 set +f、set +v 关闭。</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-设置文本颜色">2: 设置文本颜色</h1>
+<ul>
+<li>默认情况下，命令提示符是显示终端预定义的颜色。Bash 允许自定义提示符颜色。</li>
+<li>使用下面的代码，可以设定其后文本的颜色。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>30m：黑色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>30m：深灰色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>31m：红色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>31m：浅红色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>32m：绿色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>32m：浅绿色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>33m：棕色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>33m：黄色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>34m：蓝色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>34m：浅蓝色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>35m：粉红
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>35m：浅粉色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>36m：青色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>36m：浅青色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>37m：浅灰色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>37m：白色
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3-设置-background-color">3: 设置 background color</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>40m：蓝色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>44m：黑色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>41m：红色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>45m：粉红
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>42m：绿色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>46m：青色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>0<span class="p">;</span>43m：棕色
+</span></span><span class="line"><span class="cl"><span class="se">\0</span>33<span class="o">[</span>1<span class="p">;</span>47m：浅灰色
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-05-31
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/c&#43;&#43;/008-cpp-time%E6%93%8D%E4%BD%9C%E7%A4%BA%E4%BE%8B/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">008-Cpp time操作示例</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux/038-linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5/">
+            <span class="next-text nav-default">Linux系统常用命令速查</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

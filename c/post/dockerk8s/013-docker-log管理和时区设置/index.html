@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>01-docker log管理和时区设置 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="docker log管理和时区设置 1：docker log 1.1 docker log Description 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 1.3 docker log 管理 2：关于 TimeZone 时区问题 2.1 通过传递环境变量改变容器时区 2.2 在 docker-compose 编排时指定环境变量 2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像 2.3.1 Alpine 2.3.2 Debian 2.3.3 Ubuntu 2.3.4 CentOS 1：docker log 1.1 docker log Description docker 的日志分为两种，第一种是 docker 引擎的日志，第二种是 docker 容器运行时的服务日志，默认为 json-file 格式; json-file 日志驱动 记录从容器的 STOUT/STDERR 的输出 ，用 JSON 的格式写到文件中，日志中不仅包含着 输出日志，还有时间戳和 输出格式. docker 所有的日志驱动如下： 日志驱动 description others none 运行的容器没有日志，docker logs 也不返回任何输出 local 日志以自定义格式存储，旨在实现最小开销 json-file 日志格式为 JSON,Docker 的默认日志记录驱动程序 syslog 将日志消息写入 syslog。该 syslog 守护程序必须在主机上运行 journald 将日志消息写入 journald。该 journald 守护程序必须在主机上运行 gelf 将日志消息写入 Graylog 扩展日志格式（GELF）端点，例如 Graylog 或 Logstash fluentd 将日志消息写入 fluentd（转发输入）。该 fluentd 守护程序必须在主机上运行 awslogs 将日志消息写入 Amazon CloudWatch Logs splunk 使用 HTTP 事件收集器将日志消息写入 splunk etwlogs 将日志消息写为 Windows 事件跟踪（ETW）事件。仅适用于 Windows 平台 gcplogs 将日志消息写入 Google Cloud Platform（GCP）Logging logentries 将日志消息写入 Rapid7 Logentries 常用的驱动是 json-file，syslog ,journald 这三种，json-file 是默认的日志驱动; docker 的日志通常默认是保存在 /var/lib/docker/containers/容器 ID/ 目录下,日志文件名称为 容器 ID-json-log,当然，docker 日志也有级别，通常级别为 info。 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 df （disk free） 检查文件系统占用磁盘情况； 1 2 3 4 5 Size 分割区总容量 Used 已使用的大小 Avail 剩下的大小 Use% 使用的百分比 Mounted on 路径地址 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 du （disk usage） 检查目录占用磁盘情况； 1 2 du -h --max-depth=1 /root/* 查看目录下的所有文件大小 du -h --max-depth=1 /root 列出root目录下面所有的一级目录文件大小； 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 原因 du 是根据文件名进行的空间统计，使用 rm 时该文件对系统来说已经不可见，所以不会统计这个文件。 df 则是磁盘实际占用的数量 du -h /var/lib/docker/ df -h /var/lib/docker/ 解决办法 (1/2) lsof 查看使用文件的进程，结束进程。 lsof | grep test.log ps aux | grep 28600 kill -9 28600 (2/2) 或使用清空的方式代替 rm，如 echo &gt; /tmp/test.log 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式. 1.3 docker log 管理 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式；
+" /><meta name="keywords" content="Docker, log" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/dockerk8s/013-docker-log%E7%AE%A1%E7%90%86%E5%92%8C%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/dockerk8s/013-docker-log%E7%AE%A1%E7%90%86%E5%92%8C%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="01-docker log管理和时区设置">
+  <meta property="og:description" content="docker log管理和时区设置 1：docker log 1.1 docker log Description 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 1.3 docker log 管理 2：关于 TimeZone 时区问题 2.1 通过传递环境变量改变容器时区 2.2 在 docker-compose 编排时指定环境变量 2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像 2.3.1 Alpine 2.3.2 Debian 2.3.3 Ubuntu 2.3.4 CentOS 1：docker log 1.1 docker log Description docker 的日志分为两种，第一种是 docker 引擎的日志，第二种是 docker 容器运行时的服务日志，默认为 json-file 格式; json-file 日志驱动 记录从容器的 STOUT/STDERR 的输出 ，用 JSON 的格式写到文件中，日志中不仅包含着 输出日志，还有时间戳和 输出格式. docker 所有的日志驱动如下： 日志驱动 description others none 运行的容器没有日志，docker logs 也不返回任何输出 local 日志以自定义格式存储，旨在实现最小开销 json-file 日志格式为 JSON,Docker 的默认日志记录驱动程序 syslog 将日志消息写入 syslog。该 syslog 守护程序必须在主机上运行 journald 将日志消息写入 journald。该 journald 守护程序必须在主机上运行 gelf 将日志消息写入 Graylog 扩展日志格式（GELF）端点，例如 Graylog 或 Logstash fluentd 将日志消息写入 fluentd（转发输入）。该 fluentd 守护程序必须在主机上运行 awslogs 将日志消息写入 Amazon CloudWatch Logs splunk 使用 HTTP 事件收集器将日志消息写入 splunk etwlogs 将日志消息写为 Windows 事件跟踪（ETW）事件。仅适用于 Windows 平台 gcplogs 将日志消息写入 Google Cloud Platform（GCP）Logging logentries 将日志消息写入 Rapid7 Logentries 常用的驱动是 json-file，syslog ,journald 这三种，json-file 是默认的日志驱动; docker 的日志通常默认是保存在 /var/lib/docker/containers/容器 ID/ 目录下,日志文件名称为 容器 ID-json-log,当然，docker 日志也有级别，通常级别为 info。 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 df （disk free） 检查文件系统占用磁盘情况； 1 2 3 4 5 Size 分割区总容量 Used 已使用的大小 Avail 剩下的大小 Use% 使用的百分比 Mounted on 路径地址 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 du （disk usage） 检查目录占用磁盘情况； 1 2 du -h --max-depth=1 /root/* 查看目录下的所有文件大小 du -h --max-depth=1 /root 列出root目录下面所有的一级目录文件大小； 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 原因 du 是根据文件名进行的空间统计，使用 rm 时该文件对系统来说已经不可见，所以不会统计这个文件。 df 则是磁盘实际占用的数量 du -h /var/lib/docker/ df -h /var/lib/docker/ 解决办法 (1/2) lsof 查看使用文件的进程，结束进程。 lsof | grep test.log ps aux | grep 28600 kill -9 28600 (2/2) 或使用清空的方式代替 rm，如 echo &gt; /tmp/test.log 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式. 1.3 docker log 管理 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式；">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-12-16T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-12-16T00:00:00+00:00">
+    <meta property="article:tag" content="Docker">
+
+  <meta itemprop="name" content="01-docker log管理和时区设置">
+  <meta itemprop="description" content="docker log管理和时区设置 1：docker log 1.1 docker log Description 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 1.3 docker log 管理 2：关于 TimeZone 时区问题 2.1 通过传递环境变量改变容器时区 2.2 在 docker-compose 编排时指定环境变量 2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像 2.3.1 Alpine 2.3.2 Debian 2.3.3 Ubuntu 2.3.4 CentOS 1：docker log 1.1 docker log Description docker 的日志分为两种，第一种是 docker 引擎的日志，第二种是 docker 容器运行时的服务日志，默认为 json-file 格式; json-file 日志驱动 记录从容器的 STOUT/STDERR 的输出 ，用 JSON 的格式写到文件中，日志中不仅包含着 输出日志，还有时间戳和 输出格式. docker 所有的日志驱动如下： 日志驱动 description others none 运行的容器没有日志，docker logs 也不返回任何输出 local 日志以自定义格式存储，旨在实现最小开销 json-file 日志格式为 JSON,Docker 的默认日志记录驱动程序 syslog 将日志消息写入 syslog。该 syslog 守护程序必须在主机上运行 journald 将日志消息写入 journald。该 journald 守护程序必须在主机上运行 gelf 将日志消息写入 Graylog 扩展日志格式（GELF）端点，例如 Graylog 或 Logstash fluentd 将日志消息写入 fluentd（转发输入）。该 fluentd 守护程序必须在主机上运行 awslogs 将日志消息写入 Amazon CloudWatch Logs splunk 使用 HTTP 事件收集器将日志消息写入 splunk etwlogs 将日志消息写为 Windows 事件跟踪（ETW）事件。仅适用于 Windows 平台 gcplogs 将日志消息写入 Google Cloud Platform（GCP）Logging logentries 将日志消息写入 Rapid7 Logentries 常用的驱动是 json-file，syslog ,journald 这三种，json-file 是默认的日志驱动; docker 的日志通常默认是保存在 /var/lib/docker/containers/容器 ID/ 目录下,日志文件名称为 容器 ID-json-log,当然，docker 日志也有级别，通常级别为 info。 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 df （disk free） 检查文件系统占用磁盘情况； 1 2 3 4 5 Size 分割区总容量 Used 已使用的大小 Avail 剩下的大小 Use% 使用的百分比 Mounted on 路径地址 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 du （disk usage） 检查目录占用磁盘情况； 1 2 du -h --max-depth=1 /root/* 查看目录下的所有文件大小 du -h --max-depth=1 /root 列出root目录下面所有的一级目录文件大小； 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 原因 du 是根据文件名进行的空间统计，使用 rm 时该文件对系统来说已经不可见，所以不会统计这个文件。 df 则是磁盘实际占用的数量 du -h /var/lib/docker/ df -h /var/lib/docker/ 解决办法 (1/2) lsof 查看使用文件的进程，结束进程。 lsof | grep test.log ps aux | grep 28600 kill -9 28600 (2/2) 或使用清空的方式代替 rm，如 echo &gt; /tmp/test.log 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式. 1.3 docker log 管理 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式；">
+  <meta itemprop="datePublished" content="2021-12-16T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-12-16T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1818">
+  <meta itemprop="keywords" content="Docker,log">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="01-docker log管理和时区设置">
+  <meta name="twitter:description" content="docker log管理和时区设置 1：docker log 1.1 docker log Description 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 1.3 docker log 管理 2：关于 TimeZone 时区问题 2.1 通过传递环境变量改变容器时区 2.2 在 docker-compose 编排时指定环境变量 2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像 2.3.1 Alpine 2.3.2 Debian 2.3.3 Ubuntu 2.3.4 CentOS 1：docker log 1.1 docker log Description docker 的日志分为两种，第一种是 docker 引擎的日志，第二种是 docker 容器运行时的服务日志，默认为 json-file 格式; json-file 日志驱动 记录从容器的 STOUT/STDERR 的输出 ，用 JSON 的格式写到文件中，日志中不仅包含着 输出日志，还有时间戳和 输出格式. docker 所有的日志驱动如下： 日志驱动 description others none 运行的容器没有日志，docker logs 也不返回任何输出 local 日志以自定义格式存储，旨在实现最小开销 json-file 日志格式为 JSON,Docker 的默认日志记录驱动程序 syslog 将日志消息写入 syslog。该 syslog 守护程序必须在主机上运行 journald 将日志消息写入 journald。该 journald 守护程序必须在主机上运行 gelf 将日志消息写入 Graylog 扩展日志格式（GELF）端点，例如 Graylog 或 Logstash fluentd 将日志消息写入 fluentd（转发输入）。该 fluentd 守护程序必须在主机上运行 awslogs 将日志消息写入 Amazon CloudWatch Logs splunk 使用 HTTP 事件收集器将日志消息写入 splunk etwlogs 将日志消息写为 Windows 事件跟踪（ETW）事件。仅适用于 Windows 平台 gcplogs 将日志消息写入 Google Cloud Platform（GCP）Logging logentries 将日志消息写入 Rapid7 Logentries 常用的驱动是 json-file，syslog ,journald 这三种，json-file 是默认的日志驱动; docker 的日志通常默认是保存在 /var/lib/docker/containers/容器 ID/ 目录下,日志文件名称为 容器 ID-json-log,当然，docker 日志也有级别，通常级别为 info。 1.2 磁盘占用分析 1.2.1 df -ah 查看系统中文件的使用情况 df （disk free） 检查文件系统占用磁盘情况； 1 2 3 4 5 Size 分割区总容量 Used 已使用的大小 Avail 剩下的大小 Use% 使用的百分比 Mounted on 路径地址 1.2.2 du -sh 查看当前目录下各个文件及目录占用空间大小 du （disk usage） 检查目录占用磁盘情况； 1 2 du -h --max-depth=1 /root/* 查看目录下的所有文件大小 du -h --max-depth=1 /root 列出root目录下面所有的一级目录文件大小； 1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法 原因 du 是根据文件名进行的空间统计，使用 rm 时该文件对系统来说已经不可见，所以不会统计这个文件。 df 则是磁盘实际占用的数量 du -h /var/lib/docker/ df -h /var/lib/docker/ 解决办法 (1/2) lsof 查看使用文件的进程，结束进程。 lsof | grep test.log ps aux | grep 28600 kill -9 28600 (2/2) 或使用清空的方式代替 rm，如 echo &gt; /tmp/test.log 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式. 1.3 docker log 管理 日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式；">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">01-docker log管理和时区设置</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-12-16 </span>
+        <div class="post-category">
+            <a href="/categories/docker/"> Docker </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1docker-log">1：docker log</a>
+      <ul>
+        <li><a href="#11-docker-log-description">1.1 docker log Description</a></li>
+        <li><a href="#12-磁盘占用分析">1.2 磁盘占用分析</a>
+          <ul>
+            <li><a href="#121-df--ah-查看系统中文件的使用情况">1.2.1 <strong><a href="">df -ah</a></strong> 查看系统中文件的使用情况</a></li>
+            <li><a href="#122-du--sh-查看当前目录下各个文件及目录占用空间大小">1.2.2 <strong><a href="">du -sh</a></strong> 查看当前目录下各个文件及目录占用空间大小</a></li>
+            <li><a href="#123-df--h-和-du--sh-显示的磁盘大小不一致原因及解决办法">1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法</a></li>
+          </ul>
+        </li>
+        <li><a href="#13-docker-log-管理">1.3 docker log 管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#2关于-timezone-时区问题">2：关于 TimeZone 时区问题</a>
+      <ul>
+        <li><a href="#21-通过传递环境变量改变容器时区">2.1 通过传递环境变量改变容器时区</a></li>
+        <li><a href="#22-在-docker-compose-编排时指定环境变量">2.2 在 docker-compose 编排时指定环境变量</a></li>
+        <li><a href="#23-彻底的解决时区问题通过-dockerfile-重新制作镜像">2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像</a>
+          <ul>
+            <li><a href="#231-alpine">2.3.1 Alpine</a></li>
+            <li><a href="#232-debian">2.3.2 Debian</a></li>
+            <li><a href="#233-ubuntu">2.3.3 Ubuntu</a></li>
+            <li><a href="#234-centos">2.3.4 CentOS</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <div align="center"><font size="35">docker log管理和时区设置</font></div>
+<ul>
+<li><a href="#1docker-log">1：docker log</a>
+<ul>
+<li><a href="#11-docker-log-description">1.1 docker log Description</a></li>
+<li><a href="#12-%E7%A3%81%E7%9B%98%E5%8D%A0%E7%94%A8%E5%88%86%E6%9E%90">1.2 磁盘占用分析</a>
+<ul>
+<li><a href="#121-df--ah-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5">1.2.1 <strong>df -ah</strong> 查看系统中文件的使用情况</a></li>
+<li><a href="#122-du--sh-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%90%84%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8F%8A%E7%9B%AE%E5%BD%95%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4%E5%A4%A7%E5%B0%8F">1.2.2 <strong>du -sh</strong> 查看当前目录下各个文件及目录占用空间大小</a></li>
+<li><a href="#123-df--h-%E5%92%8C-du--sh-%E6%98%BE%E7%A4%BA%E7%9A%84%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F%E4%B8%8D%E4%B8%80%E8%87%B4%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95">1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法</a></li>
+</ul>
+</li>
+<li><a href="#13-docker-log-%E7%AE%A1%E7%90%86">1.3 docker log 管理</a></li>
+</ul>
+</li>
+<li><a href="#2%E5%85%B3%E4%BA%8E-timezone-%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98">2：关于 TimeZone 时区问题</a>
+<ul>
+<li><a href="#21-%E9%80%9A%E8%BF%87%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%94%B9%E5%8F%98%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA">2.1 通过传递环境变量改变容器时区</a></li>
+<li><a href="#22-%E5%9C%A8-docker-compose-%E7%BC%96%E6%8E%92%E6%97%B6%E6%8C%87%E5%AE%9A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">2.2 在 docker-compose 编排时指定环境变量</a></li>
+<li><a href="#23-%E5%BD%BB%E5%BA%95%E7%9A%84%E8%A7%A3%E5%86%B3%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98%E9%80%9A%E8%BF%87-dockerfile-%E9%87%8D%E6%96%B0%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F">2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像</a>
+<ul>
+<li><a href="#231-alpine">2.3.1 Alpine</a></li>
+<li><a href="#232-debian">2.3.2 Debian</a></li>
+<li><a href="#233-ubuntu">2.3.3 Ubuntu</a></li>
+<li><a href="#234-centos">2.3.4 CentOS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="1docker-log">1：docker log</h1>
+<h2 id="11-docker-log-description">1.1 docker log Description</h2>
+<ul>
+<li>docker 的日志分为两种，第一种是 docker 引擎的日志，第二种是 docker 容器运行时的服务日志，默认为 json-file 格式;</li>
+<li>json-file 日志驱动 记录从容器的 STOUT/STDERR 的输出 ，用 JSON 的格式写到文件中，日志中不仅包含着 输出日志，还有时间戳和 输出格式.</li>
+<li>docker 所有的日志驱动如下：
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">日志驱动</th>
+          <th style="text-align: left">description</th>
+          <th style="text-align: left">others</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">none</td>
+          <td style="text-align: left">运行的容器没有日志，docker logs 也不返回任何输出</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">local</td>
+          <td style="text-align: left">日志以自定义格式存储，旨在实现最小开销</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">json-file</td>
+          <td style="text-align: left">日志格式为 JSON,Docker 的默认日志记录驱动程序</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">syslog</td>
+          <td style="text-align: left">将日志消息写入 syslog。该 syslog 守护程序必须在主机上运行</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">journald</td>
+          <td style="text-align: left">将日志消息写入 journald。该 journald 守护程序必须在主机上运行</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">gelf</td>
+          <td style="text-align: left">将日志消息写入 Graylog 扩展日志格式（GELF）端点，例如 Graylog 或 Logstash</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">fluentd</td>
+          <td style="text-align: left">将日志消息写入 fluentd（转发输入）。该 fluentd 守护程序必须在主机上运行</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">awslogs</td>
+          <td style="text-align: left">将日志消息写入 Amazon CloudWatch Logs</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">splunk</td>
+          <td style="text-align: left">使用 HTTP 事件收集器将日志消息写入 splunk</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">etwlogs</td>
+          <td style="text-align: left">将日志消息写为 Windows 事件跟踪（ETW）事件。仅适用于 Windows 平台</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">gcplogs</td>
+          <td style="text-align: left">将日志消息写入 Google Cloud Platform（GCP）Logging</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">logentries</td>
+          <td style="text-align: left">将日志消息写入 Rapid7 Logentries</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+</li>
+<li>常用的驱动是 <code>json-file</code>，<code>syslog</code> ,<code>journald</code> 这三种，json-file 是默认的日志驱动;</li>
+<li>docker 的日志通常默认是保存在 /var/lib/docker/containers/容器 ID/ 目录下,日志文件名称为 <strong>容器 ID-json-log</strong>,当然，docker 日志也有级别，通常级别为 info。</li>
+</ul>
+<h2 id="12-磁盘占用分析">1.2 磁盘占用分析</h2>
+<h3 id="121-df--ah-查看系统中文件的使用情况">1.2.1 <strong><a href="">df -ah</a></strong> 查看系统中文件的使用情况</h3>
+<ul>
+<li><strong>df</strong> （disk free） 检查文件系统占用磁盘情况；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">Size</span> <span class="err">分割区总容量</span>
+</span></span><span class="line"><span class="cl"><span class="err">Used</span> <span class="err">已使用的大小</span>
+</span></span><span class="line"><span class="cl"><span class="err">Avail</span> <span class="err">剩下的大小</span>
+</span></span><span class="line"><span class="cl"><span class="err">Use%</span> <span class="err">使用的百分比</span>
+</span></span><span class="line"><span class="cl"><span class="err">Mounted</span> <span class="err">on</span> <span class="err">路径地址</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="122-du--sh-查看当前目录下各个文件及目录占用空间大小">1.2.2 <strong><a href="">du -sh</a></strong> 查看当前目录下各个文件及目录占用空间大小</h3>
+<ul>
+<li><strong>du</strong> （disk usage） 检查目录占用磁盘情况；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">du</span> <span class="err">-h</span> <span class="err">--max-depth=</span><span class="mi">1</span> <span class="err">/root/*</span> <span class="err">查看目录下的所有文件大小</span>
+</span></span><span class="line"><span class="cl"><span class="err">du</span> <span class="err">-h</span> <span class="err">--max-depth=</span><span class="mi">1</span> <span class="err">/root</span> <span class="err">列出root目录下面所有的一级目录文件大小；</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="123-df--h-和-du--sh-显示的磁盘大小不一致原因及解决办法">1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法</h3>
+<ul>
+<li><strong>原因</strong> du 是根据文件名进行的空间统计，使用 rm 时该文件对系统来说已经不可见，所以不会统计这个文件。
+df 则是磁盘实际占用的数量</li>
+<li><code>du -h /var/lib/docker/</code></li>
+<li><code>df -h /var/lib/docker/</code></li>
+<li><strong>解决办法</strong>
+<ul>
+<li>(1/2) lsof 查看使用文件的进程，结束进程。
+<ul>
+<li><code>lsof | grep test.log</code></li>
+<li><code>ps aux | grep 28600</code></li>
+<li><code>kill -9 28600</code></li>
+</ul>
+</li>
+<li>(2/2) 或使用清空的方式代替 rm，如 <a href="">echo &gt; /tmp/test.log</a>
+<ul>
+<li>日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="13-docker-log-管理">1.3 docker log 管理</h2>
+<ul>
+<li>
+<p>日志文件清空一般不是删除 rm 命令，而是 &gt; 文件名这样的清空方式；</p>
+</li>
+<li>
+<p>docker 日志野蛮增长的情况应该如何处理呢？</p>
+<ul>
+<li>
+<p>第一，定时任务清空日志,但治标不治本；</p>
+</li>
+<li>
+<p>第二，限制日志的大小，指定日志只能多大，修改 docker <code>daemon.json</code>;</p>
+</li>
+<li>
+<p>第三，更改 docker 的工作目录到一个磁盘空间多的分区;</p>
+<ul>
+<li>
+<p>(1) vim /etc/systemd/system/docker.service</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// stop docker
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// vim /etc/systemd/system/docker.service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">ExecStart=/usr/local/bin/dockerd</span> <span class="err">--graph=/opt/docker</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 重启docker
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>(2) <strong>/etc/docker/daemon.json</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;log-driver&#34;</span><span class="p">:</span> <span class="s2">&#34;json-file&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;log-opts&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;max-size&#34;</span><span class="p">:</span> <span class="s2">&#34;500m&#34;</span><span class="p">,</span> <span class="nt">&#34;max-file&#34;</span><span class="p">:</span> <span class="s2">&#34;3&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>(3) <strong>容器 run 时单独限制</strong>. <code>--log-driver json-file --log-opt max-size=10m</code>，比如，将这一段加在 docker run 后面，那么以这条命令启动的容器日志将会限定在 10m 大小，并且使用的日志驱动是 json-file;</p>
+</li>
+<li>
+<p>(4) <strong>docker-compose 编排文件限制</strong> :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">nginx:</span>
+</span></span><span class="line"><span class="cl">    <span class="err">image:</span> <span class="err">nginx:</span><span class="mf">1.12</span><span class="err">.</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="err">restart:</span> <span class="err">always</span>
+</span></span><span class="line"><span class="cl">    <span class="err">logging:</span>
+</span></span><span class="line"><span class="cl">        <span class="err">driver:</span> <span class="err">“json-file”</span>
+</span></span><span class="line"><span class="cl">        <span class="err">options:</span>
+</span></span><span class="line"><span class="cl">        <span class="err">max-size:</span> <span class="err">“</span><span class="mi">2</span><span class="err">g”</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="2关于-timezone-时区问题">2：关于 TimeZone 时区问题</h1>
+<ul>
+<li>时区问题是大问题，时间没统一好，业务会乱套。究其原因，大部分 Docker 镜像都是基于 Alpine，Ubuntu，Debian，CentOS 等基础镜像制作而成。基本上都采用 UTC 时间，默认时区为零时区.</li>
+</ul>
+<h2 id="21-通过传递环境变量改变容器时区">2.1 通过传递环境变量改变容器时区</h2>
+<ul>
+<li>适用于基于 Debian 基础镜像, CentOS 基础镜像 制作的 Docker 镜像</li>
+<li>不适用于基于 Alpine 基础镜像, Ubuntu 基础镜像 制作的 Docker 镜像</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">root@centos</span><span class="mi">11</span> <span class="err">~]#</span> <span class="err">docker</span> <span class="err">run</span> <span class="err">-it</span> <span class="err">--name</span> <span class="err">mysql</span><span class="mi">2</span> <span class="err">-e</span> <span class="err">TZ=Asia/Shanghai</span> <span class="err">-e</span> <span class="err">MYSQL_ROOT_PASSWORD=</span><span class="mi">12345</span> <span class="err">-p</span> <span class="mi">3306</span><span class="err">:</span><span class="mi">3306</span> <span class="err">hub.c.</span><span class="mi">163</span><span class="err">.com/library/mysql</span> <span class="err">/bin/bash</span>
+</span></span><span class="line"><span class="cl"><span class="err">root@d</span><span class="mi">0</span><span class="err">d</span><span class="mi">8</span><span class="err">ba</span><span class="mi">4</span><span class="err">c</span><span class="mi">6135</span><span class="err">:/#</span> <span class="err">date</span>
+</span></span><span class="line"><span class="cl"><span class="err">Sat</span> <span class="err">Jan</span> <span class="mi">23</span> <span class="mi">16</span><span class="err">:</span><span class="mi">31</span><span class="err">:</span><span class="mi">39</span> <span class="err">CST</span> <span class="mi">2021</span>
+</span></span><span class="line"><span class="cl"><span class="err">root@d</span><span class="mi">0</span><span class="err">d</span><span class="mi">8</span><span class="err">ba</span><span class="mi">4</span><span class="err">c</span><span class="mi">6135</span><span class="err">:/#</span> <span class="err">exit</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="err">root@centos</span><span class="mi">11</span> <span class="err">~</span><span class="p">]</span><span class="err">#</span> <span class="err">docker</span> <span class="err">images</span>
+</span></span><span class="line"><span class="cl"><span class="err">REPOSITORY</span>                    <span class="err">TAG</span>                 <span class="err">IMAGE</span> <span class="err">ID</span>            <span class="err">CREATED</span>             <span class="err">SIZE</span>
+</span></span><span class="line"><span class="cl"><span class="err">hub.c.</span><span class="mi">163</span><span class="err">.com/library/mysql</span>   <span class="err">latest</span>              <span class="mf">9e64176</span><span class="err">cd</span><span class="mi">8</span><span class="err">a</span><span class="mi">2</span>        <span class="mi">3</span> <span class="err">years</span> <span class="err">ago</span>         <span class="mi">407</span><span class="err">M</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="22-在-docker-compose-编排时指定环境变量">2.2 在 docker-compose 编排时指定环境变量</h2>
+<ul>
+<li>同样的只适用于 debian 系列操作系统镜像;
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql_57</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">hub.c.163.com/library/mysql:5.7.18</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MYSQL_USER</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MYSQL_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admins</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">database</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">TZ</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/usr/local/mysql/data:/var/lib/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="m">3306</span><span class="p">:</span><span class="m">3306</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l">host</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="23-彻底的解决时区问题通过-dockerfile-重新制作镜像">2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像</h2>
+<h3 id="231-alpine">2.3.1 Alpine</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="l">ENV TZ Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">RUN apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/${TZ} /etc/localtime \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">echo ${TZ} &gt; /etc/timezone \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">apk del tzdata</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="232-debian">2.3.2 Debian</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="l">ENV TZ=Asia/Shanghai \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">DEBIAN_FRONTEND=noninteractive</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">echo ${TZ} &gt; /etc/timezone \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">dpkg-reconfigure --frontend noninteractive tzdata \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">rm -rf /var/lib/apt/lists/*</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="233-ubuntu">2.3.3 Ubuntu</h3>
+<ul>
+<li>
+<p>Ubuntu 基础镜像中没有安装了 tzdata 包，因此我们需要先安装 tzdata 包;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="l">ENV TZ=Asia/Shanghai \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">DEBIAN_FRONTEND=noninteractive</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">RUN apt update \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">apt install -y tzdata \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">echo ${TZ} &gt; /etc/timezone \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">dpkg-reconfigure --frontend noninteractive tzdata \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">rm -rf /var/lib/apt/lists/*</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="234-centos">2.3.4 CentOS</h3>
+<ul>
+<li>
+<p>CentOS 基础镜像 中已经安装了 tzdata 包，我们可以将以下代码添加到 Dockerfile 中;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">ENV TZ Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">&amp;&amp;</span><span class="w"> </span><span class="l">echo ${TZ} &gt; /etc/timezone</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-12-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">Docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang/021-grpc-witch-tls/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">01-Grpc with TLS/SSL</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/golang/019-go%E4%BD%BF%E7%94%A8linux%E5%86%85%E6%A0%B8%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8%E8%BF%9B%E8%A1%8Cloadbalance/">
+            <span class="next-text nav-default">01-go使用Linux内核端口复用进行LoadBalance</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

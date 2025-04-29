@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Other on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/other/</link><description>Recent content in Other on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 04 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/other/index.xml" rel="self" type="application/rss+xml"/><item><title>01-有趣项目记录</title><link>https://lppgo.github.io/post/others/009-%E6%9C%89%E8%B6%A3%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/</link><pubDate>Thu, 04 Aug 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/009-%E6%9C%89%E8%B6%A3%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/</guid><description>&lt;div align="center">&lt;font size="35">有趣项目记录&lt;/font>&lt;/div>
+&lt;h1 id="1-工具类">1: 工具类&lt;/h1>
+&lt;h1 id="2-好玩类">2: 好玩类&lt;/h1>
+&lt;h2 id="21-自动发送暖心邮件">2.1 自动发送暖心邮件&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/Vincedream/NodeMail&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="22-土味情话生成器">2.2 土味情话生成器&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/zerosoul/honeyed-words-generator&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-文件传输">3: 文件传输&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// tl-rtc-file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 用webrt在web端传输文件，支持传输超大文件, 分片传输，跨终端，不限平台，方便使用，内网不限速，支持私有部署&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/iamtsm/tl-rtc-file&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-分布式文件系统">4: 分布式文件系统&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">seaweedfs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="c1">//github.com/seaweedfs/seaweedfs&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-工具类">5: 工具类&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>ctop&lt;/strong>&lt;/p></description></item><item><title>01-note笔记</title><link>https://lppgo.github.io/post/others/005-note/</link><pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/005-note/</guid><description>&lt;div align="center">&lt;font size="35">note笔记&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1note-%E6%96%87%E4%BB%B6">1：note 文件&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-alias-%E5%88%AB%E5%90%8D%E8%AE%BE%E7%BD%AE">1.1 alias 别名设置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-git-%E5%B1%80%E9%83%A8%E4%BB%A3%E7%90%86">1.2 git 局部代理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-golang-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91">1.3 golang 交叉编译&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-date-%E5%92%8C%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%AC%E6%8D%A2">1.4 date 和时间戳转换&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#15-minikube-start">1.5 minikube start&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#16-ip-%E7%9B%B8%E5%85%B3">1.6 ip 相关&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#17-%E6%9F%A5%E7%9C%8B-linux-%E8%AF%A6%E7%BB%86-info">1.7 查看 Linux 详细 info&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#18-wsl2-%E5%8E%8B%E7%BC%A9%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4">1.8 WSL2 压缩磁盘空间&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="1note-文件">1：note 文件&lt;/h1>
+&lt;h2 id="11-alias-别名设置">1.1 alias 别名设置&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">gs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git status&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">ga&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git add -A&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">gd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git diff&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">gc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;git commit -m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="12-git-局部代理">1.2 git 局部代理&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone -c http.proxy&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;127.0.0.1:7078&amp;#34;&lt;/span> xxx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="13-golang-交叉编译">1.3 golang 交叉编译&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CGO_ENABLED&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">GOOS&lt;/span>&lt;span class="o">=&lt;/span>linux &lt;span class="nv">GOARCH&lt;/span>&lt;span class="o">=&lt;/span>amd64 go build -v -a main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CGO_ENABLED&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">GOOS&lt;/span>&lt;span class="o">=&lt;/span>darwin &lt;span class="nv">GOARCH&lt;/span>&lt;span class="o">=&lt;/span>amd64 go build -v -a main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CGO_ENABLED&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">GOOS&lt;/span>&lt;span class="o">=&lt;/span>windows &lt;span class="nv">GOARCH&lt;/span>&lt;span class="o">=&lt;/span>amd64 go build -v -a main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 编译时添加参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -ldflags &lt;span class="s2">&amp;#34;-X &amp;#39;main.Version=v1.0.0&amp;#39; -X &amp;#39;main.BuildTime=`date +&amp;#34;&lt;/span>%Y-%m-%d %H:%M:%S&lt;span class="s2">&amp;#34;`&amp;#39; -X &amp;#39;main.GoVersion=`go version`&amp;#39; &amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="14-date-和时间戳转换">1.4 date 和时间戳转换&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># linux date和时间戳转换&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1：查看当前时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">输出：&lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2：查看指定时间，转为时间戳
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date +%s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d &lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span> +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d &lt;span class="s2">&amp;#34;2021-03-25 18:12:38&amp;#34;&lt;/span> +%s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3：时间戳转换为date
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d @1416387827
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date -d @1416387827 +&lt;span class="s2">&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="15-minikube-start">1.5 minikube start&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">minikube start &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --driver docker &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --image-mirror-country&lt;span class="o">=&lt;/span>cn &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --registry-mirror https://3laho3y3.mirror.aliyuncs.com &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --image-repository&lt;span class="o">=&lt;/span>registry.cn-hangzhou.aliyuncs.com/google_containers &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --kubernetes-version&lt;span class="o">=&lt;/span>v1.20.7
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="16-ip-相关">1.6 ip 相关&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl ipinfo.io
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -vv www.google.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ------------------查看ip--------------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ip addr show &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;inet&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="17-查看-linux-详细-info">1.7 查看 Linux 详细 info&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /etc/*elease
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="18-wsl2-压缩磁盘空间">1.8 WSL2 压缩磁盘空间&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ----------------------WSL2压缩磁盘空间------------------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PowerShell，直接运行 diskpart 命令就好
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">select&lt;/span> vdisk &lt;span class="nv">file&lt;/span>&lt;span class="o">=&lt;/span>D:&lt;span class="se">\w&lt;/span>sl&lt;span class="se">\U&lt;/span>buntu-20.04&lt;span class="se">\e&lt;/span>xt4.vhdx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">compact vdisk
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

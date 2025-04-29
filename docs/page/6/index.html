@@ -1,0 +1,613 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Even - A super concise theme for Hugo</title>
+<meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content><meta name=description content="Hugo theme even example site."><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.147.0 with theme even"><link rel=canonical href=https://lppgo.github.io/><link href=https://lppgo.github.io/index.xml rel=alternate type=application/rss+xml title="Even - A super concise theme for Hugo"><link href=https://lppgo.github.io/index.xml rel=feed type=application/rss+xml title="Even - A super concise theme for Hugo"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:url" content="https://lppgo.github.io/"><meta property="og:site_name" content="Even - A super concise theme for Hugo"><meta property="og:title" content="Even - A super concise theme for Hugo"><meta property="og:description" content="Hugo theme even example site."><meta property="og:locale" content="en"><meta property="og:type" content="website"><meta itemprop=name content="Even - A super concise theme for Hugo"><meta itemprop=description content="Hugo theme even example site."><meta itemprop=datePublished content="2025-03-17T00:00:00+00:00"><meta itemprop=dateModified content="2025-04-29T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Even - A super concise theme for Hugo"><meta name=twitter:description content="Hugo theme even example site."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>lppgo</a></div><div class=mobile-navbar-icon><span></span>
+<span></span>
+<span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>lppgo</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/027_%E9%80%82%E7%94%A8%E4%BA%8Ego%E9%A1%B9%E7%9B%AE%E7%9A%84makefile%E6%8C%87%E5%8D%97/>02-适用于Go项目的Makefile指南</a></h1><div class=post-meta><span class=post-time>2022-03-10</span><div class=post-category><a href=/categories/go/>Go</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>适用于Go项目的Makefile指南</font></div>Table of Contents
+=================<ul><li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#1-premise>1: Premise</a></li><li><a href=#2-makefile-%E8%AF%AD%E6%B3%95>2: Makefile 语法</a></li><li><a href=#3-go-%E9%A1%B9%E7%9B%AE>3: Go 项目</a></li><li><a href=#4-supplementary-instruction>4: supplementary instruction</a></li></ul><h1 id=1-premise>1: Premise</h1><ul><li>会使用 go 写项目</li><li>会使用 Makefile</li></ul><h1 id=2-makefile-语法>2: Makefile 语法</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>PROJECT</span><span class=p>=</span><span class=s>&#34;example&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nx>echo</span> <span class=err>$</span><span class=p>{</span><span class=nx>PROJECT</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>install</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>govendor</span> <span class=nx>sync</span> <span class=o>-</span><span class=nx>v</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>test</span><span class=p>:</span> <span class=nx>install</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=k>go</span> <span class=nx>test</span> <span class=p>.</span><span class=o>/...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nx>PHONY</span><span class=p>:</span> <span class=k>default</span> <span class=nx>install</span> <span class=nx>test</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>makefile 格式介绍<div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=p>&lt;</span><span class=nx>target</span><span class=p>&gt;</span> <span class=p>:</span> <span class=p>&lt;</span><span class=nx>prerequisites</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>tab</span><span class=p>]</span> <span class=p>&lt;</span><span class=nx>command</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><code>target</code> : 即自定义的想要执行的命令;</li><li><code>prerequisites</code>: 前置条件，即执行 target 命令之前执行的命令;</li><li><code>commands</code> : 具体的执行的命令;</li><li><code>.PHONY</code> 伪指令，内置的关键字;</li><li>不带参数，默认执行第一个 target;</li><li><code>@</code> 表示禁止回声，即终端不会打印真实的执行命令;</li><li><code>#</code> 表示注释;</li><li><code>${val}</code>表示变量，和 shell 脚本中的变量的声明和使用一致;</li><li>允许使用 通配符;</li></ul><h1 id=3-go-项目>3: Go 项目</h1><ul><li>Go 中支持内置的 go 命令，可以用来执行：测试、编译、运行、语法检查等命令</li><li>一个完善的 Go 项目经常会执行哪些命令？<ul><li><code>go vet</code> 静态检查</li><li><code>go test</code> 运行单元测试</li><li><code>go fmt</code> 格式化</li><li><code>go build</code> 编译</li><li><code>go run</code> 运行 &mldr;</li></ul></li><li>所以一个适用于 Go 项目的 Makefile 也应该支持这些命令。<ul><li><code>make default</code> : 编译</li><li><code>make fmt</code>: 格式化</li><li><code>make vet</code>: 静态检查</li><li><code>make test</code>: 运行测试</li><li><code>make install</code>: 下载依赖库</li><li><code>make clean</code>: 移除编译的二进制文件</li></ul></li><li>所以整体可以如下安排：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>BINARY</span><span class=p>=</span><span class=s>&#34;example&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>VERSION</span><span class=p>=</span><span class=mf>1.0.0</span>
+</span></span><span class=line><span class=cl><span class=nx>BUILD</span><span class=p>=</span><span class=s>`date +%FT%T%z`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>PACKAGES</span><span class=p>=</span><span class=s>`go list ./... | grep -v /vendor/`</span>
+</span></span><span class=line><span class=cl><span class=nx>VETPACKAGES</span><span class=p>=</span><span class=s>`go list ./... | grep -v /vendor/ | grep -v /examples/`</span>
+</span></span><span class=line><span class=cl><span class=nx>GOFILES</span><span class=p>=</span><span class=s>`find . -name &#34;*.go&#34; -type f -not -path &#34;./vendor/*&#34;`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=k>go</span> <span class=nx>build</span> <span class=o>-</span><span class=nx>o</span> <span class=err>$</span><span class=p>{</span><span class=nx>BINARY</span><span class=p>}</span> <span class=o>-</span><span class=nx>tags</span><span class=p>=</span><span class=nx>jsoniter</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>echo</span> <span class=err>$</span><span class=p>{</span><span class=nx>PACKAGES</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>echo</span> <span class=err>$</span><span class=p>{</span><span class=nx>VETPACKAGES</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>echo</span> <span class=err>$</span><span class=p>{</span><span class=nx>GOFILES</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>gofmt</span> <span class=o>-</span><span class=nx>s</span> <span class=o>-</span><span class=nx>w</span> <span class=err>$</span><span class=p>{</span><span class=nx>GOFILES</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=o>-</span><span class=nx>check</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>diff</span><span class=p>=</span><span class=err>?</span><span class=p>(</span><span class=nx>gofmt</span> <span class=o>-</span><span class=nx>s</span> <span class=o>-</span><span class=nx>d</span> <span class=err>$</span><span class=p>(</span><span class=nx>GOFILES</span><span class=p>));</span> \
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>[</span> <span class=o>-</span><span class=nx>n</span> <span class=s>&#34;$$diff&#34;</span> <span class=p>];</span> <span class=nx>then</span> \
+</span></span><span class=line><span class=cl>        <span class=nx>echo</span> <span class=s>&#34;Please run &#39;make fmt&#39; and commit the result:&#34;</span><span class=p>;</span> \
+</span></span><span class=line><span class=cl>        <span class=nx>echo</span> <span class=s>&#34;$${diff}&#34;</span><span class=p>;</span> \
+</span></span><span class=line><span class=cl>        <span class=nx>exit</span> <span class=mi>1</span><span class=p>;</span> \
+</span></span><span class=line><span class=cl>    <span class=nx>fi</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>install</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>govendor</span> <span class=nx>sync</span> <span class=o>-</span><span class=nx>v</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>test</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=k>go</span> <span class=nx>test</span> <span class=o>-</span><span class=nx>cpu</span><span class=p>=</span><span class=mi>8</span> <span class=o>-</span><span class=nx>v</span> <span class=o>-</span><span class=nx>tags</span> <span class=nx>integration</span> <span class=p>.</span><span class=o>/...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>vet</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=k>go</span> <span class=nx>vet</span> <span class=err>$</span><span class=p>(</span><span class=nx>VETPACKAGES</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>docker</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=nx>docker</span> <span class=nx>build</span> <span class=o>-</span><span class=nx>t</span> <span class=nx>wuxiaoxiaoshen</span><span class=o>/</span><span class=nx>example</span><span class=p>:</span><span class=nx>latest</span> <span class=p>.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>clean</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=err>@</span><span class=k>if</span> <span class=p>[</span> <span class=o>-</span><span class=nx>f</span> <span class=err>$</span><span class=p>{</span><span class=nx>BINARY</span><span class=p>}</span> <span class=p>]</span> <span class=p>;</span> <span class=nx>then</span> <span class=nx>rm</span> <span class=err>$</span><span class=p>{</span><span class=nx>BINARY</span><span class=p>}</span> <span class=p>;</span> <span class=nx>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nx>PHONY</span><span class=p>:</span> <span class=k>default</span> <span class=nx>fmt</span> <span class=nx>fmt</span><span class=o>-</span><span class=nx>check</span> <span class=nx>install</span> <span class=nx>test</span> <span class=nx>vet</span> <span class=nx>docker</span> <span class=nx>clean</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-supplementary-instruction>4: supplementary instruction</h1><p>Makefile 构建工具，大大的简化了构建项目的难度。
+真实的生产环境下，需要使用到 CI/CD（持续集成和持续部署）， 所以 Makefile 也通常用来和 CI 工具配合使用。
+比如新合并的代码，先触发单元测试，静态检查等，在执行 CI 脚本，成功之后，再构建镜像，推送镜像到服务器上，完成持续集成和持续部署一整套流程。
+Makefile 通常配合 travis 使用。如下:</p></div><div class=read-more><a href=/post/golang/027_%E9%80%82%E7%94%A8%E4%BA%8Ego%E9%A1%B9%E7%9B%AE%E7%9A%84makefile%E6%8C%87%E5%8D%97/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/025_go-transaction%E4%BA%8B%E5%8A%A1%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/>01-Go-transaction事务几种方式</a></h1><div class=post-meta><span class=post-time>2022-02-07</span><div class=post-category><a href=/categories/go/>Go</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>Go-transaction事务几种方式</font></div><h1 id=1方式一>1：方式一</h1><ul><li>这种写法非常朴实，程序流程也非常明确，但是事务处理与程序流程嵌入太深，容易遗漏，造成严重的问题</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>DoSomething</span><span class=p>()</span> <span class=p>(</span><span class=nx>err</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tx</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>Begin</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>defer</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>p</span> <span class=o>:=</span> <span class=nb>recover</span><span class=p>();</span> <span class=nx>p</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=nb>panic</span><span class=p>(</span><span class=nx>p</span><span class=p>)</span>  <span class=c1>// re-throw panic after Rollback</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Commit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-方式二>2: 方式二</h1><ul><li>下面这种写法把事务处理从程序流程抽离了出来，不容易遗漏，但是作用域是整个函数，程序流程不是很清晰</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>DoSomething</span><span class=p>()</span> <span class=p>(</span><span class=nx>err</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tx</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>Begin</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>defer</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>p</span> <span class=o>:=</span> <span class=nb>recover</span><span class=p>();</span> <span class=nx>p</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=nb>panic</span><span class=p>(</span><span class=nx>p</span><span class=p>)</span> <span class=c1>// re-throw panic after Rollback</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Commit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-方式三>3: 方式三</h1><ul><li>写法三是对写法二的进一步封装，写法高级一点，缺点同上</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>Transact</span><span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>sql</span><span class=p>.</span><span class=nx>DB</span><span class=p>,</span> <span class=nx>txFunc</span> <span class=kd>func</span><span class=p>(</span><span class=o>*</span><span class=nx>sql</span><span class=p>.</span><span class=nx>Tx</span><span class=p>)</span> <span class=kt>error</span><span class=p>)</span> <span class=p>(</span><span class=nx>err</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tx</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>Begin</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>defer</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>p</span> <span class=o>:=</span> <span class=nb>recover</span><span class=p>();</span> <span class=nx>p</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=nb>panic</span><span class=p>(</span><span class=nx>p</span><span class=p>)</span> <span class=c1>// re-throw panic after Rollback</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Commit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=p>=</span> <span class=nf>txFunc</span><span class=p>(</span><span class=nx>tx</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>DoSomething</span><span class=p>()</span> <span class=kt>error</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nf>Transact</span><span class=p>(</span><span class=nx>db</span><span class=p>,</span> <span class=kd>func</span> <span class=p>(</span><span class=nx>tx</span> <span class=o>*</span><span class=nx>sql</span><span class=p>.</span><span class=nx>Tx</span><span class=p>)</span> <span class=kt>error</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=read-more><a href=/post/golang/025_go-transaction%E4%BA%8B%E5%8A%A1%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/es/001-elasticsearch7-restapis/>01-ElasticSearch7-Restful APIs</a></h1><div class=post-meta><span class=post-time>2021-12-24</span><div class=post-category><a href=/categories/es/>ES</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=50>ElasticSearch7-Restful APIs</font></div><pre><code>  * [1: /ES-API/说明](#1-es-api说明)
+  * [2: Cluster - APIs](#2-cluster---apis)
+     * [2.1 查询集群状态](#21-查询集群状态)
+     * [2.2 查询集群索引信息](#22-查询集群索引信息)
+     * [2.3 使用 help 参数查询](#23-使用-help-参数查询)
+     * [2.4 查询集群中的节点信息](#24-查询集群中的节点信息)
+  * [3: Index - APIs](#3-index---apis)
+     * [3.1 创建索引](#31-创建索引)
+     * [3.2 获取索引](#32-获取索引)
+     * [3.3 获取全部索引](#33-获取全部索引)
+  * [4: Doc - APIs](#4-doc---apis)
+     * [4.1 创建文档](#41-创建文档)
+     * [4.2 删除文档](#42-删除文档)
+     * [4.3 查看文档](#43-查看文档)
+     * [4.4 查看该索引下的全部文档](#44-查看该索引下的全部文档)
+     * [4.5 覆盖数据](#45-覆盖数据)
+     * [4.6 更新数据](#46-更新数据)
+  * [5: Mapping - APIs](#5-mapping---apis)
+     * [5.1 创建 Mapping](#51-创建-mapping)
+     * [5.2 查询 Mapping](#52-查询-mapping)
+     * [5.3 查询 template](#53-查询-template)
+  * [6: Alias - APIs](#6-alias---apis)
+     * [6.1 添加 Alias](#61-添加-alias)
+     * [6.2 查询 Alias](#62-查询-alias)
+  * [7：查询 - APIs](#7查询---apis)
+     * [7.1 条件查询](#71-条件查询)
+     * [7.2 匹配查询](#72-匹配查询)
+     * [7.3 全量查询](#73-全量查询)
+     * [7.4 分页查询](#74-分页查询)
+     * [7.5 分页过滤](#75-分页过滤)
+     * [7.6 排序查询](#76-排序查询)
+     * [7.7 组合查询](#77-组合查询)
+     * [7.3 分词查询](#73-分词查询)
+     * [7.9 完全匹配查询](#79-完全匹配查询)
+</code></pre><h2 id=1-es-api说明>1: /ES-API/说明</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 基本查询模板
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>​```json
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;query&#34;: {
+</span></span><span class=line><span class=cl>    &#34;bool&#34;: {
+</span></span><span class=line><span class=cl>      &#34;filter&#34;: [
+</span></span><span class=line><span class=cl>        //filter 这后面是过滤条件
+</span></span><span class=line><span class=cl>        { &#34;term&#34;: { &#34;uri&#34;: &#34;111111&#34; } }, //客户号
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;range&#34;: { &#34;rundata_date&#34;: { &#34;gte&#34;: &#34;20190108&#34;, &#34;lte&#34;: &#34;20190110&#34; } }
+</span></span><span class=line><span class=cl>        } //时间过滤，注意此字段类型，string不能过滤
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;aggregations&#34;: {
+</span></span><span class=line><span class=cl>    //这里我主要关注一个指标，handleTime字段，标示执行时间，主要对它进行监控
+</span></span><span class=line><span class=cl>    &#34;avg_handleTime&#34;: {
+</span></span><span class=line><span class=cl>      //可以自己命名
+</span></span><span class=line><span class=cl>      &#34;avg&#34;: {
+</span></span><span class=line><span class=cl>        &#34;field&#34;: &#34;handleTime&#34; //平均执行时间
+</span></span><span class=line><span class=cl>      }
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    &#34;percent_handleTime&#34;: {
+</span></span><span class=line><span class=cl>      &#34;percentiles&#34;: {
+</span></span><span class=line><span class=cl>        &#34;field&#34;: &#34;handleTime&#34;,
+</span></span><span class=line><span class=cl>        &#34;percents&#34;: [50, 95, 99] //这个是现实 50、95、99的线，从小到大，例如到95%执行时间为1.5s，可以看满足预期的比例
+</span></span><span class=line><span class=cl>      }
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    &#34;min_handleTime&#34;: {
+</span></span><span class=line><span class=cl>      &#34;min&#34;: {
+</span></span><span class=line><span class=cl>        &#34;field&#34;: &#34;handleTime&#34; //最小执行时间
+</span></span><span class=line><span class=cl>      }
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    &#34;max_handleTime&#34;: {
+</span></span><span class=line><span class=cl>      &#34;max&#34;: {
+</span></span><span class=line><span class=cl>        &#34;field&#34;: &#34;handleTime&#34; //最大执行时间
+</span></span><span class=line><span class=cl>      }
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;size&#34;: 0 //显示几条数据，我这里不需要显示，可以根据需要修改
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>## /ES-API/Cluster - APIs
+</span></span><span class=line><span class=cl>​```text
+</span></span><span class=line><span class=cl>集群相关APIS
+</span></span></code></pre></td></tr></table></div></div><ul><li><strong>公共 Header 参数</strong></li></ul><table><thead><tr><th>参数名</th><th>示例值</th><th>参数描述</th></tr></thead><tbody></tbody></table><p>暂无参数</p></div><div class=read-more><a href=/post/es/001-elasticsearch7-restapis/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/023_go-test%E7%AC%94%E8%AE%B0/>01-Go Test笔记</a></h1><div class=post-meta><span class=post-time>2021-12-21</span><div class=post-category><a href=/categories/go/>Go</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>Go Test笔记</font></div><h1 id=go-test>Go Test</h1><ul><li>一个完整的单测指令可以是 <code>go test -v -cover -gcflags=all=-l -coverprofile=coverage.out</code></li><li><code>-gcflags=all=-l</code> 防止编译器内联优化导致单测出现问题</li></ul><h2 id=11-go-test>1.1 go test</h2><p><code>go test -run=^TestDo -v ./</code>
+这里介绍几个常用的参数：</p><ul><li><code>-bench regexp</code> 执行相应的 benchmarks，例如 -bench=.；</li><li><code>-cover</code> 开启测试覆盖率；</li><li><code>-trace=copy_trace.out</code> 生成 trace.out 文件（go tool trace copy_trace.out）</li><li><code>-run regexp</code> 只运行 regexp 匹配的函数，例如 -run=Array 那么就执行包含有 Array 开头的函数；</li><li><code>-count</code> 执行次数。</li><li><code>-v</code> 显示测试的详细命令。</li></ul><h2 id=12-go-test-cover-生成测试覆盖度报告>1.2 go test cover 生成测试覆盖度报告</h2><p><code>go tool cover -html=coverage.out</code></p></div><div class=read-more><a href=/post/golang/023_go-test%E7%AC%94%E8%AE%B0/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/021-grpc-witch-tls/>01-Grpc with TLS/SSL</a></h1><div class=post-meta><span class=post-time>2021-12-17</span><div class=post-category><a href=/categories/go/>Go </a><a href=/categories/c++/>C++</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>Grpc with TLS/SSL</font></div><ul><li><a href=#1-grpc-%E9%85%8D%E7%BD%AE-tlsssl>1 Grpc 配置 TLS/SSL</a><ul><li><a href=#11-%E4%BD%BF%E7%94%A8-openssl-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6-cert>1.1 使用 openssl 生成证书 cert</a></li></ul></li><li><a href=#2-server-%E6%9C%8D%E5%8A%A1%E7%AB%AF>2 Server 服务端</a></li><li><a href=#3-client-%E5%AE%A2%E6%88%B7%E7%AB%AF>3 Client 客户端</a></li></ul><h1 id=1-grpc-配置-tlsssl>1 Grpc 配置 TLS/SSL</h1><p>gRPC 支持身份验证（auth）。将它添加到您的项目中很简单。您所要做的就是使用几行代码对其进行配置。gRPC 支持的身份验证类型之一是 SSL/TLS。</p></div><div class=read-more><a href=/post/golang/021-grpc-witch-tls/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/dockerk8s/013-docker-log%E7%AE%A1%E7%90%86%E5%92%8C%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/>01-docker log管理和时区设置</a></h1><div class=post-meta><span class=post-time>2021-12-16</span><div class=post-category><a href=/categories/docker/>Docker</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>docker log管理和时区设置</font></div><ul><li><a href=#1docker-log>1：docker log</a><ul><li><a href=#11-docker-log-description>1.1 docker log Description</a></li><li><a href=#12-%E7%A3%81%E7%9B%98%E5%8D%A0%E7%94%A8%E5%88%86%E6%9E%90>1.2 磁盘占用分析</a><ul><li><a href=#121-df--ah-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5>1.2.1 <strong>df -ah</strong> 查看系统中文件的使用情况</a></li><li><a href=#122-du--sh-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%90%84%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8F%8A%E7%9B%AE%E5%BD%95%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4%E5%A4%A7%E5%B0%8F>1.2.2 <strong>du -sh</strong> 查看当前目录下各个文件及目录占用空间大小</a></li><li><a href=#123-df--h-%E5%92%8C-du--sh-%E6%98%BE%E7%A4%BA%E7%9A%84%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F%E4%B8%8D%E4%B8%80%E8%87%B4%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95>1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法</a></li></ul></li><li><a href=#13-docker-log-%E7%AE%A1%E7%90%86>1.3 docker log 管理</a></li></ul></li><li><a href=#2%E5%85%B3%E4%BA%8E-timezone-%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98>2：关于 TimeZone 时区问题</a><ul><li><a href=#21-%E9%80%9A%E8%BF%87%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%94%B9%E5%8F%98%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA>2.1 通过传递环境变量改变容器时区</a></li><li><a href=#22-%E5%9C%A8-docker-compose-%E7%BC%96%E6%8E%92%E6%97%B6%E6%8C%87%E5%AE%9A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F>2.2 在 docker-compose 编排时指定环境变量</a></li><li><a href=#23-%E5%BD%BB%E5%BA%95%E7%9A%84%E8%A7%A3%E5%86%B3%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98%E9%80%9A%E8%BF%87-dockerfile-%E9%87%8D%E6%96%B0%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F>2.3 彻底的解决时区问题，通过 dockerfile 重新制作镜像</a><ul><li><a href=#231-alpine>2.3.1 Alpine</a></li><li><a href=#232-debian>2.3.2 Debian</a></li><li><a href=#233-ubuntu>2.3.3 Ubuntu</a></li><li><a href=#234-centos>2.3.4 CentOS</a></li></ul></li></ul></li></ul><h1 id=1docker-log>1：docker log</h1><h2 id=11-docker-log-description>1.1 docker log Description</h2><ul><li>docker 的日志分为两种，第一种是 docker 引擎的日志，第二种是 docker 容器运行时的服务日志，默认为 json-file 格式;</li><li>json-file 日志驱动 记录从容器的 STOUT/STDERR 的输出 ，用 JSON 的格式写到文件中，日志中不仅包含着 输出日志，还有时间戳和 输出格式.</li><li>docker 所有的日志驱动如下：<table><thead><tr><th style=text-align:left>日志驱动</th><th style=text-align:left>description</th><th style=text-align:left>others</th></tr></thead><tbody><tr><td style=text-align:left>none</td><td style=text-align:left>运行的容器没有日志，docker logs 也不返回任何输出</td><td></td></tr><tr><td style=text-align:left>local</td><td style=text-align:left>日志以自定义格式存储，旨在实现最小开销</td><td style=text-align:left></td></tr><tr><td style=text-align:left>json-file</td><td style=text-align:left>日志格式为 JSON,Docker 的默认日志记录驱动程序</td><td style=text-align:left></td></tr><tr><td style=text-align:left>syslog</td><td style=text-align:left>将日志消息写入 syslog。该 syslog 守护程序必须在主机上运行</td><td style=text-align:left></td></tr><tr><td style=text-align:left>journald</td><td style=text-align:left>将日志消息写入 journald。该 journald 守护程序必须在主机上运行</td><td style=text-align:left></td></tr><tr><td style=text-align:left>gelf</td><td style=text-align:left>将日志消息写入 Graylog 扩展日志格式（GELF）端点，例如 Graylog 或 Logstash</td><td style=text-align:left></td></tr><tr><td style=text-align:left>fluentd</td><td style=text-align:left>将日志消息写入 fluentd（转发输入）。该 fluentd 守护程序必须在主机上运行</td><td style=text-align:left></td></tr><tr><td style=text-align:left>awslogs</td><td style=text-align:left>将日志消息写入 Amazon CloudWatch Logs</td><td style=text-align:left></td></tr><tr><td style=text-align:left>splunk</td><td style=text-align:left>使用 HTTP 事件收集器将日志消息写入 splunk</td><td style=text-align:left></td></tr><tr><td style=text-align:left>etwlogs</td><td style=text-align:left>将日志消息写为 Windows 事件跟踪（ETW）事件。仅适用于 Windows 平台</td><td style=text-align:left></td></tr><tr><td style=text-align:left>gcplogs</td><td style=text-align:left>将日志消息写入 Google Cloud Platform（GCP）Logging</td><td style=text-align:left></td></tr><tr><td style=text-align:left>logentries</td><td style=text-align:left>将日志消息写入 Rapid7 Logentries</td><td style=text-align:left></td></tr></tbody></table></li><li>常用的驱动是 <code>json-file</code>，<code>syslog</code> ,<code>journald</code> 这三种，json-file 是默认的日志驱动;</li><li>docker 的日志通常默认是保存在 /var/lib/docker/containers/容器 ID/ 目录下,日志文件名称为 <strong>容器 ID-json-log</strong>,当然，docker 日志也有级别，通常级别为 info。</li></ul><h2 id=12-磁盘占用分析>1.2 磁盘占用分析</h2><h3 id=121-df--ah-查看系统中文件的使用情况>1.2.1 <strong><a href>df -ah</a></strong> 查看系统中文件的使用情况</h3><ul><li><strong>df</strong> （disk free） 检查文件系统占用磁盘情况；</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=err>Size</span> <span class=err>分割区总容量</span>
+</span></span><span class=line><span class=cl><span class=err>Used</span> <span class=err>已使用的大小</span>
+</span></span><span class=line><span class=cl><span class=err>Avail</span> <span class=err>剩下的大小</span>
+</span></span><span class=line><span class=cl><span class=err>Use%</span> <span class=err>使用的百分比</span>
+</span></span><span class=line><span class=cl><span class=err>Mounted</span> <span class=err>on</span> <span class=err>路径地址</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=122-du--sh-查看当前目录下各个文件及目录占用空间大小>1.2.2 <strong><a href>du -sh</a></strong> 查看当前目录下各个文件及目录占用空间大小</h3><ul><li><strong>du</strong> （disk usage） 检查目录占用磁盘情况；</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=err>du</span> <span class=err>-h</span> <span class=err>--max-depth=</span><span class=mi>1</span> <span class=err>/root/*</span> <span class=err>查看目录下的所有文件大小</span>
+</span></span><span class=line><span class=cl><span class=err>du</span> <span class=err>-h</span> <span class=err>--max-depth=</span><span class=mi>1</span> <span class=err>/root</span> <span class=err>列出root目录下面所有的一级目录文件大小；</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=123-df--h-和-du--sh-显示的磁盘大小不一致原因及解决办法>1.2.3 df -h 和 du -sh 显示的磁盘大小不一致原因及解决办法</h3><ul><li><strong>原因</strong> du 是根据文件名进行的空间统计，使用 rm 时该文件对系统来说已经不可见，所以不会统计这个文件。
+df 则是磁盘实际占用的数量</li><li><code>du -h /var/lib/docker/</code></li><li><code>df -h /var/lib/docker/</code></li><li><strong>解决办法</strong><ul><li>(1/2) lsof 查看使用文件的进程，结束进程。<ul><li><code>lsof | grep test.log</code></li><li><code>ps aux | grep 28600</code></li><li><code>kill -9 28600</code></li></ul></li><li>(2/2) 或使用清空的方式代替 rm，如 <a href>echo > /tmp/test.log</a><ul><li>日志文件清空一般不是删除 rm 命令，而是 > 文件名这样的清空方式.</li></ul></li></ul></li></ul><h2 id=13-docker-log-管理>1.3 docker log 管理</h2><ul><li><p>日志文件清空一般不是删除 rm 命令，而是 > 文件名这样的清空方式；</p></div><div class=read-more><a href=/post/dockerk8s/013-docker-log%E7%AE%A1%E7%90%86%E5%92%8C%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/019-go%E4%BD%BF%E7%94%A8linux%E5%86%85%E6%A0%B8%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8%E8%BF%9B%E8%A1%8Cloadbalance/>01-go使用Linux内核端口复用进行LoadBalance</a></h1><div class=post-meta><span class=post-time>2021-10-12</span><div class=post-category><a href=/categories/go/>Go</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1-%E6%9F%A5%E7%9C%8B-linux-kernal>1 查看 Linux Kernal</a></li><li><a href=#2-golang-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8>2 Golang 如何使用端口复用</a><ul><li><a href=#21-%E8%AF%B4%E6%98%8E>2.1 说明</a></li><li><a href=#22-go-reuseport>2.2 Go ReusePort</a><ul><li><a href=#221-go-server>2.2.1 go server</a></li><li><a href=#222-%E8%B0%83%E7%94%A8%E6%B5%8B%E8%AF%95>2.2.2 调用测试</a></li><li><a href=#223-%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8-reuseport-%E5%A5%BD%E5%A4%84>2.2.3 端口复用 REUSEPORT 好处</a></li></ul></li></ul></li></ul><h1 id=1-查看-linux-kernal>1 查看 Linux Kernal</h1><ul><li>socket 五元组 <code>{&lt;protocol>, &lt;src addr>, &lt;src port>, &lt;dest addr>, &lt;dest port>}</code></li><li><code>uname -a</code></li><li>Linux 3.9 内核引入了 <code>SO_REUSEPORT</code>选项，可支持多个进程或者线程绑定到同一个端口，用于提高服务器的性能。他的特性包含一下几点:<ul><li>允许多个 socket 套接字 bind 同一个 TCP/UDP 端口；<ul><li>每一个线程拥有自己的服务器套接字;</li><li>在服务器套接字上没有了锁的竞争；</li></ul></li><li>内核层面实现负载均衡；</li><li>安全层面，listen 同一个端口的 socket 套接字只能位于同一个 user 下。</li></ul></li><li>有了<code>SO_RESUEPORT</code>后，每个进程可以 bind 相同的地址和端口，各自是独立平等的；</li><li>让多进程监听同一个端口，各个进程中 accept socket fd 不一样，有新连接建立时，内核只会调度一个进程来 accept，并且保证调度的均衡性。</li></ul><p><img src=/images/%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A820211012.webp alt=端口复用图示></p></div><div class=read-more><a href=/post/golang/019-go%E4%BD%BF%E7%94%A8linux%E5%86%85%E6%A0%B8%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8%E8%BF%9B%E8%A1%8Cloadbalance/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/>01-grpc安装(cpp和go)</a></h1><div class=post-meta><span class=post-time>2021-10-08</span><div class=post-category><a href=/categories/go/>Go </a><a href=/categories/c++/>C++</a></div></div></header><div class=post-content><div class=post-summary><ul><li><a href=#1-c-%E9%85%8D%E7%BD%AE-grpc>1 c++ 配置 GRPC</a><ul><li><a href=#11-setup-dir>1.1 setup dir</a></li><li><a href=#12-install-cmake>1.2 install cmake</a></li><li><a href=#13-install-other-required-tools>1.3 Install other required tools</a></li><li><a href=#14-git-clone-grpc-repo>1.4 git clone grpc repo</a></li><li><a href=#15-build-and-install-grpc-and-protocol-buffers>1.5 Build and install gRPC and Protocol Buffers</a></li><li><a href=#16-%E7%BC%96%E5%86%99-proto-%E6%96%87%E4%BB%B6>1.6 编写 proto 文件</a></li><li><a href=#17-%E7%BC%96%E5%86%99-serverclient-%E6%96%87%E4%BB%B6>1.7 编写 server/client 文件</a></li><li><a href=#18-%E6%89%A7%E8%A1%8C>1.8 执行</a></li></ul></li><li><a href=#2-golang-grpc-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA>2 golang grpc 环境搭建</a><ul><li><a href=#21-prerequisites>2.1 Prerequisites</a><ul><li><a href=#golang>golang</a></li><li><a href=#protobuffer>protobuffer</a></li></ul></li><li><a href=#22-get-the-example-code>2.2 Get the example code</a></li></ul></li></ul><h1 id=1-c-配置-grpc>1 c++ 配置 GRPC</h1><p><a href=https://grpc.io/docs/languages/cpp/quickstart/>https://grpc.io/docs/languages/cpp/quickstart/</a></p><h2 id=11-setup-dir>1.1 setup dir</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>export</span> <span class=nv>MY_INSTALL_DIR</span><span class=o>=</span><span class=nv>$HOME</span>/.local
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>mkdir -p <span class=nv>$MY_INSTALL_DIR</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$MY_INSTALL_DIR</span><span class=s2>/bin:</span><span class=nv>$PATH</span><span class=s2>&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=12-install-cmake>1.2 install cmake</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install -y cmake
+</span></span></code></pre></td></tr></table></div></div><h2 id=13-install-other-required-tools>1.3 Install other required tools</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install -y build-essential autoconf libtool pkg-config
+</span></span></code></pre></td></tr></table></div></div><h2 id=14-git-clone-grpc-repo>1.4 git clone grpc repo</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone --recurse-submodules -b v1.41.0 https://github.com/grpc/grpc
+</span></span></code></pre></td></tr></table></div></div><h2 id=15-build-and-install-grpc-and-protocol-buffers>1.5 Build and install gRPC and Protocol Buffers</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> grpc
+</span></span><span class=line><span class=cl>mkdir -p cmake/build
+</span></span><span class=line><span class=cl><span class=nb>pushd</span> cmake/build
+</span></span><span class=line><span class=cl>cmake -DgRPC_INSTALL<span class=o>=</span>ON <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -DgRPC_BUILD_TESTS<span class=o>=</span>OFF <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -DCMAKE_INSTALL_PREFIX<span class=o>=</span><span class=nv>$MY_INSTALL_DIR</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    ../..
+</span></span><span class=line><span class=cl>make -j
+</span></span><span class=line><span class=cl>make install
+</span></span><span class=line><span class=cl><span class=nb>popd</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># cmake</span>
+</span></span><span class=line><span class=cl>mkdir -p cmake/build
+</span></span><span class=line><span class=cl><span class=nb>cd</span> cmake/build
+</span></span><span class=line><span class=cl>cmake ../..
+</span></span><span class=line><span class=cl>make
+</span></span></code></pre></td></tr></table></div></div><h2 id=16-编写-proto-文件>1.6 编写 proto 文件</h2><h2 id=17-编写-serverclient-文件>1.7 编写 server/client 文件</h2><h2 id=18-执行>1.8 执行</h2><h1 id=2-golang-grpc-环境搭建>2 golang grpc 环境搭建</h1><p><a href=https://grpc.io/docs/languages/go/quickstart/>https://grpc.io/docs/languages/go/quickstart/</a></p></div><div class=read-more><a href=/post/golang/017-grpc%E5%AE%89%E8%A3%85cpp%E5%92%8Cgo/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/dockerk8s/011-docker%E9%83%A8%E7%BD%B2gitlab/>011-docker部署gitlab</a></h1><div class=post-meta><span class=post-time>2021-09-28</span><div class=post-category><a href=/categories/docker/>Docker</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>docker部署gitlab</font></div><ul><li><a href=#1gitlab-docker-%E9%95%9C%E5%83%8F-pull>1：gitlab docker 镜像 pull</a></li><li><a href=#2%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC>2：启动脚本</a></li><li><a href=#3%E4%BF%AE%E6%94%B9gitlabrb>3：修改<code>gitlab.rb</code></a></li><li><a href=#4%E4%BF%AE%E6%94%B9-password>4：修改 password</a></li></ul><h1 id=1gitlab-docker-镜像-pull>1：gitlab docker 镜像 pull</h1><ul><li><code>docker pull gitlab/gitlab-ce:latest</code></li><li>新建目录<code>~/gitlab</code></li></ul><h1 id=2启动脚本>2：启动脚本</h1><p><code>~/gitlab/start.sh</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>GITLAB_DIR</span><span class=o>=</span>/home/lucas/gitlab/data
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>docker run -d <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -p 5443:443 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -p 9998:9998 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -p 2222:22 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --name gitlab <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -v <span class=si>${</span><span class=nv>GITLAB_DIR</span><span class=si>}</span>/config:/etc/gitlab <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -v <span class=si>${</span><span class=nv>GITLAB_DIR</span><span class=si>}</span>/logs:/var/log/gitlab <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -v <span class=si>${</span><span class=nv>GITLAB_DIR</span><span class=si>}</span>/data:/var/opt/gitlab <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    gitlab/gitlab-ce:latest
+</span></span></code></pre></td></tr></table></div></div><h1 id=3修改gitlabrb>3：修改<code>gitlab.rb</code></h1><p><code>~/gitlab/data/config/gitlab.rb</code></p></div><div class=read-more><a href=/post/dockerk8s/011-docker%E9%83%A8%E7%BD%B2gitlab/ class=read-more-link>阅读更多</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/others/005-note/>01-note笔记</a></h1><div class=post-meta><span class=post-time>2021-09-11</span><div class=post-category><a href=/categories/other/>other</a></div></div></header><div class=post-content><div class=post-summary><div align=center><font size=35>note笔记</font></div><ul><li><a href=#1note-%E6%96%87%E4%BB%B6>1：note 文件</a><ul><li><a href=#11-alias-%E5%88%AB%E5%90%8D%E8%AE%BE%E7%BD%AE>1.1 alias 别名设置</a></li><li><a href=#12-git-%E5%B1%80%E9%83%A8%E4%BB%A3%E7%90%86>1.2 git 局部代理</a></li><li><a href=#13-golang-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91>1.3 golang 交叉编译</a></li><li><a href=#14-date-%E5%92%8C%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%AC%E6%8D%A2>1.4 date 和时间戳转换</a></li><li><a href=#15-minikube-start>1.5 minikube start</a></li><li><a href=#16-ip-%E7%9B%B8%E5%85%B3>1.6 ip 相关</a></li><li><a href=#17-%E6%9F%A5%E7%9C%8B-linux-%E8%AF%A6%E7%BB%86-info>1.7 查看 Linux 详细 info</a></li><li><a href=#18-wsl2-%E5%8E%8B%E7%BC%A9%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4>1.8 WSL2 压缩磁盘空间</a></li></ul></li></ul><h1 id=1note-文件>1：note 文件</h1><h2 id=11-alias-别名设置>1.1 alias 别名设置</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gs</span> <span class=o>=</span> <span class=s2>&#34;git status&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ga</span> <span class=o>=</span> <span class=s2>&#34;git add -A&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gd</span> <span class=o>=</span> <span class=s2>&#34;git diff&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gc</span> <span class=o>=</span> <span class=s2>&#34;git commit -m&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=12-git-局部代理>1.2 git 局部代理</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone -c http.proxy<span class=o>=</span><span class=s2>&#34;127.0.0.1:7078&#34;</span> xxx
+</span></span></code></pre></td></tr></table></div></div><h2 id=13-golang-交叉编译>1.3 golang 交叉编译</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=m>0</span> <span class=nv>GOOS</span><span class=o>=</span>linux <span class=nv>GOARCH</span><span class=o>=</span>amd64    go build -v -a main.go
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=m>0</span> <span class=nv>GOOS</span><span class=o>=</span>darwin <span class=nv>GOARCH</span><span class=o>=</span>amd64   go build -v -a main.go
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=m>0</span> <span class=nv>GOOS</span><span class=o>=</span>windows <span class=nv>GOARCH</span><span class=o>=</span>amd64  go build -v -a main.go
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 编译时添加参数</span>
+</span></span><span class=line><span class=cl> -ldflags <span class=s2>&#34;-X &#39;main.Version=v1.0.0&#39; -X &#39;main.BuildTime=`date +&#34;</span>%Y-%m-%d %H:%M:%S<span class=s2>&#34;`&#39; -X &#39;main.GoVersion=`go version`&#39; &#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=14-date-和时间戳转换>1.4 date 和时间戳转换</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># linux  date和时间戳转换</span>
+</span></span><span class=line><span class=cl>1：查看当前时间
+</span></span><span class=line><span class=cl>date +<span class=s2>&#34;%Y-%m-%d %H:%M:%S&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>输出：<span class=s2>&#34;2021-03-25 18:12:38&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>2：查看指定时间，转为时间戳
+</span></span><span class=line><span class=cl>date +%s
+</span></span><span class=line><span class=cl>date -d <span class=s2>&#34;2021-03-25 18:12:38&#34;</span> +<span class=s2>&#34;%Y-%m-%d %H:%M:%S&#34;</span>
+</span></span><span class=line><span class=cl>date -d <span class=s2>&#34;2021-03-25 18:12:38&#34;</span> +%s
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>3：时间戳转换为date
+</span></span><span class=line><span class=cl>date -d @1416387827
+</span></span><span class=line><span class=cl>date -d @1416387827 +<span class=s2>&#34;%Y-%m-%d %H:%M:%S&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=15-minikube-start>1.5 minikube start</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>minikube start <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --driver docker <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --image-mirror-country<span class=o>=</span>cn <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --registry-mirror https://3laho3y3.mirror.aliyuncs.com <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --image-repository<span class=o>=</span>registry.cn-hangzhou.aliyuncs.com/google_containers <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --kubernetes-version<span class=o>=</span>v1.20.7
+</span></span></code></pre></td></tr></table></div></div><h2 id=16-ip-相关>1.6 ip 相关</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1>#</span>
+</span></span><span class=line><span class=cl>curl ipinfo.io
+</span></span><span class=line><span class=cl><span class=c1>#</span>
+</span></span><span class=line><span class=cl>curl -vv www.google.com
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ------------------查看ip--------------------</span>
+</span></span><span class=line><span class=cl>ip addr show <span class=p>|</span> grep <span class=s2>&#34;inet&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=17-查看-linux-详细-info>1.7 查看 Linux 详细 info</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat /etc/*elease
+</span></span></code></pre></td></tr></table></div></div><h2 id=18-wsl2-压缩磁盘空间>1.8 WSL2 压缩磁盘空间</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ----------------------WSL2压缩磁盘空间------------------------</span>
+</span></span><span class=line><span class=cl>PowerShell，直接运行 diskpart 命令就好
+</span></span><span class=line><span class=cl><span class=k>select</span> vdisk <span class=nv>file</span><span class=o>=</span>D:<span class=se>\w</span>sl<span class=se>\U</span>buntu-20.04<span class=se>\e</span>xt4.vhdx
+</span></span><span class=line><span class=cl>compact vdisk
+</span></span></code></pre></td></tr></table></div></div></div><div class=read-more><a href=/post/others/005-note/ class=read-more-link>阅读更多</a></div></div></article></section><nav class=pagination><a class=prev href=/page/5/><i class="iconfont icon-left"></i>
+<span class=prev-text>上一页</span>
+</a><a class=next href=/page/7/><span class=next-text>下一页</span>
+<i class="iconfont icon-right"></i></a></nav></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=https://github.com/lppgo class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span><span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span><span class=copyright-year>&copy;
+2015 -
+2025<span class=heart><i class="iconfont icon-heart"></i></span><span></span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js></script><script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var t,n,e=document.createElement("script");e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script></body></html>

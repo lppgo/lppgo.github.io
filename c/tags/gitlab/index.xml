@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gitlab on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/gitlab/</link>
+    <description>Recent content in Gitlab on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 02 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://lppgo.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 docker 安装配置 gitlab</title>
+      <link>https://lppgo.github.io/post/linux/031-%E4%BD%BF%E7%94%A8docker-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEgitlab/</link>
+      <pubDate>Wed, 02 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://lppgo.github.io/post/linux/031-%E4%BD%BF%E7%94%A8docker-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEgitlab/</guid>
+      <description>&lt;div align=&#34;center&#34;&gt;&lt;font size=&#34;35&#34;&gt;使用 docker 安装配置 gitlab&lt;/font&gt;&lt;/div&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#1-%E4%B8%8B%E8%BD%BD-gitlab-images&#34;&gt;1: 下载 gitlab images&lt;/a&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#2-%E7%BC%96%E5%86%99-docker-compose&#34;&gt;2: 编写 docker-compose&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#3-%E5%90%AF%E5%8A%A8-gitlab-%E5%AE%B9%E5%99%A8%E5%B9%B6%E8%AE%BE%E7%BD%AE-root&#34;&gt;3: 启动 gitlab 容器并设置 root&lt;/a&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#31-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE&#34;&gt;3.1 修改配置&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#32-%E4%BF%AE%E6%94%B9-root-%E5%AF%86%E7%A0%81&#34;&gt;3.2 修改 root 密码&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;1-下载-gitlab-images&#34;&gt;1: 下载 gitlab images&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;Gitlab&lt;/strong&gt;是一个开源的版本管理系统，实现一个自托管的 Git 项目仓库，可通过 Web 界面进行访问公开的或者私人项目。它拥有与 Github 类似的功能，能够浏览源码，管理缺陷和注释，可以管理团队对仓库的访问，它非常易于浏览提交的版本并提供一个文件历史库。团队成员可以利用内置的简单的聊天程序进行交流。它还提供一个代码片段收集功能可以实现代码复用。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

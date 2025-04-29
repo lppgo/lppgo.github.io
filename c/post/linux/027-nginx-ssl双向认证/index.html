@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>01-nginx ssl双向认证.md - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="Table of Contents Table of Contents 1: Nginx SSL Setting 2: openssl 配置准备 3: 创建 CA 根级证书 4: 创建 server 证书 5: 创建 client 证书 6: 配置 Nginx ssl 1: Nginx SSL Setting Nginx 对 SSL 双向认证支持的比较好，配置很简单：
+" /><meta name="keywords" content="SSL, Nginx, 证书" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="01-nginx ssl双向认证.md">
+  <meta property="og:description" content="Table of Contents Table of Contents 1: Nginx SSL Setting 2: openssl 配置准备 3: 创建 CA 根级证书 4: 创建 server 证书 5: 创建 client 证书 6: 配置 Nginx ssl 1: Nginx SSL Setting Nginx 对 SSL 双向认证支持的比较好，配置很简单：">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-06-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-06-03T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="SSL">
+    <meta property="article:tag" content="Nginx">
+
+  <meta itemprop="name" content="01-nginx ssl双向认证.md">
+  <meta itemprop="description" content="Table of Contents Table of Contents 1: Nginx SSL Setting 2: openssl 配置准备 3: 创建 CA 根级证书 4: 创建 server 证书 5: 创建 client 证书 6: 配置 Nginx ssl 1: Nginx SSL Setting Nginx 对 SSL 双向认证支持的比较好，配置很简单：">
+  <meta itemprop="datePublished" content="2021-06-03T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-06-03T00:00:00+00:00">
+  <meta itemprop="wordCount" content="987">
+  <meta itemprop="keywords" content="SSL,Nginx,证书">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="01-nginx ssl双向认证.md">
+  <meta name="twitter:description" content="Table of Contents Table of Contents 1: Nginx SSL Setting 2: openssl 配置准备 3: 创建 CA 根级证书 4: 创建 server 证书 5: 创建 client 证书 6: 配置 Nginx ssl 1: Nginx SSL Setting Nginx 对 SSL 双向认证支持的比较好，配置很简单：">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">01-nginx ssl双向认证.md</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-06-03 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#table-of-contents">Table of Contents</a></li>
+    <li><a href="#1-nginx-ssl-setting">1: Nginx SSL Setting</a></li>
+    <li><a href="#2-openssl-配置准备">2: openssl 配置准备</a></li>
+    <li><a href="#3-创建-ca-根级证书">3: 创建 CA 根级证书</a></li>
+    <li><a href="#4-创建-server-证书">4: 创建 server 证书</a></li>
+    <li><a href="#5-创建-client-证书">5: 创建 client 证书</a></li>
+    <li><a href="#6-配置-nginx-ssl">6: 配置 Nginx ssl</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#1-nginx-ssl-setting">1: Nginx SSL Setting</a></li>
+<li><a href="#2-openssl-%E9%85%8D%E7%BD%AE%E5%87%86%E5%A4%87">2: openssl 配置准备</a></li>
+<li><a href="#3-%E5%88%9B%E5%BB%BA-ca-%E6%A0%B9%E7%BA%A7%E8%AF%81%E4%B9%A6">3: 创建 CA 根级证书</a></li>
+<li><a href="#4-%E5%88%9B%E5%BB%BA-server-%E8%AF%81%E4%B9%A6">4: 创建 server 证书</a></li>
+<li><a href="#5-%E5%88%9B%E5%BB%BA-client-%E8%AF%81%E4%B9%A6">5: 创建 client 证书</a></li>
+<li><a href="#6-%E9%85%8D%E7%BD%AE-nginx-ssl">6: 配置 Nginx ssl</a></li>
+</ul>
+<h1 id="1-nginx-ssl-setting">1: Nginx SSL Setting</h1>
+<blockquote>
+<p><strong>Nginx 对 SSL 双向认证支持的比较好，配置很简单：</strong></p></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">listen      443<span class="p">;</span>
+</span></span><span class="line"><span class="cl">server_name test.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ssl on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">ssl_certificate server.crt<span class="p">;</span> //server端公钥
+</span></span><span class="line"><span class="cl">ssl_certificate_key server.key<span class="p">;</span> //server端私钥
+</span></span><span class="line"><span class="cl">ssl_client_certificate client.crt<span class="p">;</span> //client端公钥
+</span></span><span class="line"><span class="cl">ssl_session_timeout 5m<span class="p">;</span>
+</span></span><span class="line"><span class="cl">ssl_verify_client on<span class="p">;</span> //开启client验证
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2-openssl-配置准备">2: openssl 配置准备</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 1 修改openssl配置</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">vi</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">tls</span><span class="o">/</span><span class="nx">openssl</span><span class="p">.</span><span class="nx">cnf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 2 找到这句注释掉，替换为下面那句</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span><span class="nx">default_ca</span>      <span class="p">=</span> <span class="nx">CA_default</span>
+</span></span><span class="line"><span class="cl"><span class="nx">default_ca</span>      <span class="p">=</span> <span class="nx">CA_linvo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 3 把[ CA_default ]整个部分拷贝一份，改成上面的名字[ CA_linvo ]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">修改里面的如下参数</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">dir</span> <span class="p">=</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span>
+</span></span><span class="line"><span class="cl"><span class="nx">certificate</span> <span class="p">=</span> <span class="err">$</span><span class="nx">dir</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">crt</span>
+</span></span><span class="line"><span class="cl"><span class="nx">private_key</span> <span class="p">=</span> <span class="err">$</span><span class="nx">dir</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//  4 保存退出</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3-创建-ca-根级证书">3: 创建 CA 根级证书</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 生成key:(生成密钥xxx.key)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">genrsa</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成csr:(根据密钥生成证书请求文件xxx.csr)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">req</span> <span class="o">-</span><span class="nx">new</span> <span class="o">-</span><span class="nx">key</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">key</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">csr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成crt:(根据密钥xxx.key和证书请求文件xxx.scr 生成crt证书)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">x509</span> <span class="o">-</span><span class="nx">req</span> <span class="o">-</span><span class="nx">days</span> <span class="mi">3650</span> <span class="o">-</span><span class="nx">in</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">csr</span> <span class="o">-</span><span class="nx">signkey</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">key</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">crt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成crl：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">ca</span> <span class="o">-</span><span class="nx">gencrl</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">crl</span> <span class="o">-</span><span class="nx">crldays</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">生成的根级证书文件都在</span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">目录下</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">注意</span><span class="err">：</span><span class="nx">创建证书时</span><span class="err">，</span><span class="nx">建议证书密码设置长度</span><span class="o">&gt;=</span><span class="mi">6</span><span class="nx">位</span><span class="err">，</span><span class="nx">因为java的keytool工具貌似对它有要求</span><span class="err">。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4-创建-server-证书">4: 创建 server 证书</h1>
+<blockquote>
+<p><strong>Create a self-signed certificate for server:</strong></p></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 1 生成key：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">genrsa</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 2 生成csr：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">req</span> <span class="o">-</span><span class="nx">new</span> <span class="o">-</span><span class="nx">key</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">key</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">csr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 3 生成crt：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">ca</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="nx">in</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">csr</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="nx">cert</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">crt</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="nx">keyfile</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">key</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">crt</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span><span class="nx">days</span> <span class="mi">3650</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">说明</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="err">、</span><span class="nx">这里生成的crt是刚才ca根级证书下的级联证书</span><span class="err">，</span><span class="nx">其实server证书主要用于配置正常单向的https</span><span class="err">，</span><span class="nx">所以不使用级联模式也可以</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">rsa</span> <span class="o">-</span><span class="nx">in</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">key</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">key</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">x509</span> <span class="o">-</span><span class="nx">req</span> <span class="o">-</span><span class="nx">in</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">csr</span> <span class="o">-</span><span class="nx">signkey</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">key</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">server</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">crt</span> <span class="o">-</span><span class="nx">days</span> <span class="mi">3650</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="err">、</span><span class="o">-</span><span class="nx">days</span> <span class="nx">参数可根据需要设置证书的有效期</span><span class="err">，</span><span class="nx">例如默认365天</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5-创建-client-证书">5: 创建 client 证书</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 生成key：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">genrsa</span> <span class="o">-</span><span class="nx">des3</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">client</span><span class="o">/</span><span class="nx">client</span><span class="p">.</span><span class="nx">key</span> <span class="mi">1024</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成csr：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">req</span> <span class="o">-</span><span class="nx">new</span> <span class="o">-</span><span class="nx">key</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">client</span><span class="o">/</span><span class="nx">client</span><span class="p">.</span><span class="nx">key</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">client</span><span class="o">/</span><span class="nx">client</span><span class="p">.</span><span class="nx">csr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成crt：</span>
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">ca</span> <span class="o">-</span><span class="nx">in</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">client</span><span class="o">/</span><span class="nx">client</span><span class="p">.</span><span class="nx">csr</span> <span class="o">-</span><span class="nx">cert</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">crt</span> <span class="o">-</span><span class="nx">keyfile</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">ca</span><span class="p">.</span><span class="nx">key</span> <span class="o">-</span><span class="nx">out</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">pki</span><span class="o">/</span><span class="nx">ca_linvo</span><span class="o">/</span><span class="nx">client</span><span class="o">/</span><span class="nx">client</span><span class="p">.</span><span class="nx">crt</span> <span class="o">-</span><span class="nx">days</span> <span class="mi">3650</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">说明</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="err">、</span><span class="nx">这里就必须使用级联证书</span><span class="err">，</span><span class="nx">并且可以重复该步骤</span><span class="err">，</span><span class="nx">创建多套client证书</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="err">、</span><span class="nx">生成crt时可能会遇到如下报错</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">openssl</span> <span class="nx">TXT_DB</span> <span class="kt">error</span> <span class="nx">number</span> <span class="mi">2</span> <span class="nx">failed</span> <span class="nx">to</span> <span class="nx">update</span> <span class="nx">database</span>
+</span></span><span class="line"><span class="cl"><span class="nx">可参照这里进行操作</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">我使用的是方法一</span><span class="err">，</span><span class="nx">即将index</span><span class="p">.</span><span class="nx">txt</span><span class="p">.</span><span class="nx">attr中unique_subject</span> <span class="p">=</span> <span class="nx">no</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="6-配置-nginx-ssl">6: 配置 Nginx ssl</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">listen      443<span class="p">;</span>
+</span></span><span class="line"><span class="cl">server_name test.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ssl on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">ssl_certificate  /etc/tls/server.crt<span class="p">;</span> <span class="c1">#server端公钥</span>
+</span></span><span class="line"><span class="cl">ssl_certificate_key  /etc/tls/server.key<span class="p">;</span> <span class="c1">#server端私钥</span>
+</span></span><span class="line"><span class="cl">ssl_client_certificate  /etc/tls/client.crt<span class="p">;</span> <span class="c1">#client端公钥</span>
+</span></span><span class="line"><span class="cl">ssl_password_file /etc/tls/passphrase<span class="p">;</span>
+</span></span><span class="line"><span class="cl">ssl_session_timeout 5m<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># This is important to enforce client to use certificate.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The client of nginx cannot use a self-signed cert.</span>
+</span></span><span class="line"><span class="cl">ssl_verify_client on<span class="p">;</span> <span class="c1">#开启client验证</span>
+</span></span><span class="line"><span class="cl">ssl_client_certificate /tmp/nginx/ca.crt<span class="p">;</span>
+</span></span><span class="line"><span class="cl">ssl_protocols TLSv1 TLSv1.1 TLSv1.2<span class="p">;</span> <span class="c1"># Dropping SSLv3, ref: POODLE</span>
+</span></span><span class="line"><span class="cl">ssl_prefer_server_ciphers on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">ssl_ciphers ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5@SECLEVEL<span class="o">=</span>1<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-06-03
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/ssl/">SSL</a>
+          <a href="/tags/nginx/">Nginx</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">01-Nginx 常用配置清单.md</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/dockerk8s/003-docker%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
+            <span class="next-text nav-default">01-Docker命令详解.md</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

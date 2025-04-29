@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>04-MySQL运维常用脚本 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content=" 一: mysql 命令行连接 二：常见的问题及处理 三: 库操作 3.1 创建数据库 3.2 显示所有的数据库 3.3 删除数据库 3.4 连接数据库 3.5 查看当前使用的数据库 3.6 当前数据库包含的表信息： 四: Table 表操作 4.1 create table xxx 建表 4.2 desc xxx 获取表结构 4.3 删除/清空表 4.4 insert into table xxx 给表插入数据 4.5 查询表中的数据 4.6 删除表中的数据 4.7 修改表中数据 4.8 在表中增加字段 4.9 更改表名和字段名 4.10 导入数据库表 4.11 修改数据库 4.12 mysql 数据库的授权 五: DDL 操作 一: mysql 命令行连接 安装并启动 mysql 服务;
+" /><meta name="keywords" content="Mysql, sql, sql脚本" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/database/004-mysql%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/database/004-mysql%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="04-MySQL运维常用脚本">
+  <meta property="og:description" content="一: mysql 命令行连接 二：常见的问题及处理 三: 库操作 3.1 创建数据库 3.2 显示所有的数据库 3.3 删除数据库 3.4 连接数据库 3.5 查看当前使用的数据库 3.6 当前数据库包含的表信息： 四: Table 表操作 4.1 create table xxx 建表 4.2 desc xxx 获取表结构 4.3 删除/清空表 4.4 insert into table xxx 给表插入数据 4.5 查询表中的数据 4.6 删除表中的数据 4.7 修改表中数据 4.8 在表中增加字段 4.9 更改表名和字段名 4.10 导入数据库表 4.11 修改数据库 4.12 mysql 数据库的授权 五: DDL 操作 一: mysql 命令行连接 安装并启动 mysql 服务;">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2023-01-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-01-11T00:00:00+00:00">
+    <meta property="article:tag" content="Mysql">
+
+  <meta itemprop="name" content="04-MySQL运维常用脚本">
+  <meta itemprop="description" content="一: mysql 命令行连接 二：常见的问题及处理 三: 库操作 3.1 创建数据库 3.2 显示所有的数据库 3.3 删除数据库 3.4 连接数据库 3.5 查看当前使用的数据库 3.6 当前数据库包含的表信息： 四: Table 表操作 4.1 create table xxx 建表 4.2 desc xxx 获取表结构 4.3 删除/清空表 4.4 insert into table xxx 给表插入数据 4.5 查询表中的数据 4.6 删除表中的数据 4.7 修改表中数据 4.8 在表中增加字段 4.9 更改表名和字段名 4.10 导入数据库表 4.11 修改数据库 4.12 mysql 数据库的授权 五: DDL 操作 一: mysql 命令行连接 安装并启动 mysql 服务;">
+  <meta itemprop="datePublished" content="2023-01-11T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-01-11T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1954">
+  <meta itemprop="keywords" content="Mysql,sql,sql脚本">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="04-MySQL运维常用脚本">
+  <meta name="twitter:description" content="一: mysql 命令行连接 二：常见的问题及处理 三: 库操作 3.1 创建数据库 3.2 显示所有的数据库 3.3 删除数据库 3.4 连接数据库 3.5 查看当前使用的数据库 3.6 当前数据库包含的表信息： 四: Table 表操作 4.1 create table xxx 建表 4.2 desc xxx 获取表结构 4.3 删除/清空表 4.4 insert into table xxx 给表插入数据 4.5 查询表中的数据 4.6 删除表中的数据 4.7 修改表中数据 4.8 在表中增加字段 4.9 更改表名和字段名 4.10 导入数据库表 4.11 修改数据库 4.12 mysql 数据库的授权 五: DDL 操作 一: mysql 命令行连接 安装并启动 mysql 服务;">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">04-MySQL运维常用脚本</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-01-11 </span>
+        <div class="post-category">
+            <a href="/categories/database/"> DataBase </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-mysql-命令行连接">一: mysql 命令行连接</a></li>
+    <li><a href="#二常见的问题及处理">二：常见的问题及处理</a></li>
+    <li><a href="#三-库操作">三: 库操作</a>
+      <ul>
+        <li><a href="#31-创建数据库">3.1 创建数据库</a></li>
+        <li><a href="#32-显示所有的数据库">3.2 显示所有的数据库</a></li>
+        <li><a href="#33-删除数据库">3.3 删除数据库</a></li>
+        <li><a href="#34-连接数据库">3.4 连接数据库</a></li>
+        <li><a href="#35-查看当前使用的数据库">3.5 查看当前使用的数据库</a></li>
+        <li><a href="#36-当前数据库包含的表信息">3.6 当前数据库包含的表信息：</a></li>
+      </ul>
+    </li>
+    <li><a href="#四-table-表操作">四: Table 表操作</a>
+      <ul>
+        <li><a href="#41-create-table-xxx-建表">4.1 create table xxx 建表</a></li>
+        <li><a href="#42-desc-xxx-获取表结构">4.2 desc xxx 获取表结构</a></li>
+        <li><a href="#43-删除清空表">4.3 删除/清空表</a></li>
+        <li><a href="#44-insert-into-table-xxx-给表插入数据">4.4 insert into table xxx 给表插入数据</a></li>
+        <li><a href="#45-查询表中的数据">4.5 查询表中的数据</a></li>
+        <li><a href="#46-删除表中的数据">4.6 删除表中的数据</a></li>
+        <li><a href="#47-修改表中数据">4.7 修改表中数据</a></li>
+        <li><a href="#48-在表中增加字段">4.8 在表中增加字段</a></li>
+        <li><a href="#49-更改表名和字段名">4.9 更改表名和字段名</a></li>
+        <li><a href="#410-导入数据库表">4.10 导入数据库表</a></li>
+        <li><a href="#411-修改数据库">4.11 修改数据库</a></li>
+        <li><a href="#412-mysql-数据库的授权">4.12 mysql 数据库的授权</a></li>
+      </ul>
+    </li>
+    <li><a href="#五-ddl-操作">五: DDL 操作</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li><a href="#%E4%B8%80-mysql-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%9E%E6%8E%A5">一: mysql 命令行连接</a>
+<ul>
+<li><a href="#%E4%BA%8C%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E5%A4%84%E7%90%86">二：常见的问题及处理</a></li>
+<li><a href="#%E4%B8%89-%E5%BA%93%E6%93%8D%E4%BD%9C">三: 库操作</a>
+<ul>
+<li><a href="#31-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">3.1 创建数据库</a></li>
+<li><a href="#32-%E6%98%BE%E7%A4%BA%E6%89%80%E6%9C%89%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93">3.2 显示所有的数据库</a></li>
+<li><a href="#33-%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93">3.3 删除数据库</a></li>
+<li><a href="#34-%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93">3.4 连接数据库</a></li>
+<li><a href="#35-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93">3.5 查看当前使用的数据库</a></li>
+<li><a href="#36-%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8C%85%E5%90%AB%E7%9A%84%E8%A1%A8%E4%BF%A1%E6%81%AF">3.6 当前数据库包含的表信息：</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B-table-%E8%A1%A8%E6%93%8D%E4%BD%9C">四: Table 表操作</a>
+<ul>
+<li><a href="#41-create-table-xxx-%E5%BB%BA%E8%A1%A8">4.1 create table xxx 建表</a></li>
+<li><a href="#42-desc-xxx-%E8%8E%B7%E5%8F%96%E8%A1%A8%E7%BB%93%E6%9E%84">4.2 desc xxx 获取表结构</a></li>
+<li><a href="#43-%E5%88%A0%E9%99%A4%E6%B8%85%E7%A9%BA%E8%A1%A8">4.3 删除/清空表</a></li>
+<li><a href="#44-insert-into-table-xxx-%E7%BB%99%E8%A1%A8%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE">4.4 insert into table xxx 给表插入数据</a></li>
+<li><a href="#45-%E6%9F%A5%E8%AF%A2%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE">4.5 查询表中的数据</a></li>
+<li><a href="#46-%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE">4.6 删除表中的数据</a></li>
+<li><a href="#47-%E4%BF%AE%E6%94%B9%E8%A1%A8%E4%B8%AD%E6%95%B0%E6%8D%AE">4.7 修改表中数据</a></li>
+<li><a href="#48-%E5%9C%A8%E8%A1%A8%E4%B8%AD%E5%A2%9E%E5%8A%A0%E5%AD%97%E6%AE%B5">4.8 在表中增加字段</a></li>
+<li><a href="#49-%E6%9B%B4%E6%94%B9%E8%A1%A8%E5%90%8D%E5%92%8C%E5%AD%97%E6%AE%B5%E5%90%8D">4.9 更改表名和字段名</a></li>
+<li><a href="#410-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8">4.10 导入数据库表</a></li>
+<li><a href="#411-%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93">4.11 修改数据库</a></li>
+<li><a href="#412-mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%8E%88%E6%9D%83">4.12 mysql 数据库的授权</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%94-ddl-%E6%93%8D%E4%BD%9C">五: DDL 操作</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="一-mysql-命令行连接">一: mysql 命令行连接</h1>
+<ul>
+<li>
+<p>安装并启动 mysql 服务;</p>
+</li>
+<li>
+<p>在命令行连接 mysql: <code>mysql -hlocalhost -uroot -p</code></p>
+<ul>
+<li>-h: host</li>
+<li>-u: username</li>
+<li>-p: password</li>
+</ul>
+</li>
+<li>
+<p><code>show databases; //显示存在的数据库</code>;</p>
+</li>
+<li>
+<p><code>use test; //test为相对应的数据库名称，表示使用某个数据库</code>;</p>
+</li>
+<li>
+<p><code>show tables; //显示此数据库的所有表</code>;</p>
+</li>
+<li>
+<p><code>DESCRIBE MYTABLE; //显示表结构 </code></p>
+</li>
+<li>
+<p><code>desc book; //book为对应的表名称，此命令为展示表的字段详情</code>;</p>
+</li>
+<li>
+<p><code>create database test; //建数据库。名字为test</code>;</p>
+</li>
+<li>
+<p><code>create table user(id int(4) not null primary key auto_increment,username char(20)not null,password char(20) not null); // 创建表</code>;</p>
+</li>
+<li>
+<p><code>insert into user (1,‘duoduo’,‘921012’); //插入一条数据</code>;</p>
+</li>
+<li>
+<p><code>select * from user; //查询所有的信息</code>;</p>
+</li>
+<li>
+<p>退出 MySQL：quit 或 exit ;</p>
+</li>
+<li>
+<p>导入.sql 文件</p>
+<ul>
+<li><code>mysql&gt;use database</code>;</li>
+<li><code>mysql&gt;source d:/mysql.sql; </code>;</li>
+</ul>
+</li>
+</ul>
+<h1 id="二常见的问题及处理">二：常见的问题及处理</h1>
+<ul>
+<li><a href="https://www.cnblogs.com/fangyh/p/6286699.html">关于 ubuntu 下 mysql 插入中文字符为？？？的情况解决方法</a></li>
+<li><a href="https://blog.csdn.net/luo4105/article/details/50804148">mysql 修改数据库表和表中的字段的编码格式的修改</a></li>
+<li><a href="https://blog.csdn.net/leroy008/article/details/15816391">ubuntu 上修改 mysql 默认字符编码出现的 Job failed to start 解决方法</a></li>
+</ul>
+<h1 id="三-库操作">三: 库操作</h1>
+<h2 id="31-创建数据库">3.1 创建数据库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="err">命令：</span><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="o">&lt;</span><span class="err">数据库名</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">例如：建立一个名为</span><span class="n">sqlroad的数据库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">sqlroad</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="32-显示所有的数据库">3.2 显示所有的数据库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="err">命令：</span><span class="k">show</span><span class="w"> </span><span class="n">databases</span><span class="w"> </span><span class="err">（注意：最后有个</span><span class="w"> </span><span class="n">s</span><span class="err">）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">databases</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="33-删除数据库">3.3 删除数据库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="err">命令：</span><span class="k">drop</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="o">&lt;</span><span class="err">数据库名</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">例如：删除名为</span><span class="w"> </span><span class="n">sqlroad</span><span class="w"> </span><span class="err">的数据库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">drop</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">sqlroad</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="34-连接数据库">3.4 连接数据库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="err">命令：</span><span class="n">use</span><span class="w"> </span><span class="o">&lt;</span><span class="err">数据库名</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">例如：如果</span><span class="w"> </span><span class="n">sqlroad</span><span class="w"> </span><span class="err">数据库存在，尝试存取它：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">sqlroad</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">屏幕提示：</span><span class="k">Database</span><span class="w"> </span><span class="n">changed</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="35-查看当前使用的数据库">3.5 查看当前使用的数据库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">database</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="36-当前数据库包含的表信息">3.6 当前数据库包含的表信息：</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w"> </span><span class="err">（注意：最后有个</span><span class="w"> </span><span class="n">s</span><span class="err">）</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="四-table-表操作">四: Table 表操作</h1>
+<ul>
+<li>表操作，操作之前应连接某个数据库；</li>
+</ul>
+<h2 id="41-create-table-xxx-建表">4.1 create table xxx 建表</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：create table &lt;表名&gt; ( &lt;字段名&gt; &lt;类型&gt; [,..&lt;字段名n&gt; &lt;类型n&gt;]);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">MyClass</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">auto_increment</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="err">’′</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="w"> </span><span class="n">double</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="42-desc-xxx-获取表结构">4.2 desc xxx 获取表结构</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：desc 表名，或者show columns from 表名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">MyClass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="n">MyClass</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">columns</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">MyClass</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="43-删除清空表">4.3 删除/清空表</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 删除表
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- 命令：drop table &lt;表名&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 例如：删除表名为 MyClass 的表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">MyClass</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 清空表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">MYTABLE</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="44-insert-into-table-xxx-给表插入数据">4.4 insert into table xxx 给表插入数据</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：insert into &lt;表名&gt; [( &lt;字段名&gt;[,..&lt;字段名n&gt; ])] values ( 值 )[, ( 值n )]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="err">’</span><span class="n">Tom</span><span class="err">’</span><span class="p">,</span><span class="mi">96</span><span class="p">.</span><span class="mi">45</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="err">’</span><span class="n">Joan</span><span class="err">’</span><span class="p">,</span><span class="mi">82</span><span class="p">.</span><span class="mi">99</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="err">’</span><span class="n">Wang</span><span class="err">’</span><span class="p">,</span><span class="w"> </span><span class="mi">96</span><span class="p">.</span><span class="mi">59</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="45-查询表中的数据">4.5 查询表中的数据</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：select &lt;字段，字段，...&gt; from &lt; 表名 &gt; where &lt; 表达式 &gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="46-删除表中的数据">4.6 删除表中的数据</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：delete from 表名 where 表达式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="47-修改表中数据">4.7 修改表中数据</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：update 表名 set 字段=新值,…where 条件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">update</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="err">’</span><span class="n">Mary</span><span class="err">’</span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="48-在表中增加字段">4.8 在表中增加字段</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：alter table 表名 add字段 类型 其他;
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- 例如：在表MyClass中添加了一个字段passtest，类型为int(4)，默认值为
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">passtest</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="err">’′</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="49-更改表名和字段名">4.9 更改表名和字段名</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 命令：rename table 原表名 to 新表名;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">rename</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">YouClass</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">更新字段内容</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">update</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="err">字段名</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">新内容</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">update</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="err">字段名</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">replace</span><span class="p">(</span><span class="err">字段名</span><span class="p">,</span><span class="err">’旧内容’</span><span class="p">,</span><span class="w"> </span><span class="err">新内容’</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="410-导入数据库表">4.10 导入数据库表</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="err">创建</span><span class="p">.</span><span class="n">sql文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">先产生一个库如</span><span class="n">auction</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysqladmin</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">auction</span><span class="err">，会提示输入密码，然后成功创建。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">导入</span><span class="n">auction</span><span class="p">.</span><span class="n">sql文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">auction</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">auction</span><span class="p">.</span><span class="k">sql</span><span class="err">。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">通过以上操作，就可以创建了一个数据库</span><span class="n">auction以及其中的一个表auction</span><span class="err">。</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="411-修改数据库">4.11 修改数据库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="err">在</span><span class="n">mysql的表中增加字段</span><span class="err">：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">dbname</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="n">userid</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">auto_increment</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">这样，就在表</span><span class="n">dbname中添加了一个字段userid</span><span class="err">，类型为</span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="err">。</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="412-mysql-数据库的授权">4.12 mysql 数据库的授权</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="k">grant</span><span class="w"> </span><span class="k">select</span><span class="p">,</span><span class="k">insert</span><span class="p">,</span><span class="k">delete</span><span class="p">,</span><span class="k">create</span><span class="p">,</span><span class="k">drop</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="err">或</span><span class="n">test</span><span class="p">.</span><span class="o">*/</span><span class="k">user</span><span class="p">.</span><span class="o">*/</span><span class="p">..)</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="err">用户名</span><span class="o">@</span><span class="n">localhost</span><span class="w">  </span><span class="n">identified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="err">‘密码’；</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 如：新建一个用户帐号以便可以访问数据库，需要进行如下操作：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">grant</span><span class="w"> </span><span class="k">usage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">　　</span><span class="o">-&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">　　</span><span class="o">-&gt;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">testuser</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">　　</span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">15</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 此后就创建了一个新用户叫：testuser，这个用户只能从localhost连接到数据库并可以连接到test 数据库。下一步，我们必须指定testuser这个用户可以执行哪些操作：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">select</span><span class="p">,</span><span class="w"> </span><span class="k">insert</span><span class="p">,</span><span class="w"> </span><span class="k">delete</span><span class="p">,</span><span class="k">update</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">　　</span><span class="o">-&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">　　</span><span class="o">-&gt;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">testuser</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">　　</span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 此操作使testuser能够在每一个test数据库中的表执行SELECT，INSERT和DELETE以及UPDATE查询操作。现在我们结束操作并退出MySQL客户程序：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exit</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="五-ddl-操作">五: DDL 操作</h1>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-01-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">Mysql</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/c&#43;&#43;/003-cpp%E5%B8%B8%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%8E%E5%BA%93/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">03-C/Cpp常用头文件与库</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/c&#43;&#43;/002-cmakelists/">
+            <span class="next-text nav-default">002-CMakeLists.txt说明</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

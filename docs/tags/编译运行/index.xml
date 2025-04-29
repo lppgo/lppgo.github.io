@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>编译运行 on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/</link><description>Recent content in 编译运行 on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 05 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C/index.xml" rel="self" type="application/rss+xml"/><item><title>01-常见编程语言-如何在命令行编译并运行</title><link>https://lppgo.github.io/post/others/007-%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80-%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BC%96%E8%AF%91%E5%B9%B6%E8%BF%90%E8%A1%8C/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/others/007-%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80-%E5%A6%82%E4%BD%95%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BC%96%E8%AF%91%E5%B9%B6%E8%BF%90%E8%A1%8C/</guid><description>&lt;div align="center">&lt;font size="35">常见编程语言-如何在命令行编译并运行&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#1--summary">1 : Summary&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2--java-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">2 : java 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">2.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">2.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">2.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3--go-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">3 : go 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">3.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#32-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">3.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">3.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4--c-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">4 : c 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">4.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#42-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">4.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#43-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">4.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#5--c%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">5 : c++编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#51-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">5.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#52-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">5.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#53-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">5.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#6--rust-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">6 : rust 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#61-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">6.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#62-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">6.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#63-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">6.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#7--typescript-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C">7 : typescript 编译与运行&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#71-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">7.1 环境准备&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#72-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">7.2 编写代码&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#73-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C">7.3 编译运行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#8-%E5%85%B6%E4%BB%96">8: 其他&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1--summary">1 : Summary&lt;/h1>
+&lt;ul>
+&lt;li>有时通过 jetbrains、vscode 这些 ide 的界面操作来运行项目，反而不懂简单的命令。绝大部分编程语言都有在命令行编译并运行方式的功能，有悟收集当前一些主流开发语言（java、go、c/c++、javascript/typescript、rust）的命令行编译并运行的命令。&lt;/li>
+&lt;li>转自(&lt;a href="https://youwu.today/skill/backend/how-to-compile-and-run-your-first-program-in-popular-languages/">https://youwu.today/skill/backend/how-to-compile-and-run-your-first-program-in-popular-languages/&lt;/a>)&lt;/li>
+&lt;/ul>
+&lt;h1 id="2--java-编译与运行">2 : java 编译与运行&lt;/h1>
+&lt;h2 id="21-环境准备">2.1 环境准备&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>环境准备&lt;/strong> 安装 &lt;a href="https://www.oracle.com/java/technologies/downloads/">oracle java sdk&lt;/a> ，或者 &lt;a href="https://jdk.java.net/">oracle open jdk&lt;/a> ，然后将 java 可执行程序所在程序配置到 &lt;code>$PATH&lt;/code> (windows 用户配置到 &lt;code>%path%&lt;/code>)。&lt;/li>
+&lt;li>java open jdk 有非常多的版本，可通过 &lt;a href="https://github.com/shyiko/jabba">jabba&lt;/a> 安装，版本非常全。 windows 用户安装了 scoop 的，可以使用 scoop 来安装，使用 scoop search jdk 会提示相应的步骤 macos/linux 用户还可以使用 jenv 来管理多版本。&lt;/li>
+&lt;/ul>
+&lt;h2 id="22-编写代码">2.2 编写代码&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// hello.java&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Hello&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">[]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">){&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;I&amp;#39;m a Simple Program&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="23-编译运行">2.3 编译运行&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>命令&lt;code>javac hello.java &amp;amp;&amp;amp; java Hello&lt;/code>&lt;/p></description></item></channel></rss>

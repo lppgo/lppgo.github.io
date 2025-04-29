@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Registry on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/registry/</link><description>Recent content in Registry on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 04 Mar 2022 10:56:42 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/tags/registry/index.xml" rel="self" type="application/rss+xml"/><item><title>01-docker registry http api v2</title><link>https://lppgo.github.io/post/dockerk8s/009-docker-registry-http-api-v2/</link><pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/009-docker-registry-http-api-v2/</guid><description>&lt;div align='center' >&lt;font size='50'>docker registry http api v2&lt;/font>&lt;/div>
+&lt;!-- [toc] -->
+&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-overview">1: Overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E4%B8%93%E6%9C%89%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A">2: 专有名词解释&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-push-image-%E8%BF%87%E7%A8%8B">3: Push image 过程&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-pushing-a-layer%E4%B8%8A%E4%BC%A0%E5%B1%82">3.1 Pushing a Layer（上传层）&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#311-existing-layers%E6%A3%80%E6%9F%A5%E5%B1%82%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8">3.1.1 Existing Layers(检查层是否存在)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#312-starting-an-upload%E5%90%AF%E5%8A%A8%E4%B8%8A%E4%BC%A0%E6%9C%8D%E5%8A%A1">3.1.2 Starting An Upload(启动上传服务)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#313-uploading-the-layer%E4%B8%8A%E4%BC%A0%E5%B1%82">3.1.3 Uploading the Layer(上传层)&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#3131-upload-progress%E4%B8%8A%E4%BC%A0%E8%BF%9B%E5%BA%A6">3.1.3.1 Upload Progress(上传进度)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3132-monolithic-upload%E6%95%B4%E5%9D%97%E4%B8%8A%E4%BC%A0">3.1.3.2 Monolithic Upload(整块上传）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3133-chunked-upload%E5%88%86%E5%9D%97%E4%B8%8A%E4%BC%A0">3.1.3.3 Chunked Upload（分块上传）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3134-completed-upload%E4%B8%8A%E4%BC%A0%E5%AE%8C%E6%88%90">3.1.3.4 Completed Upload(上传完成)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3135-canceling-an-upload%E5%8F%96%E6%B6%88%E4%B8%8A%E4%BC%A0">3.1.3.5 Canceling an Upload(取消上传)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3136-cross-repository-blob-mount%E4%BA%A4%E5%8F%89%E6%8C%82%E8%BD%BD%E5%B1%82">3.1.3.6 Cross Repository Blob Mount（交叉挂载层）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#32-deleting-a-layer%E5%88%A0%E9%99%A4%E5%B1%82">3.2 Deleting a Layer(删除层)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-pushing-an-image-manifest%E4%B8%8A%E4%BC%A0%E9%95%9C%E5%83%8F%E6%B8%85%E5%8D%95">3.3 Pushing an Image Manifest（上传镜像清单）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4-pull-image-%E8%BF%87%E7%A8%8B">4: Pull image 过程&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-pulling-an-image-manifest%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F%E6%B8%85%E5%8D%95">4.1 Pulling an Image Manifest（拉取镜像清单）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#42-pulling-a-layer%E6%8B%89%E5%8F%96%E5%B1%82">4.2 Pulling a Layer（拉取层）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#5-retrieve-%E6%A3%80%E7%B4%A2%E5%8A%9F%E8%83%BD">5: Retrieve 检索功能&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#51-listing-repositories%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E5%BA%93">5.1 Listing Repositories（列出存储库）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#52-pagination%E9%83%A8%E5%88%86%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E5%BA%93">5.2 Pagination(部分列出存储库)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#53-listing-image-tags%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F-tag">5.3 Listing Image Tags(列出镜像 tag)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#54-pagination%E9%83%A8%E5%88%86%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F-tag">5.4 Pagination(部分列出镜像 tag)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#6-deleteing-an-image%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F">6: Deleteing an Image（删除镜像）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#7-errors-%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF">7: Errors 错误信息&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-overview">1: Overview&lt;/h1>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>methods&lt;/th>
+ &lt;th>path&lt;/th>
+ &lt;th>Entity&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/&lt;/td>
+ &lt;td>Base&lt;/td>
+ &lt;td>检查 the endpoint 是否实现了 Docker Registry API V2.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/tags/list&lt;/td>
+ &lt;td>Tags&lt;/td>
+ &lt;td>通过 name 获取 repository 下的 tags&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/manifests/{reference}&lt;/td>
+ &lt;td>Manifest&lt;/td>
+ &lt;td>获取由 name 和 references 标识的 manifest，其中 referencec 可以是 tag 或 digest。还可以向该 endpoint 发出 HEAD 请求以获取资源信息，而不接收所有数据。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>PUT&lt;/td>
+ &lt;td>/v2/{name}/manifests/{reference}&lt;/td>
+ &lt;td>Manifest&lt;/td>
+ &lt;td>Put 由 name 和 reference 标识的 manifest&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DELETE&lt;/td>
+ &lt;td>/v2/{name}/manifests/{reference}&lt;/td>
+ &lt;td>Manifest&lt;/td>
+ &lt;td>删除由 digest 标识的 manifest&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/blobs/{digest}&lt;/td>
+ &lt;td>Blob&lt;/td>
+ &lt;td>从 registry retrieve 由 digest 标识的 blobs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DELETE&lt;/td>
+ &lt;td>/v2/{name}/blobs/{digest}&lt;/td>
+ &lt;td>Blob&lt;/td>
+ &lt;td>Delete the blob identified by name and digest&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>POST&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/&lt;/td>
+ &lt;td>Initiate(启动) Blob upload 服务&lt;/td>
+ &lt;td>启动可恢复的 blob upload 服务。如果成功，将提供上载位置以完成上载。或者，如果存在 digest 参数，则请求正文将用于在单个请求中完成上载。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>检索由 uuid 标识的上传状态。此 endpoint 的主要目的是 resolve 可恢复 upload 的当前状态。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>PATCH&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>上传 指定 upload 的 chunk 数据块&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>PUT&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>完成 uuid 指定的上传，可以选择附加 body 作为最后一个块&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DELETE&lt;/td>
+ &lt;td>/v2/{name}/blobs/uploads/{uuid}&lt;/td>
+ &lt;td>Blob Upload&lt;/td>
+ &lt;td>Cancel &lt;strong>outstanding&lt;/strong> upload processes, releasing associated resources. If this is not called, the unfinished uploads will &lt;strong>eventually&lt;/strong> timeout.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>GET&lt;/td>
+ &lt;td>/v2/_catalog&lt;/td>
+ &lt;td>Catalog&lt;/td>
+ &lt;td>在 registry 中检索一个有序的，可用的 repositry 的 json 列表&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h1 id="2-专有名词解释">2: 专有名词解释&lt;/h1>
+&lt;ul>
+&lt;li>&lt;strong>repositry name&lt;/strong>(存储库名称):存储库指在库中存储的镜像&lt;/li>
+&lt;li>&lt;strong>digest&lt;/strong>(摘要):是 image 各个层的唯一标识。虽然算法允许使用任意算法，但是为了兼容性应该使用 sha256。
+例：&lt;code>sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-push-image-过程">3: Push image 过程&lt;/h1>
+&lt;blockquote>
+&lt;p>先推各个 Layer 层到 registry 仓库，然后上传清单 Manifest&lt;/p></description></item></channel></rss>

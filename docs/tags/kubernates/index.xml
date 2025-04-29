@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernates on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/kubernates/</link><description>Recent content in Kubernates on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/kubernates/index.xml" rel="self" type="application/rss+xml"/><item><title>01-MInikube搭建</title><link>https://lppgo.github.io/post/dockerk8s/005-minikube%E6%90%AD%E5%BB%BA/</link><pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/005-minikube%E6%90%AD%E5%BB%BA/</guid><description>&lt;p>[toc]&lt;/p>
+&lt;h1 id="1-安装-docker-环境">1: 安装 Docker 环境&lt;/h1>
+&lt;h2 id="11-安装-docker">1.1: 安装 docker&lt;/h2>
+&lt;h2 id="12-配置-docker">1.2: 配置 docker&lt;/h2>
+&lt;p>docker 加速 &lt;code>/etc/docker/daemon.json&lt;/code>
+重启 docker,使配置生效&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl daemon-reload
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl restart docker
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-安装-minikube">2: 安装 Minikube&lt;/h1>
+&lt;p>&lt;a href="https://cloud.tencent.com/developer/article/1817826">https://cloud.tencent.com/developer/article/1817826&lt;/a>&lt;/p>
+&lt;h2 id="21-使用普通的-minikube">2.1 使用普通的 minikube&lt;/h2>
+&lt;h3 id="211-更新软件源">2.1.1 更新软件源&lt;/h3>
+&lt;h3 id="212-更新软件包">2.1.2 更新软件包&lt;/h3>
+&lt;h3 id="213-安装-docker">2.1.3 安装 docker&lt;/h3>
+&lt;h3 id="214-安装-k8s">2.1.4 安装 k8s&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 执行以下命令安装 https 工具以及 k8s&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y apt-transport-https curl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y kubelet kubeadm kubectl --allow-unauthenticated
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 执行下面命令测试是否正常&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubeadm init
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果安装时，出现下面情况，说明系统得镜像源中，找不到 k8s 的软件包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">No apt package &lt;span class="s2">&amp;#34;kubeadm&amp;#34;&lt;/span>, but there is a snap with that name.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Try &lt;span class="s2">&amp;#34;snap install kubeadm&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">No apt package &lt;span class="s2">&amp;#34;kubectl&amp;#34;&lt;/span>, but there is a snap with that name.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Try &lt;span class="s2">&amp;#34;snap install kubectl&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 可以打开 /etc/apt/sources.list 文件，添加一行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 再次执行安装k8s&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果出现下面&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">The following signatures couldn&lt;span class="err">&amp;#39;&lt;/span>t be verified because the public key is not available
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 则执行下面命令，添加key&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> sudo apt-key add
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>上面命令，安装了 &lt;code>kubelet&lt;/code>、&lt;code>kubeadm&lt;/code>、&lt;code>kubectl&lt;/code>&lt;/p></description></item></channel></rss>

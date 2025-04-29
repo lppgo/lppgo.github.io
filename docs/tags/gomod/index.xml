@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gomod on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/gomod/</link><description>Recent content in Gomod on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 15 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/gomod/index.xml" rel="self" type="application/rss+xml"/><item><title>01-git仓库gomod私有化</title><link>https://lppgo.github.io/post/golang/028_git%E4%BB%93%E5%BA%93gomod%E7%A7%81%E6%9C%89%E5%8C%96/</link><pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/028_git%E4%BB%93%E5%BA%93gomod%E7%A7%81%E6%9C%89%E5%8C%96/</guid><description>&lt;div align="center">&lt;font size="35">git仓库gomod私有化&lt;/font>&lt;/div>
+&lt;h1 id="1-go-module-私有仓库使用">1: go module 私有仓库使用&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">修改hosts&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">go&lt;/span> &lt;span class="nx">env&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">w&lt;/span> &lt;span class="nx">GOINSECURE&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;gitlab.yuliangtec.cn&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">go&lt;/span> &lt;span class="nx">env&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">w&lt;/span> &lt;span class="nx">GONOSUMDB&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;gitlab.yuliangtec.cn&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">go&lt;/span> &lt;span class="nx">env&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">w&lt;/span> &lt;span class="nx">GONOPROXY&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;gitlab.yuliangtec.cn&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">go&lt;/span> &lt;span class="nx">env&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">w&lt;/span> &lt;span class="nx">GOPRIVATE&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;gitlab.yuliangtec.cn&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// (3) go get&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">go&lt;/span> &lt;span class="nx">get&lt;/span> &lt;span class="nx">com&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">yuliangtec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">luna&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">proto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// (4) git tag --&amp;gt; go get&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">go&lt;/span> &lt;span class="nx">get&lt;/span> &lt;span class="nx">com&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">yuliangtec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">luna&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">proto&lt;/span>&lt;span class="err">@&lt;/span>&lt;span class="nx">v1&lt;/span>&lt;span class="mf">.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-补充">2: 补充&lt;/h1>
+&lt;h2 id="21-协议">2.1 协议&lt;/h2>
+&lt;h2 id="22-设置环境变量上-1">2.2 设置环境变量(上 1)&lt;/h2>
+&lt;p>&lt;a href="https://blog.csdn.net/L_K1028/article/details/105313293">https://blog.csdn.net/L_K1028/article/details/105313293&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>云原生 on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/</link>
+    <description>Recent content in 云原生 on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 05 Apr 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://lppgo.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>01-云原生全景图</title>
+      <link>https://lppgo.github.io/post/%E4%BA%91%E5%8E%9F%E7%94%9F/001-cloudnative%E5%85%A8%E6%99%AF%E5%9B%BE/</link>
+      <pubDate>Tue, 04 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>https://lppgo.github.io/post/%E4%BA%91%E5%8E%9F%E7%94%9F/001-cloudnative%E5%85%A8%E6%99%AF%E5%9B%BE/</guid>
+      <description>&lt;div align=&#34;center&#34;&gt;&lt;font size=35&gt;云原生全景图&lt;/font&gt;&lt;/div&gt;&#xA;&lt;h1 id=&#34;1-什么是云原生&#34;&gt;1: 什么是云原生&lt;/h1&gt;&#xA;&lt;h1 id=&#34;2-云原生发展&#34;&gt;2: 云原生发展&lt;/h1&gt;&#xA;&lt;h1 id=&#34;3-云原生组成&#34;&gt;3: 云原生组成&lt;/h1&gt;&#xA;&lt;h2 id=&#34;31-不可变基础设施&#34;&gt;3.1 不可变基础设施&lt;/h2&gt;&#xA;&lt;h2 id=&#34;32-微服务和服务网格&#34;&gt;3.2 微服务和服务网格&lt;/h2&gt;&#xA;&lt;h2 id=&#34;33-容器技术&#34;&gt;3.3 容器技术&lt;/h2&gt;&#xA;&lt;h2 id=&#34;34-devops&#34;&gt;3.4 DevOps&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;DevOps&lt;/strong&gt; 是 Development 和 Operations 的组合词。它是一组过程、方法与系统的统称，用于促进开发（应用程序 / 软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。&#xA;&lt;img src=&#34;https://lppgo.github.io/images/%E4%BA%91%E5%8E%9F%E7%94%9FDevOps%E5%B7%A5%E5%85%B7%E5%85%A8%E6%99%AF%E5%9B%BE.png&#34; alt=&#34;DevOps全景图&#34;&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;CICD&lt;/strong&gt; 持续集成 &amp;amp; 持续部署;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;341-代码托管工具&#34;&gt;3.4.1 代码托管工具&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Gitlab&lt;/li&gt;&#xA;&lt;li&gt;Gitee&lt;/li&gt;&#xA;&lt;li&gt;Github&lt;/li&gt;&#xA;&lt;li&gt;华为 CodeHub,阿里 Codeup,腾讯 Coding （企业级，收费）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;342-集成流水线工具&#34;&gt;3.4.2 集成流水线工具&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;集成流水线就像传统的工业流水线一样，在经历构建、测试、交付之后，生产出一代一代更新迭代的软件版本。实现了软件产品小步迭代、高频发布、适时集成、稳定的系统演进线路图。在选择集成流水线工具的时候，我们需要关注：&#xA;&lt;ul&gt;&#xA;&lt;li&gt;版本控制工具的支持；&lt;/li&gt;&#xA;&lt;li&gt;每个构建是否可以支持指定多个代码源 URLS；&lt;/li&gt;&#xA;&lt;li&gt;是否支持构建产物管理库，如公有云对象存储等；&lt;/li&gt;&#xA;&lt;li&gt;是否支持部署流水线，类似于一个或多个构建完成后触发另一个构建；&lt;/li&gt;&#xA;&lt;li&gt;是否支持并行构建；&lt;/li&gt;&#xA;&lt;li&gt;是否支持构建网格，以及对网格内机器管理的能力。如能否将多个构建同时分配到多个构建机器上执行，以提高执行速度；&lt;/li&gt;&#xA;&lt;li&gt;是否有良好的开放 API，比如触发构建 API、结果查询 API、标准的 Report 接口等；&lt;/li&gt;&#xA;&lt;li&gt;账户体系，是否支持第三方账户接入，如企业 LDAP 等；&lt;/li&gt;&#xA;&lt;li&gt;是否有良好的 Dashboard；&lt;/li&gt;&#xA;&lt;li&gt;多语言支持；&lt;/li&gt;&#xA;&lt;li&gt;与构建工具（如 Maven，Make，Rake，Nant、Node 等）和测试工具的集成&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://lppgo.github.io/images/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%B7%A5%E5%85%B7.png&#34; alt=&#34;常用集成流水线工具&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

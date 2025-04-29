@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rate on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/rate/</link><description>Recent content in Rate on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 03 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/rate/index.xml" rel="self" type="application/rss+xml"/><item><title>01-微服务限流简单实现</title><link>https://lppgo.github.io/post/golang/013-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link><pubDate>Tue, 03 Aug 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/013-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid><description>&lt;div align='center' >&lt;font size='50'>微服务限流简单实现&lt;/font>&lt;/div>
+&lt;!-- [toc] -->
+&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%80%E9%99%90%E6%B5%81%E7%9A%84%E7%9B%AE%E7%9A%84">一：限流的目的&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BA%8C%E9%99%90%E6%B5%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F">二：限流实现方式&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#1%E5%9B%BA%E5%AE%9A%E7%AA%97%E5%8F%A3">1：固定窗口&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%80%9D%E6%83%B3">思想&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%AE%9E%E7%8E%B0">实现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%97%AE%E9%A2%98">问题&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#2%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">2：滑动窗口&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%80%9D%E6%83%B3-1">思想&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%AE%9E%E7%8E%B0-1">实现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%9B%B8%E5%AF%B9%E4%BA%8E%E5%9B%BA%E5%AE%9A%E7%AA%97%E5%8F%A3%E7%9A%84%E6%94%B9%E8%BF%9B">相对于固定窗口的改进&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#3%E6%BC%8F%E6%A1%B6">3：漏桶&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%80%9D%E6%83%B3-2">思想&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%AE%9E%E7%8E%B0-2">实现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#4%E4%BB%A4%E7%89%8C%E6%A1%B6">4：令牌桶&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%80%9D%E6%83%B3-3">思想&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%AE%9E%E7%8E%B0-3">实现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1">适用场景&lt;/a>
+_ &lt;a href="#%E6%80%9D%E6%83%B3-3">思想&lt;/a>
+_ &lt;a href="#%E5%AE%9E%E7%8E%B0-3">实现&lt;/a> * &lt;a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1">适用场景&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="一限流的目的">一：限流的目的&lt;/h1>
+&lt;p>保障服务稳定的三大利器：熔断、降级、服务限流。今天和大家谈谈限流算法的几种实现方式，本文所说的限流并非是 Nginx、网关层面的限流，而是业务代码中的逻辑限流。&lt;/p></description></item></channel></rss>

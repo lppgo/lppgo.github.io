@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DataBase on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/categories/database/</link><description>Recent content in DataBase on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/categories/database/index.xml" rel="self" type="application/rss+xml"/><item><title>04-MySQL运维常用脚本</title><link>https://lppgo.github.io/post/database/004-mysql%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/</link><pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/database/004-mysql%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#%E4%B8%80-mysql-%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%9E%E6%8E%A5">一: mysql 命令行连接&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%BA%8C%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E5%A4%84%E7%90%86">二：常见的问题及处理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%89-%E5%BA%93%E6%93%8D%E4%BD%9C">三: 库操作&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">3.1 创建数据库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#32-%E6%98%BE%E7%A4%BA%E6%89%80%E6%9C%89%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93">3.2 显示所有的数据库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93">3.3 删除数据库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#34-%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93">3.4 连接数据库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#35-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93">3.5 查看当前使用的数据库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#36-%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8C%85%E5%90%AB%E7%9A%84%E8%A1%A8%E4%BF%A1%E6%81%AF">3.6 当前数据库包含的表信息：&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%9B%9B-table-%E8%A1%A8%E6%93%8D%E4%BD%9C">四: Table 表操作&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#41-create-table-xxx-%E5%BB%BA%E8%A1%A8">4.1 create table xxx 建表&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#42-desc-xxx-%E8%8E%B7%E5%8F%96%E8%A1%A8%E7%BB%93%E6%9E%84">4.2 desc xxx 获取表结构&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#43-%E5%88%A0%E9%99%A4%E6%B8%85%E7%A9%BA%E8%A1%A8">4.3 删除/清空表&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#44-insert-into-table-xxx-%E7%BB%99%E8%A1%A8%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE">4.4 insert into table xxx 给表插入数据&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#45-%E6%9F%A5%E8%AF%A2%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE">4.5 查询表中的数据&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#46-%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE">4.6 删除表中的数据&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#47-%E4%BF%AE%E6%94%B9%E8%A1%A8%E4%B8%AD%E6%95%B0%E6%8D%AE">4.7 修改表中数据&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#48-%E5%9C%A8%E8%A1%A8%E4%B8%AD%E5%A2%9E%E5%8A%A0%E5%AD%97%E6%AE%B5">4.8 在表中增加字段&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#49-%E6%9B%B4%E6%94%B9%E8%A1%A8%E5%90%8D%E5%92%8C%E5%AD%97%E6%AE%B5%E5%90%8D">4.9 更改表名和字段名&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#410-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8">4.10 导入数据库表&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#411-%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93">4.11 修改数据库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#412-mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%8E%88%E6%9D%83">4.12 mysql 数据库的授权&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E4%BA%94-ddl-%E6%93%8D%E4%BD%9C">五: DDL 操作&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="一-mysql-命令行连接">一: mysql 命令行连接&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>安装并启动 mysql 服务;&lt;/p></description></item><item><title>01-ClickHouse常用sql脚本</title><link>https://lppgo.github.io/post/database/007-clickhouse%E5%B8%B8%E7%94%A8sql%E8%84%9A%E6%9C%AC/</link><pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/database/007-clickhouse%E5%B8%B8%E7%94%A8sql%E8%84%9A%E6%9C%AC/</guid><description>&lt;div align="center">&lt;font size="35">ClickHouse常用sql脚本&lt;/font>&lt;/div>
+&lt;h1 id="一-clickhouse-介绍">一: ClickHouse 介绍&lt;/h1>
+&lt;ul>
+&lt;li>ClickHouse 是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS).&lt;/li>
+&lt;li>&lt;a href="https://clickhouse.com/docs/zh/">https://clickhouse.com/docs/zh/&lt;/a>&lt;/li>
+&lt;li>数据文件路径： /var/lib/clickhouse/&lt;/li>
+&lt;li>日志文件路径：/var/log/clickhouse-server/clickhouse-server.log&lt;/li>
+&lt;/ul>
+&lt;h1 id="二-clickhouse-连接">二: Clickhouse 连接&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://clickhouse.com/docs/zh/interfaces/third-party/gui">https://clickhouse.com/docs/zh/interfaces/third-party/gui&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="三-clickhouse-database">三: ClickHouse Database&lt;/h1>
+&lt;h2 id="31-数据库操作">3.1 数据库操作&lt;/h2>
+&lt;ul>
+&lt;li>ClickHouse 严格区分大小写&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">-- 显示所有数据库
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">database&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 显示当前使用的数据库
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">currentDatabase&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 创建数据库
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">database&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">not&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">exists&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tick&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 删除数据库
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">database&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tick&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CLUSTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">集群名&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 显示数据库中的所有表
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">show&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tables&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tick&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CLUSTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">集群名&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 手动optimize，合并分区
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">optimize&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tick&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">final&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="32-表操作">3.2 表操作&lt;/h2>
+&lt;h3 id="321-查看表结构">3.2.1 查看表结构&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">-- 建表
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">create&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">IF&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NOT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">EXISTS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CLUSTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">集群名&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">uid&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Int32&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">age&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">UInt32&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">birthday&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">Date&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="n">ENGINE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">MergeTree&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">PARTITION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">birthday&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ORDER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uid&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">birthday&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 设置表TTL
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">-- 涉及判断的字段必须是Date或者Datetime类型，推荐使用分区的日期字段：
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">-- SECOND , MINUTE , HOUR , DAY , WEEK , MONTH , QUARTER , YEAR
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">Alter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">Modify&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TTL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">createAt&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">interval&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">day&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 显示表结构
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">DESCRIBE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 显示建表语句
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 删除表
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">IF&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">EXISTS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">student&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 添加字段
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">alter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">product_test&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">add&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">DEFAULT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COMMENT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;注释&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">--删除字段
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">alter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">product_test&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">drop&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">--修改字段
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">alter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">product_test&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">modify&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">Nullable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">DEFAULT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NULL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COMMENT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;注释&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">--删除数据
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">db_name&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">table_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">PARTITION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;分区(例如：时间20220516)&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-- 删除表中所有数据(清空表)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">alter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tableName&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">delete&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="四-view-视图">四: View 视图&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--ClickHouse支持视图功能，目前一共支持两种视图：普通（Normal）视图和物化（Materialized）视图
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--通过DROP TABLE [$db_name.]$view_table_name语句可以直接删除视图，而通过SHOW TABLES可以展示所有的表，视图也会被认为是一种特殊的表一并进行展示
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">--普通视图
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--普通视图不会存储任何数据，它只是一个查询映射，起到了简化查询语义的作用，对查询的性能也不会有任何正负作用
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">--物化视图
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--物化视图支持定义表引擎，因为其数据保存的形式由表引擎决定
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--需要定义表引擎，决定数据存储的形式
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--物化视图中的数据不支持同步删除，如果源表的数据不存在或者源表被删除了，物化视图的数据依然存在
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--物化视图不会随着基础表的变化而变化，所以它也称为快照（snapshot）
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">--如果要更新数据的话，需要用户手动进行，如周期性执行SQL，或利用触发器等机制
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="五-clickhouse-client">五: ClickHouse-client&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">clickhouse&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">client&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">host&lt;/span> &lt;span class="nx">localhost&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">user&lt;/span> &lt;span class="nx">admin&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">password&lt;/span> &lt;span class="nx">admin&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 导出数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">clickhouse&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">client&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">query&lt;/span> &lt;span class="s">&amp;#34;select * from t_order_mt where create_time=&amp;#39;2020-06-01 12:00:00&amp;#39;&amp;#34;&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">format&lt;/span> &lt;span class="nx">CSVWithNames&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">module&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">rs1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">csv&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="六-clickhouse-local">六: clickhouse-local&lt;/h1></description></item><item><title>01-docker-compose搭建redis cluster</title><link>https://lppgo.github.io/post/database/009-docker-compose%E6%90%AD%E5%BB%BAredis-cluster/</link><pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/database/009-docker-compose%E6%90%AD%E5%BB%BAredis-cluster/</guid><description>&lt;div align="center">&lt;font size="35">docker-compose搭建redis cluster&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%B8%80-redis-cluster-%E9%9B%86%E7%BE%A4">一: Redis Cluster 集群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BA%8C-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%A8%A1%E5%BC%8F">二: 主从复制模式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%89-%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F">三: 哨兵模式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%89-cluster-%E6%A8%A1%E5%BC%8F">三: Cluster 模式&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-redisconf">3.1 &lt;code>redis.conf&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#32-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84">3.2 目录结构&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-docker-compose-%E7%BC%96%E6%8E%92%E6%96%87%E4%BB%B6">3.3 docker-compose 编排文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#34-%E6%B5%8B%E8%AF%95-redis-%E9%9B%86%E7%BE%A4">3.4 测试 Redis 集群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#35-redis-%E9%9B%86%E7%BE%A4-%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF">3.5 Redis 集群 查看信息&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#36-redis-%E9%9B%86%E7%BE%A4-%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E6%B5%8B%E8%AF%95">3.6 Redis 集群 写入数据测试&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#37-redis-%E9%9B%86%E7%BE%A4%E7%81%BE%E9%9A%BE%E6%B5%8B%E8%AF%95">3.7 redis 集群灾难测试&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="一-redis-cluster-集群">一: Redis Cluster 集群&lt;/h1>
+&lt;ul>
+&lt;li>在 Redis 中，集群的解决方案有三种
+&lt;ul>
+&lt;li>1.主从复制&lt;/li>
+&lt;li>2.哨兵机制&lt;/li>
+&lt;li>3.Cluster&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="二-主从复制模式">二: 主从复制模式&lt;/h1>
+&lt;p>Redis 虽然读取写入的速度都特别快，但是也会产生读压力特别大的情况。为了分担读压力，Redis 支持主从复制，读写分离。一个 Master 可以有多个 Slaves。
+&lt;img src="https://lppgo.github.io/images/redis-master-slave%E5%A4%8D%E5%88%B6%E6%A8%A1%E5%BC%8F.png" alt="redis-master-slave复制模式">&lt;/p></description></item><item><title>01-mysql数据库优化最完整指南</title><link>https://lppgo.github.io/post/database/005-mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%9C%80%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link><pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/database/005-mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%9C%80%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#%E9%98%B6%E6%AE%B5%E4%B8%80-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AE%BE%E8%AE%A1">阶段一: 数据库表设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%98%B6%E6%AE%B5%E4%BA%8C-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%83%A8%E7%BD%B2">阶段二: 数据库部署&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">阶段三: 数据库性能优化&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#31-%E7%A1%AC%E4%BB%B6%E9%85%8D%E7%BD%AE">3.1 硬件配置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#32-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96">3.2 数据库配置优化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#33-%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96">3.3 系统内核参数优化&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E9%98%B6%E6%AE%B5%E5%9B%9B-sql-%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96">阶段四: SQL 语句优化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%98%B6%E6%AE%B5%E4%BA%94-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E6%89%A9%E5%B1%95">阶段五: 数据库架构扩展&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#51-%E5%A2%9E%E5%8A%A0-cache-%E7%BC%93%E5%AD%98">5.1 增加 cache 缓存&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#52-masterslave-%E5%A4%8D%E5%88%B6%E5%92%8C%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB">5.2 Master/Slave 复制和读写分离&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#53-%E5%88%86%E5%BA%93">5.3 分库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#54-%E5%88%86%E8%A1%A8">5.4 分表&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#55-%E5%88%86%E5%8C%BA">5.5 分区&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E9%98%B6%E6%AE%B5%E5%85%AD-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%B4%E6%8A%A4">阶段六: 数据库维护&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#61-%E6%80%A7%E8%83%BD%E7%8A%B6%E6%80%81%E5%85%B3%E9%94%AE%E6%8C%87%E6%A0%87-quota">6.1 性能状态关键指标 quota&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#611-qps">6.1.1 QPS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#612-tps">6.1.2 TPS&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#62-%E5%BC%80%E5%90%AF%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97">6.2 开启慢查询日志&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#63-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD">6.3 数据库备份&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#64-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%AE%E5%A4%8D">6.4 数据库修复&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#65-mysql-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90">6.5 mysql 服务器性能分析&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E9%98%B6%E6%AE%B5%E4%B8%83-%E5%85%B6%E4%BB%96">阶段七: 其他&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="阶段一-数据库表设计">阶段一: 数据库表设计&lt;/h1>
+&lt;ul>
+&lt;li>表结构设计&lt;/li>
+&lt;/ul>
+&lt;h1 id="阶段二-数据库部署">阶段二: 数据库部署&lt;/h1>
+&lt;ul>
+&lt;li>主从复制&lt;/li>
+&lt;li>集群&lt;/li>
+&lt;li>主从复制+Keepalived 实现双机热备份&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>主流的 HA 软件有: Keepalived,Heartbeat&lt;/p></description></item><item><title>03-在线修改大表结构pt-online-schema-change</title><link>https://lppgo.github.io/post/database/003-%E5%9C%A8%E7%BA%BF%E4%BF%AE%E6%94%B9%E5%A4%A7%E8%A1%A8%E7%BB%93%E6%9E%84pt-online-schema-change/</link><pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/database/003-%E5%9C%A8%E7%BA%BF%E4%BF%AE%E6%94%B9%E5%A4%A7%E8%A1%A8%E7%BB%93%E6%9E%84pt-online-schema-change/</guid><description>&lt;ul>
+&lt;li>&lt;a href="#1-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-scenario">1: 使用场景 Scenario&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E5%9C%A8%E7%BA%BF%E4%BF%AE%E6%94%B9%E5%A4%A7%E8%A1%A8%E7%9A%84%E5%8F%AF%E8%83%BD%E5%BD%B1%E5%93%8D">2: 在线修改大表的可能影响&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-pt-online-schema-change-%E4%BB%8B%E7%BB%8D">3: pt-online-schema-change 介绍&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98">4: 解决了什么问题&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-pt-online-schema-change-%E5%AE%89%E8%A3%85">5: pt-online-schema-change 安装&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-pt-online-schema-change-%E4%BD%BF%E7%94%A8">6: pt-online-schema-change 使用&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#61-%E5%8F%82%E6%95%B0">6.1 参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#62-%E4%B8%BA%E9%81%BF%E5%85%8D%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E4%B8%80%E5%A0%86%E5%8F%82%E6%95%B0%E5%86%99%E4%B8%AA%E8%84%9A%E6%9C%AC%E5%A4%8D%E7%94%A8%E4%B8%80%E4%B8%8Bptsh">6.2 为避免每次都要输入一堆参数，写个脚本复用一下，pt.sh&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#63-%E6%B7%BB%E5%8A%A0%E8%A1%A8%E5%AD%97%E6%AE%B5">6.3 添加表字段&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#64-%E4%BF%AE%E6%94%B9%E8%A1%A8%E5%AD%97%E6%AE%B5">6.4 修改表字段&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#64-%E6%B7%BB%E5%8A%A0%E7%B4%A2%E5%BC%95">6.4 添加索引&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#7-others">7： Others&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-使用场景-scenario">1: 使用场景 Scenario&lt;/h1>
+&lt;p>在线数据库的维护中，总会涉及到研发修改表结构的情况，修改一些小表影响很小，而修改大表时，往往影响业务的正常运转，如表数据量超过 500W，1000W，甚至过亿时.&lt;/p></description></item><item><title>01-Mysql 优化工具</title><link>https://lppgo.github.io/post/database/001-mysql%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/</link><pubDate>Tue, 13 Apr 2021 17:16:49 +0800</pubDate><guid>https://lppgo.github.io/post/database/001-mysql%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/</guid><description>&lt;h1 id="mysql优化工具">MySql:优化工具&lt;/h1>
+&lt;pre>&lt;code>学习来自 [HB Chen](http://hbchen.com/)
+&lt;/code>&lt;/pre>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /etc/ &lt;span class="o">(&lt;/span>my.conf所在目录&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget http://www.day32.com/MySQL/tuning-primer.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x tuning-primer.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./tuning-primer.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

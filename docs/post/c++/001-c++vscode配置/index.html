@@ -1,0 +1,278 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>01-C++VScode 配置 - Even - A super concise theme for Hugo</title>
+<meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="lucas"><meta name=description content="C++ VScode 配置 1 C/C++基础 2 Vscode 安装 C/C++插件 3 task.json，launch.json 3.1 task.json 是编译当前文件的指令 3.2 launch.json 3.3 c_cpp_properties.json 4 cmake 1 C/C++基础 gcc工具用来编译运行 C 语言编写的源文件； g++工具用来编译运行 C++语言编写的源文件； gdb工具用来调试 C/C++代码。 gcc -v g++ -v 在命令行环境中，基本的编译运行命令大致如下：
+"><meta name=keywords content="C++,CPP,launch.json"><meta name=generator content="Hugo 0.147.0 with theme even"><link rel=canonical href=https://lppgo.github.io/post/c++/001-c++vscode%E9%85%8D%E7%BD%AE/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:url" content="https://lppgo.github.io/post/c++/001-c++vscode%E9%85%8D%E7%BD%AE/"><meta property="og:site_name" content="Even - A super concise theme for Hugo"><meta property="og:title" content="01-C++VScode 配置"><meta property="og:description" content="C++ VScode 配置 1 C/C++基础 2 Vscode 安装 C/C++插件 3 task.json，launch.json 3.1 task.json 是编译当前文件的指令 3.2 launch.json 3.3 c_cpp_properties.json 4 cmake 1 C/C++基础 gcc工具用来编译运行 C 语言编写的源文件； g++工具用来编译运行 C++语言编写的源文件； gdb工具用来调试 C/C++代码。 gcc -v g++ -v 在命令行环境中，基本的编译运行命令大致如下："><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2021-09-07T00:00:00+00:00"><meta property="article:modified_time" content="2021-09-07T00:00:00+00:00"><meta property="article:tag" content="C++"><meta itemprop=name content="01-C++VScode 配置"><meta itemprop=description content="C++ VScode 配置 1 C/C++基础 2 Vscode 安装 C/C++插件 3 task.json，launch.json 3.1 task.json 是编译当前文件的指令 3.2 launch.json 3.3 c_cpp_properties.json 4 cmake 1 C/C++基础 gcc工具用来编译运行 C 语言编写的源文件； g++工具用来编译运行 C++语言编写的源文件； gdb工具用来调试 C/C++代码。 gcc -v g++ -v 在命令行环境中，基本的编译运行命令大致如下："><meta itemprop=datePublished content="2021-09-07T00:00:00+00:00"><meta itemprop=dateModified content="2021-09-07T00:00:00+00:00"><meta itemprop=wordCount content="1244"><meta itemprop=keywords content="C++,CPP,launch.json"><meta name=twitter:card content="summary"><meta name=twitter:title content="01-C++VScode 配置"><meta name=twitter:description content="C++ VScode 配置 1 C/C++基础 2 Vscode 安装 C/C++插件 3 task.json，launch.json 3.1 task.json 是编译当前文件的指令 3.2 launch.json 3.3 c_cpp_properties.json 4 cmake 1 C/C++基础 gcc工具用来编译运行 C 语言编写的源文件； g++工具用来编译运行 C++语言编写的源文件； gdb工具用来调试 C/C++代码。 gcc -v g++ -v 在命令行环境中，基本的编译运行命令大致如下："><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>lppgo</a></div><div class=mobile-navbar-icon><span></span>
+<span></span>
+<span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>lppgo</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>01-C++VScode 配置</h1><div class=post-meta><span class=post-time>2021-09-07</span><div class=post-category><a href=/categories/c++/>C++</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#1-cc基础>1 C/C++基础</a></li><li><a href=#2-vscode-安装-cc插件>2 Vscode 安装 C/C++插件</a></li><li><a href=#3-taskjsonlaunchjson>3 task.json，launch.json</a><ul><li><a href=#31-taskjson-是编译当前文件的指令>3.1 task.json 是编译当前文件的指令</a></li><li><a href=#32-launchjson>3.2 launch.json</a></li><li><a href=#33-c_cpp_propertiesjson>3.3 c_cpp_properties.json</a></li></ul></li><li><a href=#4-cmake>4 cmake</a></li></ul></nav></div></div><div class=post-content><div align=center><font size=50>C++ VScode 配置</font></div><ul><li><a href=#1-cc%E5%9F%BA%E7%A1%80>1 C/C++基础</a></li><li><a href=#2-vscode-%E5%AE%89%E8%A3%85-cc%E6%8F%92%E4%BB%B6>2 Vscode 安装 C/C++插件</a></li><li><a href=#3-taskjsonlaunchjson>3 task.json，launch.json</a><ul><li><a href=#31-taskjson-%E6%98%AF%E7%BC%96%E8%AF%91%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E7%9A%84%E6%8C%87%E4%BB%A4>3.1 task.json 是编译当前文件的指令</a></li><li><a href=#32-launchjson>3.2 launch.json</a></li><li><a href=#33-c_cpp_propertiesjson>3.3 c_cpp_properties.json</a></li></ul></li><li><a href=#4-cmake>4 cmake</a></li></ul><h1 id=1-cc基础>1 C/C++基础</h1><ul><li><code>gcc</code>工具用来编译运行 C 语言编写的源文件；</li><li><code>g++</code>工具用来编译运行 C++语言编写的源文件；</li><li><code>gdb</code>工具用来调试 C/C++代码。</li><li>gcc -v</li><li>g++ -v</li></ul><p>在命令行环境中，基本的编译运行命令大致如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 使用 gcc 编译一个名叫 hello.c 的 C 文件，生成名为 hello 的可执行文件，或……</span>
+</span></span><span class=line><span class=cl>$ gcc hello.c -o hello
+</span></span><span class=line><span class=cl><span class=c1># 使用 g++ 编译一个名叫 hello.cpp 的 C++ 文件，生成名为 hello 的可执行文件</span>
+</span></span><span class=line><span class=cl>$ g++ hello.cpp -o hello
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 执行可执行文件 hello</span>
+</span></span><span class=line><span class=cl>$ ./hello
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-vscode-安装-cc插件>2 Vscode 安装 C/C++插件</h1><ul><li><p><code>C/C++ for Visual Studio Code</code>官方 plugin</p></li><li><p><code>C/C++ Runner</code></p></li><li><p><strong>Code Runner</strong> 大多数情况下我们可以直接利用之前安装的 Code Runner 插件进行编译运行 C/C++ 程序。默认情况下 Code Runner 编译 C、C++ 文件的配置如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=s2>&#34;code-runner.executorMap&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl><span class=s2>&#34;c&#34;</span>: <span class=s2>&#34;cd </span><span class=nv>$dir</span><span class=s2> &amp;&amp; gcc </span><span class=nv>$fileName</span><span class=s2> -o </span><span class=nv>$fileNameWithoutExt</span><span class=s2> &amp;&amp; </span><span class=nv>$dir$fileNameWithoutExt</span><span class=s2>&#34;</span>,
+</span></span><span class=line><span class=cl><span class=s2>&#34;cpp&#34;</span>: <span class=s2>&#34;cd </span><span class=nv>$dir</span><span class=s2> &amp;&amp; g++ </span><span class=nv>$fileName</span><span class=s2> -o </span><span class=nv>$fileNameWithoutExt</span><span class=s2> &amp;&amp; </span><span class=nv>$dir$fileNameWithoutExt</span><span class=s2>&#34;</span>,
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p><strong>安装 C/C++ 编译调试工具</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install build-essential
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sudo apt install gcc g++ gdb
+</span></span></code></pre></td></tr></table></div></div></li><li><p><strong>VS Code 智能代码提示</strong> <code>c_cpp_properties.json</code></p></li></ul><h1 id=3-taskjsonlaunchjson>3 task.json，launch.json</h1><h2 id=31-taskjson-是编译当前文件的指令>3.1 task.json 是编译当前文件的指令</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// See https://go.microsoft.com/fwlink/?LinkId=733558
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=c1>// for the documentation about the tasks.json format
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;2.0.0&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;tasks&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;shell&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;label&#34;</span><span class=p>:</span> <span class=s2>&#34;g++ build active file&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;command&#34;</span><span class=p>:</span> <span class=s2>&#34;/usr/bin/g++&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;args&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;-g&#34;</span><span class=p>,</span> <span class=c1>//启用gdb调试
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>// &#34;${workspaceFolder}/src/*.cpp&#34;, //头文件实现的cpp源文件
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=s2>&#34;${workspaceFolder}/*.cpp&#34;</span><span class=p>,</span> <span class=c1>// main.cpp
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=s2>&#34;-I&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;${workspaceFolder}/include&#34;</span><span class=p>,</span> <span class=c1>// 头文件路径
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=s2>&#34;-o&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;${workspaceFolder}/${fileBasenameNoExtension}&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;options&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;cwd&#34;</span><span class=p>:</span> <span class=s2>&#34;${workspaceFolder}&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=p>},</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;problemMatcher&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;$gcc&#34;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;group&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;kind&#34;</span><span class=p>:</span> <span class=s2>&#34;build&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;isDefault&#34;</span><span class=p>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=32-launchjson>3.2 launch.json</h2><ul><li>执行当前文件并让 gdb 调试工具连接到可执行文件的指令</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;0.2.0&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;configurations&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;(gdb) Launch&#34;</span><span class=p>,</span> <span class=c1>// 配置名称，将会在启动配置的下拉菜单中显示
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;cppdbg&#34;</span><span class=p>,</span> <span class=c1>// 配置类型，这里只能为cppdbg
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;request&#34;</span><span class=p>:</span> <span class=s2>&#34;launch&#34;</span><span class=p>,</span> <span class=c1>// 请求配置类型，可以为launch（启动）或attach（附加）
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=c1>//   &#34;program&#34;: &#34;${workspaceFolder}/a.out&#34;, // 将要进行调试的程序的路径
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;program&#34;</span><span class=p>:</span> <span class=s2>&#34;${workspaceFolder}/${fileBasenameNoExtension}&#34;</span><span class=p>,</span> <span class=c1>// 将要进行调试的程序的路径
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;args&#34;</span><span class=p>:</span> <span class=p>[],</span> <span class=c1>// 程序调试时传递给程序的命令行参数，一般设为空即可
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;stopAtEntry&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span> <span class=c1>// 设为true时程序将暂停在程序入口处
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=c1>//   &#34;cwd&#34;: &#34;${workspaceFolder}&#34;, // 调试程序时的工作目录
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;cwd&#34;</span><span class=p>:</span> <span class=s2>&#34;/mnt/e/cppProjects001/test-1&#34;</span><span class=p>,</span> <span class=c1>// 调试程序时的工作目录
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;environment&#34;</span><span class=p>:</span> <span class=p>[],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;externalConsole&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span> <span class=c1>// 调试时是否显示控制台窗口，一般设置为true显示控制台
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;MIMode&#34;</span><span class=p>:</span> <span class=s2>&#34;gdb&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;setupCommands&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;Enable pretty-printing for gdb&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;text&#34;</span><span class=p>:</span> <span class=s2>&#34;-enable-pretty-printing&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;ignoreFailures&#34;</span><span class=p>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;miDebuggerPath&#34;</span><span class=p>:</span> <span class=s2>&#34;/usr/bin/gdb&#34;</span><span class=p>,</span> <span class=c1>// 调试器路径，Windows下后缀不能省略，Linux下则去掉
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nt>&#34;preLaunchTask&#34;</span><span class=p>:</span> <span class=s2>&#34;g++ build active file&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=c1>// 调试会话开始前执行的任务，一般为编译程序，c++为g++, c为gcc。调试会话开始前执行的任务，一般为编译程序。与tasks.json的label相对应
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// Runner
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;C/C++ Runner: Debug Session&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;cppdbg&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;request&#34;</span><span class=p>:</span> <span class=s2>&#34;launch&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;args&#34;</span><span class=p>:</span> <span class=p>[],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;stopAtEntry&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;cwd&#34;</span><span class=p>:</span> <span class=s2>&#34;/mnt/e/cppProjects001/test-1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;environment&#34;</span><span class=p>:</span> <span class=p>[],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;program&#34;</span><span class=p>:</span> <span class=s2>&#34;/mnt/e/cppProjects001/test-1/build/Debug/outDebug&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;internalConsoleOptions&#34;</span><span class=p>:</span> <span class=s2>&#34;openOnSessionStart&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;MIMode&#34;</span><span class=p>:</span> <span class=s2>&#34;gdb&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;miDebuggerPath&#34;</span><span class=p>:</span> <span class=s2>&#34;/usr/bin/gdb&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;externalConsole&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;setupCommands&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;Enable pretty-printing for gdb&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;text&#34;</span><span class=p>:</span> <span class=s2>&#34;-enable-pretty-printing&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;ignoreFailures&#34;</span><span class=p>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=33-c_cpp_propertiesjson>3.3 c_cpp_properties.json</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;configurations&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;linux-gcc-x64&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;includePath&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;${workspaceFolder}/**&#34;</span><span class=p>,</span> <span class=c1>//源文件
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=s2>&#34;${workspaceFolder}/include&#34;</span> <span class=c1>//头文件
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;compilerPath&#34;</span><span class=p>:</span> <span class=s2>&#34;/usr/bin/gcc&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;cStandard&#34;</span><span class=p>:</span> <span class=s2>&#34;c11&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;cppStandard&#34;</span><span class=p>:</span> <span class=s2>&#34;c++17&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;intelliSenseMode&#34;</span><span class=p>:</span> <span class=s2>&#34;linux-gcc-x64&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;compilerArgs&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;-Wall&#34;</span><span class=p>,</span> <span class=s2>&#34;-Wextra&#34;</span><span class=p>,</span> <span class=s2>&#34;-Wpedantic&#34;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;configurationProvider&#34;</span><span class=p>:</span> <span class=s2>&#34;ms-vscode.cmake-tools&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>],</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=4-cmake>4 cmake</h1><ul><li>CMake 是一个跨平台的安装(编译)工具,可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的 makefile 或者 project 文件,能测试编译器所支持的 C++特性,类似 UNIX 下的 automake。</li><li>CMakeLists.txt</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cmake data-lang=cmake><span class=line><span class=cl><span class=c>#set dirs
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>set</span><span class=p>(</span><span class=s>PROJECT_ROOT</span> <span class=o>${</span><span class=nv>CMAKE_CURRENT_LIST_DIR</span><span class=o>}</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>message</span><span class=p>(</span><span class=s2>&#34;project dir:${PROJECT_ROOT}&#34;</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_EXPORT_COMPILE_COMMANDS</span> <span class=s>ON</span><span class=p>)</span>   <span class=c>#导出clangd需要的文件，用于智能提示和基于语议的补全
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>SET</span><span class=p>(</span><span class=s>BIN_DESTINATION</span> <span class=o>${</span><span class=nv>PROJECT_SOURCE_DIR</span><span class=o>}</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_ARCHIVE_OUTPUT_DIRECTORY</span> <span class=o>${</span><span class=nv>BIN_DESTINATION</span><span class=o>}</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_LIBRARY_OUTPUT_DIRECTORY</span> <span class=o>${</span><span class=nv>BIN_DESTINATION</span><span class=o>}</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_RUNTIME_OUTPUT_DIRECTORY</span> <span class=o>${</span><span class=nv>BIN_DESTINATION</span><span class=o>}</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>CMAKE_PROJECT_VERSION</span> <span class=s>1.0.1</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>if</span> <span class=p>(</span><span class=s>POLICY</span> <span class=s>CMP0048</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span>  <span class=nb>cmake_policy</span><span class=p>(</span><span class=s>SET</span> <span class=s>CMP0048</span> <span class=s>NEW</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>endif</span> <span class=p>(</span><span class=s>POLICY</span> <span class=s>CMP0048</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>PROJECT</span> <span class=p>(</span><span class=s>HelloWorld</span> <span class=s>VERSION</span> <span class=s>1.0</span> <span class=s>LANGUAGES</span> <span class=s>CXX</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>SET</span><span class=p>(</span><span class=s>SRC_LIST</span> <span class=s>main.cpp</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>ADD_EXECUTABLE</span><span class=p>(</span><span class=s>test-1</span> <span class=o>${</span><span class=nv>SRC_LIST</span><span class=o>}</span><span class=p>)</span><span class=err>
+</span></span></span></code></pre></td></tr></table></div></div></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>lucas</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2021-09-07</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/c++/>C++</a></div><nav class=post-nav><a class=prev href=/post/others/001-zshrc/><i class="iconfont icon-left"></i>
+<span class="prev-text nav-default">01-zshrc 笔记</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a><a class=next href=/post/golang/015-file-and-io/><span class="next-text nav-default">01-Golang Files and I/O</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=https://github.com/lppgo class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span><span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span><span class=copyright-year>&copy;
+2015 -
+2025<span class=heart><i class="iconfont icon-heart"></i></span><span></span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js></script><script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var t,n,e=document.createElement("script");e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script></body></html>

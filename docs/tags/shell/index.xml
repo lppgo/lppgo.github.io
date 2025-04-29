@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shell on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/shell/</link><description>Recent content in Shell on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 30 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>01-shell快速入门.md</title><link>https://lppgo.github.io/post/linux/025-shell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</link><pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/025-shell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</guid><description>&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-%E7%AC%AC%E4%B8%80%E4%B8%AA-shell-%E8%84%9A%E6%9C%AC">1: 第一个 shell 脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E5%8F%98%E9%87%8F-variable">2: 变量 variable&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%AD%97%E7%AC%A6%E4%B8%B2-string">3: 字符串 String&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E6%95%B0%E7%BB%84-array">4: 数组 Array&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-shell-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92">5: Shell 参数传递&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-%E8%BF%90%E7%AE%97">6: 运算&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#61-%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97">6.1 算数运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#62-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97">6.2 关系运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#63-%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97">6.3 布尔运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#64-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6">6.4 逻辑运算符&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#65-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97%E7%AC%A6">6.5 字符串运算符&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#66-%E6%96%87%E4%BB%B6%E6%A3%80%E6%B5%8B%E8%BF%90%E7%AE%97%E7%AC%A6">6.6 文件检测运算符&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#67-%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97">6.7 布尔运算&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#7-echo">7: echo&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#8-printf">8: printf&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#9-test">9: test&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#10-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6">10: 流程控制&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#101-if">10.1 if&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#102-for">10.2 for&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#103-while">10.3 while&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#104-%E6%97%A0%E9%99%90%E5%BE%AA%E7%8E%AF">10.4 无限循环&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#105-until">10.5 until&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#106-case">10.6 case&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#107-%E8%A1%A8%E7%A4%BA-break">10.7 ;;表示 break&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#11-%E5%87%BD%E6%95%B0">11: 函数&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#111-%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89">11.1 函数定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#112-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0">11.2 函数参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#113-shell-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F-%E5%92%8C-local-%E4%BF%AE%E9%A5%B0%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">11.3 shell 全局变量 和 local 修饰的局部变量&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#12-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91">12: 输入输出重定向&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#13-shell-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB">13: Shell 文件包含&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#14-%E5%B8%B8%E7%94%A8%E4%B8%80%E4%BA%9B-shell-%E8%84%9A%E6%9C%AC">14: 常用一些 shell 脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#15-other">15: other&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-第一个-shell-脚本">1: 第一个 shell 脚本&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello, world&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>运行程序可以作为解释器参数或者作为可执行程序&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash test.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x test.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">test.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-变量-variable">2: 变量 variable&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: 变量定义&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 需要注意的是变量名与等号之间不能有空格.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: 变量使用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用在变量名前添加$即可,{}表示这个变量名的边界.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$name&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3: 只读变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用readonly可以将变量定义为只读变量,只读变量不能再次赋值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">readonly&lt;/span> name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 4: 删除变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 使用unset删除变量,之后不能再使用.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">unset&lt;/span> name
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-字符串-string">3: 字符串 String&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: 字符串定义&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 字符串可以使用单引号和双引号,单引号中不能包含单引号,即使转义单引号也不次那个,双引号则可以,双引号也可以使用字符串.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;my name is &lt;/span>&lt;span class="nv">$name&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: 字符串拼接&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">hello&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;my name is &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3: 获取字符串长度&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">str&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">str&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 4: 提取子字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">str&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">str&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">3&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 5: 字符串查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">str&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="sb">`&lt;/span>expr index &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$str&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> u&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 此时输出2,因为此时第一个字符位置从1开始&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-数组-array">4: 数组 Array&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: 数组定义&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">names&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="s2">&amp;#34;huruji&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;greywind&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;xie&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[0]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[2]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: 数组读取&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[2]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 使用@可以获取数组中的所有元素&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3: 数组长度获取&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">length1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="si">${#&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">length2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="si">${#&lt;/span>&lt;span class="nv">names&lt;/span>&lt;span class="p">[*]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$length1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$length2&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-shell-参数传递">5: Shell 参数传递&lt;/h1>
+&lt;ul>
+&lt;li>执行 Shell 脚本的时候,可以向脚本传递参数,在 Shell 中获取这些参数的格式为$n,即$1,$2…….,&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数是：&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数是：&lt;/span>&lt;span class="nv">$2&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数是：&lt;/span>&lt;span class="nv">$3&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 运行shell&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x test.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">test.sh &lt;span class="m">12&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">14&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 此时输出:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第一个参数是：12
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第一个参数是：13
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">第一个参数是：14
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>此外,还有其他几个特殊字符来处理参数
+&lt;ul>
+&lt;li>$#：传递脚本的参数个数&lt;/li>
+&lt;li>$*：显示所有的参数&lt;/li>
+&lt;li>$@：返回所有参数&lt;/li>
+&lt;li>$-：显示 Shell 的使用的当前选项&lt;/li>
+&lt;li>$?：退出的状态,0 表示没有错误,其他则表示有错误&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="6-运算">6: 运算&lt;/h1>
+&lt;h2 id="61-算数运算">6.1 算数运算&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>算数运算&lt;/strong> 原生 bash 不支持简单的数学运算,可以借助于其他命令来完成,例如 awk 和 expr,其中 expr 最常用.expr 是一款表达式计算工具,使用它能完成表达式的求值操作.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">val&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>expr &lt;span class="m">2&lt;/span> + 2&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$val&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>需要注意的是&lt;strong>运算符两边需要 &lt;em>空格&lt;/em> ,且使用的是反引号&lt;/strong>. 算术运算符包括：&lt;code>+ - × / % = == !=&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="62-关系运算">6.2 关系运算&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>关系运算&lt;/strong> 关系运算只支持数字,不支持字符串,除非字符串的值是数字.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">12&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">13&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$a&lt;/span> -eq &lt;span class="nv">$b&lt;/span> &lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;相等&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;不等&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>算数运算符：&lt;/p></description></item></channel></rss>

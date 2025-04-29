@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Zap on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/zap/</link><description>Recent content in Zap on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 06 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/zap/index.xml" rel="self" type="application/rss+xml"/><item><title>go zap日志库</title><link>https://lppgo.github.io/post/golang/035_gozap%E6%97%A5%E5%BF%97%E5%BA%93/</link><pubDate>Sun, 06 Nov 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/035_gozap%E6%97%A5%E5%BF%97%E5%BA%93/</guid><description>&lt;div align="center">&lt;font size="35">go zap日志库笔记&lt;/font>&lt;/div>
+&lt;h1 id="1-概述">1: 概述&lt;/h1>
+&lt;ul>
+&lt;li>go zap 高性能日志库;&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-创建实例">2: 创建实例&lt;/h1>
+&lt;ul>
+&lt;li>通过调用 &lt;code>zap.NewProduction()&lt;/code>/&lt;code>zap.NewDevelopment()&lt;/code>或者 &lt;code>zap.Example()&lt;/code>创建一个 Logger。这三个方法的区别在于它将记录的信息不同，参数只能是 string 类型&lt;/li>
+&lt;li>三种创建方式对比：&lt;/li>
+&lt;li>Example 和 Production 使用的是 json 格式输出，Development 使用行的形式输出;&lt;/li>
+&lt;li>Development:
+&lt;ul>
+&lt;li>从警告级别向上打印到堆栈中来跟踪&lt;/li>
+&lt;li>始终打印包/文件/行（方法）&lt;/li>
+&lt;li>在行尾添加任何额外字段作为 json 字符串&lt;/li>
+&lt;li>以大写形式打印级别名称&lt;/li>
+&lt;li>以毫秒为单位打印 ISO8601 格式的时间戳&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Development
+&lt;ul>
+&lt;li>从警告级别向上打印到堆栈中来跟踪&lt;/li>
+&lt;li>始终打印包/文件/行（方法）&lt;/li>
+&lt;li>在行尾添加任何额外字段作为 json 字符串&lt;/li>
+&lt;li>以大写形式打印级别名称&lt;/li>
+&lt;li>以毫秒为单位打印 ISO8601 格式的时间戳&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//代码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">log&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewExample&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">log&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewDevelopment&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">log&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProduction&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Debug&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;This is a DEBUG message&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;This is an INFO message&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//Example 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;level&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;debug&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;msg&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;This is a DEBUG message&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;level&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;info&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;msg&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;This is an INFO message&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//Development 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mi">2018&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">30&lt;/span>&lt;span class="nx">T17&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">14&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">22.459&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">0800&lt;/span> &lt;span class="nx">DEBUG&lt;/span> &lt;span class="nx">development&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">main&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">go&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">7&lt;/span> &lt;span class="nx">This&lt;/span> &lt;span class="nx">is&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="nx">DEBUG&lt;/span> &lt;span class="nx">message&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mi">2018&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">30&lt;/span>&lt;span class="nx">T17&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">14&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">22.459&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">0800&lt;/span> &lt;span class="nx">INFO&lt;/span> &lt;span class="nx">development&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">main&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">go&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8&lt;/span> &lt;span class="nx">This&lt;/span> &lt;span class="nx">is&lt;/span> &lt;span class="nx">an&lt;/span> &lt;span class="nx">INFO&lt;/span> &lt;span class="nx">message&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//Production 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;level&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;info&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;ts&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">1540891173.3190675&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;caller&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;production/main.go:8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;msg&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;This is an INFO message&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;level&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;info&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;ts&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">1540891173.3191047&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;caller&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;production/main.go:9&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;msg&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s">&amp;#34;This is an INFO message with fields&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;region&amp;#34;&lt;/span>&lt;span class="p">:[&lt;/span>&lt;span class="s">&amp;#34;us-west&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>&lt;span class="s">&amp;#34;id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="3-格式化输出">3: 格式化输出&lt;/h1>
+&lt;ul>
+&lt;li>zap 有两种类型，分别是&lt;strong>zap.Logger&lt;/strong>和&lt;strong>zap.SugaredLogger&lt;/strong>,它们惟一的区别是，我们通过调用主 logger 的. Sugar()方法来获取一个 SugaredLogger，然后使用 SugaredLogger 以 printf 格式记录语句，例如:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">sugarLogger&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SugaredLogger&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">InitLogger&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">logger&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProduction&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">sugarLogger&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Sugar&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">InitLogger&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">defer&lt;/span> &lt;span class="nx">sugarLogger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Sync&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">sugarLogger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Error fetching URL %s : Error = %s&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-写入文件">4: 写入文件&lt;/h1>
+&lt;ul>
+&lt;li>默认情况下日志都会打印到应用程序的 console 界面，但是为了方便查询，可以将日志写入文件，但是我们不能再使用前面创建实例的 3 个方法，而是使用&lt;code>zap.New()&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;os&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap/zapcore&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">log&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">writeSyncer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;./info.log&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//日志文件存放目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProductionEncoderConfig&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">//指定时间格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeTime&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ISO8601TimeEncoder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeLevel&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CapitalLevelEncoder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoder&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewConsoleEncoder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//获取编码器,NewJSONEncoder()输出json格式，NewConsoleEncoder()输出普通文本格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">core&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewCore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">writeSyncer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DebugLevel&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//第三个及之后的参数为写入文件的日志级别,ErrorLevel模式只记录error级别的日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">New&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">core&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddCaller&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1">//AddCaller()为显示文件名和行号&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello world&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello world&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// log输出结果:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mi">2020&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">12&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="nx">T17&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">53&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">30.466&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">0800&lt;/span> &lt;span class="nx">INFO&lt;/span> &lt;span class="nx">geth&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">main&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">go&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">18&lt;/span> &lt;span class="nx">hello&lt;/span> &lt;span class="nx">world&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mi">2020&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">12&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="nx">T17&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">53&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">30.486&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">0800&lt;/span> &lt;span class="nx">ERROR&lt;/span> &lt;span class="nx">geth&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">main&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">go&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">19&lt;/span> &lt;span class="nx">hello&lt;/span> &lt;span class="nx">world&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-同时输出控制台和文件">5: 同时输出控制台和文件&lt;/h1>
+&lt;ul>
+&lt;li>如果需要同时输出控制台和文件，只需要改造一下 zapcore.NewCore 即可，示例：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;os&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;github.com/natefinch/lumberjack&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap/zapcore&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">log&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// 获取编码器,NewJSONEncoder()输出json格式，NewConsoleEncoder()输出普通文本格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProductionEncoderConfig&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeTime&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ISO8601TimeEncoder&lt;/span> &lt;span class="c1">//指定时间格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeLevel&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CapitalLevelEncoder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoder&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewConsoleEncoder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// 文件writeSyncer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">fileWriteSyncer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">lumberjack&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Filename&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;./info.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件存放目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxSize&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//文件大小限制,单位MB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxBackups&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//最大保留日志文件数量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxAge&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件保留天数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Compress&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//是否压缩处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">fileCore&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewCore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewMultiWriteSyncer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fileWriteSyncer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdout&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DebugLevel&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//第三个及之后的参数为写入文件的日志级别,ErrorLevel模式只记录error级别的日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">New&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fileCore&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddCaller&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1">//AddCaller()为显示文件名和行号&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello world&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello world&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="6-文件切割">6: 文件切割&lt;/h1>
+&lt;ul>
+&lt;li>日志文件会随时间越来越大，为了避免日志文件把硬盘空间占满，需要按条件对日志文件进行切割，zap 包本身不提供文件切割的功能，但是可以用 zap 官方推荐的&lt;code>lumberjack&lt;/code>包处理&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//文件writeSyncer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fileWriteSyncer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">lumberjack&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Filename&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;./info.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件存放目录，如果文件夹不存在会自动创建&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">MaxSize&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//文件大小限制,单位MB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">MaxBackups&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//最大保留日志文件数量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">MaxAge&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件保留天数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Compress&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//是否压缩处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="7-按级别写入文件">7: 按级别写入文件&lt;/h1>
+&lt;ul>
+&lt;li>为了管理人员的查询方便，一般我们需要将低于 error 级别的放到 info.log，error 及以上严重级别日志存放到 error.log 文件中，我们只需要改造一下 zapcore.NewCore 方法的第 3 个参数，然后将文件 WriteSyncer 拆成 info 和 error 两个即可，示例：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;os&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;github.com/natefinch/lumberjack&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap/zapcore&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">log&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="kd">var&lt;/span> &lt;span class="nx">coreArr&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Core&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// 获取编码器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProductionEncoderConfig&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">//NewJSONEncoder()输出json格式，NewConsoleEncoder()输出普通文本格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeTime&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ISO8601TimeEncoder&lt;/span> &lt;span class="c1">//指定时间格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeLevel&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CapitalColorLevelEncoder&lt;/span> &lt;span class="c1">//按级别显示不同颜色，不需要的话取值zapcore.CapitalLevelEncoder就可以了&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// encoderConfig.EncodeCaller = zapcore.FullCallerEncoder //显示完整文件路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoder&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewConsoleEncoder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// 日志级别&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">highPriority&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">LevelEnablerFunc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">lev&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Level&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">//error级别&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="k">return&lt;/span> &lt;span class="nx">lev&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ErrorLevel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">lowPriority&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">LevelEnablerFunc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">lev&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Level&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">//info和debug级别,debug级别是最低的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="k">return&lt;/span> &lt;span class="nx">lev&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ErrorLevel&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">lev&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DebugLevel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// info文件writeSyncer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">infoFileWriteSyncer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">lumberjack&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Filename&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;./log/info.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件存放目录，如果文件夹不存在会自动创建&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxSize&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//文件大小限制,单位MB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxBackups&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//最大保留日志文件数量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxAge&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件保留天数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Compress&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//是否压缩处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">infoFileCore&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewCore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewMultiWriteSyncer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">infoFileWriteSyncer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdout&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="nx">lowPriority&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//第三个及之后的参数为写入文件的日志级别,ErrorLevel模式只记录error级别的日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// error文件writeSyncer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">errorFileWriteSyncer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">lumberjack&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Filename&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;./log/error.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件存放目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxSize&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//文件大小限制,单位MB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxBackups&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//最大保留日志文件数量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxAge&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件保留天数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Compress&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//是否压缩处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">errorFileCore&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewCore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewMultiWriteSyncer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">errorFileWriteSyncer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdout&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="nx">highPriority&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//第三个及之后的参数为写入文件的日志级别,ErrorLevel模式只记录error级别的日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">coreArr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">coreArr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">infoFileCore&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">coreArr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">coreArr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">errorFileCore&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">New&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewTee&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">coreArr&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddCaller&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1">//zap.AddCaller()为显示文件名和行号，可省略&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello info&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Debug&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello debug&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello error&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>这样修改之后，info 和 debug 级别的日志就存放到 info.log，error 级别的日志单独放到 error.log 文件中了&lt;/li>
+&lt;/ul>
+&lt;h1 id="8-控制台按级别显示颜色">8: 控制台按级别显示颜色&lt;/h1>
+&lt;ul>
+&lt;li>指定编码器的 EncodeLevel 即可&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//获取编码器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoderConfig&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProductionEncoderConfig&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">//NewJSONEncoder()输出json格式，NewConsoleEncoder()输出普通文本格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeTime&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ISO8601TimeEncoder&lt;/span> &lt;span class="c1">//指定时间格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeLevel&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CapitalColorLevelEncoder&lt;/span> &lt;span class="c1">//按级别显示不同颜色，不需要的话取值zapcore.CapitalLevelEncoder就可以了&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoder&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewConsoleEncoder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="9-显示文件路径和行号">9: 显示文件路径和行号&lt;/h1>
+&lt;ul>
+&lt;li>前面说到要显示文件路径和行号，只需要 zap.New 方法添加参数 zap.AddCaller()即可，如果要显示完整的路径，需要在编码器配置中指定&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//获取编码器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoderConfig&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProductionEncoderConfig&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">//NewJSONEncoder()输出json格式，NewConsoleEncoder()输出普通文本格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeTime&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ISO8601TimeEncoder&lt;/span> &lt;span class="c1">//指定时间格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeLevel&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CapitalColorLevelEncoder&lt;/span> &lt;span class="c1">//按级别显示不同颜色，不需要的话取值zapcore.CapitalLevelEncoder就可以了&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeCaller&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FullCallerEncoder&lt;/span> &lt;span class="c1">//显示完整文件路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">encoder&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewConsoleEncoder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="10-完整代码">10: 完整代码&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;os&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;github.com/natefinch/lumberjack&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="s">&amp;#34;go.uber.org/zap/zapcore&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">log&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="kd">var&lt;/span> &lt;span class="nx">coreArr&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Core&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// 获取编码器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewProductionEncoderConfig&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">//NewJSONEncoder()输出json格式，NewConsoleEncoder()输出普通文本格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeTime&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ISO8601TimeEncoder&lt;/span> &lt;span class="c1">//指定时间格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EncodeLevel&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CapitalColorLevelEncoder&lt;/span> &lt;span class="c1">//按级别显示不同颜色，不需要的话取值zapcore.CapitalLevelEncoder就可以了&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// encoderConfig.EncodeCaller = zapcore.FullCallerEncoder //显示完整文件路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">encoder&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewConsoleEncoder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoderConfig&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// 日志级别&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">highPriority&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">LevelEnablerFunc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">lev&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Level&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">//error级别&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="k">return&lt;/span> &lt;span class="nx">lev&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ErrorLevel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">lowPriority&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">LevelEnablerFunc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">lev&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Level&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">//info和debug级别,debug级别是最低的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="k">return&lt;/span> &lt;span class="nx">lev&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ErrorLevel&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">lev&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DebugLevel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// info文件writeSyncer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">infoFileWriteSyncer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">lumberjack&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Filename&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;./log/info.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件存放目录，如果文件夹不存在会自动创建&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxSize&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//文件大小限制,单位MB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxBackups&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//最大保留日志文件数量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxAge&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件保留天数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Compress&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//是否压缩处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">infoFileCore&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewCore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewMultiWriteSyncer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">infoFileWriteSyncer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdout&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="nx">lowPriority&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//第三个及之后的参数为写入文件的日志级别,ErrorLevel模式只记录error级别的日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// error文件writeSyncer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">errorFileWriteSyncer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">lumberjack&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Logger&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Filename&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;./log/error.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件存放目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxSize&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//文件大小限制,单位MB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxBackups&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//最大保留日志文件数量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">MaxAge&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//日志文件保留天数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">		&lt;span class="nx">Compress&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//是否压缩处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">errorFileCore&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewCore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">encoder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewMultiWriteSyncer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">errorFileWriteSyncer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdout&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="nx">highPriority&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//第三个及之后的参数为写入文件的日志级别,ErrorLevel模式只记录error级别的日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">coreArr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">coreArr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">infoFileCore&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">coreArr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">coreArr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">errorFileCore&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">New&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">zapcore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewTee&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">coreArr&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="nx">zap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">AddCaller&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1">//zap.AddCaller()为显示文件名和行号，可省略&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello info&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Debug&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello debug&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello error&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

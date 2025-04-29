@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Test on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/test/</link><description>Recent content in Test on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 24 May 2022 10:40:32 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/tags/test/index.xml" rel="self" type="application/rss+xml"/><item><title>02-Go TestBenchmark</title><link>https://lppgo.github.io/post/golang/024_go-testbenchmark/</link><pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/024_go-testbenchmark/</guid><description>&lt;div align="center">&lt;font size="35">Go TestBenchmark笔记&lt;/font>&lt;/div>
+Table of Contents
+=================
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#go-test-benchmark">Go Test Benchmark&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#11-go-test-benchmark-%E7%A4%BA%E4%BE%8B">1.1 go test benchmark 示例&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#12-go-test-benchmark-benchstat-%E6%AF%94%E8%BE%83%E5%B7%A5%E5%85%B7">1.2 go test benchmark benchstat 比较工具&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="go-test-benchmark">Go Test Benchmark&lt;/h1>
+&lt;ul>
+&lt;li>在 Go 中，通过撰写 Benchmark 函数可以很方便地对某个功能点进行性能检测。对于重要的函数，我们可以在 CI/CD 中添加相应的测试流程，当函数性能发生变化时能够及时感知。那问题来了，如何检测函数的性能变化？&lt;/li>
+&lt;li>换个说法，你编写了某功能函数但发现它运行很慢，需要对该函数进行优化，当你在谷歌搜索找到更好的实现方式，通过 Benchmark 函数发现它的确变快了。但你说不清楚具体变快了多少，你想知道函数优化前后的性能对比，提高多少百分点，可信度高吗？&lt;/li>
+&lt;li>针对以上的需求场景，有一个工具可以帮助到你，它就是 &lt;strong>benchstat&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h2 id="11-go-test-benchmark-示例">1.1 go test benchmark 示例&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// fib.go&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">FibSolution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">n&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">n&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">n&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nf">FibSolution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nf">FibSolution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// fib_test.go&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">BenchmarkFib20&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">testing&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">B&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">FibSolution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 命令行执行go test -bench=BenchmarkFib20得到性能结果&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>执行 &lt;code>go test -bench=BenchmarkFib20&lt;/code> 得到性能结果：&lt;/p></description></item><item><title>01-Go Test笔记</title><link>https://lppgo.github.io/post/golang/023_go-test%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/023_go-test%E7%AC%94%E8%AE%B0/</guid><description>&lt;div align="center">&lt;font size="35">Go Test笔记&lt;/font>&lt;/div>
+&lt;h1 id="go-test">Go Test&lt;/h1>
+&lt;ul>
+&lt;li>一个完整的单测指令可以是 &lt;code>go test -v -cover -gcflags=all=-l -coverprofile=coverage.out&lt;/code>&lt;/li>
+&lt;li>&lt;code>-gcflags=all=-l&lt;/code> 防止编译器内联优化导致单测出现问题&lt;/li>
+&lt;/ul>
+&lt;h2 id="11-go-test">1.1 go test&lt;/h2>
+&lt;p>&lt;code>go test -run=^TestDo -v ./&lt;/code>
+这里介绍几个常用的参数：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>-bench regexp&lt;/code> 执行相应的 benchmarks，例如 -bench=.；&lt;/li>
+&lt;li>&lt;code>-cover&lt;/code> 开启测试覆盖率；&lt;/li>
+&lt;li>&lt;code>-trace=copy_trace.out&lt;/code> 生成 trace.out 文件（go tool trace copy_trace.out）&lt;/li>
+&lt;li>&lt;code>-run regexp&lt;/code> 只运行 regexp 匹配的函数，例如 -run=Array 那么就执行包含有 Array 开头的函数；&lt;/li>
+&lt;li>&lt;code>-count&lt;/code> 执行次数。&lt;/li>
+&lt;li>&lt;code>-v&lt;/code> 显示测试的详细命令。&lt;/li>
+&lt;/ul>
+&lt;h2 id="12-go-test-cover-生成测试覆盖度报告">1.2 go test cover 生成测试覆盖度报告&lt;/h2>
+&lt;p>&lt;code>go tool cover -html=coverage.out&lt;/code>&lt;/p></description></item></channel></rss>

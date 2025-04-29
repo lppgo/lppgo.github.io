@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Makefile on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/makefile/</link><description>Recent content in Makefile on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 10 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml"/><item><title>02-适用于Go项目的Makefile指南</title><link>https://lppgo.github.io/post/golang/027_%E9%80%82%E7%94%A8%E4%BA%8Ego%E9%A1%B9%E7%9B%AE%E7%9A%84makefile%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/027_%E9%80%82%E7%94%A8%E4%BA%8Ego%E9%A1%B9%E7%9B%AE%E7%9A%84makefile%E6%8C%87%E5%8D%97/</guid><description>&lt;div align="center">&lt;font size="35">适用于Go项目的Makefile指南&lt;/font>&lt;/div>
+Table of Contents
+=================
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-premise">1: Premise&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-makefile-%E8%AF%AD%E6%B3%95">2: Makefile 语法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-go-%E9%A1%B9%E7%9B%AE">3: Go 项目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-supplementary-instruction">4: supplementary instruction&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-premise">1: Premise&lt;/h1>
+&lt;ul>
+&lt;li>会使用 go 写项目&lt;/li>
+&lt;li>会使用 Makefile&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-makefile-语法">2: Makefile 语法&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">PROJECT&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;example&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">default&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">echo&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">PROJECT&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">install&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">govendor&lt;/span> &lt;span class="nx">sync&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">v&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">test&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">install&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="k">go&lt;/span> &lt;span class="nx">test&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="o">/...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nx">PHONY&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="nx">install&lt;/span> &lt;span class="nx">test&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>makefile 格式介绍
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nx">prerequisites&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">tab&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nx">command&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>&lt;code>target&lt;/code> : 即自定义的想要执行的命令;&lt;/li>
+&lt;li>&lt;code>prerequisites&lt;/code>: 前置条件，即执行 target 命令之前执行的命令;&lt;/li>
+&lt;li>&lt;code>commands&lt;/code> : 具体的执行的命令;&lt;/li>
+&lt;li>&lt;code>.PHONY&lt;/code> 伪指令，内置的关键字;&lt;/li>
+&lt;li>不带参数，默认执行第一个 target;&lt;/li>
+&lt;li>&lt;code>@&lt;/code> 表示禁止回声，即终端不会打印真实的执行命令;&lt;/li>
+&lt;li>&lt;code>#&lt;/code> 表示注释;&lt;/li>
+&lt;li>&lt;code>${val}&lt;/code>表示变量，和 shell 脚本中的变量的声明和使用一致;&lt;/li>
+&lt;li>允许使用 通配符;&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-go-项目">3: Go 项目&lt;/h1>
+&lt;ul>
+&lt;li>Go 中支持内置的 go 命令，可以用来执行：测试、编译、运行、语法检查等命令&lt;/li>
+&lt;li>一个完善的 Go 项目经常会执行哪些命令？
+&lt;ul>
+&lt;li>&lt;code>go vet&lt;/code> 静态检查&lt;/li>
+&lt;li>&lt;code>go test&lt;/code> 运行单元测试&lt;/li>
+&lt;li>&lt;code>go fmt&lt;/code> 格式化&lt;/li>
+&lt;li>&lt;code>go build&lt;/code> 编译&lt;/li>
+&lt;li>&lt;code>go run&lt;/code> 运行 &amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>所以一个适用于 Go 项目的 Makefile 也应该支持这些命令。
+&lt;ul>
+&lt;li>&lt;code>make default&lt;/code> : 编译&lt;/li>
+&lt;li>&lt;code>make fmt&lt;/code>: 格式化&lt;/li>
+&lt;li>&lt;code>make vet&lt;/code>: 静态检查&lt;/li>
+&lt;li>&lt;code>make test&lt;/code>: 运行测试&lt;/li>
+&lt;li>&lt;code>make install&lt;/code>: 下载依赖库&lt;/li>
+&lt;li>&lt;code>make clean&lt;/code>: 移除编译的二进制文件&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>所以整体可以如下安排：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">BINARY&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;example&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">VERSION&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="mf">1.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">BUILD&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">`date +%FT%T%z`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">PACKAGES&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">`go list ./... | grep -v /vendor/`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">VETPACKAGES&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">`go list ./... | grep -v /vendor/ | grep -v /examples/`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">GOFILES&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">`find . -name &amp;#34;*.go&amp;#34; -type f -not -path &amp;#34;./vendor/*&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">default&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="k">go&lt;/span> &lt;span class="nx">build&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">o&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">BINARY&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">tags&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="nx">jsoniter&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">echo&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">PACKAGES&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">echo&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">VETPACKAGES&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">echo&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">GOFILES&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fmt&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">gofmt&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">s&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">w&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">GOFILES&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fmt&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">check&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">diff&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="err">?&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gofmt&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">s&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">d&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">GOFILES&lt;/span>&lt;span class="p">));&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">n&lt;/span> &lt;span class="s">&amp;#34;$$diff&amp;#34;&lt;/span> &lt;span class="p">];&lt;/span> &lt;span class="nx">then&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">echo&lt;/span> &lt;span class="s">&amp;#34;Please run &amp;#39;make fmt&amp;#39; and commit the result:&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">echo&lt;/span> &lt;span class="s">&amp;#34;$${diff}&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">exit&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fi&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">install&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">govendor&lt;/span> &lt;span class="nx">sync&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">v&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">test&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="k">go&lt;/span> &lt;span class="nx">test&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">cpu&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="mi">8&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">v&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">tags&lt;/span> &lt;span class="nx">integration&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="o">/...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">vet&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="k">go&lt;/span> &lt;span class="nx">vet&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">VETPACKAGES&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">docker&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="nx">docker&lt;/span> &lt;span class="nx">build&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">t&lt;/span> &lt;span class="nx">wuxiaoxiaoshen&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">example&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nx">latest&lt;/span> &lt;span class="p">.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">clean&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">f&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">BINARY&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="p">]&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="nx">then&lt;/span> &lt;span class="nx">rm&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">BINARY&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="nx">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nx">PHONY&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="nx">fmt&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">check&lt;/span> &lt;span class="nx">install&lt;/span> &lt;span class="nx">test&lt;/span> &lt;span class="nx">vet&lt;/span> &lt;span class="nx">docker&lt;/span> &lt;span class="nx">clean&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-supplementary-instruction">4: supplementary instruction&lt;/h1>
+&lt;p>Makefile 构建工具，大大的简化了构建项目的难度。
+真实的生产环境下，需要使用到 CI/CD（持续集成和持续部署）， 所以 Makefile 也通常用来和 CI 工具配合使用。
+比如新合并的代码，先触发单元测试，静态检查等，在执行 CI 脚本，成功之后，再构建镜像，推送镜像到服务器上，完成持续集成和持续部署一整套流程。
+Makefile 通常配合 travis 使用。如下:&lt;/p></description></item></channel></rss>

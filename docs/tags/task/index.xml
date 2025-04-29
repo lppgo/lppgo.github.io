@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Task on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/task/</link><description>Recent content in Task on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/task/index.xml" rel="self" type="application/rss+xml"/><item><title>011-基于 Python 的任务调度</title><link>https://lppgo.github.io/post/python/011-%E5%9F%BA%E4%BA%8E-python-%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</link><pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/011-%E5%9F%BA%E4%BA%8E-python-%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</guid><description>&lt;h1 id="table-of-contents">Table of Contents&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="#table-of-contents">Table of Contents&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8">1：快速安装与应用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BA%94%E7%94%A8">2: 快速安装与应用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E5%AE%9A%E6%97%B6%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6">3: 定时发送邮件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%B0%83%E5%BA%A6">4: 使用装饰器进行调度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0%E8%BF%90%E8%A1%8C%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1">5: 使用参数运行计划任务&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6">6:&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="1快速安装与应用">1：快速安装与应用&lt;/h1>
+&lt;ul>
+&lt;li>crontab 定时任务&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-快速安装与应用">2: 快速安装与应用&lt;/h1>
+&lt;p>Python 工具包 &lt;strong>&lt;a href="https://schedule.readthedocs.io/en/stable/">schedule&lt;/a>&lt;/strong> 可以轻松地在 Python 中进行任务调度，我们可以通过 PyPI 快速安装它。&lt;/p></description></item></channel></rss>

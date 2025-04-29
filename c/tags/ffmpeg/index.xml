@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ffmpeg on Even - A super concise theme for Hugo</title>
+    <link>https://lppgo.github.io/tags/ffmpeg/</link>
+    <description>Recent content in Ffmpeg on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://lppgo.github.io/tags/ffmpeg/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>003-ffmpeg-音视频</title>
+      <link>https://lppgo.github.io/post/python/003-ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91/</link>
+      <pubDate>Wed, 27 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://lppgo.github.io/post/python/003-ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91/</guid>
+      <description>&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#1%E7%AE%80%E4%BB%8B&#34;&gt;1：简介&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#2%E8%8E%B7%E5%8F%96%E8%A7%86%E9%A2%91%E4%BF%A1%E6%81%AF&#34;&gt;2：获取视频信息&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#3%E9%95%9C%E5%83%8F%E5%A4%84%E7%90%86&#34;&gt;3：镜像处理&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#4%E6%B7%BB%E5%8A%A0%E6%B0%B4%E5%8D%B0&#34;&gt;4：添加水印&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#5%E8%A7%86%E9%A2%91%E6%88%AA%E5%8F%96&#34;&gt;5：视频截取&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#6%E8%A7%86%E9%A2%91%E6%8B%BC%E6%8E%A5&#34;&gt;6：视频拼接&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;1简介&#34;&gt;1：简介&lt;/h1&gt;&#xA;&lt;p&gt;FFmpeg 是一套强大的音视频处理程序，也是很多音视频软件的基础，事实上，FFmpeg 已经成为业界音视频处理的标准了。但命令行使用 FFmpeg 是有一定学习成本的，而 ffmpeg-python 库则很好的解决了这个问题。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

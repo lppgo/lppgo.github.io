@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>01-Nginx 常用配置清单.md - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lucas" /><meta name="description" content="Table of Contents
+1: Nginx 配置 2: Listen Port 3: Access Log 4: Domain Name 5: Static Asset 6: Redirect 7: Reverse Proxy 8: Nginx 解决跨域 8: Load Balance 8.1 RoundRobin 轮询(default) 8.2 weight (权重) 8.3 ip_hash（IP 绑定 ip_hash ） 8.4 url_hash 8.5 fair（第三方） 9: SSL 协议 10: Nginx 加速 10.1 启用 Gzip 压缩 10.2 设置缓存头 10.3 启用 HTTP2 协议 10.4 优化日志 Optimizing Logging 10.4.1 禁用页面资源请求的日志记录 10.4.2 禁用成功请求的日志记录 10.4.3 最小化 I/O 操作 10.5 限制带宽 11: location 语法 12: nginx 高可用 keepalived 1: Nginx 配置 https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw
+" /><meta name="keywords" content="Nginx" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.147.0 with theme even" />
+
+
+<link rel="canonical" href="https://lppgo.github.io/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.scss" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://lppgo.github.io/post/linux/029-nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="01-Nginx 常用配置清单.md">
+  <meta property="og:description" content="Table of Contents
+1: Nginx 配置 2: Listen Port 3: Access Log 4: Domain Name 5: Static Asset 6: Redirect 7: Reverse Proxy 8: Nginx 解决跨域 8: Load Balance 8.1 RoundRobin 轮询(default) 8.2 weight (权重) 8.3 ip_hash（IP 绑定 ip_hash ） 8.4 url_hash 8.5 fair（第三方） 9: SSL 协议 10: Nginx 加速 10.1 启用 Gzip 压缩 10.2 设置缓存头 10.3 启用 HTTP2 协议 10.4 优化日志 Optimizing Logging 10.4.1 禁用页面资源请求的日志记录 10.4.2 禁用成功请求的日志记录 10.4.3 最小化 I/O 操作 10.5 限制带宽 11: location 语法 12: nginx 高可用 keepalived 1: Nginx 配置 https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-06-06T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-08-29T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Nginx">
+
+  <meta itemprop="name" content="01-Nginx 常用配置清单.md">
+  <meta itemprop="description" content="Table of Contents
+1: Nginx 配置 2: Listen Port 3: Access Log 4: Domain Name 5: Static Asset 6: Redirect 7: Reverse Proxy 8: Nginx 解决跨域 8: Load Balance 8.1 RoundRobin 轮询(default) 8.2 weight (权重) 8.3 ip_hash（IP 绑定 ip_hash ） 8.4 url_hash 8.5 fair（第三方） 9: SSL 协议 10: Nginx 加速 10.1 启用 Gzip 压缩 10.2 设置缓存头 10.3 启用 HTTP2 协议 10.4 优化日志 Optimizing Logging 10.4.1 禁用页面资源请求的日志记录 10.4.2 禁用成功请求的日志记录 10.4.3 最小化 I/O 操作 10.5 限制带宽 11: location 语法 12: nginx 高可用 keepalived 1: Nginx 配置 https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw">
+  <meta itemprop="datePublished" content="2021-06-06T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-08-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="4678">
+  <meta itemprop="keywords" content="Nginx">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="01-Nginx 常用配置清单.md">
+  <meta name="twitter:description" content="Table of Contents
+1: Nginx 配置 2: Listen Port 3: Access Log 4: Domain Name 5: Static Asset 6: Redirect 7: Reverse Proxy 8: Nginx 解决跨域 8: Load Balance 8.1 RoundRobin 轮询(default) 8.2 weight (权重) 8.3 ip_hash（IP 绑定 ip_hash ） 8.4 url_hash 8.5 fair（第三方） 9: SSL 协议 10: Nginx 加速 10.1 启用 Gzip 压缩 10.2 设置缓存头 10.3 启用 HTTP2 协议 10.4 优化日志 Optimizing Logging 10.4.1 禁用页面资源请求的日志记录 10.4.2 禁用成功请求的日志记录 10.4.3 最小化 I/O 操作 10.5 限制带宽 11: location 语法 12: nginx 高可用 keepalived 1: Nginx 配置 https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">lppgo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">lppgo</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">01-Nginx 常用配置清单.md</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-06-06 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-nginx-配置">1: Nginx 配置</a></li>
+    <li><a href="#2-listen-port">2: Listen Port</a></li>
+    <li><a href="#3-access-log">3: Access Log</a></li>
+    <li><a href="#4-domain-name">4: Domain Name</a></li>
+    <li><a href="#5-static-asset">5: Static Asset</a></li>
+    <li><a href="#6-redirect">6: Redirect</a></li>
+    <li><a href="#7-reverse-proxy">7: Reverse Proxy</a></li>
+    <li><a href="#8-nginx-解决跨域">8: Nginx 解决跨域</a></li>
+    <li><a href="#8-load-balance">8: Load Balance</a>
+      <ul>
+        <li><a href="#81-roundrobin-轮询default">8.1 RoundRobin 轮询(default)</a></li>
+        <li><a href="#82-weight-权重">8.2 weight (权重)</a></li>
+        <li><a href="#83-ip_haship-绑定-ip_hash-">8.3 ip_hash（IP 绑定 ip_hash ）</a></li>
+        <li><a href="#84-url_hash">8.4 url_hash</a></li>
+        <li><a href="#85-fair第三方">8.5 fair（第三方）</a></li>
+      </ul>
+    </li>
+    <li><a href="#9-ssl-协议">9: SSL 协议</a></li>
+    <li><a href="#10-nginx-加速">10: Nginx 加速</a>
+      <ul>
+        <li><a href="#101-启用-gzip-压缩">10.1 启用 Gzip 压缩</a></li>
+        <li><a href="#102-设置缓存头">10.2 设置缓存头</a></li>
+        <li><a href="#103-启用-http2-协议">10.3 启用 HTTP2 协议</a></li>
+        <li><a href="#104-优化日志-optimizing-logging">10.4 优化日志 Optimizing Logging</a>
+          <ul>
+            <li><a href="#1041-禁用页面资源请求的日志记录">10.4.1 禁用页面资源请求的日志记录</a></li>
+            <li><a href="#1042-禁用成功请求的日志记录">10.4.2 禁用成功请求的日志记录</a></li>
+            <li><a href="#1043-最小化-io-操作">10.4.3 最小化 I/O 操作</a></li>
+          </ul>
+        </li>
+        <li><a href="#105-限制带宽">10.5 限制带宽</a></li>
+      </ul>
+    </li>
+    <li><a href="#11-location-语法">11: location 语法</a></li>
+    <li><a href="#12-nginx-高可用-keepalived">12: nginx 高可用 keepalived</a></li>
+    <li><a href="#13-nginx-性能优化">13: nginx 性能优化</a>
+      <ul>
+        <li><a href="#131-开启长链接配置">13.1 开启长链接配置</a></li>
+        <li><a href="#132-开启零拷贝技术">13.2 开启零拷贝技术</a></li>
+        <li><a href="#133-开启无延迟或多包共发机制">13.3 开启无延迟或多包共发机制</a></li>
+        <li><a href="#134-调整-worker-工作进程">13.4 调整 worker 工作进程</a></li>
+        <li><a href="#135-开启-cpu-亲和机制">13.5 开启 CPU 亲和机制</a></li>
+        <li><a href="#136-开启-epoll-模型以及调整并发连接数">13.6 开启 epoll 模型以及调整并发连接数</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Table of Contents</p>
+<ul>
+<li><a href="#1-nginx-%E9%85%8D%E7%BD%AE">1: Nginx 配置</a></li>
+<li><a href="#2-listen-port">2: Listen Port</a></li>
+<li><a href="#3-access-log">3: Access Log</a></li>
+<li><a href="#4-domain-name">4: Domain Name</a></li>
+<li><a href="#5-static-asset">5: Static Asset</a></li>
+<li><a href="#6-redirect">6: Redirect</a></li>
+<li><a href="#7-reverse-proxy">7: Reverse Proxy</a></li>
+<li><a href="#8-nginx-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F">8: Nginx 解决跨域</a></li>
+<li><a href="#8-load-balance">8: Load Balance</a>
+<ul>
+<li><a href="#81-roundrobin-%E8%BD%AE%E8%AF%A2default">8.1 RoundRobin 轮询(default)</a></li>
+<li><a href="#82-weight-%E6%9D%83%E9%87%8D">8.2 weight (权重)</a></li>
+<li><a href="#83-ip_haship-%E7%BB%91%E5%AE%9A-ip_hash-">8.3 ip_hash（IP 绑定 ip_hash ）</a></li>
+<li><a href="#84-url_hash">8.4 url_hash</a></li>
+<li><a href="#85-fair%E7%AC%AC%E4%B8%89%E6%96%B9">8.5 fair（第三方）</a></li>
+</ul>
+</li>
+<li><a href="#9-ssl-%E5%8D%8F%E8%AE%AE">9: SSL 协议</a></li>
+<li><a href="#10-nginx-%E5%8A%A0%E9%80%9F">10: Nginx 加速</a>
+<ul>
+<li><a href="#101-%E5%90%AF%E7%94%A8-gzip-%E5%8E%8B%E7%BC%A9">10.1 启用 Gzip 压缩</a></li>
+<li><a href="#102-%E8%AE%BE%E7%BD%AE%E7%BC%93%E5%AD%98%E5%A4%B4">10.2 设置缓存头</a></li>
+<li><a href="#103-%E5%90%AF%E7%94%A8-http2-%E5%8D%8F%E8%AE%AE">10.3 启用 HTTP2 协议</a></li>
+<li><a href="#104-%E4%BC%98%E5%8C%96%E6%97%A5%E5%BF%97-optimizing-logging">10.4 优化日志 Optimizing Logging</a>
+<ul>
+<li><a href="#1041-%E7%A6%81%E7%94%A8%E9%A1%B5%E9%9D%A2%E8%B5%84%E6%BA%90%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95">10.4.1 禁用页面资源请求的日志记录</a></li>
+<li><a href="#1042-%E7%A6%81%E7%94%A8%E6%88%90%E5%8A%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95">10.4.2 禁用成功请求的日志记录</a></li>
+<li><a href="#1043-%E6%9C%80%E5%B0%8F%E5%8C%96-io-%E6%93%8D%E4%BD%9C">10.4.3 最小化 I/O 操作</a></li>
+</ul>
+</li>
+<li><a href="#105-%E9%99%90%E5%88%B6%E5%B8%A6%E5%AE%BD">10.5 限制带宽</a></li>
+</ul>
+</li>
+<li><a href="#11-location-%E8%AF%AD%E6%B3%95">11: location 语法</a></li>
+<li><a href="#12-nginx-%E9%AB%98%E5%8F%AF%E7%94%A8-keepalived">12: nginx 高可用 keepalived</a></li>
+</ul>
+<h1 id="1-nginx-配置">1: Nginx 配置</h1>
+<ul>
+<li>
+<p><a href="https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw">https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw</a></p>
+</li>
+<li>
+<p>1: <code>/etc/nginx/conf.d/xxx.conf</code></p>
+</li>
+<li>
+<p>2: 在<code>/etc/nginx/nginx.conf</code>文件中有一行就是把刚刚配置的引进总的 nginx 配置中
+<code> include /etc/nginx/conf.d/*.conf;</code></p>
+</li>
+<li>
+<p>3: 配置完成后重新启动 nginx</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sbin/nginx -t -c conf/nginx.conf <span class="c1"># 检测配置文件是否正常</span>
+</span></span><span class="line"><span class="cl">sbin/nginx -s reload -c conf/nginx.conf <span class="c1"># 修改配置后平滑重启</span>
+</span></span><span class="line"><span class="cl">sbin/nginx -s quit <span class="c1"># 优雅关闭Nginx，会在执行完当前的任务后再退出</span>
+</span></span><span class="line"><span class="cl">sbin/nginx -s stop <span class="c1"># 强制终止Nginx，不管当前是否有任务在执行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -s reopen <span class="c1">#重启Nginx</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -s reload <span class="c1">#重新加载Nginx配置文件，然后以优雅的方式重启Nginx</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -s stop <span class="c1">#强制停止Nginx服务</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -s quit <span class="c1">#优雅地停止Nginx服务（即处理完所有请求后再停止服务）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -?,-h <span class="c1">#打开帮助信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -v <span class="c1">#显示版本信息并退出</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -V <span class="c1">#显示版本和配置选项信息，然后退出</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -t <span class="c1">#检测配置文件是否有语法错误，然后退出</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -T <span class="c1">#检测配置文件是否有语法错误，转储并退出</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -q <span class="c1">#在检测配置文件期间屏蔽非错误信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -p prefix <span class="c1">#设置前缀路径(默认是:/usr/share/nginx/)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -c filename <span class="c1">#设置配置文件(默认是:/etc/nginx/nginx.conf)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nginx -g directives <span class="c1">#设置配置文件外的全局指令</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">killall nginx <span class="c1">#杀死所有nginx进程</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2-listen-port">2: Listen Port</h1>
+<p>监听端口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Standard HTTP Protocol</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Standard HTTPS Protocol</span>
+</span></span><span class="line"><span class="cl">    listen <span class="m">443</span> ssl<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># For http2</span>
+</span></span><span class="line"><span class="cl">    listen <span class="m">443</span> ssl http2<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Listen on 80 using IPv6</span>
+</span></span><span class="line"><span class="cl">    listen <span class="o">[</span>::<span class="o">]</span>:80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Listen only on using IPv6</span>
+</span></span><span class="line"><span class="cl">    listen <span class="o">[</span>::<span class="o">]</span>:80 <span class="nv">ipv6only</span><span class="o">=</span>on<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3-access-log">3: Access Log</h1>
+<p>访问日志</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Relative or full path to log file</span>
+</span></span><span class="line"><span class="cl">    access_log /path/to/file.log<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Turn &#39;on&#39; or &#39;off&#39;</span>
+</span></span><span class="line"><span class="cl">    access_log on<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4-domain-name">4: Domain Name</h1>
+<p>域名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Listen to yourdomain.com</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Listen to multiple domains  server_name yourdomain.com www.yourdomain.com;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Listen to all domains</span>
+</span></span><span class="line"><span class="cl">    server_name *.yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Listen to all top-level domains</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.*<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Listen to unspecified Hostnames (Listens to IP address itself)</span>
+</span></span><span class="line"><span class="cl">    server_name <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5-static-asset">5: Static Asset</h1>
+<p>静态资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    root /path/to/website<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="6-redirect">6: Redirect</h1>
+<p>重定向</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name www.yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="m">301</span> http://yourdomain.com<span class="nv">$request_uri</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name www.yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    location /redirect-url <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">301</span> http://otherdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="7-reverse-proxy">7: Reverse Proxy</h1>
+<p>反向代理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        proxy_pass http://0.0.0.0:3000<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># where 0.0.0.0:3000 is your application server (Ex: node.js) bound on 0.0.0.0 listening on port 3000</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="8-nginx-解决跨域">8: Nginx 解决跨域</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        proxy_pass http://0.0.0.0:3000<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># where 0.0.0.0:3000 is your application server (Ex: node.js) bound on 0.0.0.0 listening on port 3000</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 允许跨域的请求，可以自定义变量$http_origin，*表示所有</span>
+</span></span><span class="line"><span class="cl">    add_header <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span> *<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 允许携带cookie请求</span>
+</span></span><span class="line"><span class="cl">    add_header <span class="s1">&#39;Access-Control-Allow-Credentials&#39;</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 允许跨域请求的方法：GET,POST,OPTIONS,PUT</span>
+</span></span><span class="line"><span class="cl">    add_header <span class="s1">&#39;Access-Control-Allow-Methods&#39;</span> <span class="s1">&#39;GET,POST,OPTIONS,PUT&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 允许请求时携带的头部信息，*表示所有</span>
+</span></span><span class="line"><span class="cl">    add_header <span class="s1">&#39;Access-Control-Allow-Headers&#39;</span> *<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 允许发送按段获取资源的请求</span>
+</span></span><span class="line"><span class="cl">    add_header <span class="s1">&#39;Access-Control-Expose-Headers&#39;</span> <span class="s1">&#39;Content-Length,Content-Range&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 一定要有！！！否则Post请求无法进行跨域！</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 在发送Post跨域请求前，会以Options方式发送预检请求，服务器接受时才会正式请求</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="nv">$request_method</span> <span class="o">=</span> <span class="s1">&#39;OPTIONS&#39;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        add_header <span class="s1">&#39;Access-Control-Max-Age&#39;</span> 1728000<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        add_header <span class="s1">&#39;Content-Type&#39;</span> <span class="s1">&#39;text/plain; charset=utf-8&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        add_header <span class="s1">&#39;Content-Length&#39;</span> 0<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 对于Options方式的请求返回204，表示接受跨域请求</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> 204<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="8-load-balance">8: Load Balance</h1>
+<ul>
+<li>
+<ol>
+<li>在 http 节点下，加入 upstream 节点</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>将 server 节点下的 location 节点中的 proxy_pass 配置为：http:// + upstream 名称，即&quot;http://backserver&quot;</li>
+</ol>
+</li>
+</ul>
+<h2 id="81-roundrobin-轮询default">8.1 RoundRobin 轮询(default)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">upstream backserver <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    server 10.0.6.108:7080<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server 10.0.0.85:8980<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        proxy_pass http://backserver<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="82-weight-权重">8.2 weight (权重)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况</span>
+</span></span><span class="line"><span class="cl">upstream backserver<span class="o">{</span>
+</span></span><span class="line"><span class="cl">      server 10.0.0.77 <span class="nv">weight</span><span class="o">=</span>5<span class="p">;</span>
+</span></span><span class="line"><span class="cl">      server 10.0.0.88 <span class="nv">weight</span><span class="o">=</span>10<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="83-ip_haship-绑定-ip_hash-">8.3 ip_hash（IP 绑定 ip_hash ）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。</span>
+</span></span><span class="line"><span class="cl">upstream backserver <span class="o">{</span>
+</span></span><span class="line"><span class="cl">ip_hash<span class="p">;</span>
+</span></span><span class="line"><span class="cl">server 192.168.0.14:88<span class="p">;</span>
+</span></span><span class="line"><span class="cl">server 192.168.0.15:80<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="84-url_hash">8.4 url_hash</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="85-fair第三方">8.5 fair（第三方）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 按后端服务器的响应时间来分配请求，响应时间短的优先分配。</span>
+</span></span><span class="line"><span class="cl">upstream backserver <span class="o">{</span>
+</span></span><span class="line"><span class="cl">fair<span class="p">;</span>
+</span></span><span class="line"><span class="cl">server server1<span class="p">;</span>
+</span></span><span class="line"><span class="cl">server server2<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="9-ssl-协议">9: SSL 协议</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen <span class="m">443</span> ssl<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_certificate /path/to/cert.pem<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_certificate_key /path/to/privatekey.pem<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_stapling on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_stapling_verify on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_trusted_certificate /path/to/fullchain.pem<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_session_timeout 1h<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ssl_session_cache shared:SSL:50m<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    add_header Strict-Transport-Security max-age<span class="o">=</span>15768000<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Permanent Redirect for HTTP to HTTPS</span>
+</span></span><span class="line"><span class="cl">server
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name yourdomain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="m">301</span> https://<span class="nv">$host$request_uri</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="10-nginx-加速">10: Nginx 加速</h1>
+<h2 id="101-启用-gzip-压缩">10.1 启用 Gzip 压缩</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gzip on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">gzip_types application/xml
+</span></span><span class="line"><span class="cl">    application/json
+</span></span><span class="line"><span class="cl">    text/css
+</span></span><span class="line"><span class="cl">    text/javascript
+</span></span><span class="line"><span class="cl">    application/javascript<span class="p">;</span>
+</span></span><span class="line"><span class="cl">gzip_vary on<span class="p">;</span>
+</span></span><span class="line"><span class="cl">gzip_comp_level 6<span class="p">;</span> //压缩比
+</span></span><span class="line"><span class="cl">gzip_min_length 500<span class="p">;</span> //设置压缩最小单位，小于不压缩
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="102-设置缓存头">10.2 设置缓存头</h2>
+<p><code>Setting Cache Headers</code>
+浏览器检索网页文件时，会将副本保留在本地磁盘缓存中。这样，当你再次访问该页面时，浏览器就不必从服务器重新获取文件。每个浏览器都有自己的使用逻辑，来决定何时使用该文件对应的本地副本，以及何时在服务器更改了该文件时再次获取它。但是，作为网站所有者，你可以在发送的 HTTP 响应中设置缓存控制和过期标头，以提高浏览器的缓存行为的效率，从而减少很多不必要的 HTTP 请求。</p>
+<p>首先，可以为字体和图像设置较长的缓存过期时间，这些字体和图像可能不会经常更改。在下面的示例中，设置客户端浏览器将字体和图像在本地缓存中保留一个月。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">location ~* <span class="se">\.</span><span class="o">(</span>?:jpg<span class="p">|</span>jpeg<span class="p">|</span>gif<span class="p">|</span>png<span class="p">|</span>ico<span class="p">|</span>woff2<span class="o">)</span>$ <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    expires 1M<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    add_header Cache-Control <span class="s2">&#34;public&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="103-启用-http2-协议">10.3 启用 HTTP2 协议</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">listen <span class="m">443</span> ssl http2<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="104-优化日志-optimizing-logging">10.4 优化日志 Optimizing Logging</h2>
+<p>我们在管理网站的时候，即使是有对应的监控服务，但是对应日志分析还是不够到位。你也可能只关注错误(400 和 500 个状态码等等)，而不是成功的请求。通过减少不必要的日志记录，可以节省服务器上的磁盘存储、CPU 和 I/O 操作。这不仅可以让我们服务器更快一些，而且释放的资源可以用来运行其他服务。</p>
+<p>有几种不同的方法可以减少和优化日志记录，但是在这里，我们重点介绍三个。</p>
+<h3 id="1041-禁用页面资源请求的日志记录">10.4.1 禁用页面资源请求的日志记录</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 如果我们不需要记录检索普通页面资源的请求，比如图像文件、JavaScript 文件和 CSS 文件等等，</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 那么这是一个快速而简单的解决方案。你所需要做的就是创建一个与这些文件类型匹配的 location 块，并配置禁用其中的日志记录。</span>
+</span></span><span class="line"><span class="cl">location ~* <span class="se">\.</span><span class="o">(</span>?:jpg<span class="p">|</span>jpeg<span class="p">|</span>gif<span class="p">|</span>png<span class="p">|</span>ico<span class="p">|</span>woff2<span class="p">|</span>js<span class="p">|</span>css<span class="o">)</span>$ <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    access_log off<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1042-禁用成功请求的日志记录">10.4.2 禁用成功请求的日志记录</h3>
+<p>这是一种更好的方法，因为它会丢弃带有 2xx 或 3xx 的响应查询，仅记录错误请求。它比方法 1 稍微复杂一点，因为它取决于您的 Nginx 日志记录的配置方式。</p>
+<p>使用 Nginx 官方文档中的示例，让我们打开条件日志记录。创建一个 $loggable 的变量并将其设置为 0，用于带有 2xx 和 3xx 响应代码的日志请求，否则设置为 1，即可。然后在 access_log 指令中，将该变量作为条件引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># /etc/nginx/nginx.conf</span>
+</span></span><span class="line"><span class="cl">access_log /var/log/nginx/access.log<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># access_log directive</span>
+</span></span><span class="line"><span class="cl">map <span class="nv">$status</span> <span class="nv">$loggable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    ~^<span class="o">[</span>23<span class="o">]</span> 0<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    default 1<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">access_log /var/log/nginx/access.log combined <span class="k">if</span><span class="o">=</span><span class="nv">$loggable</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1043-最小化-io-操作">10.4.3 最小化 I/O 操作</h3>
+<p>即使你要记录所有请求，也可以通过打开访问日志缓冲来最大程度地减少 I/O 操作。使用此指令，Nginx 将等待将日志数据写入磁盘，直到填满 512KB 缓冲区或自上次刷新以来已过了 1 分钟（以先发生者为准）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">access_log /var/log/nginx/access.log combined <span class="nv">buffer</span><span class="o">=</span>512k <span class="nv">flush</span><span class="o">=</span>1m<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="105-限制带宽">10.5 限制带宽</h2>
+<blockquote>
+<p>Limiting Bandwidth for Particular URLs</p></blockquote>
+<p>使用 limit_rate 指令来限制特定 URL 的带宽。在这里，我们将 /download 下每个文件的传输速率限制为每秒 50KB 的速度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">location /download/ <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    limit_rate 50k<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>你可能还希望仅对较大的文件进行速率限制，这可以通过 limit_rate_after 指令进行。在此示例中，每个文件(来自任何目录)的前 500KB 都不受速度限制地进行传输，之后的所有内容均以 50KB/s 的速度为上限。这样可以加快网站关键部分的交付速度，同时降低其他部分的速度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    limit_rate_after 500k<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    limit_rate 50k<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>请注意，速率限制仅适用于浏览器和 Nginx 之间的单个 HTTP 连接</p></blockquote>
+<h1 id="11-location-语法">11: location 语法</h1>
+<ul>
+<li>location 指令用来 match url</li>
+<li>语法如下:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">location<span class="o">[</span> <span class="o">=</span> <span class="p">|</span> ~ <span class="p">|</span> ~* <span class="p">|</span> ^~<span class="o">]</span> url<span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">=</span>:用于不含正则表达式的url前，要求字符串与url严格匹配，匹配成功就停止向下搜索并处理请求
+</span></span><span class="line"><span class="cl">~：用于表示url包含正则表达式，并且区分大小写。
+</span></span><span class="line"><span class="cl">~*：用于表示url包含正则表达式，并且不区分大瞎写
+</span></span><span class="line"><span class="cl">^~：用于不含正则表达式的url前，要求ngin服务器找到表示url和字符串匹配度最高的location后，立即使用此location处理请求，而不再匹配
+</span></span><span class="line"><span class="cl">如果有url包含正则表达式，不需要有~开头标识
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="12-nginx-高可用-keepalived">12: nginx 高可用 keepalived</h1>
+<ul>
+<li>准备 2 台 Nginx 服务器</li>
+<li>安装 keepalived</li>
+<li>虚拟 IP</li>
+<li><a href="https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw">https://mp.weixin.qq.com/s/6LwDWI9z5wxbaeG33FEAGw</a></li>
+</ul>
+<h1 id="13-nginx-性能优化">13: nginx 性能优化</h1>
+<h2 id="131-开启长链接配置">13.1 开启长链接配置</h2>
+<ul>
+<li>通常 Nginx 作为代理服务，负责分发客户端的请求，那么建议开启 HTTP 长连接，用户减少握手的次数，降低服务器损耗，具体如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">upstream xxx {
+</span></span><span class="line"><span class="cl">    # 长连接数
+</span></span><span class="line"><span class="cl">    keepalive 32;
+</span></span><span class="line"><span class="cl">    # 每个长连接提供的最大请求数
+</span></span><span class="line"><span class="cl">    keepalived_requests 100;
+</span></span><span class="line"><span class="cl">    # 每个长连接没有新的请求时，保持的最长时间
+</span></span><span class="line"><span class="cl">    keepalive_timeout 60s;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="132-开启零拷贝技术">13.2 开启零拷贝技术</h2>
+<ul>
+<li>零拷贝这个概念，在大多数性能较为不错的中间件中都有出现，例如 Kafka、Netty 等，而 Nginx 中也可以配置数据零拷贝技术，如下：<strong><code>sendfile on; # 开启零拷贝机制</code></strong></li>
+<li>零拷贝读取机制与传统资源读取机制的区别：
+传统方式：「硬件&ndash;&gt;内核&ndash;&gt;用户空间&ndash;&gt;程序空间&ndash;&gt;程序内核空间&ndash;&gt;网络套接字」
+零拷贝方式：「硬件&ndash;&gt;内核&ndash;&gt;程序内核空间&ndash;&gt;网络套接字」
+从上述这个过程对比，很轻易就能看出两者之间的性能区别。</li>
+</ul>
+<h2 id="133-开启无延迟或多包共发机制">13.3 开启无延迟或多包共发机制</h2>
+<ul>
+<li>在 Nginx 中有两个较为关键的性能参数，即 tcp_nodelay、tcp_nopush，开启方式如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">tcp_nodelay on;
+</span></span><span class="line"><span class="cl">tcp_nopush on;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>TCP/IP 协议中默认是采用了 <strong>Nagle 算法</strong> 的，即在网络数据传输过程中，每个数据报文并不会立马发送出去，而是会等待一段时间，将后面的几个数据包一起组合成一个数据报文发送，但这个算法虽然提高了网络吞吐量，但是实时性却降低了.因此你的项目属于交互性很强的应用，那么可以手动开启 tcp_nodelay 配置，让应用程序向内核递交的每个数据包都会立即发送出去。但这样会产生大量的 TCP 报文头，增加很大的网络开销。</li>
+<li>相反，有些项目的业务对数据的实时性要求并不高，追求的则是更高的吞吐，那么则可以开启 tcp_nopush 配置项，这个配置就类似于“塞子”的意思，首先将连接塞住，使得数据先不发出去，等到拔去塞子后再发出去。设置该选项后，内核会尽量把小数据包拼接成一个大的数据包（一个 MTU）再发送出去.当然若一定时间后（一般为 200ms），内核仍然没有积累到一个 MTU 的量时，也必须发送现有的数据，否则会一直阻塞。</li>
+<li><strong>tcp_nodelay</strong>、<strong>tcp_nopush</strong> 两个参数是“互斥”的，如果追求响应速度的应用推荐开启 tcp_nodelay 参数，如 IM、金融等类型的项目。如果追求吞吐量的应用则建议开启 tcp_nopush 参数，如调度系统、报表系统等。</li>
+<li>注意：①tcp_nodelay 一般要建立在开启了长连接模式的情况下使用。②tcp_nopush 参数是必须要开启 sendfile 参数才可使用的。</li>
+</ul>
+<h2 id="134-调整-worker-工作进程">13.4 调整 worker 工作进程</h2>
+<ul>
+<li>Nginx 启动后默认只会开启一个 Worker 工作进程处理客户端请求，而我们可以根据机器的 CPU 核数开启对应数量的工作进程，以此来提升整体的并发量支持，如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 自动根据CPU核心数调整Worker进程数量
+</span></span><span class="line"><span class="cl">worker_processes auto;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 同时也可以稍微调整一下每个工作进程能够打开的文件句柄数：
+</span></span><span class="line"><span class="cl"># 每个Worker能打开的文件描述符，最少调整至1W以上，负荷较高建议2-3W
+</span></span><span class="line"><span class="cl">worker_rlimit_nofile 20000;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>操作系统内核（kernel）都是利用文件描述符来访问文件，无论是打开、新建、读取、写入文件时，都需要使用文件描述符来指定待操作的文件，因此该值越大，代表一个进程能够操作的文件越多（但不能超出内核限制，最多建议 3.8W 左右为上限）</li>
+</ul>
+<h2 id="135-开启-cpu-亲和机制">13.5 开启 CPU 亲和机制</h2>
+<ul>
+<li>对于并发编程较为熟悉的伙伴都知道，因为进程/线程数往往都会远超出系统 CPU 的核心数，因为操作系统执行的原理本质上是采用时间片切换机制，也就是一个 CPU 核心会在多个进程之间不断频繁切换，造成很大的性能损耗。而 CPU 亲和机制则是指将每个 Nginx 的工作进程，绑定在固定的 CPU 核心上，从而减小 CPU 切换带来的时间开销和资源损耗，开启方式如下：<strong><code>worker_cpu_affinity auto;</code></strong></li>
+</ul>
+<h2 id="136-开启-epoll-模型以及调整并发连接数">13.6 开启 epoll 模型以及调整并发连接数</h2>
+<ul>
+<li>在最开始就提到过：Nginx、Redis 都是基于多路复用模型去实现的程序，但最初版的多路复用模型 select/poll 最大只能监听 1024 个连接，而 epoll 则属于 select/poll 接口的增强版，因此采用该模型能够大程度上提升单个 Worker 的性能，如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">events {
+</span></span><span class="line"><span class="cl">    # 使用epoll网络模型
+</span></span><span class="line"><span class="cl">    use epoll;
+</span></span><span class="line"><span class="cl">    # 调整每个Worker能够处理的连接数上限
+</span></span><span class="line"><span class="cl">    worker_connections  10240;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lucas</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-08-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/nginx/">Nginx</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/dockerk8s/005-minikube%E6%90%AD%E5%BB%BA/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">01-MInikube搭建</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux/027-nginx-ssl%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">
+            <span class="next-text nav-default">01-nginx ssl双向认证.md</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:golpp@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://github.com/lppgo" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2015 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

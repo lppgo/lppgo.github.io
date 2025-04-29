@@ -16,8 +16,23 @@ golang,rust,python,java
 ## 学习，记录，分享，成长
 
 1: 主题修改
-`git clone https://github.com/olOwOlo/hugo-theme-even themes/even`
 
+`git clone https://github.com/olOwOlo/hugo-theme-even themes/even`
+```go
+
+https://www.cnblogs.com/wylshkjj/p/18785629
+
+# 标准版
+go install github.com/gohugoio/hugo@latest
+
+# 构建扩展版
+CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@latest
+
+
+# 构建扩展/部署版本
+CGO_ENABLED=1 go install -tags extended,withdeploy github.com/gohugoio/hugo@latest
+
+````
 2: config.toml 配置更新
 
 3: hugo -d docs
