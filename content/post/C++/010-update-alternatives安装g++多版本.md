@@ -1,10 +1,11 @@
 ---
 title: "010-update-alternatives安装gcc多版本"
 author: "lucas"
+description: "update-alternatives安装gcc多版本"
 date: 2025-03-17
-lastmod: 2025-03-17
+lastmod: 2025-04-29
 
-tags: ["Linux","update-alternatives","多版本","gcc"]
+tags: ["Linux","update-alternatives","gcc"]
 categories: ["C++"]
 keywords: ["多版本", "update", "alternatives","update-alternatives","linux"]
 ---

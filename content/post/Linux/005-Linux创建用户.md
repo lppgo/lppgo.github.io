@@ -27,7 +27,7 @@ keywords: ["Linux"]
   [root@localhost /]# find / -name "*haha*"
 
 # 完全删除用户，慎用！！！
-useradd -r haha
+userdel -r haha
 
 ```
 
