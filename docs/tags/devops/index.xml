@@ -1,3 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Devops on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/devops/</link><description>Recent content in Devops on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 21 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>01-可观测性</title><link>https://lppgo.github.io/post/dockerk8s/019-%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/</link><pubDate>Sun, 21 Aug 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/019-%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/</guid><description>&lt;div align="center">&lt;font size="35">云原生可观测性&lt;/font>&lt;/div>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Devops on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/devops/</link><description>Recent content in Devops on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 06 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>01-Docker部署go项目</title><link>https://lppgo.github.io/post/dockerk8s/021-docker%E9%83%A8%E7%BD%B2go%E9%A1%B9%E7%9B%AE/</link><pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/021-docker%E9%83%A8%E7%BD%B2go%E9%A1%B9%E7%9B%AE/</guid><description>&lt;div align="center">&lt;font size="35">Docker部署go项目&lt;/font>&lt;/div>
+&lt;h1 id="1-准备-go-项目">1: 准备 Go 项目&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>确保 Go 项目已经编写完成，并且可以在本地正常运行。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>项目目录结构如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">├── main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── go.mod
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── go.sum
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── Dockerfile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── Makefile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>main.go&lt;/code>：Go 项目的入口文件。&lt;/li>
+&lt;li>&lt;code>go.mod&lt;/code>：Go 项目的依赖管理文件。&lt;/li>
+&lt;li>&lt;code>go.sum&lt;/code>：Go 项目的依赖管理文件。&lt;/li>
+&lt;li>&lt;code>Dockerfile&lt;/code>：Dockerfile 文件，用于构建 Docker 镜像。&lt;/li>
+&lt;li>&lt;code>Makefile&lt;/code>：Makefile 文件，用于简化构建过程。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-编写-dockerfile">2: 编写 Dockerfile&lt;/h1>
+&lt;h2 id="21-基础镜像">2.1 基础镜像&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>在项目根目录下创建 &lt;code>Dockerfile&lt;/code> 文件，内容如下：&lt;/p></description></item><item><title>01-可观测性</title><link>https://lppgo.github.io/post/dockerk8s/019-%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/</link><pubDate>Sun, 21 Aug 2022 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/019-%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/</guid><description>&lt;div align="center">&lt;font size="35">云原生可观测性&lt;/font>&lt;/div>
 &lt;h1 id="1-oplg-是什么">1: OPLG 是什么&lt;/h1>
 &lt;p>随着云原生架构的兴起，可观测的边界与分工被重新定义，传统的容器/应用/业务分层监控边界被打破，Dev、Ops、Sec 的分工逐渐模糊。大家意识到 IT 系统作为一个有机的整体，对 IT 系统状态的监测与诊断也需要一体化的方案。经过近几年的摸索与实践，基于 OPLG 的新一代云原生可观测体系，逐步成为了社区与企业的热门选择。&lt;/p></description></item></channel></rss>

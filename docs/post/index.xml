@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/post/</link><description>Recent content in Posts on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 29 Apr 2025 14:27:47 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>010-update-alternatives安装gcc多版本</title><link>https://lppgo.github.io/post/c++/010-update-alternatives%E5%AE%89%E8%A3%85g++%E5%A4%9A%E7%89%88%E6%9C%AC/</link><pubDate>Mon, 17 Mar 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/010-update-alternatives%E5%AE%89%E8%A3%85g++%E5%A4%9A%E7%89%88%E6%9C%AC/</guid><description>&lt;div align='center' >&lt;font size='50'>update-alternatives安装gcc多版本&lt;/font>&lt;/div>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/post/</link><description>Recent content in Posts on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 06 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>01-Docker部署go项目</title><link>https://lppgo.github.io/post/dockerk8s/021-docker%E9%83%A8%E7%BD%B2go%E9%A1%B9%E7%9B%AE/</link><pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/dockerk8s/021-docker%E9%83%A8%E7%BD%B2go%E9%A1%B9%E7%9B%AE/</guid><description>&lt;div align="center">&lt;font size="35">Docker部署go项目&lt;/font>&lt;/div>
+&lt;h1 id="1-准备-go-项目">1: 准备 Go 项目&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>确保 Go 项目已经编写完成，并且可以在本地正常运行。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>项目目录结构如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">├── main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── go.mod
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── go.sum
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── Dockerfile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── Makefile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>main.go&lt;/code>：Go 项目的入口文件。&lt;/li>
+&lt;li>&lt;code>go.mod&lt;/code>：Go 项目的依赖管理文件。&lt;/li>
+&lt;li>&lt;code>go.sum&lt;/code>：Go 项目的依赖管理文件。&lt;/li>
+&lt;li>&lt;code>Dockerfile&lt;/code>：Dockerfile 文件，用于构建 Docker 镜像。&lt;/li>
+&lt;li>&lt;code>Makefile&lt;/code>：Makefile 文件，用于简化构建过程。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-编写-dockerfile">2: 编写 Dockerfile&lt;/h1>
+&lt;h2 id="21-基础镜像">2.1 基础镜像&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>在项目根目录下创建 &lt;code>Dockerfile&lt;/code> 文件，内容如下：&lt;/p></description></item><item><title>010-update-alternatives安装gcc多版本</title><link>https://lppgo.github.io/post/c++/010-update-alternatives%E5%AE%89%E8%A3%85g++%E5%A4%9A%E7%89%88%E6%9C%AC/</link><pubDate>Mon, 17 Mar 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/010-update-alternatives%E5%AE%89%E8%A3%85g++%E5%A4%9A%E7%89%88%E6%9C%AC/</guid><description>&lt;div align='center' >&lt;font size='50'>update-alternatives安装gcc多版本&lt;/font>&lt;/div>
 &lt;h1 id="1-安装update-alternatives">1: 安装update-alternatives&lt;/h1>
 &lt;ul>
 &lt;li>该工具属于dpkg软件包管理系统的核心组件，一般系统已预装。若提示命令不存在，可通过以下命令安装&lt;/li>
