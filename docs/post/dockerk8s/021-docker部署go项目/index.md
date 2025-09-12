@@ -107,6 +107,7 @@ ENTRYPOINT ["/app"]
 # 4: 运行 docker 容器
 
 - 运行容器：`docker run -d -p 2080:2080 web:v1`
+- 连接容器：`docker exec -it <container_id> /bin/sh`
 - 查看容器：`docker ps`
 - 查看日志：`docker logs -f <container_id>`
 - 停止容器：`docker stop <container_id>`
