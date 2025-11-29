@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pyenv on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/pyenv/</link><description>Recent content in Pyenv on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 29 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/pyenv/index.xml" rel="self" type="application/rss+xml"/><item><title>021-uv使用指南</title><link>https://lppgo.github.io/post/python/021-uv%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 29 Nov 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/021-uv%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="uv使用指南">uv使用指南&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Uv on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/uv/</link><description>Recent content in Uv on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 29 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/uv/index.xml" rel="self" type="application/rss+xml"/><item><title>021-uv使用指南</title><link>https://lppgo.github.io/post/python/021-uv%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 29 Nov 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/021-uv%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="uv使用指南">uv使用指南&lt;/h1>
 &lt;h2 id="1-introduction">1: Introduction&lt;/h2>
 &lt;ul>
 &lt;li>uv 是一款用 Rust 开发的高性能 Python 包管理器，旨在统一和简化 Python 的包管理、项目管理和环境管理流程,&lt;/li>
@@ -235,8 +235,4 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv run myscript.py 运行脚本，uv &lt;span class="c1">#会自动处理这些依赖&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>020-pyenv管理python多版本</title><link>https://lppgo.github.io/post/python/020-pyenv%E7%AE%A1%E7%90%86python%E5%A4%9A%E7%89%88%E6%9C%AC/</link><pubDate>Wed, 22 Jan 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/020-pyenv%E7%AE%A1%E7%90%86python%E5%A4%9A%E7%89%88%E6%9C%AC/</guid><description>&lt;h1 id="pyenv-管理-python-多版本">pyenv 管理 python 多版本&lt;/h1>
-&lt;h2 id="1virtualenv">1：virtualenv&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>virtualenv 所要解决的是同一个库不同版本共存的兼容问题。例如项目 A 需要用到 requests 的 1.0 版本，项目 B 需要用到 requests 的 2.0 版本。如果不使用工具的话，一台机器只能安装其中一个版本，无法满足两个项目的需求。&lt;/p></description></item></channel></rss>
+&lt;/div></description></item></channel></rss>

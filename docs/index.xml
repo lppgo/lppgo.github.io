@@ -1,4 +1,241 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/</link><description>Recent content on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 24 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>01-005-lppKDB脚本</title><link>https://lppgo.github.io/post/kdb/005-lppkdb%E8%84%9A%E6%9C%AC/</link><pubDate>Fri, 24 Oct 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/kdb/005-lppkdb%E8%84%9A%E6%9C%AC/</guid><description>&lt;ul>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/</link><description>Recent content on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 29 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>021-uv使用指南</title><link>https://lppgo.github.io/post/python/021-uv%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 29 Nov 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/python/021-uv%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="uv使用指南">uv使用指南&lt;/h1>
+&lt;h2 id="1-introduction">1: Introduction&lt;/h2>
+&lt;ul>
+&lt;li>uv 是一款用 Rust 开发的高性能 Python 包管理器，旨在统一和简化 Python 的包管理、项目管理和环境管理流程,&lt;/li>
+&lt;li>核心功能对比&lt;/li>
+&lt;/ul>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">功能领域&lt;/th>
+ &lt;th style="text-align: left">传统工具&lt;/th>
+ &lt;th style="text-align: left">uv对应命令&lt;/th>
+ &lt;th style="text-align: left">备注&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">包管理&lt;/td>
+ &lt;td style="text-align: left">pip, pip-tools&lt;/td>
+ &lt;td style="text-align: left">&lt;code>uv pip install&lt;/code>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">虚拟环境&lt;/td>
+ &lt;td style="text-align: left">virtualenv&lt;/td>
+ &lt;td style="text-align: left">&lt;code>uv venv&lt;/code>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">依赖锁定&lt;/td>
+ &lt;td style="text-align: left">pip-compile + requirements.txt&lt;/td>
+ &lt;td style="text-align: left">自动生成 uv.lock&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Python版本管理&lt;/td>
+ &lt;td style="text-align: left">pyenv&lt;/td>
+ &lt;td style="text-align: left">&lt;code>uv python install&lt;/code>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="2uv的优势">2：uv的优势&lt;/h2>
+&lt;ul>
+&lt;li>极致的速度：得益于 Rust 的实现、并行网络请求和智能缓存，uv 在依赖解析和包安装速度上相比传统工具（如 pip 和 Poetry）有显著提升。&lt;/li>
+&lt;li>功能全面集成：它将 Python 项目开发中常用的多种工具功能集成于一身，你不再需要频繁在 pip、virtualenv、pipx 等工具间切换。&lt;/li>
+&lt;li>符合 Python 标准：uv 的项目管理基于 pyproject.toml 文件，遵循 PEP 621 标准，并支持生成跨平台的锁文件 uv.lock，保证了项目在不同环境下依赖的一致性。&lt;/li>
+&lt;li>uv 提供了更强大的依赖管理功能，可以自动解析和安装依赖，避免手动安装和管理依赖的麻烦。&lt;/li>
+&lt;/ul>
+&lt;h2 id="3安装与配置uv">3：安装与配置uv&lt;/h2>
+&lt;h3 id="31-安装uv">3.1 安装uv&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 在某些计算集群或受限环境中，默认安装路径可能不合适。你可以通过设置环境变量 UV_INSTALL_DIR 来自定义安装目录，并通过 INSTALLER_NO_MODIFY_PATH=1 阻止其自动修改 shell 配置文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># macOS 和 Linux&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -LsSf https://astral.sh/uv/install.sh &lt;span class="p">|&lt;/span> sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Windows&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">powershell -c &lt;span class="s2">&amp;#34;irm https://astral.sh/uv/install.ps1 | iex&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">choco install uv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># pip &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install uv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 验证&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv --version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="32-配置uv镜像源">3.2 配置uv镜像源&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 项目级配置(推荐): 在项目的 pyproject.toml 文件中添加&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[[&lt;/span>tool.uv.index&lt;span class="o">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;https://mirrors.aliyun.com/pypi/simple&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">default&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="4-uv核心功能与常用命令">4: uv核心功能与常用命令&lt;/h2>
+&lt;h3 id="41-项目管理与依赖管理">4.1 项目管理与依赖管理&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># uv 可以帮你初始化项目、添加依赖并自动生成锁文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1：初始化新项目&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir my_project &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> my_project
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv init &lt;span class="c1">#这会在当前目录生成一个基本的 pyproject.toml 文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2：添加依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv add requests &lt;span class="c1"># 添加生产依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv add pytest --dev &lt;span class="c1"># 添加开发依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv add -r requirements.txt &lt;span class="c1"># 从现有requirements.txt文件导入&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 这些命令会自动更新 pyproject.toml 并安装相应的包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3：同步依赖与运行项目&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv sync &lt;span class="c1"># 安装所有依赖并创建/更新锁文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv run python main.py &lt;span class="c1"># 在项目专属环境中运行命令，无需手动激活虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv run python main.py --lock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="42-虚拟环境管理">4.2 虚拟环境管理&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1: 创建虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv venv &lt;span class="c1"># 在当前目录创建 .venv 虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv venv --python 3.12 my_env &lt;span class="c1"># 创建指定Python版本和名称的环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2: 列出所有虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv venv list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3: 激活虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> .venv/bin/activate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.venv&lt;span class="se">\S&lt;/span>cripts&lt;span class="se">\a&lt;/span>ctivate &lt;span class="c1"># Windows&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv venv activate my_env
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 4: 删除虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv venv delete my_env
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="43-工具管理uv-tool">4.3 工具管理(uv tool)&lt;/h3>
+&lt;ul>
+&lt;li>类似于 pipx，uv tool 用于在隔离环境中安装和运行 Python 命令行工具&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">uv tool install ruff &lt;span class="c1"># 安装代码检查工具 ruff&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv tool run ruff check . &lt;span class="c1"># 直接运行工具&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv tool run ruff check . &lt;span class="c1"># 也可使用别名 uvx&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="44-python版本管理">4.4 Python版本管理&lt;/h3>
+&lt;h4 id="441-安装和使用特定-python-版本">4.4.1 安装和使用特定 Python 版本&lt;/h4>
+&lt;ul>
+&lt;li>uv 可以直接安装和管理多个版本的 Python 解释器，替代 pyenv。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">uv python install 3.12 &lt;span class="c1"># 安装 Python 3.12&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv python list &lt;span class="c1"># 列出已安装的 Python 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv venv --python 3.12 &lt;span class="c1"># 使用指定版本创建虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="442-uv进阶使用技巧">4.4.2 uv进阶使用技巧&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 依赖数分析&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv tree
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 依赖锁定与同步&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv lock --upgrade-package numpy &lt;span class="c1"># 仅升级指定包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv sync --force &lt;span class="c1"># 强制同步环境，即使本地有修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 单文件脚本依赖管理: uv 支持基于 PEP 723 标准的单文件 Python 脚本，可以在脚本内部通过注释块声明依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv init --script myscript.py &lt;span class="c1"># 初始化一个脚本文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv add --script myscript.py rich &lt;span class="c1">#为脚本添加依赖，uv 会自动在脚本顶部生成依赖元数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">uv run myscript.py 运行脚本，uv &lt;span class="c1">#会自动处理这些依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>01-005-lppKDB脚本</title><link>https://lppgo.github.io/post/kdb/005-lppkdb%E8%84%9A%E6%9C%AC/</link><pubDate>Fri, 24 Oct 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/kdb/005-lppkdb%E8%84%9A%E6%9C%AC/</guid><description>&lt;ul>
 &lt;li>&lt;a href="#1%E7%AE%80%E4%BB%8B">1：简介&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#2linux-%E5%AE%89%E8%A3%85%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC-python">2：Linux 安装多个版本 python&lt;/a>
 &lt;ul>
