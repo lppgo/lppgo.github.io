@@ -1,4 +1,4 @@
-仓库: http://47.101.50.176/ms-tech/ms-offshore
+仓库: http://127.0.0.1/ms-tech/ms-offshore
 
 pwd: /root/trade/ems/baml
 
