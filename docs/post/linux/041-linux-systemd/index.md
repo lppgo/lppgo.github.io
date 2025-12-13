@@ -22,9 +22,13 @@ Wants=network-online.target
 Type=simple
 User=gitlab
 Group=gitlab
+WorkingDirectory=/opt/gitlab/bin/
 ExecStart=/opt/gitlab/bin/gitlab-ctl start
 ExecStop=/opt/gitlab/bin/gitlab-ctl stop
-Restart=always
+Restart=on-failure # alaways
+RestartSec=5s
+Environment=NODE_ENV=production
+EnvironmentFile=/home/proj/app/config
 
 [Install]
 WantedBy=multi-user.target
