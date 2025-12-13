@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/</link><description>Recent content on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 13 Dec 2025 11:21:16 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>041-Linux systemd &amp; journalctl</title><link>https://lppgo.github.io/post/linux/041-linux-systemd/</link><pubDate>Sat, 13 Dec 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/041-linux-systemd/</guid><description>&lt;ul>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/</link><description>Recent content on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 13 Dec 2025 11:24:17 +0800</lastBuildDate><atom:link href="https://lppgo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>041-Linux systemd &amp; journalctl</title><link>https://lppgo.github.io/post/linux/041-linux-systemd/</link><pubDate>Sat, 13 Dec 2025 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/041-linux-systemd/</guid><description>&lt;ul>
 &lt;li>&lt;a href="#1-%E4%BD%BF%E7%94%A8-systemd-%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1">1: 使用 systemd 管理服务&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#11-systemd-%E4%BB%8B%E7%BB%8D">1.1 systemd 介绍&lt;/a>&lt;/li>
@@ -37,30 +37,44 @@
 &lt;/span>&lt;span class="lnt">20
 &lt;/span>&lt;span class="lnt">21
 &lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># /etc/systemd/system/app.service # xxx.ini格式&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Unit&lt;span class="o">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Description&lt;/span>&lt;span class="o">=&lt;/span>Your Application Description &lt;span class="o">(&lt;/span>e.g., My Python Backend API&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Description&lt;/span>&lt;span class="o">=&lt;/span>My Custom Service &lt;span class="c1"># 服务描述&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Documentation&lt;/span>&lt;span class="o">=&lt;/span>https://your-docs-link.com &lt;span class="o">(&lt;/span>可选&lt;span class="o">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">After&lt;/span>&lt;span class="o">=&lt;/span>network.target network-online.target
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Wants&lt;/span>&lt;span class="o">=&lt;/span>network-online.target
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">After&lt;/span>&lt;span class="o">=&lt;/span>network.target &lt;span class="c1"># 服务启动顺序（在 network.target 之后启动）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Requires&lt;/span>&lt;span class="o">=&lt;/span>network-online.target &lt;span class="c1"># 强制依赖（服务启动前必须满足）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Wants&lt;/span>&lt;span class="o">=&lt;/span>another-service.target &lt;span class="c1"># 弱依赖（服务启动前尝试启动 another-service）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Conflicts&lt;/span>&lt;span class="o">=&lt;/span>httpd.service &lt;span class="c1"># 冲突服务（与 httpd 互斥）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">版权声明：本文为CSDN博主「岚叔运维」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">原文链接：https://blog.csdn.net/lmzf2011/article/details/150656143
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Type&lt;/span>&lt;span class="o">=&lt;/span>simple
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Type&lt;/span>&lt;span class="o">=&lt;/span>simple &lt;span class="c1"># [simple, forking, oneshot, notify, dbus, idle]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">User&lt;/span>&lt;span class="o">=&lt;/span>gitlab
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Group&lt;/span>&lt;span class="o">=&lt;/span>gitlab
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>/opt/gitlab/bin/
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/opt/gitlab/bin/gitlab-ctl start
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/opt/gitlab/bin/gitlab-ctl start &lt;span class="c1"># 必须使用绝对路径来指定启动命令或脚本&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStop&lt;/span>&lt;span class="o">=&lt;/span>/opt/gitlab/bin/gitlab-ctl stop
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Restart&lt;/span>&lt;span class="o">=&lt;/span>on-failure &lt;span class="c1"># alaways&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Restart&lt;/span>&lt;span class="o">=&lt;/span>on-failure &lt;span class="c1"># [no,on-failure,on-abnormal,alaways]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">RestartSec&lt;/span>&lt;span class="o">=&lt;/span>5s
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">NODE_ENV&lt;/span>&lt;span class="o">=&lt;/span>production
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">EnvironmentFile&lt;/span>&lt;span class="o">=&lt;/span>/home/proj/app/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">NODE_ENV&lt;/span>&lt;span class="o">=&lt;/span>production &lt;span class="c1"># 直接设置环境变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">EnvironmentFile&lt;/span>&lt;span class="o">=&lt;/span>/home/proj/app/config &lt;span class="c1"># 从指定文件加载环境变量，格式为 KEY=VAL，适合配置较多的情况&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LimitNOFILE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">65536&lt;/span> &lt;span class="c1"># 限制打开的文件数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LimitCPU&lt;/span>&lt;span class="o">=&lt;/span>500% &lt;span class="c1"># 限制CPU使用率,infinity表示无限制&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">MemoryMax&lt;/span>&lt;span class="o">=&lt;/span>8G
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Install&lt;span class="o">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>multi-user.target
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>multi-user.target &lt;span class="c1"># 表示当系统进入“多用户命令行模式”（标准服务器运行级别）时，该服务应被自动启动。这是实现开机自启的关键&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="13-systemd--journalclt-命令汇总">1.3 systemd &amp;amp; journalclt 命令汇总&lt;/h2>

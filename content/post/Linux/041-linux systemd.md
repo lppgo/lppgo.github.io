@@ -23,25 +23,32 @@ keywords: ["systemd","systemd", "journalctl"]
 # /etc/systemd/system/app.service # xxx.ini格式
 #
 [Unit]
-Description=Your Application Description (e.g., My Python Backend API)
+Description=My Custom Service         # 服务描述
 Documentation=https://your-docs-link.com (可选)
-After=network.target network-online.target
-Wants=network-online.target
-
+After=network.target                  # 服务启动顺序（在 network.target 之后启动）
+Requires=network-online.target        # 强制依赖（服务启动前必须满足）
+Wants=another-service.target          # 弱依赖（服务启动前尝试启动 another-service）
+Conflicts=httpd.service               # 冲突服务（与 httpd 互斥）
+————————————————
+版权声明：本文为CSDN博主「岚叔运维」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/lmzf2011/article/details/150656143
 [Service]
-Type=simple
+Type=simple # [simple, forking, oneshot, notify, dbus, idle]
 User=gitlab
 Group=gitlab
 WorkingDirectory=/opt/gitlab/bin/
-ExecStart=/opt/gitlab/bin/gitlab-ctl start
+ExecStart=/opt/gitlab/bin/gitlab-ctl start  # 必须使用绝对路径来指定启动命令或脚本
 ExecStop=/opt/gitlab/bin/gitlab-ctl stop
-Restart=on-failure # alaways
+Restart=on-failure # [no,on-failure,on-abnormal,alaways]
 RestartSec=5s
-Environment=NODE_ENV=production
-EnvironmentFile=/home/proj/app/config
+Environment=NODE_ENV=production # 直接设置环境变量
+EnvironmentFile=/home/proj/app/config # 从指定文件加载环境变量，格式为 KEY=VAL，适合配置较多的情况
+LimitNOFILE=65536 # 限制打开的文件数
+LimitCPU=500% # 限制CPU使用率,infinity表示无限制
+MemoryMax=8G
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target # 表示当系统进入“多用户命令行模式”（标准服务器运行级别）时，该服务应被自动启动。这是实现开机自启的关键
 ```
 ## 1.3 systemd & journalclt 命令汇总
 ```bash
