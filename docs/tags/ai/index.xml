@@ -1,4 +1,82 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/ai/</link><description>Recent content in AI on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 27 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>01--AI基础工具</title><link>https://lppgo.github.io/post/ai/001-ai%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7/</link><pubDate>Fri, 27 Feb 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/001-ai%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7/</guid><description>&lt;div align='center' >&lt;font size='50'>01--AI基础工具&lt;/font>&lt;/div></description></item><item><title>01-FastCode</title><link>https://lppgo.github.io/post/ai/003-fastcode/</link><pubDate>Fri, 27 Feb 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/003-fastcode/</guid><description>&lt;div align='center' >&lt;font size='50'>01--FastCode&lt;/font>&lt;/div>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/ai/</link><description>Recent content in AI on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 07 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>01--005-Windows安装部署OpenClaw</title><link>https://lppgo.github.io/post/ai/005-windows%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2openclaw/</link><pubDate>Sat, 07 Mar 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/005-windows%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2openclaw/</guid><description>&lt;div align='center' >&lt;font size='50'>01--Windows安装部署OpenClaw&lt;/font>&lt;/div>
+&lt;h1 id="1-openclaw-介绍">1: OpenClaw 介绍&lt;/h1>
+&lt;p>OpenClaw（曾用名 Clawdbot、Moltbot）是一个运行在本地电脑的开源 AI 智能体。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>&lt;strong>Feature&lt;/strong>&lt;/th>
+ &lt;th>&lt;strong>Description&lt;/strong>&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>操作电脑&lt;/td>
+ &lt;td>以读写文件、操作浏览器、调用系统功能.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>接入聊天工具&lt;/td>
+ &lt;td>出门在外用手机给它留言，它就能自动干活，还能实时同步截图和执行过程.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>定时任务系统&lt;/td>
+ &lt;td>用自然语言创建定时任务，如&amp;quot;提醒我7:30打开空调&amp;quot;.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>长期记忆&lt;/td>
+ &lt;td>记忆存储在本地，越用越聪明.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h1 id="2-openclaw-的安装准备">2: OpenClaw 的安装准备&lt;/h1>
+&lt;h2 id="21-安装nodejs">2.1: 安装Node.js&lt;/h2>
+&lt;ul>
+&lt;li>访问 Node.js 官网：https://nodejs.org/zh-cn/download&lt;/li>
+&lt;li>下载 LTS 版本（长期支持版）的 Windows 安装包&lt;/li>
+&lt;li>双击安装，一路 Next 即可&lt;/li>
+&lt;li>&lt;code>node -v 查看node版本&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="22-安装git">2.2: 安装Git&lt;/h2>
+&lt;ul>
+&lt;li>访问 Git 官网：https://git-scm.com/install/windows&lt;/li>
+&lt;li>点击下载最新版本&lt;/li>
+&lt;li>双击安装，一路 Next 即可（保持默认选项）&lt;/li>
+&lt;/ul>
+&lt;h2 id="23-配置-powershell-脚本执行权限">2.3: 配置 PowerShell 脚本执行权限&lt;/h2>
+&lt;ul>
+&lt;li>Windows 默认会拦截安装脚本，需要先放开权限。
+&lt;ul>
+&lt;li>步骤 1：以管理员身份打开 PowerShell右键点击「开始」菜单 → 选择「Windows PowerShell (管理员)」&lt;/li>
+&lt;li>步骤 2：查看当前权限 &lt;code>Get-ExecutionPolicy -List&lt;/code>,如果 CurrentUser 显示 Restricted，说明不允许运行脚本。&lt;/li>
+&lt;li>步骤 3：修改权限&lt;code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="24-准备-api-key">2.4: 准备 API Key&lt;/h2>
+&lt;h1 id="3-安装openclaw">3: 安装OpenClaw&lt;/h1>
+&lt;h2 id="31-安装openclaw">3.1 安装OpenClaw&lt;/h2>
+&lt;ul>
+&lt;li>打开 OpenClaw 官网：https://openclaw.ai/&lt;/li>
+&lt;li>复制 Windows 安装命令&lt;/li>
+&lt;li>打开 PowerShell，粘贴以下命令并回车：&lt;code>iwr -useb https://openclaw.ai/install.ps1 | iex&lt;/code>&lt;/li>
+&lt;li>或者&lt;code>iwr -useb https://openclaw.ai/install.ps1 | iex&lt;/code>&lt;/li>
+&lt;li>&lt;strong>注意&lt;/strong>: 要配置ssh key到github或者``&lt;/li>
+&lt;/ul>
+&lt;h2 id="32-run-openclaw">3.2 Run OpenClaw&lt;/h2>
+&lt;ul>
+&lt;li>验证是否安装成功,查看oepnclaw的版本&lt;code>openclaw --version&lt;/code>&lt;/li>
+&lt;li>运行 &lt;code>openclaw onboard --install-daemon&lt;/code>&lt;/li>
+&lt;li>启动 Gateway&lt;code>默认 UI 在 http://127.0.0.1:18789/&lt;/code>&lt;/li>
+&lt;li>配置文件默认在 &lt;code>~/.openclaw/openclaw.json&lt;/code>&lt;/li>
+&lt;li>清除npm缓存：&lt;code>npm cache clean --force&lt;/code>&lt;/li>
+&lt;li>卸载旧版本：&lt;code>npm uninstall -g openclaw&lt;/code>&lt;/li>
+&lt;li>npm重新安装openclaw：&lt;code>npm install -g openclaw@latest&lt;/code>&lt;/li>
+&lt;li>如果遇到网络问题，可以尝试使用淘宝镜像：&lt;code>npm install -g openclaw@latest --registry=https://registry.npmmirror.com&lt;/code>&lt;/li>
+&lt;li>确保Node.js和npm版本是最新的&lt;/li>
+&lt;/ul>
+&lt;h1 id="4-初始化配置openclaw">4: 初始化配置OpenClaw&lt;/h1>
+&lt;h1 id="5-openclaw接入飞书">5: OpenClaw接入飞书&lt;/h1>
+&lt;h1 id="5-openclaw接入微信">5: OpenClaw接入微信&lt;/h1>
+&lt;h1 id="7-openclaw-案例">7: OpenClaw 案例&lt;/h1></description></item><item><title>01--OpenCode</title><link>https://lppgo.github.io/post/ai/005-opencode/</link><pubDate>Sat, 07 Mar 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/005-opencode/</guid><description>&lt;div align='center' >&lt;font size='50'>01--OpenCode&lt;/font>&lt;/div></description></item><item><title>01--AI基础工具</title><link>https://lppgo.github.io/post/ai/001-ai%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7/</link><pubDate>Fri, 27 Feb 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/001-ai%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7/</guid><description>&lt;div align='center' >&lt;font size='50'>01--AI基础工具&lt;/font>&lt;/div></description></item><item><title>01-FastCode</title><link>https://lppgo.github.io/post/ai/003-fastcode/</link><pubDate>Fri, 27 Feb 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/003-fastcode/</guid><description>&lt;div align='center' >&lt;font size='50'>01--FastCode&lt;/font>&lt;/div>
 &lt;h1 id="1-fastcode-介绍">1: FastCode 介绍&lt;/h1>
 &lt;blockquote>
 &lt;p>FastCode是一个高效利用token的综合代码理解和分析框架，旨在为大规模代码库和软件架构提供卓越的速度、出色的准确性和成本效益。通过结合先进的语义理解和智能结构导航，FastCode彻底改变了开发者探索、理解以及与复杂代码库交互的方式。&lt;/p></description></item></channel></rss>
