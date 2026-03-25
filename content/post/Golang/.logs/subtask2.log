@@ -1,0 +1,8 @@
+[2026-03-24T10:56:11.599Z] Plugin initialized: 5 commands [
+  "supermemory-logout",
+  "supermemory-login",
+  "supermemory-init",
+  "plannotator-review",
+  "skill-refresh"
+]
+[2026-03-24T10:56:13.036Z] Registered /subtask command
