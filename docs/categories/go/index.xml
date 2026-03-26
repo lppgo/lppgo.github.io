@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Go on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/categories/go/</link><description>Recent content in Go on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 24 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/categories/go/index.xml" rel="self" type="application/rss+xml"/><item><title>Zerolog使用入门</title><link>https://lppgo.github.io/post/golang/037_zerolog%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</link><pubDate>Tue, 24 Mar 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/037_zerolog%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</guid><description>&lt;div align="center">&lt;font size="35">Zerolog使用入门&lt;/font>&lt;/div>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Go on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/categories/go/</link><description>Recent content in Go on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 26 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/categories/go/index.xml" rel="self" type="application/rss+xml"/><item><title>Go 结构体验证神器validator</title><link>https://lppgo.github.io/post/golang/039_go%E7%BB%93%E6%9E%84%E4%BD%93%E9%AA%8C%E8%AF%81%E7%A5%9E%E5%99%A8validator/</link><pubDate>Thu, 26 Mar 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/039_go%E7%BB%93%E6%9E%84%E4%BD%93%E9%AA%8C%E8%AF%81%E7%A5%9E%E5%99%A8validator/</guid><description>&lt;div align="center">&lt;font size="35">Go 结构体验证神器validator&lt;/font>&lt;/div>
+&lt;h1 id="1-概述">1: 概述&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>在 Web 服务、RPC 接口、配置加载这类场景里，我们经常要对输入数据做合法性校验；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如果完全手写 &lt;code>if/else&lt;/code> 或正则，一个字段一个字段判断，代码很快就会变得又长又散；&lt;/p></description></item><item><title>Zerolog使用入门</title><link>https://lppgo.github.io/post/golang/037_zerolog%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</link><pubDate>Tue, 24 Mar 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/037_zerolog%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</guid><description>&lt;div align="center">&lt;font size="35">Zerolog使用入门&lt;/font>&lt;/div>
 &lt;h1 id="1-概述">1: 概述&lt;/h1>
 &lt;ul>
 &lt;li>
@@ -3000,7 +3007,7 @@ _ &lt;a href="#%E5%AE%9E%E7%8E%B0-3">实现&lt;/a> * &lt;a href="#%E9%80%82%E7%9
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	@echo &lt;span class="s2">&amp;#34;make docker 构建docker镜像&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>01-Go语言 grpc入门教程</title><link>https://lppgo.github.io/post/golang/007-go%E8%AF%AD%E8%A8%80-grpc%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</link><pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/007-go%E8%AF%AD%E8%A8%80-grpc%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</guid><description>&lt;ul>
+&lt;/div></description></item><item><title>01-Go语言 grpc入门教程</title><link>https://lppgo.github.io/post/golang/007-go%E8%AF%AD%E8%A8%80grpc%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</link><pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/007-go%E8%AF%AD%E8%A8%80grpc%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</guid><description>&lt;ul>
 &lt;li>&lt;a href="#go-%E8%AF%AD%E8%A8%80-grpc-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B">go 语言 grpc 入门教程&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#1-%E5%AE%89%E8%A3%85-go-%E8%AF%AD%E8%A8%80-grpc-%E5%8C%85">1: 安装 go 语言 grpc 包&lt;/a>&lt;/li>
@@ -3029,7 +3036,7 @@ _ &lt;a href="#%E5%AE%9E%E7%8E%B0-3">实现&lt;/a> * &lt;a href="#%E9%80%82%E7%9
 &lt;blockquote>
 &lt;p>前置知识点
 1: &lt;a href="https://www.tizi365.com/archives/367.html">protobuf 语法&lt;/a>
-2: &lt;a href="https://www.tizi365.com/archives/391.html">grpc 核心概念&lt;/a>&lt;/p></description></item><item><title>01-Golang net/http 性能优化</title><link>https://lppgo.github.io/post/golang/005-net.http-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link><pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/005-net.http-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</guid><description>&lt;ul>
+2: &lt;a href="https://www.tizi365.com/archives/391.html">grpc 核心概念&lt;/a>&lt;/p></description></item><item><title>01-Golang net/http 性能优化</title><link>https://lppgo.github.io/post/golang/005-net.http%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link><pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/005-net.http%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</guid><description>&lt;ul>
 &lt;li>&lt;a href="#golang-nethttp-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">Golang net/http 性能优化&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#1-%E4%BD%BF%E7%94%A8-defaultclient">1: 使用 DefaultClient&lt;/a>&lt;/li>

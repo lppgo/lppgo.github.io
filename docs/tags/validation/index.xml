@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Validation on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/validation/</link><description>Recent content in Validation on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 26 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/validation/index.xml" rel="self" type="application/rss+xml"/><item><title>Go 结构体验证神器validator</title><link>https://lppgo.github.io/post/golang/039_go%E7%BB%93%E6%9E%84%E4%BD%93%E9%AA%8C%E8%AF%81%E7%A5%9E%E5%99%A8validator/</link><pubDate>Thu, 26 Mar 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/golang/039_go%E7%BB%93%E6%9E%84%E4%BD%93%E9%AA%8C%E8%AF%81%E7%A5%9E%E5%99%A8validator/</guid><description>&lt;div align="center">&lt;font size="35">Go 结构体验证神器validator&lt;/font>&lt;/div>
+&lt;h1 id="1-概述">1: 概述&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>在 Web 服务、RPC 接口、配置加载这类场景里，我们经常要对输入数据做合法性校验；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如果完全手写 &lt;code>if/else&lt;/code> 或正则，一个字段一个字段判断，代码很快就会变得又长又散；&lt;/p></description></item></channel></rss>

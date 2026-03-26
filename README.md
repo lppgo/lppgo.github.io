@@ -18,6 +18,7 @@ golang,rust,python,java
 1: 主题修改
 
 `git clone https://github.com/olOwOlo/hugo-theme-even themes/even`
+
 ```go
 
 https://www.cnblogs.com/wylshkjj/p/18785629
@@ -32,7 +33,8 @@ CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@latest
 # 构建扩展/部署版本
 CGO_ENABLED=1 go install -tags extended,withdeploy github.com/gohugoio/hugo@latest
 
-````
+```
+
 2: config.toml 配置更新
 
 3: hugo -d docs
@@ -63,5 +65,15 @@ CGO_ENABLED=1 go install -tags extended,withdeploy github.com/gohugoio/hugo@late
 hugo version
 
 go get -u -v github.com/gohugoio/hugo
+
+```
+
+14: opencode skills
+
+```bash
+
+- 用 lpp-blogs，目标目录 content/post/Golang，文件名 038_Go日志实践.md，把这个 URL https:   //example.com/article 转成符合当前目录格式的博客并保存。
+- 用 lpp-blogs，目标目录 content/post/Python，文件名 022_uv进阶使用.md，把我下面这段笔记整理成符合当前目录文章格式的博客并保存。
+- 用 lpp-blogs，目标目录 content/post/Database，文件名 002_PostgreSQL索引入门.md，把本地资料 /tmp/postgres-notes.md 转成符合当前目录格式的博客并保存。
 
 ```

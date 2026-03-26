@@ -1,0 +1,347 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Go 结构体验证神器validator - Even - A super concise theme for Hugo</title>
+<meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=Cache-Control content="no-transform"><meta http-equiv=Cache-Control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="lucas(lpp)"><meta name=description content="Go 结构体验证神器validator 1: 概述 在 Web 服务、RPC 接口、配置加载这类场景里，我们经常要对输入数据做合法性校验；
+如果完全手写 if/else 或正则，一个字段一个字段判断，代码很快就会变得又长又散；
+"><meta name=keywords content="validator,validation"><meta name=generator content="Hugo 0.147.0 with theme even"><link rel=canonical href=https://lppgo.github.io/post/golang/039_go%E7%BB%93%E6%9E%84%E4%BD%93%E9%AA%8C%E8%AF%81%E7%A5%9E%E5%99%A8validator/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:url" content="https://lppgo.github.io/post/golang/039_go%E7%BB%93%E6%9E%84%E4%BD%93%E9%AA%8C%E8%AF%81%E7%A5%9E%E5%99%A8validator/"><meta property="og:site_name" content="Even - A super concise theme for Hugo"><meta property="og:title" content="Go 结构体验证神器validator"><meta property="og:description" content="Go 结构体验证神器validator 1: 概述 在 Web 服务、RPC 接口、配置加载这类场景里，我们经常要对输入数据做合法性校验；
+如果完全手写 if/else 或正则，一个字段一个字段判断，代码很快就会变得又长又散；"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2026-03-26T00:00:00+00:00"><meta property="article:modified_time" content="2026-03-26T00:00:00+00:00"><meta property="article:tag" content="Go"><meta property="article:tag" content="Validator"><meta property="article:tag" content="Validation"><meta itemprop=name content="Go 结构体验证神器validator"><meta itemprop=description content="Go 结构体验证神器validator 1: 概述 在 Web 服务、RPC 接口、配置加载这类场景里，我们经常要对输入数据做合法性校验；
+如果完全手写 if/else 或正则，一个字段一个字段判断，代码很快就会变得又长又散；"><meta itemprop=datePublished content="2026-03-26T00:00:00+00:00"><meta itemprop=dateModified content="2026-03-26T00:00:00+00:00"><meta itemprop=wordCount content="2553"><meta itemprop=keywords content="validator,validation"><meta name=twitter:card content="summary"><meta name=twitter:title content="Go 结构体验证神器validator"><meta name=twitter:description content="Go 结构体验证神器validator 1: 概述 在 Web 服务、RPC 接口、配置加载这类场景里，我们经常要对输入数据做合法性校验；
+如果完全手写 if/else 或正则，一个字段一个字段判断，代码很快就会变得又长又散；"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>lppgo</a></div><div class=mobile-navbar-icon><span></span>
+<span></span>
+<span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>lppgo</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Go 结构体验证神器validator</h1><div class=post-meta><span class=post-time>2026-03-26</span><div class=post-category><a href=/categories/go/>Go</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#1-概述>1: 概述</a></li><li><a href=#2-安装>2: 安装</a></li><li><a href=#3-最简单的例子>3: 最简单的例子</a></li><li><a href=#4-基本使用步骤>4: 基本使用步骤</a></li><li><a href=#5-常见-tag-怎么看>5: 常见 tag 怎么看</a></li><li><a href=#6-结构体校验示例>6: 结构体校验示例</a></li><li><a href=#7-dive-是什么>7: dive 是什么</a></li><li><a href=#8-map-和跨字段校验>8: map 和跨字段校验</a></li><li><a href=#9-自定义校验>9: 自定义校验</a></li><li><a href=#10-错误处理>10: 错误处理</a></li><li><a href=#11-在-web-项目里的使用建议>11: 在 Web 项目里的使用建议</a></li><li><a href=#12-小结>12: 小结</a></li><li><a href=#13-参考>13: 参考</a></li></ul></nav></div></div><div class=post-content><div align=center><font size=35>Go 结构体验证神器validator</font></div><h1 id=1-概述>1: 概述</h1><ul><li><p>在 Web 服务、RPC 接口、配置加载这类场景里，我们经常要对输入数据做合法性校验；</p></li><li><p>如果完全手写 <code>if/else</code> 或正则，一个字段一个字段判断，代码很快就会变得又长又散；</p></li><li><p><code>github.com/go-playground/validator/v10</code> 是 Go 里非常经典的结构体校验库，支持通过 tag 对字段、结构体、切片、map 甚至跨字段关系做验证；</p></li><li><p>gin 默认就集成了这套验证能力，所以很多 Go Web 项目其实早就在间接使用它；</p></li><li><p>原文参考: <code>https://mp.weixin.qq.com/s/Ycs22tC45BjrjnefRBtDnA</code></p></li><li><p><code>validator</code> 的核心价值，不只是“少写几行判断”，而是把约束直接贴在数据结构上。这样一眼看结构体，就能知道这个模型的业务边界，也更容易避免脏数据一路流到服务内部。</p></li></ul><h1 id=2-安装>2: 安装</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>go</span> <span class=nx>get</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=k>go</span><span class=o>-</span><span class=nx>playground</span><span class=o>/</span><span class=nx>validator</span><span class=o>/</span><span class=nx>v10</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;github.com/go-playground/validator/v10&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>新项目建议直接使用 <code>v10</code> 版本；</li><li>官方文档里也建议尽量复用同一个 <code>Validate</code> 实例，因为内部会缓存结构体元信息，重复创建没有必要。</li></ul><h1 id=3-最简单的例子>3: 最简单的例子</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;github.com/go-playground/validator/v10&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>User</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Name</span> <span class=kt>string</span> <span class=s>`validate:&#34;min=6,max=10&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Age</span>  <span class=kt>int</span>    <span class=s>`validate:&#34;min=1,max=100&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>validate</span> <span class=o>:=</span> <span class=nx>validator</span><span class=p>.</span><span class=nf>New</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>u1</span> <span class=o>:=</span> <span class=nx>User</span><span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;lidajun&#34;</span><span class=p>,</span> <span class=nx>Age</span><span class=p>:</span> <span class=mi>18</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>validate</span><span class=p>.</span><span class=nf>Struct</span><span class=p>(</span><span class=nx>u1</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>u2</span> <span class=o>:=</span> <span class=nx>User</span><span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;dj&#34;</span><span class=p>,</span> <span class=nx>Age</span><span class=p>:</span> <span class=mi>101</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>validate</span><span class=p>.</span><span class=nf>Struct</span><span class=p>(</span><span class=nx>u2</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>上面这个例子里，<code>Name</code> 被要求长度在 <code>6~10</code> 之间，<code>Age</code> 被要求在 <code>1~100</code> 之间；</li><li><code>validate.Struct(u1)</code> 校验通过时返回 <code>nil</code>；</li><li>一旦校验失败，会返回包含字段名和 tag 信息的错误。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=p>&lt;</span><span class=kc>nil</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=nx>Key</span><span class=p>:</span> <span class=err>&#39;</span><span class=nx>User</span><span class=p>.</span><span class=nx>Name</span><span class=err>&#39;</span> <span class=nx>Error</span><span class=p>:</span><span class=nx>Field</span> <span class=nx>validation</span> <span class=k>for</span> <span class=err>&#39;</span><span class=nx>Name</span><span class=err>&#39;</span> <span class=nx>failed</span> <span class=nx>on</span> <span class=nx>the</span> <span class=err>&#39;</span><span class=nx>min</span><span class=err>&#39;</span> <span class=nx>tag</span>
+</span></span><span class=line><span class=cl><span class=nx>Key</span><span class=p>:</span> <span class=err>&#39;</span><span class=nx>User</span><span class=p>.</span><span class=nx>Age</span><span class=err>&#39;</span> <span class=nx>Error</span><span class=p>:</span><span class=nx>Field</span> <span class=nx>validation</span> <span class=k>for</span> <span class=err>&#39;</span><span class=nx>Age</span><span class=err>&#39;</span> <span class=nx>failed</span> <span class=nx>on</span> <span class=nx>the</span> <span class=err>&#39;</span><span class=nx>max</span><span class=err>&#39;</span> <span class=nx>tag</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>这类错误信息比单纯返回 <code>false</code> 实用得多，因为你能直接看出来到底是哪个字段违反了哪个规则；</li><li>结构体越复杂、规则越多，<code>validator</code> 的收益就越明显。</li></ul><h1 id=4-基本使用步骤>4: 基本使用步骤</h1><ul><li>使用 <code>validator</code> 做结构体校验，通常就 3 步：<ul><li>创建校验器：<code>validate := validator.New()</code>;</li><li>定义带 <code>validate</code> tag 的结构体；</li><li>调用 <code>validate.Struct(obj)</code> 执行校验；</li></ul></li><li>如果只想校验单个变量，也可以用 <code>validate.Var(value, rule)</code>。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;github.com/go-playground/validator/v10&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>validate</span> <span class=o>:=</span> <span class=nx>validator</span><span class=p>.</span><span class=nf>New</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>email</span> <span class=o>:=</span> <span class=s>&#34;joeybloggs.gmail.com&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=o>:=</span> <span class=nx>validate</span><span class=p>.</span><span class=nf>Var</span><span class=p>(</span><span class=nx>email</span><span class=p>,</span> <span class=s>&#34;required,email&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><code>Var()</code> 比较适合校验单个字符串、单个参数、配置项；</li><li><code>Struct()</code> 更适合接口入参、表单对象、配置对象这类完整模型；</li><li>一般在业务里最常见的还是 <code>Struct()</code>。</li></ul><h1 id=5-常见-tag-怎么看>5: 常见 tag 怎么看</h1><ul><li><code>validator</code> 的规则全部写在 <code>validate:"..."</code> 里；</li><li>同一个字段可以组合多个规则：<ul><li><code>,</code> 表示“并且”；</li><li><code>|</code> 表示“或者”；</li></ul></li><li>常见示例：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>SignUp</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Username</span> <span class=kt>string</span> <span class=s>`validate:&#34;required,min=4,max=20&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Password</span> <span class=kt>string</span> <span class=s>`validate:&#34;required,min=8&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Email</span>    <span class=kt>string</span> <span class=s>`validate:&#34;required,email&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Age</span>      <span class=kt>uint8</span>  <span class=s>`validate:&#34;gte=0,lte=130&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Role</span>     <span class=kt>string</span> <span class=s>`validate:&#34;oneof=admin user guest&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p>这里面最常见的几个规则如下：</p><ul><li><code>required</code>：不能为空，也不能是类型默认值；</li><li><code>min</code> / <code>max</code>：字符串是长度限制，数字是范围限制；</li><li><code>gte</code> / <code>lte</code>：大于等于、小于等于；</li><li><code>oneof</code>：枚举值之一；</li><li><code>email</code> / <code>url</code> / <code>ip</code>：格式校验。</li></ul></li><li><p>一个容易忽略的细节是：tag 之间不要插空格，例如 <code>validate:"required, email"</code> 这种写法是有风险的，实际项目里应始终紧凑书写。</p></li></ul><h1 id=6-结构体校验示例>6: 结构体校验示例</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;github.com/go-playground/validator/v10&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Address</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Street</span> <span class=kt>string</span> <span class=s>`validate:&#34;required&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>City</span>   <span class=kt>string</span> <span class=s>`validate:&#34;required&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Planet</span> <span class=kt>string</span> <span class=s>`validate:&#34;required&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Phone</span>  <span class=kt>string</span> <span class=s>`validate:&#34;required&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>User</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FirstName</span>      <span class=kt>string</span>     <span class=s>`validate:&#34;required&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>LastName</span>       <span class=kt>string</span>     <span class=s>`validate:&#34;required&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Age</span>            <span class=kt>uint8</span>      <span class=s>`validate:&#34;gte=0,lte=130&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Email</span>          <span class=kt>string</span>     <span class=s>`validate:&#34;required,email&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FavouriteColor</span> <span class=kt>string</span>     <span class=s>`validate:&#34;iscolor&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Addresses</span>      <span class=p>[]</span><span class=o>*</span><span class=nx>Address</span> <span class=s>`validate:&#34;required,dive,required&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>validate</span> <span class=o>:=</span> <span class=nx>validator</span><span class=p>.</span><span class=nf>New</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>address</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>Address</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Street</span><span class=p>:</span> <span class=s>&#34;Eavesdown Docks&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Planet</span><span class=p>:</span> <span class=s>&#34;Persphone&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Phone</span><span class=p>:</span>  <span class=s>&#34;none&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>user</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>User</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>FirstName</span><span class=p>:</span>      <span class=s>&#34;Badger&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>LastName</span><span class=p>:</span>       <span class=s>&#34;Smith&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Age</span><span class=p>:</span>            <span class=mi>135</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Email</span><span class=p>:</span>          <span class=s>&#34;Badger.Smith@gmail.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>FavouriteColor</span><span class=p>:</span> <span class=s>&#34;#000-&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Addresses</span><span class=p>:</span>      <span class=p>[]</span><span class=o>*</span><span class=nx>Address</span><span class=p>{</span><span class=nx>address</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=o>:=</span> <span class=nx>validate</span><span class=p>.</span><span class=nf>Struct</span><span class=p>(</span><span class=nx>user</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p>这个例子里故意留了几个错误：</p><ul><li><code>Age=135</code> 超过了 <code>lte=130</code>;</li><li><code>FavouriteColor="#000-"</code> 不是合法颜色；</li><li><code>Address.City</code> 没填，违反 <code>required</code>。</li></ul></li><li><p>这也是 <code>validator</code> 很适合接口层的原因：一旦请求模型不合法，就能在很靠前的位置拦住，而不是等业务逻辑运行一半才报错。</p></li></ul><h1 id=7-dive-是什么>7: dive 是什么</h1><ul><li><code>dive</code> 是 <code>validator</code> 非常好用的一个能力；</li><li>它的意思是：当前字段如果是 <code>slice</code>、<code>array</code>、<code>map</code> 这类容器，不要停在外层，继续往内部元素做校验。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;github.com/go-playground/validator/v10&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>validate</span> <span class=o>:=</span> <span class=nx>validator</span><span class=p>.</span><span class=nf>New</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>slice</span> <span class=o>:=</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;123&#34;</span><span class=p>,</span> <span class=s>&#34;onetwothree&#34;</span><span class=p>,</span> <span class=s>&#34;myslicetest&#34;</span><span class=p>,</span> <span class=s>&#34;four&#34;</span><span class=p>,</span> <span class=s>&#34;five&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=o>:=</span> <span class=nx>validate</span><span class=p>.</span><span class=nf>Var</span><span class=p>(</span><span class=nx>slice</span><span class=p>,</span> <span class=s>&#34;max=15,dive,min=4&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><code>max=15</code> 作用在整个切片；</p></li><li><p><code>dive</code> 后面的 <code>min=4</code> 作用在切片里的每一个元素；</p></li><li><p>也就是说，<code>dive</code> 之后的规则，是“向里一层”再应用。</p></li><li><p>如果是二维切片，也可以连续使用多个 <code>dive</code>：</p></li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>validate</span><span class=p>.</span><span class=nf>Var</span><span class=p>(</span><span class=nx>data</span><span class=p>,</span> <span class=s>&#34;min=2,dive,len=2,dive,required&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>记忆方式很简单：每出现一次 <code>dive</code>，就继续往里走一层。</li></ul><h1 id=8-map-和跨字段校验>8: map 和跨字段校验</h1><ul><li>对 <code>map</code> 做校验时，除了 <code>dive</code>，还可以结合 <code>keys</code> 和 <code>endkeys</code> 校验 key；</li><li>对注册表单这种场景，还经常会用到跨字段比较。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>RegisterUser</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>UserName</span>  <span class=kt>string</span> <span class=s>`validate:&#34;gte=4,lte=14&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Password</span>  <span class=kt>string</span> <span class=s>`validate:&#34;min=6,max=20&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Password2</span> <span class=kt>string</span> <span class=s>`validate:&#34;eqfield=Password&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><code>eqfield=Password</code> 表示 <code>Password2</code> 必须等于 <code>Password</code>；</p></li><li><p>这个场景最典型的用途就是“重复输入密码”校验；</p></li><li><p>其他类似规则还有：</p><ul><li><code>nefield</code>：不能等于另一个字段；</li><li><code>gtefield</code> / <code>ltefield</code>：与同结构体字段比较大小；</li><li><code>eqcsfield</code>：跨嵌套结构体字段比较。</li></ul></li><li><p>这些能力能让很多“字段之间有关系”的校验直接声明在 tag 里，减少散落在 handler 里的判断代码。</p></li></ul><h1 id=9-自定义校验>9: 自定义校验</h1><ul><li>内置 tag 虽然很多，但总有一些业务规则比较个性化；</li><li>这时可以通过 <code>RegisterValidation()</code> 注册自定义规则。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;github.com/go-playground/validator/v10&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>User</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Name</span> <span class=kt>string</span> <span class=s>`validate:&#34;required,CustomerValidation&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Age</span>  <span class=kt>uint8</span>  <span class=s>`validate:&#34;gte=0,lte=80&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>validate</span> <span class=o>*</span><span class=nx>validator</span><span class=p>.</span><span class=nx>Validate</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>validate</span> <span class=p>=</span> <span class=nx>validator</span><span class=p>.</span><span class=nf>New</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nx>validate</span><span class=p>.</span><span class=nf>RegisterValidation</span><span class=p>(</span><span class=s>&#34;CustomerValidation&#34;</span><span class=p>,</span> <span class=nx>CustomerValidationFunc</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>user</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>User</span><span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;tom&#34;</span><span class=p>,</span> <span class=nx>Age</span><span class=p>:</span> <span class=mi>29</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=o>:=</span> <span class=nx>validate</span><span class=p>.</span><span class=nf>Struct</span><span class=p>(</span><span class=nx>user</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>CustomerValidationFunc</span><span class=p>(</span><span class=nx>fl</span> <span class=nx>validator</span><span class=p>.</span><span class=nx>FieldLevel</span><span class=p>)</span> <span class=kt>bool</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>fl</span><span class=p>.</span><span class=nf>Field</span><span class=p>().</span><span class=nf>String</span><span class=p>()</span> <span class=o>==</span> <span class=s>&#34;jimmy&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>上面的逻辑表示 <code>Name</code> 必须等于 <code>jimmy</code>；</li><li>当然，这只是为了演示自定义校验的写法，真实业务里你可以把它替换成手机号前缀、业务编号格式、日期区间等自己的规则；</li><li>如果业务逻辑已经复杂到“单个字段的 tag 表达不清”，也可以使用结构体级别校验。</li></ul><h1 id=10-错误处理>10: 错误处理</h1><ul><li>很多人第一次用 <code>validator</code> 时，都是直接 <code>fmt.Println(err)</code>；</li><li>这在开发期够用，但线上一般还要把错误翻译成用户可读信息、日志字段或者错误码；</li><li>这时就需要把返回的 <code>error</code> 断言成 <code>validator.ValidationErrors</code>。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>err</span> <span class=o>:=</span> <span class=nx>validate</span><span class=p>.</span><span class=nf>Struct</span><span class=p>(</span><span class=nx>user</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>err</span><span class=p>.(</span><span class=o>*</span><span class=nx>validator</span><span class=p>.</span><span class=nx>InvalidValidationError</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>fieldErr</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>err</span><span class=p>.(</span><span class=nx>validator</span><span class=p>.</span><span class=nx>ValidationErrors</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Namespace:&#34;</span><span class=p>,</span> <span class=nx>fieldErr</span><span class=p>.</span><span class=nf>Namespace</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Field:&#34;</span><span class=p>,</span> <span class=nx>fieldErr</span><span class=p>.</span><span class=nf>Field</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Tag:&#34;</span><span class=p>,</span> <span class=nx>fieldErr</span><span class=p>.</span><span class=nf>Tag</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;ActualTag:&#34;</span><span class=p>,</span> <span class=nx>fieldErr</span><span class=p>.</span><span class=nf>ActualTag</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Value:&#34;</span><span class=p>,</span> <span class=nx>fieldErr</span><span class=p>.</span><span class=nf>Value</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Param:&#34;</span><span class=p>,</span> <span class=nx>fieldErr</span><span class=p>.</span><span class=nf>Param</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>常用的几个字段：<ul><li><code>Field()</code>：字段名；</li><li><code>Tag()</code>：失败的校验规则；</li><li><code>ActualTag()</code>：真实规则，别名场景尤其有用；</li><li><code>Value()</code>：当前值；</li><li><code>Param()</code>：规则参数，例如 <code>130</code>、<code>20</code> 这种；</li></ul></li><li>有了这些信息，就能自己拼装中文错误提示，或者对接国际化翻译器。</li></ul><h1 id=11-在-web-项目里的使用建议>11: 在 Web 项目里的使用建议</h1><ul><li><code>validator</code> 最适合放在“请求进入业务之前”的那一层；</li><li>常见落点包括：<ul><li>HTTP handler 参数绑定后；</li><li>RPC 请求对象进入 service 前；</li><li>配置文件加载完成后；</li><li>定时任务参数解析后；</li></ul></li><li>如果你在用 gin，很多场景下已经默认走了这套机制，只需要把规则写在结构体 tag 上。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>CreateUserReq</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Name</span>     <span class=kt>string</span> <span class=s>`json:&#34;name&#34; validate:&#34;required,min=2,max=20&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Email</span>    <span class=kt>string</span> <span class=s>`json:&#34;email&#34; validate:&#34;required,email&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Password</span> <span class=kt>string</span> <span class=s>`json:&#34;password&#34; validate:&#34;required,min=8&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>这种做法的好处是：<ul><li>参数约束集中在模型定义上；</li><li>handler 更干净；</li><li>错误处理更统一；</li><li>模型本身的可读性更强。</li></ul></li></ul><h1 id=12-小结>12: 小结</h1><ul><li><code>validator</code> 是 Go 项目里非常值得掌握的一类基础库；</li><li>它最核心的能力是通过 tag 把约束贴到结构体上，让校验逻辑声明化；</li><li>对简单场景，<code>required</code>、<code>min/max</code>、<code>email</code> 这些内置 tag 已经足够实用；</li><li>对复杂场景，还可以用 <code>dive</code>、跨字段比较、自定义校验、错误翻译来继续扩展；</li><li>如果你的接口模型越来越多、规则越来越复杂，尽早把 <code>validator</code> 用起来，通常比在业务代码里到处手写校验更稳、更清晰。</li></ul><h1 id=13-参考>13: 参考</h1><ul><li>官方仓库: <code>https://github.com/go-playground/validator</code></li><li>文档: <code>https://pkg.go.dev/github.com/go-playground/validator/v10</code></li><li>原文参考: <code>https://mp.weixin.qq.com/s/Ycs22tC45BjrjnefRBtDnA</code></li></ul></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>lucas(lpp)</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2026-03-26</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/go/>Go</a>
+<a href=/tags/validator/>validator</a>
+<a href=/tags/validation/>validation</a></div><nav class=post-nav><a class=next href=/post/golang/037_zerolog%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/><span class="next-text nav-default">Zerolog使用入门</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:golpp@qq.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=https://github.com/lppgo class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=https://github.com/lppgo class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span><span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span><span class=copyright-year>&copy;
+2015 -
+2026<span class=heart><i class="iconfont icon-heart"></i></span><span></span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js></script><script id=baidu_push>(function(){if(window.location.hostname==="localhost")return;var t,n,e=document.createElement("script");e.async=!0,n=window.location.protocol.split(":")[0],n==="https"?e.src="https://zz.bdstatic.com/linksubmit/push.js":e.src="http://push.zhanzhang.baidu.com/push.js",t=document.getElementsByTagName("script")[0],t.parentNode.insertBefore(e,t)})()</script></body></html>
