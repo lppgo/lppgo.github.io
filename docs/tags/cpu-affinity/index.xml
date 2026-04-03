@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CPU Affinity on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/cpu-affinity/</link><description>Recent content in CPU Affinity on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/cpu-affinity/index.xml" rel="self" type="application/rss+xml"/><item><title>011-高频交易系统中行情模块绑核设计</title><link>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</link><pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</guid><description>&lt;div align='center' >&lt;font size='50'>高频交易系统中行情模块绑核设计&lt;/font>&lt;/div>
+&lt;ul>
+&lt;li>原文链接: &lt;code>https://mp.weixin.qq.com/s/AocomOFTTr2V0PPL2rKiRA&lt;/code>&lt;/li>
+&lt;li>本文按照当前 &lt;code>content/post/C++&lt;/code> 目录文章风格整理，核心关注点是低延迟行情链路中的 CPU 绑核设计。&lt;/li>
+&lt;/ul>
+&lt;h1 id="1-为什么行情模块要绑核">1: 为什么行情模块要绑核&lt;/h1>
+&lt;ul>
+&lt;li>在高频交易系统中，行情接收、排序、因子计算、策略串行处理都属于延迟极其敏感的链路；&lt;/li>
+&lt;li>如果线程完全交给操作系统调度，线程可能在不同 CPU 核之间迁移；&lt;/li>
+&lt;li>一旦发生迁移，就可能引入上下文切换、缓存失效、TLB 抖动等额外开销；&lt;/li>
+&lt;li>对于普通业务系统，这类开销通常可以接受，但在微秒级优化场景里，抖动本身就是问题；&lt;/li>
+&lt;li>因此，行情模块做绑核，本质上是在用更强的确定性换更低的延迟波动。&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-绑核前需要先处理哪些前提">2: 绑核前需要先处理哪些前提&lt;/h1>
+&lt;ul>
+&lt;li>绑核并不是简单地把线程固定到某个 CPU 上；&lt;/li>
+&lt;li>如果机器本身还有很多后台任务、IRQ 中断、SMT 竞争，单纯调用一次绑核接口往往效果有限；&lt;/li>
+&lt;li>一般要先处理以下几个前提。&lt;/li>
+&lt;/ul>
+&lt;h2 id="21-优先使用物理核">2.1 优先使用物理核&lt;/h2>
+&lt;ul>
+&lt;li>对低延迟线程，优先绑定到物理核心而不是超线程；&lt;/li>
+&lt;li>因为同一个物理核心上的两个超线程仍然共享执行单元、缓存和带宽；&lt;/li>
+&lt;li>如果关键线程落在 SMT sibling 上，抖动很容易被放大。&lt;/li>
+&lt;/ul>
+&lt;h2 id="22-处理-irqbalance">2.2 处理 irqbalance&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>irqbalance&lt;/code> 会自动平衡硬件中断；&lt;/li>
+&lt;li>在通用服务器场景这很有用，但在低延迟交易系统中，它可能把网络中断重新分配到不希望被打扰的核心上；&lt;/li>
+&lt;li>所以实践里常见做法是停掉 &lt;code>irqbalance&lt;/code>，然后手动规划网卡队列和 CPU 的对应关系。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl stop irqbalance
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl disable irqbalance
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="23-视情况关闭-smt--hyper-threading">2.3 视情况关闭 SMT / Hyper-Threading&lt;/h2>
+&lt;ul>
+&lt;li>如果机器专门用于极低延迟场景，可以考虑关闭 SMT；&lt;/li>
+&lt;li>这样做的代价是吞吐下降，但能换来更干净的物理核心资源；&lt;/li>
+&lt;li>是否关闭，要结合机器用途和实际压测结果决定。&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-c-中如何实现线程绑核">3: C++ 中如何实现线程绑核&lt;/h1>
+&lt;ul>
+&lt;li>Linux 下常见做法是使用 &lt;code>pthread_setaffinity_np&lt;/code>；&lt;/li>
+&lt;li>如果项目里用的是 &lt;code>std::thread&lt;/code> 或 &lt;code>std::jthread&lt;/code>，可以封装一层通用 helper，避免到处散落平台细节；&lt;/li>
+&lt;li>除了设置亲和性，最好还要增加一次实际验证，确认线程真的运行在预期 CPU 上。&lt;/li>
+&lt;/ul>
+&lt;h2 id="31-一个简单的绑核辅助函数">3.1 一个简单的绑核辅助函数&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;pthread.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;sched.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;unistd.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;iostream&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;stdexcept&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;thread&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">bind_thread_to_cpu&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="kr">thread&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">th&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">cpu_id&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cpu_set_t&lt;/span> &lt;span class="n">cpuset&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CPU_ZERO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cpuset&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CPU_SET&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cpu_id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cpuset&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">rc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pthread_setaffinity_np&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">th&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">native_handle&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cpu_set_t&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cpuset&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">rc&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">throw&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">runtime_error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;pthread_setaffinity_np failed&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">worker&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="s">&amp;#34;running on cpu: &amp;#34;&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">sched_getcpu&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="kr">thread&lt;/span> &lt;span class="n">th&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worker&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bind_thread_to_cpu&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">th&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">th&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="32-更实用的封装建议">3.2 更实用的封装建议&lt;/h2>
+&lt;ul>
+&lt;li>对 &lt;code>cpu_id&lt;/code> 做合法性检查，避免绑定到不存在的核心；&lt;/li>
+&lt;li>给绑定操作加日志，方便排查部署环境差异；&lt;/li>
+&lt;li>在线程启动后增加一次 &lt;code>sched_getcpu()&lt;/code> 验证；&lt;/li>
+&lt;li>如果是线程池或多阶段流水线，建议把绑核规则和业务线程角色分离配置。&lt;/li>
+&lt;/ul>
+&lt;h1 id="4-行情模块的绑核分层设计">4: 行情模块的绑核分层设计&lt;/h1>
+&lt;ul>
+&lt;li>行情模块不是一个线程，而是一条流水线；&lt;/li>
+&lt;li>真正有效的做法，不是“所有线程都绑核”，而是按照链路角色进行分层绑定；&lt;/li>
+&lt;li>常见的划分方式如下。&lt;/li>
+&lt;/ul>
+&lt;h2 id="41-行情接收线程">4.1 行情接收线程&lt;/h2>
+&lt;ul>
+&lt;li>行情接收线程负责从网卡队列读取数据，是链路最前端；&lt;/li>
+&lt;li>这类线程应当优先独占物理核，并尽量和 NIC queue 一一对应；&lt;/li>
+&lt;li>这样可以减少中断分发和线程迁移带来的额外抖动。&lt;/li>
+&lt;/ul>
+&lt;h2 id="42-排序线程">4.2 排序线程&lt;/h2>
+&lt;ul>
+&lt;li>如果行情源较多，接收后通常还需要排序或重组；&lt;/li>
+&lt;li>排序线程应与接收线程分开绑定到独立核心；&lt;/li>
+&lt;li>最好放在拓扑上相近的核心，降低跨核通信代价。&lt;/li>
+&lt;/ul>
+&lt;h2 id="43-串行核心线程">4.3 串行核心线程&lt;/h2>
+&lt;ul>
+&lt;li>因子、模型、策略串行主链路通常更强调确定性；&lt;/li>
+&lt;li>这一类线程往往要独占一个核心，尽可能不与其他任务共享；&lt;/li>
+&lt;li>它是整条交易决策链的热点线程之一。&lt;/li>
+&lt;/ul>
+&lt;h2 id="44-监控与日志线程">4.4 监控与日志线程&lt;/h2>
+&lt;ul>
+&lt;li>监控、埋点、日志落盘线程优先级相对较低；&lt;/li>
+&lt;li>它们可以被安排到非关键核心，甚至低价值的超线程上；&lt;/li>
+&lt;li>原则是不要抢占行情主链路的缓存与调度资源。&lt;/li>
+&lt;/ul>
+&lt;h2 id="45-一个典型的核心分配示意">4.5 一个典型的核心分配示意&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>线程类型&lt;/th>
+ &lt;th>建议 CPU&lt;/th>
+ &lt;th>设计原则&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>行情接收线程&lt;/td>
+ &lt;td>CPU 0-3&lt;/td>
+ &lt;td>与网卡队列一一对应，独占物理核&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>排序线程&lt;/td>
+ &lt;td>CPU 4-7&lt;/td>
+ &lt;td>与接收线程相邻，减少跨核通信&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>串行核心线程&lt;/td>
+ &lt;td>CPU 8&lt;/td>
+ &lt;td>独占核心，承载策略主链路&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>监控 / 日志线程&lt;/td>
+ &lt;td>CPU 15&lt;/td>
+ &lt;td>放在非关键核或低优先级资源上&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h1 id="5-仅仅线程绑核还不够">5: 仅仅线程绑核还不够&lt;/h1>
+&lt;ul>
+&lt;li>如果操作系统仍然把其它任务调度到这些核心上，那么“独占核心”只是一种错觉；&lt;/li>
+&lt;li>真正想把关键 CPU 留给行情链路，还需要做系统级隔离。&lt;/li>
+&lt;/ul>
+&lt;h2 id="51-isolcpus">5.1 isolcpus&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>isolcpus&lt;/code> 用于把指定 CPU 从常规调度域里隔离出去；&lt;/li>
+&lt;li>这样系统中的普通任务不会轻易落到这些 CPU 上。&lt;/li>
+&lt;/ul>
+&lt;h2 id="52-nohz_full">5.2 nohz_full&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>nohz_full&lt;/code> 用于减少指定 CPU 上的调度 tick；&lt;/li>
+&lt;li>对低延迟线程来说，减少无关系统打扰是有价值的。&lt;/li>
+&lt;/ul>
+&lt;h2 id="53-rcu_nocbs">5.3 rcu_nocbs&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>rcu_nocbs&lt;/code> 可以让指定 CPU 避开 RCU callback 的干扰；&lt;/li>
+&lt;li>对需要极致稳定性的核心，这一点也很关键。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">GRUB_CMDLINE_LINUX&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;isolcpus=0-8 nohz_full=0-8 rcu_nocbs=0-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>上面的参数只是示例；&lt;/li>
+&lt;li>实际使用时应结合机器拓扑、服务部署方式以及运维策略统一规划。&lt;/li>
+&lt;/ul>
+&lt;h1 id="6-如何验证绑核是否真的生效">6: 如何验证绑核是否真的生效&lt;/h1>
+&lt;ul>
+&lt;li>绑核不是“代码能运行就算完成”；&lt;/li>
+&lt;li>必须从代码层、系统层和性能层分别验证。&lt;/li>
+&lt;/ul>
+&lt;h2 id="61-代码层验证">6.1 代码层验证&lt;/h2>
+&lt;ul>
+&lt;li>在线程工作函数中调用 &lt;code>sched_getcpu()&lt;/code>；&lt;/li>
+&lt;li>确认线程运行时所在核心是否符合预期。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="s">&amp;#34;current cpu = &amp;#34;&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">sched_getcpu&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="62-系统层验证">6.2 系统层验证&lt;/h2>
+&lt;ul>
+&lt;li>使用 &lt;code>taskset -cp &amp;lt;pid&amp;gt;&lt;/code> 查看某个线程或进程的 CPU 亲和性；&lt;/li>
+&lt;li>也可以结合 &lt;code>ps -eLo pid,tid,psr,comm&lt;/code> 观察线程实际落在哪个 CPU 上。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">taskset -cp &lt;span class="m">12345&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ps -eLo pid,tid,psr,comm &lt;span class="p">|&lt;/span> grep your_process
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="63-性能层验证">6.3 性能层验证&lt;/h2>
+&lt;ul>
+&lt;li>最终还是要看上下文切换、cache miss、延迟抖动这些指标有没有下降；&lt;/li>
+&lt;li>常见工具是 &lt;code>perf stat&lt;/code>；&lt;/li>
+&lt;li>如果绑核后上下文切换次数和 cache miss 没有明显改善，就说明设计仍需调整。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">perf stat -e context-switches,cache-misses,cache-references ./your_app
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="7-numa-是绑核设计里最容易被忽略的问题">7: NUMA 是绑核设计里最容易被忽略的问题&lt;/h1>
+&lt;ul>
+&lt;li>在双路或多路服务器上，CPU、内存、PCIe 设备通常分布在不同 NUMA 节点；&lt;/li>
+&lt;li>如果线程绑在 node0，但网卡和内存分配落在 node1，那么跨 NUMA 访问会直接拉高延迟；&lt;/li>
+&lt;li>这会抵消很多绑核带来的收益。&lt;/li>
+&lt;/ul>
+&lt;h2 id="71-numa-设计原则">7.1 NUMA 设计原则&lt;/h2>
+&lt;ul>
+&lt;li>行情接收线程、网卡队列、中间缓冲区最好放在同一个 NUMA node；&lt;/li>
+&lt;li>排序线程与后续串行线程也尽量保持局部性；&lt;/li>
+&lt;li>低延迟系统做绑核时，不能只看 CPU 编号，还要看拓扑关系。&lt;/li>
+&lt;/ul>
+&lt;h2 id="72-常用排查工具">7.2 常用排查工具&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">numactl --hardware
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lscpu
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>如果需要更直观的硬件拓扑，也可以借助 &lt;code>lstopo&lt;/code> 查看。&lt;/li>
+&lt;/ul>
+&lt;h1 id="8-一个更稳妥的实践结论">8: 一个更稳妥的实践结论&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>行情模块绑核的目标，不是为了“看起来专业”，而是为了降低链路中的非确定性；&lt;/p></description></item></channel></rss>
