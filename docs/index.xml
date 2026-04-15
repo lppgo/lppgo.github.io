@@ -36,7 +36,14 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">💡 下次启动直接敲: skill-hub &lt;span class="o">(&lt;/span>或访问 http://localhost:3456&lt;span class="o">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>011-高频交易系统中行情模块绑核设计</title><link>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</link><pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</guid><description>&lt;div align='center' >&lt;font size='50'>高频交易系统中行情模块绑核设计&lt;/font>&lt;/div>
+&lt;/div></description></item><item><title>01-tmux快速使用手册</title><link>https://lppgo.github.io/post/linux/042-tmux%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</link><pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/linux/042-tmux%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</guid><description>&lt;h1 id="tmux-使用速查面向-claude-tui-场景">tmux 使用速查（面向 Claude TUI 场景）&lt;/h1>
+&lt;h2 id="1-先记住-tmux-的-3-个层级">1. 先记住 tmux 的 3 个层级&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>session&lt;/code>：一个独立会话，像一整套工作台&lt;/li>
+&lt;li>&lt;code>window&lt;/code>：会话里的标签页&lt;/li>
+&lt;li>&lt;code>pane&lt;/code>：窗口里的分屏&lt;/li>
+&lt;/ul>
+&lt;p>你现在最需要会的是：&lt;/p></description></item><item><title>011-高频交易系统中行情模块绑核设计</title><link>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</link><pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</guid><description>&lt;div align='center' >&lt;font size='50'>高频交易系统中行情模块绑核设计&lt;/font>&lt;/div>
 &lt;ul>
 &lt;li>原文链接: &lt;code>https://mp.weixin.qq.com/s/AocomOFTTr2V0PPL2rKiRA&lt;/code>&lt;/li>
 &lt;li>本文按照当前 &lt;code>content/post/C++&lt;/code> 目录文章风格整理，核心关注点是低延迟行情链路中的 CPU 绑核设计。&lt;/li>
