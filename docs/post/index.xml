@@ -1,4 +1,42 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/post/</link><description>Recent content in Posts on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>011-高频交易系统中行情模块绑核设计</title><link>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</link><pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</guid><description>&lt;div align='center' >&lt;font size='50'>高频交易系统中行情模块绑核设计&lt;/font>&lt;/div>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/post/</link><description>Recent content in Posts on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 15 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>01-skill-hub管理众多Skills</title><link>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</link><pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</guid><description>&lt;div align='center' >&lt;font size='50'>01--skill-hub管理众多Skills&lt;/font>&lt;/div>
+&lt;h1 id="1-skill-hub-管理众多-skills">1: skill-hub 管理众多 Skills&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WSL&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install -g https: //github.com/Backtthefuture/skillmanager/raw/main/release/claude-skill-hub.tgz &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> skill-hub
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">added &lt;span class="m">104&lt;/span> packages in 5s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">34&lt;/span> packages are looking &lt;span class="k">for&lt;/span> funding
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> run &lt;span class="sb">`&lt;/span>npm fund&lt;span class="sb">`&lt;/span> &lt;span class="k">for&lt;/span> details
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">🚀 Claude Skill Hub running at http://localhost:3456
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">🌐 Web UI: http://localhost:3456
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">🔍 Debug: http://localhost:3456/api/debug
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">✅ Found &lt;span class="m">134&lt;/span> skills &lt;span class="o">(&lt;/span>9/41 locations, 525ms&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">👀 File watcher active
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">💡 下次启动直接敲: skill-hub &lt;span class="o">(&lt;/span>或访问 http://localhost:3456&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>011-高频交易系统中行情模块绑核设计</title><link>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</link><pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/c++/011-%E9%AB%98%E9%A2%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%A1%8C%E6%83%85%E6%A8%A1%E5%9D%97%E7%BB%91%E6%A0%B8%E8%AE%BE%E8%AE%A1/</guid><description>&lt;div align='center' >&lt;font size='50'>高频交易系统中行情模块绑核设计&lt;/font>&lt;/div>
 &lt;ul>
 &lt;li>原文链接: &lt;code>https://mp.weixin.qq.com/s/AocomOFTTr2V0PPL2rKiRA&lt;/code>&lt;/li>
 &lt;li>本文按照当前 &lt;code>content/post/C++&lt;/code> 目录文章风格整理，核心关注点是低延迟行情链路中的 CPU 绑核设计。&lt;/li>

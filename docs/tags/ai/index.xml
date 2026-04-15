@@ -1,4 +1,42 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/ai/</link><description>Recent content in AI on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>06--Claude Code 最值得装的 10 个Skills</title><link>https://lppgo.github.io/post/ai/006_claude-code-%E6%9C%80%E5%80%BC%E5%BE%97%E8%A3%85%E7%9A%84-10-%E4%B8%AAskills/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/006_claude-code-%E6%9C%80%E5%80%BC%E5%BE%97%E8%A3%85%E7%9A%84-10-%E4%B8%AAskills/</guid><description>&lt;div align='center' >&lt;font size='50'>06--Claude Code 最值得装的 10 个Skills&lt;/font>&lt;/div>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/tags/ai/</link><description>Recent content in AI on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 15 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>01-skill-hub管理众多Skills</title><link>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</link><pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</guid><description>&lt;div align='center' >&lt;font size='50'>01--skill-hub管理众多Skills&lt;/font>&lt;/div>
+&lt;h1 id="1-skill-hub-管理众多-skills">1: skill-hub 管理众多 Skills&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WSL&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install -g https: //github.com/Backtthefuture/skillmanager/raw/main/release/claude-skill-hub.tgz &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> skill-hub
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">added &lt;span class="m">104&lt;/span> packages in 5s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">34&lt;/span> packages are looking &lt;span class="k">for&lt;/span> funding
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> run &lt;span class="sb">`&lt;/span>npm fund&lt;span class="sb">`&lt;/span> &lt;span class="k">for&lt;/span> details
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">🚀 Claude Skill Hub running at http://localhost:3456
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">🌐 Web UI: http://localhost:3456
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">🔍 Debug: http://localhost:3456/api/debug
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">✅ Found &lt;span class="m">134&lt;/span> skills &lt;span class="o">(&lt;/span>9/41 locations, 525ms&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">👀 File watcher active
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">💡 下次启动直接敲: skill-hub &lt;span class="o">(&lt;/span>或访问 http://localhost:3456&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>06--Claude Code 最值得装的 10 个Skills</title><link>https://lppgo.github.io/post/ai/006_claude-code-%E6%9C%80%E5%80%BC%E5%BE%97%E8%A3%85%E7%9A%84-10-%E4%B8%AAskills/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/006_claude-code-%E6%9C%80%E5%80%BC%E5%BE%97%E8%A3%85%E7%9A%84-10-%E4%B8%AAskills/</guid><description>&lt;div align='center' >&lt;font size='50'>06--Claude Code 最值得装的 10 个Skills&lt;/font>&lt;/div>
 &lt;h1 id="1-为什么-claude-code-的差距不只在模型">1: 为什么 Claude Code 的差距不只在模型&lt;/h1>
 &lt;p>很多人刚开始用 Claude Code 时，最先关注的是模型强不强、上下文长不长、生成速度快不快。
 但真正用一段时间后就会发现，拉开人与人差距的，往往不是模型本身，而是你有没有把一批高频、稳定、可复用的 Skills 装进自己的工作流。&lt;/p></description></item><item><title>01--005-Windows安装部署OpenClaw</title><link>https://lppgo.github.io/post/ai/005-windows%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2openclaw/</link><pubDate>Sat, 07 Mar 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/005-windows%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2openclaw/</guid><description>&lt;div align='center' >&lt;font size='50'>01--Windows安装部署OpenClaw&lt;/font>&lt;/div>
