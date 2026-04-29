@@ -1,4 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/</link><description>Recent content on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 27 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>01-skill-hub管理众多Skills</title><link>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</link><pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</guid><description>&lt;div align='center' >&lt;font size='50'>01--skill-hub管理众多Skills&lt;/font>&lt;/div>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Even - A super concise theme for Hugo</title><link>https://lppgo.github.io/</link><description>Recent content on Even - A super concise theme for Hugo</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 29 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lppgo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>code-review-graph：给Claude Code装上代码地图</title><link>https://lppgo.github.io/post/ai/008-%E8%8A%82%E7%9C%81token-code-review-graph/</link><pubDate>Wed, 29 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/008-%E8%8A%82%E7%9C%81token-code-review-graph/</guid><description>&lt;div align="center">&lt;font size="35">code-review-graph：给Claude Code装上代码地图&lt;/font>&lt;/div>
+&lt;h1 id="1-概述">1: 概述&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>最近看 AI Coding 工具的使用成本时，一个很容易被忽略的问题不是“模型推理本身有多贵”，而是 &lt;strong>AI 为了理解代码，要先读掉多少无关上下文&lt;/strong>；&lt;/p></description></item><item><title>01-skill-hub管理众多Skills</title><link>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</link><pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate><guid>https://lppgo.github.io/post/ai/007-skill-hub%E7%AE%A1%E7%90%86%E4%BC%97%E5%A4%9Askills/</guid><description>&lt;div align='center' >&lt;font size='50'>01--skill-hub管理众多Skills&lt;/font>&lt;/div>
 &lt;h1 id="1-skill-hub-管理众多-skills">1: skill-hub 管理众多 Skills&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -17,11 +21,13 @@
 &lt;/span>&lt;span class="lnt">13
 &lt;/span>&lt;span class="lnt">14
 &lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WSL&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install -g https: //github.com/Backtthefuture/skillmanager/raw/main/release/claude-skill-hub.tgz &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> skill-hub
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># npm install -g https://github.com/Backtthefuture/skillmanager/raw/main/release/claude-skill-hub.tgz &amp;amp;&amp;amp; skill-hub&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install -g https://github.com/Backtthefuture/huangshu/raw/main/tools/skill-hub/release/claude-skill-hub.tgz &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> skill-hub
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">added &lt;span class="m">104&lt;/span> packages in 5s
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">

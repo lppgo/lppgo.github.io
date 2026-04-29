@@ -16,7 +16,8 @@ keywords: ["AI", "Tool", "Skills", "skill-hub"]
 ```bash
 # WSL
 
-npm install -g https: //github.com/Backtthefuture/skillmanager/raw/main/release/claude-skill-hub.tgz && skill-hub
+# npm install -g https://github.com/Backtthefuture/skillmanager/raw/main/release/claude-skill-hub.tgz && skill-hub
+npm install -g https://github.com/Backtthefuture/huangshu/raw/main/tools/skill-hub/release/claude-skill-hub.tgz && skill-hub
 
 added 104 packages in 5s
 
